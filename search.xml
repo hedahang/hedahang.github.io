@@ -436,86 +436,6 @@ Given two integers x and y, calculate the Hamming distance.
       </tags>
   </entry>
   <entry>
-    <title>JavaScript代码收集</title>
-    <url>/2016/07/20/Javascript%E4%BB%A3%E7%A0%81%E6%94%B6%E9%9B%86/</url>
-    <content><![CDATA[<h2 id="1-根据userAgent判断是否手机"><a href="#1-根据userAgent判断是否手机" class="headerlink" title="1.根据userAgent判断是否手机"></a>1.根据userAgent判断是否手机</h2><pre><code>if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent)))&#123;
-    if(window.location.href.indexOf(&quot;?mobile&quot;)&lt;0)&#123;
-        try&#123;
-            if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent))&#123;
-                //移动端
-            &#125;else if(/iPad/i.test(navigator.userAgent))&#123;
-                //这里对ipad做了处理
-            &#125;else&#123;
-                //移动端
-            &#125;
-        &#125;catch(e)&#123;&#125;
-    &#125;
-&#125;else&#123;
-    //pc端
-&#125;
-var ISWP = !!(navigator.userAgent.match(/Windows\sPhone/i));
-</code></pre>
-<span id="more"></span>
-<h2 id="2-this-constructor-prototype例子"><a href="#2-this-constructor-prototype例子" class="headerlink" title="2.this, constructor, prototype例子"></a>2.this, constructor, prototype例子</h2><pre><code>var Tinker = function()&#123;
-    this.elements = [];
-
-&#125;;
-    Tinker.fn = Tinker.prototype = &#123;
-        constructor: Tinker,
-        extend: function(obj)&#123;
-            var p;
-            for(p in obj)&#123;
-                this.constructor.prototype[p] = obj[p];//此处若看明白了, 那么前面的就理解了
-            &#125;
-        &#125;
-    
-    &#125;
-    Tinker.fn.extend(&#123;
-       get: function()&#123;
-            var length = arguments.length,
-            i = 0;
-           for(; i &lt; length; i++)&#123;
-               this.elements.push(arguments[i]); //此处若看明白了, 那么前面的就理解了
-           &#125;
-           return this;//此处若看明白了, 那么前面的就理解了
-       &#125;,
-       each: function(fn)&#123;
-            var i = 0,
-                length = this.elements.length;
-            for(; i &lt; length; i++)&#123;
-                fn.call(this.elements[i], i, this.elements[i]);
-            &#125;
-            return this;//此处若看明白了, 那么前面的就理解了
-       &#125;
-        
-    &#125;);
-</code></pre>
-<h2 id="3-模仿jquery-each"><a href="#3-模仿jquery-each" class="headerlink" title="3.模仿jquery each"></a>3.模仿jquery each</h2><pre><code>function each(obj, fn)&#123;
-    var i;
-    if(Object.prototype.toString.call(obj) === &#39;[object Array]&#39;)&#123;
-        for(i = 0, length = obj.length; i &lt; length; i++)&#123;
-            fn.call(obj[i], i, obj[i]);
-        &#125;
-    &#125;
-    else if(typeof obj === &#39;object&#39;)&#123;
-        for(i in obj)&#123;
-            if(obj.hasOwnProperty(i))&#123;
-               fn.call(obj[i], i, obj[i]);
-            &#125;
-        &#125;
-    &#125;
-    else&#123;
-        return false;
-    &#125;
-&#125;
-    
-</code></pre>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>aplly&amp;call方法的使用</title>
     <url>/2016/07/02/aplly&amp;call%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<h4 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h4><p>在一个对象中绑定函数，称为这个对象的方法。<br>在JavaScript中，对象的定义是这样的：</p>
@@ -658,6 +578,86 @@ count; // 3
       </tags>
   </entry>
   <entry>
+    <title>JavaScript代码收集</title>
+    <url>/2016/07/20/Javascript%E4%BB%A3%E7%A0%81%E6%94%B6%E9%9B%86/</url>
+    <content><![CDATA[<h2 id="1-根据userAgent判断是否手机"><a href="#1-根据userAgent判断是否手机" class="headerlink" title="1.根据userAgent判断是否手机"></a>1.根据userAgent判断是否手机</h2><pre><code>if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent)))&#123;
+    if(window.location.href.indexOf(&quot;?mobile&quot;)&lt;0)&#123;
+        try&#123;
+            if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent))&#123;
+                //移动端
+            &#125;else if(/iPad/i.test(navigator.userAgent))&#123;
+                //这里对ipad做了处理
+            &#125;else&#123;
+                //移动端
+            &#125;
+        &#125;catch(e)&#123;&#125;
+    &#125;
+&#125;else&#123;
+    //pc端
+&#125;
+var ISWP = !!(navigator.userAgent.match(/Windows\sPhone/i));
+</code></pre>
+<span id="more"></span>
+<h2 id="2-this-constructor-prototype例子"><a href="#2-this-constructor-prototype例子" class="headerlink" title="2.this, constructor, prototype例子"></a>2.this, constructor, prototype例子</h2><pre><code>var Tinker = function()&#123;
+    this.elements = [];
+
+&#125;;
+    Tinker.fn = Tinker.prototype = &#123;
+        constructor: Tinker,
+        extend: function(obj)&#123;
+            var p;
+            for(p in obj)&#123;
+                this.constructor.prototype[p] = obj[p];//此处若看明白了, 那么前面的就理解了
+            &#125;
+        &#125;
+    
+    &#125;
+    Tinker.fn.extend(&#123;
+       get: function()&#123;
+            var length = arguments.length,
+            i = 0;
+           for(; i &lt; length; i++)&#123;
+               this.elements.push(arguments[i]); //此处若看明白了, 那么前面的就理解了
+           &#125;
+           return this;//此处若看明白了, 那么前面的就理解了
+       &#125;,
+       each: function(fn)&#123;
+            var i = 0,
+                length = this.elements.length;
+            for(; i &lt; length; i++)&#123;
+                fn.call(this.elements[i], i, this.elements[i]);
+            &#125;
+            return this;//此处若看明白了, 那么前面的就理解了
+       &#125;
+        
+    &#125;);
+</code></pre>
+<h2 id="3-模仿jquery-each"><a href="#3-模仿jquery-each" class="headerlink" title="3.模仿jquery each"></a>3.模仿jquery each</h2><pre><code>function each(obj, fn)&#123;
+    var i;
+    if(Object.prototype.toString.call(obj) === &#39;[object Array]&#39;)&#123;
+        for(i = 0, length = obj.length; i &lt; length; i++)&#123;
+            fn.call(obj[i], i, obj[i]);
+        &#125;
+    &#125;
+    else if(typeof obj === &#39;object&#39;)&#123;
+        for(i in obj)&#123;
+            if(obj.hasOwnProperty(i))&#123;
+               fn.call(obj[i], i, obj[i]);
+            &#125;
+        &#125;
+    &#125;
+    else&#123;
+        return false;
+    &#125;
+&#125;
+    
+</code></pre>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>content换行符与打点loading效果实例页面</title>
     <url>/2020/06/19/content%E6%8D%A2%E8%A1%8C%E7%AC%A6%E4%B8%8E%E6%89%93%E7%82%B9loading%E6%95%88%E6%9E%9C%E5%AE%9E%E4%BE%8B%E9%A1%B5%E9%9D%A2/</url>
     <content><![CDATA[<p>代码如下：</p>
@@ -705,6 +705,24 @@ count; // 3
         <tag>CSS</tag>
         <tag>IOS</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2015/07/11/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/deployment.html">Deployment</a></p>
+]]></content>
   </entry>
   <entry>
     <title>Flex布局</title>
@@ -766,24 +784,6 @@ count; // 3
       <tags>
         <tag>CSS</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2015/07/11/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html">Deployment</a></p>
-]]></content>
   </entry>
   <entry>
     <title>hexo 常用命令</title>
@@ -1099,7 +1099,7 @@ Markdown 使用一种和链接很相似的语法来标记图片，同样也允�
 &amp;#109;&quot;&gt;&amp;#x61;&amp;#x64;&amp;#x64;&amp;#x72;&amp;#x65;&amp;#115;&amp;#115;&amp;#64;&amp;#101;&amp;#120;&amp;#x61;
 &amp;#109;&amp;#x70;&amp;#x6C;e&amp;#x2E;&amp;#99;&amp;#111;&amp;#109;&lt;/a&gt;
 </code></pre>
-<p>在浏览器里面，这段字串（其实是 <a href="mailto:address@example.com">address@example.com</a>）会变成一个可以点击的「<a href="mailto:&#97;&#x64;&#100;&#x72;&#x65;&#x73;&#x73;&#64;&#101;&#120;&#97;&#109;&#112;&#x6c;&#101;&#46;&#99;&#x6f;&#109;">&#97;&#x64;&#100;&#x72;&#x65;&#x73;&#x73;&#64;&#101;&#120;&#97;&#109;&#112;&#x6c;&#101;&#46;&#99;&#x6f;&#109;</a>」链接。</p>
+<p>在浏览器里面，这段字串（其实是 <a href="mailto:address@example.com">address@example.com</a>）会变成一个可以点击的「<a href="mailto:&#x61;&#100;&#100;&#x72;&#x65;&#115;&#115;&#x40;&#x65;&#120;&#97;&#x6d;&#x70;&#108;&#101;&#x2e;&#99;&#111;&#109;">&#x61;&#100;&#100;&#x72;&#x65;&#115;&#115;&#x40;&#x65;&#120;&#97;&#x6d;&#x70;&#108;&#101;&#x2e;&#99;&#111;&#109;</a>」链接。</p>
 </blockquote>
 <p>（这种作法虽然可以糊弄不少的机器人，但并不能全部挡下来，不过总比什么都不做好些。不管怎样，公开你的信箱终究会引来广告信件的。）</p>
 <blockquote>
@@ -1180,6 +1180,40 @@ npm -v
       </tags>
   </entry>
   <entry>
+    <title>二、JavaScript之作用域</title>
+    <url>/2019/06/15/%E4%BD%9C%E7%94%A8%E5%9F%9F/</url>
+    <content><![CDATA[<h2 id="什么是作用域"><a href="#什么是作用域" class="headerlink" title="什么是作用域"></a>什么是作用域</h2><p>作用域是指程序源代码中定义变量的区域。</p>
+<p>作用域规定了如何查找变量，也就是确定当前执行代码对变量的访问权限。</p>
+<p>JavaScript 采用词法作用域(lexical scoping)，也就是静态作用域。</p>
+<h2 id="词法作用域"><a href="#词法作用域" class="headerlink" title="词法作用域"></a>词法作用域</h2><p>在你不知道的javascript上卷中是这样定义的：</p>
+<blockquote>
+<p>词法作用域就是定义在词法阶段的作用域。换句话说，词法作用域是由你在写代码时将变量和块作用域写在哪里来决定的，因此当词法分析器处理代码时会保持作用域不变(大部分情况下是这样的)。</p>
+</blockquote>
+<p>在JS中词法作用域的规则：<a href="https://github.com/getify/You-Dont-Know-JS/blob/1ed-zh-CN/scope%20%26%20closures/ch1.md">点这里</a></p>
+<p>请看下面这段代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var value = 1;</span><br><span class="line"></span><br><span class="line">function foo() &#123;</span><br><span class="line">    console.log(value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function bar() &#123;</span><br><span class="line">    var value = 2;</span><br><span class="line">    foo();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar(); // ???</span><br></pre></td></tr></table></figure>
+<p>假设JavaScript采用静态作用域，让我们分析下执行过程：<br>执行 foo 函数，先从 foo 函数内部查找是否有局部变量 value，如果没有，就根据书写的位置，查找上面一层的代码，也就是 value 等于 1，所以结果会打印 1。</p>
+<p>假设JavaScript采用动态作用域，让我们分析下执行过程：<br>执行 foo 函数，依然是从 foo 函数内部查找是否有局部变量 value。如果没有，就从调用函数的作用域，也就是 bar 函数内部查找 value 变量，所以结果会打印 2。</p>
+<p>前面我们已经说了，JavaScript采用的是静态作用域，所以这个例子的结果是 1。</p>
+<span id="more"></span>
+<p>再看下面这段代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function foo(a) &#123;</span><br><span class="line"></span><br><span class="line">	var b = a * 2;</span><br><span class="line"></span><br><span class="line">	function bar(c) &#123;</span><br><span class="line">		console.log( a, b, c );</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	bar(b * 3);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo( 2 ); // 2 4 12</span><br></pre></td></tr></table></figure>
+<p>在这个代码示例中有三个固有的嵌套作用域：</p>
+<ul>
+<li>包围着全局作用域，只有一个标识符：foo。</li>
+<li>包围着作用域 foo，它含有三个标识符：a，bar 和 b。</li>
+<li>包围着作用域 bar，它里面只包含一个标识符：c。</li>
+</ul>
+<p>当我们执行console.log(…)语句的时候，开始查找三个被引用的变量 a，b 和 c。它首先从最内部的作用域气泡开始，也就是 bar(…) 函数的作用域。在这里它找不到 a，所以它向上走一层，到外面下一个最近的作用域气泡，foo(…) 的作用域。它在这里找到了 a，于是它就使用这个 a。同样的事情也发生在 b 身上。但是对于 c，它在 bar(..) 内部就找到了。</p>
+<p>如果在 foo(..) 内部定义一个变量 c，console.log(…) 语句也仍然会找到并使用 bar(…) 中的那一个，而不会使用 foo(…) 中的那一个。</p>
+<p><strong>一旦找到第一个匹配，作用域查询就停止了。</strong>相同的标识符名称可以在嵌套作用域的多个层中被指定，这称为“遮蔽（shadowing）”（内部的标识符“遮蔽”了外部的标识符）。无论如何遮蔽，作用域查询总是从当前被执行的最内侧的作用域开始，向外/向上不断查找，直到第一个匹配才停止。</p>
+<p><strong>注意：</strong>全局变量也自动地是全局对象（在浏览器中是 window，等等）的属性，所以不直接通过全局变量的词法名称，而通过将它作为全局对象的一个属性引用来间接地引用，是可能的。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var a = 5;</span><br><span class="line">function foo(a) &#123;</span><br><span class="line">  console.log(a);</span><br><span class="line">  console.log(window.a)</span><br><span class="line">&#125;</span><br><span class="line">foo(2) // 2,5</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>事件冒泡</title>
     <url>/2016/06/25/%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1/</url>
     <content><![CDATA[<h3 id="什么是JS事件冒泡？"><a href="#什么是JS事件冒泡？" class="headerlink" title="什么是JS事件冒泡？"></a>什么是JS事件冒泡？</h3><p>在一个对象上触发某类事件（比如单击onclick事件），如果此对象定义了此事件的处理程序，那么此事件就会调用这个处理程序，如果没有定义此事件处理程序或者事件返回true，那么这个事件会向这个对象的父级对象传播，从里到外，直至它被处理（父级对象所有同类事件都将被激活），或者它到达了对象层次的最顶层，即document对象（有些浏览器是window）。</p>
@@ -1242,36 +1276,6 @@ IE8: e.returnValue=false;
 </blockquote>
 <p>参考网址：<a href="http://www.jb51.net/article/32792.htm">事件冒泡</a></p>
 ]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>二、JavaScript之作用域</title>
-    <url>/2019/06/15/%E4%BD%9C%E7%94%A8%E5%9F%9F/</url>
-    <content><![CDATA[<h2 id="什么是作用域"><a href="#什么是作用域" class="headerlink" title="什么是作用域"></a>什么是作用域</h2><p>作用域是指程序源代码中定义变量的区域。</p>
-<p>作用域规定了如何查找变量，也就是确定当前执行代码对变量的访问权限。</p>
-<p>JavaScript 采用词法作用域(lexical scoping)，也就是静态作用域。</p>
-<h2 id="词法作用域"><a href="#词法作用域" class="headerlink" title="词法作用域"></a>词法作用域</h2><p>在你不知道的javascript上卷中是这样定义的：</p>
-<blockquote>
-<p>词法作用域就是定义在词法阶段的作用域。换句话说，词法作用域是由你在写代码时将变量和块作用域写在哪里来决定的，因此当词法分析器处理代码时会保持作用域不变(大部分情况下是这样的)。</p>
-</blockquote>
-<p>在JS中词法作用域的规则：<a href="https://github.com/getify/You-Dont-Know-JS/blob/1ed-zh-CN/scope%20%26%20closures/ch1.md">点这里</a></p>
-<p>请看下面这段代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var value = 1;</span><br><span class="line"></span><br><span class="line">function foo() &#123;</span><br><span class="line">    console.log(value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function bar() &#123;</span><br><span class="line">    var value = 2;</span><br><span class="line">    foo();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar(); // ???</span><br></pre></td></tr></table></figure>
-<p>假设JavaScript采用静态作用域，让我们分析下执行过程：<br>执行 foo 函数，先从 foo 函数内部查找是否有局部变量 value，如果没有，就根据书写的位置，查找上面一层的代码，也就是 value 等于 1，所以结果会打印 1。</p>
-<p>假设JavaScript采用动态作用域，让我们分析下执行过程：<br>执行 foo 函数，依然是从 foo 函数内部查找是否有局部变量 value。如果没有，就从调用函数的作用域，也就是 bar 函数内部查找 value 变量，所以结果会打印 2。</p>
-<p>前面我们已经说了，JavaScript采用的是静态作用域，所以这个例子的结果是 1。</p>
-<span id="more"></span>
-<p>再看下面这段代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function foo(a) &#123;</span><br><span class="line"></span><br><span class="line">	var b = a * 2;</span><br><span class="line"></span><br><span class="line">	function bar(c) &#123;</span><br><span class="line">		console.log( a, b, c );</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	bar(b * 3);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo( 2 ); // 2 4 12</span><br></pre></td></tr></table></figure>
-<p>在这个代码示例中有三个固有的嵌套作用域：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">包围着全局作用域，只有一个标识符：foo。</span><br><span class="line">包围着作用域 foo，它含有三个标识符：a，bar 和 b。</span><br><span class="line">包围着作用域 bar，它里面只包含一个标识符：c。</span><br></pre></td></tr></table></figure>
-<p>当我们执行console.log(…)语句的时候，开始查找三个被引用的变量 a，b 和 c。它首先从最内部的作用域气泡开始，也就是 bar(…) 函数的作用域。在这里它找不到 a，所以它向上走一层，到外面下一个最近的作用域气泡，foo(…) 的作用域。它在这里找到了 a，于是它就使用这个 a。同样的事情也发生在 b 身上。但是对于 c，它在 bar(..) 内部就找到了。</p>
-<p>如果在 foo(..) 内部定义一个变量 c，console.log(…) 语句也仍然会找到并使用 bar(…) 中的那一个，而不会使用 foo(…) 中的那一个。</p>
-<p><strong>一旦找到第一个匹配，作用域查询就停止了。</strong>相同的标识符名称可以在嵌套作用域的多个层中被指定，这称为“遮蔽（shadowing）”（内部的标识符“遮蔽”了外部的标识符）。无论如何遮蔽，作用域查询总是从当前被执行的最内侧的作用域开始，向外/向上不断查找，直到第一个匹配才停止。</p>
-<p><strong>注意：</strong>全局变量也自动地是全局对象（在浏览器中是 window，等等）的属性，所以不直接通过全局变量的词法名称，而通过将它作为全局对象的一个属性引用来间接地引用，是可能的。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var a = 5;</span><br><span class="line">function foo(a) &#123;</span><br><span class="line">  console.log(a);</span><br><span class="line">  console.log(window.a)</span><br><span class="line">&#125;</span><br><span class="line">foo(2) // 2,5</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
         <tag>JavaScript</tag>
       </tags>
@@ -1448,15 +1452,62 @@ _background-color:#1e0bd1;/*IE6识别*/
   <entry>
     <title>四、JavaScript之变量对象</title>
     <url>/2019/07/12/%E5%8F%98%E9%87%8F%E5%AF%B9%E8%B1%A1/</url>
-    <content><![CDATA[<p>在前面的文章《JavaScript之执行上下文栈》<br>执行上下文：指当前执行环境中的变量、函数声明，参数（arguments），作用域链，this等信息。JavaScript 中运行任何的代码都是在执行上下文中运行。<br>执行上下文的组成代码示例：</p>
+    <content><![CDATA[<p>在前面的文章<a href="https://hedahang.github.io/2019/06/26/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E6%A0%88/">《JavaScript之执行上下文栈》</a>中讲到，当 JavaScript 代码执行一段可执行代码(executable code)时，会创建对应的执行上下文(execution context)。<br>执行上下文的组成代码示例：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const ExecutionContextObj = &#123;</span><br><span class="line">    VO: window, // 变量对象</span><br><span class="line">    ScopeChain: &#123;&#125;, // 作用域链</span><br><span class="line">    this: window</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="执行上下文的类型"><a href="#执行上下文的类型" class="headerlink" title="执行上下文的类型"></a>执行上下文的类型</h3><p>执行上下文总共有三种类型：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">全局执行上下文： 这是默认的、最基础的执行上下文。不在任何函数中的代码都位于全局执行上下文中。它做了两件事：1. 创建一个全局对象，在浏览器中这个全局对象就是 window 对象。2. 将 this 指针指向这个全局对象。一个程序中只能存在一个全局执行上下文。</span><br><span class="line">函数执行上下文： 每次调用函数时，都会为该函数创建一个新的执行上下文。每个函数都拥有自己的执行上下文，但是只有在函数被调用的时候才会被创建。一个程序中可以存在任意数量的函数执行上下文。每当一个新的执行上下文被创建，它都会按照特定的顺序执行一系列步骤，具体过程将在本文后面讨论。</span><br><span class="line">Eval 函数执行上下文： 运行在 eval 函数中的代码也获得了自己的执行上下文，但不常用，所以在这里不做讨论。</span><br></pre></td></tr></table></figure>
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="执行上下文生命周期"><a href="#执行上下文生命周期" class="headerlink" title="执行上下文生命周期"></a>执行上下文生命周期</h3><p>执行上下文的生命周期包括三个阶段：创建阶段→执行阶段→回收阶段</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1. 创建阶段</span><br><span class="line">  生成变量对象</span><br><span class="line">  创建arguments</span><br><span class="line">  扫描函数声明</span><br><span class="line">  扫描变量声明</span><br><span class="line">  建立作用域链</span><br><span class="line">  确定this的指向</span><br><span class="line">2. 执行阶段</span><br><span class="line">  变量赋值</span><br><span class="line">  函数的引用</span><br><span class="line">  执行其他代码</span><br><span class="line">3. 回收阶段</span><br><span class="line">  执行上下文出栈等待虚拟机回收执行上下文</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
+<p>本文主要记录创建变量对象的过程。</p>
+<h2 id="变量对象"><a href="#变量对象" class="headerlink" title="变量对象"></a>变量对象</h2><p>变量对象是与执行上下文相关的数据作用域，存储了上下文中定义的变量和函数声明。<br>变量对象式一个抽象的概念，在不同的上下文中，表示不同的对象:</p>
+<h3 id="全局上下文"><a href="#全局上下文" class="headerlink" title="全局上下文"></a>全局上下文</h3><p>全局执行上下文的变量对象</p>
+<ul>
+<li>全局执行上下文中，变量对象就是全局对象。</li>
+<li>在顶层js代码中，this指向全局对象，全局变量会作为该对象的属性来被查询。在浏览器中，window就是全局对象。</li>
+</ul>
+<h3 id="函数上下文"><a href="#函数上下文" class="headerlink" title="函数上下文"></a>函数上下文</h3><p>函数执行上下文的变量对象</p>
+<ul>
+<li>函数上下文中，变量对象VO就是活动对象AO。</li>
+<li>初始化时，带有arguments属性。</li>
+</ul>
 <span id="more"></span>
+<h2 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h2><p>执行上下文的代码会分成两个阶段进行处理：分析(进入执行上下文)和执行(代码执行)，我们也可以叫做：</p>
+<h3 id="进入执行上下文"><a href="#进入执行上下文" class="headerlink" title="进入执行上下文"></a>进入执行上下文</h3><p>当进入执行上下文时，这时候还没有执行代码，<br>变量对象会包括：</p>
+<ol>
+<li>函数的所有形参 (如果是函数上下文)</li>
+</ol>
+<ul>
+<li>由名称和对应值组成的一个变量对象的属性被创建</li>
+<li>没有实参，属性值设为 undefined</li>
+</ul>
+<ol start="2">
+<li>函数声明</li>
+</ol>
+<ul>
+<li>由名称和对应值（函数对象(function-object)）组成一个变量对象的属性被创建</li>
+<li>如果变量对象已经存在相同名称的属性，则完全替换这个属性</li>
+</ul>
+<ol start="3">
+<li>变量声明</li>
+</ol>
+<ul>
+<li>由名称和对应值（undefined）组成一个变量对象的属性被创建；</li>
+<li>如果变量名称跟已经声明的形式参数或函数相同，则变量声明不会干扰已经存在的这类属性</li>
+</ul>
+<p>举个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">a</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> b = <span class="number">2</span>;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">c</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">  <span class="keyword">var</span> d = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line"></span><br><span class="line">  b = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<p>在进入执行上下文后，这时候的 AO 是：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">AO = &#123;</span><br><span class="line">    <span class="attr">arguments</span>: &#123;</span><br><span class="line">        <span class="number">0</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="attr">length</span>: <span class="number">1</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">a</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="attr">b</span>: <span class="literal">undefined</span>,</span><br><span class="line">    <span class="attr">c</span>: reference to <span class="function"><span class="keyword">function</span> <span class="title">c</span>(<span class="params"></span>)</span>&#123;&#125;,</span><br><span class="line">    <span class="attr">d</span>: <span class="literal">undefined</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="代码执行"><a href="#代码执行" class="headerlink" title="代码执行"></a>代码执行</h3><p>在代码执行阶段，会顺序执行代码，根据代码，修改变量对象的值</p>
+<p>还是上面的例子，当代码执行完后，这时候的 AO 是：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">AO = &#123;</span><br><span class="line">    <span class="attr">arguments</span>: &#123;</span><br><span class="line">        <span class="number">0</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="attr">length</span>: <span class="number">1</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">a</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="attr">b</span>: <span class="number">3</span>,</span><br><span class="line">    <span class="attr">c</span>: reference to <span class="function"><span class="keyword">function</span> <span class="title">c</span>(<span class="params"></span>)</span>&#123;&#125;,</span><br><span class="line">    <span class="attr">d</span>: reference to FunctionExpression <span class="string">&quot;d&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>到这里变量对象的创建过程就介绍完了，让我们简洁的总结我们上述所说：</p>
+<ul>
+<li><p>全局上下文的变量对象初始化是全局对象</p>
+</li>
+<li><p>函数上下文的变量对象初始化只包括 Arguments 对象</p>
+</li>
+<li><p>在进入执行上下文时会给变量对象添加形参、函数声明、变量声明等初始的属性值</p>
+</li>
+<li><p>在代码执行阶段，会再次修改变量对象的属性值</p>
+</li>
+</ul>
 ]]></content>
       <tags>
         <tag>JavaScript</tag>
@@ -1810,8 +1861,13 @@ if(r==null)alert(&#39;Date format error!&#39;);
 <span id="more"></span>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var color = &#x27;blue&#x27;;</span><br><span class="line">function changeColor() &#123;</span><br><span class="line">    var anotherColor = &#x27;red&#x27;;</span><br><span class="line">    function swapColors() &#123;</span><br><span class="line">        var tempColor = anotherColor;</span><br><span class="line">        anotherColor = color;</span><br><span class="line">        color = tempColor;</span><br><span class="line">    &#125;</span><br><span class="line">    swapColors();</span><br><span class="line">&#125;</span><br><span class="line">changeColor();</span><br></pre></td></tr></table></figure>
 <p>上述代码运行按照如下步骤：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">当上述代码在浏览器中加载时，JavaScript 引擎会创建一个全局执行上下文并且将它推入当前的执行栈</span><br><span class="line">调用 changeColor函数时，此时changeColor函数内部代码还未执行，js执行引擎立即创建一个changeColor的执行上下文（简称EC），然后把这执行上下文压入到执行栈（简称ECStack）中。</span><br><span class="line">执行changeColor函数过程中，调用swapColors函数，同样地，swapColors函数执行之前也创建了一个swapColors的执行上下文，并压入到执行栈中。</span><br><span class="line">swapColors函数执行完成，swapColors函数的执行上下文出栈，并且被销毁。</span><br><span class="line">changeColor函数执行完成，changeColor函数的执行上下文出栈，并且被销毁。</span><br></pre></td></tr></table></figure>
-<p><img src="/images/esstack.png" alt="(流程图)"></p>
+<ul>
+<li>当上述代码在浏览器中加载时，JavaScript 引擎会创建一个全局执行上下文并且将它推入当前的执行栈</li>
+<li>调用 changeColor函数时，此时changeColor函数内部代码还未执行，js执行引擎立即创建一个changeColor的执行上下文（简称EC），然后把这执行上下文压入到执行栈（简称ECStack）中。</li>
+<li>执行changeColor函数过程中，调用swapColors函数，同样地，swapColors函数执行之前也创建了一个swapColors的执行上下文，并压入到执行栈中。</li>
+<li>swapColors函数执行完成，swapColors函数的执行上下文出栈，并且被销毁。</li>
+<li>changeColor函数执行完成，changeColor函数的执行上下文出栈，并且被销毁。<br><img src="/images/esstack.png" alt="(流程图)"></li>
+</ul>
 ]]></content>
       <tags>
         <tag>JavaScript</tag>
@@ -1832,6 +1888,18 @@ if(r==null)alert(&#39;Date format error!&#39;);
 ]]></content>
       <tags>
         <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>移动端的长按事件</title>
+    <url>/2017/01/13/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E7%9A%84%E9%95%BF%E6%8C%89%E4%BA%8B%E4%BB%B6/</url>
+    <content><![CDATA[<p><strong>Demo代码：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>/&gt;</span></span></span><br><span class="line"><span class="xml">	<span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></span><br><span class="line"><span class="xml">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;width:100%;&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;touchArea&quot;</span> <span class="attr">style</span>=<span class="string">&quot;width:90%; height:200px; background-color:#CCC;font-size:100px&quot;</span>&gt;</span>长按我<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span></span><br><span class="line"><span class="javascript"><span class="xml"><span class="keyword">var</span> timeOutEvent=<span class="number">0</span>;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">	$(<span class="string">&quot;#touchArea&quot;</span>).on(&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">		<span class="attr">touchstart</span>: <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">			timeOutEvent = <span class="built_in">setTimeout</span>(<span class="string">&quot;longPress()&quot;</span>,<span class="number">500</span>);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">		 	e.preventDefault();</span></span></span><br><span class="line"><span class="javascript"><span class="xml">		&#125;,</span></span></span><br><span class="line"><span class="javascript"><span class="xml">		<span class="attr">touchmove</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">            		<span class="built_in">clearTimeout</span>(timeOutEvent);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">		    	timeOutEvent = <span class="number">0</span>;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">		&#125;,</span></span></span><br><span class="line"><span class="javascript"><span class="xml">		<span class="attr">touchend</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">	   		<span class="built_in">clearTimeout</span>(timeOutEvent);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">			<span class="keyword">if</span>(timeOutEvent!=<span class="number">0</span>)&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">			    alert(<span class="string">&quot;你这是点击，不是长按&quot;</span>);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">			&#125;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">			<span class="keyword">return</span> <span class="literal">false</span>;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">		&#125;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">	&#125;)</span></span></span><br><span class="line"><span class="javascript"><span class="xml">&#125;);</span></span></span><br><span class="line"><span class="javascript"><span class="xml"></span></span></span><br><span class="line"><span class="javascript"><span class="xml"></span></span></span><br><span class="line"><span class="javascript"><span class="xml"><span class="function"><span class="keyword">function</span> <span class="title">longPress</span>(<span class="params"></span>)</span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">    timeOutEvent = <span class="number">0</span>;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">    alert(<span class="string">&quot;长按事件触发发&quot;</span>);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">&#125;</span></span></span><br><span class="line"><span class="javascript"><span class="xml"></span></span></span><br><span class="line"><span class="javascript"><span class="xml"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -1898,15 +1966,35 @@ var five = add(two, three);
       </tags>
   </entry>
   <entry>
-    <title>移动端的长按事件</title>
-    <url>/2017/01/13/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E7%9A%84%E9%95%BF%E6%8C%89%E4%BA%8B%E4%BB%B6/</url>
-    <content><![CDATA[<p><strong>Demo代码：</strong></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>/&gt;</span></span></span><br><span class="line"><span class="xml">	<span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></span><br><span class="line"><span class="xml">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;width:100%;&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;touchArea&quot;</span> <span class="attr">style</span>=<span class="string">&quot;width:90%; height:200px; background-color:#CCC;font-size:100px&quot;</span>&gt;</span>长按我<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span></span><br><span class="line"><span class="javascript"><span class="xml"><span class="keyword">var</span> timeOutEvent=<span class="number">0</span>;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">	$(<span class="string">&quot;#touchArea&quot;</span>).on(&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">		<span class="attr">touchstart</span>: <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">			timeOutEvent = <span class="built_in">setTimeout</span>(<span class="string">&quot;longPress()&quot;</span>,<span class="number">500</span>);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">		 	e.preventDefault();</span></span></span><br><span class="line"><span class="javascript"><span class="xml">		&#125;,</span></span></span><br><span class="line"><span class="javascript"><span class="xml">		<span class="attr">touchmove</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">            		<span class="built_in">clearTimeout</span>(timeOutEvent);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">		    	timeOutEvent = <span class="number">0</span>;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">		&#125;,</span></span></span><br><span class="line"><span class="javascript"><span class="xml">		<span class="attr">touchend</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">	   		<span class="built_in">clearTimeout</span>(timeOutEvent);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">			<span class="keyword">if</span>(timeOutEvent!=<span class="number">0</span>)&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">			    alert(<span class="string">&quot;你这是点击，不是长按&quot;</span>);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">			&#125;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">			<span class="keyword">return</span> <span class="literal">false</span>;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">		&#125;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">	&#125;)</span></span></span><br><span class="line"><span class="javascript"><span class="xml">&#125;);</span></span></span><br><span class="line"><span class="javascript"><span class="xml"></span></span></span><br><span class="line"><span class="javascript"><span class="xml"></span></span></span><br><span class="line"><span class="javascript"><span class="xml"><span class="function"><span class="keyword">function</span> <span class="title">longPress</span>(<span class="params"></span>)</span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">    timeOutEvent = <span class="number">0</span>;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">    alert(<span class="string">&quot;长按事件触发发&quot;</span>);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">&#125;</span></span></span><br><span class="line"><span class="javascript"><span class="xml"></span></span></span><br><span class="line"><span class="javascript"><span class="xml"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure>]]></content>
+    <title>素数算法</title>
+    <url>/2016/06/21/%E7%B4%A0%E6%95%B0%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<h3 id="找出数组中的素数"><a href="#找出数组中的素数" class="headerlink" title="找出数组中的素数"></a>找出数组中的素数</h3><p>例如    shu([1,2,5,9,7,8,6,13,56,48,46]) = [2, 5, 7, 13];</p>
+<pre><code>function shu(arr)&#123;
+    return arr.filter(
+        function(num) &#123;
+          if (num == 1) &#123;
+            return false;
+          &#125;
+          if (num == 2) &#123;
+            return true;
+          &#125;
+          for (var i = 2; i &lt;= Math.sqrt(num); i++) &#123;
+            if (num % i == 0) &#123;
+              return false;
+            &#125;
+          &#125;
+          return true;
+        &#125;
+    )
+&#125;
+</code></pre>
+]]></content>
       <categories>
-        <category>JS</category>
+        <category>Testing</category>
       </categories>
       <tags>
-        <tag>JS</tag>
+        <tag>算法</tag>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -1953,38 +2041,6 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
       <tags>
         <tag>JS</tag>
         <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>素数算法</title>
-    <url>/2016/06/21/%E7%B4%A0%E6%95%B0%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<h3 id="找出数组中的素数"><a href="#找出数组中的素数" class="headerlink" title="找出数组中的素数"></a>找出数组中的素数</h3><p>例如    shu([1,2,5,9,7,8,6,13,56,48,46]) = [2, 5, 7, 13];</p>
-<pre><code>function shu(arr)&#123;
-    return arr.filter(
-        function(num) &#123;
-          if (num == 1) &#123;
-            return false;
-          &#125;
-          if (num == 2) &#123;
-            return true;
-          &#125;
-          for (var i = 2; i &lt;= Math.sqrt(num); i++) &#123;
-            if (num % i == 0) &#123;
-              return false;
-            &#125;
-          &#125;
-          return true;
-        &#125;
-    )
-&#125;
-</code></pre>
-]]></content>
-      <categories>
-        <category>Testing</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -2068,7 +2124,7 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
 <h2 id="关于收费"><a href="#关于收费" class="headerlink" title="关于收费"></a>关于收费</h2><p><strong>马克飞象</strong>为新用户提供 10 天的试用期，试用期过后需要<a href="maxiang.info/vip.html">续费</a>才能继续使用。未购买或者未及时续费，将不能同步新的笔记。之前保存过的笔记依然可以编辑。</p>
 <h2 id="反馈与建议"><a href="#反馈与建议" class="headerlink" title="反馈与建议"></a>反馈与建议</h2><ul>
 <li>微博：<a href="http://weibo.com/u/2788354117">@马克飞象</a>，<a href="http://weibo.com/ggock" title="开发者个人账号">@GGock</a></li>
-<li>邮箱：<a href="mailto:&#x68;&#x75;&#x73;&#116;&#x67;&#111;&#99;&#x6b;&#64;&#103;&#109;&#97;&#105;&#x6c;&#46;&#99;&#x6f;&#109;">&#x68;&#x75;&#x73;&#116;&#x67;&#111;&#99;&#x6b;&#64;&#103;&#109;&#97;&#105;&#x6c;&#46;&#99;&#x6f;&#109;</a></li>
+<li>邮箱：<a href="mailto:&#104;&#117;&#x73;&#116;&#x67;&#111;&#x63;&#x6b;&#x40;&#x67;&#109;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#104;&#117;&#x73;&#116;&#x67;&#111;&#x63;&#x6b;&#x40;&#x67;&#109;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#109;</a></li>
 </ul>
 <hr>
 <p>感谢阅读这份帮助文档。请点击右上角，绑定印象笔记账号，开启全新的记录与分享体验吧。</p>

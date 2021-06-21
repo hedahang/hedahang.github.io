@@ -20,15 +20,15 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;hedahang.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Pisces&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="在前面的文章《JavaScript之执行上下文栈》执行上下文：指当前执行环境中的变量、函数声明，参数（arguments），作用域链，this等信息。JavaScript 中运行任何的代码都是在执行上下文中运行。执行上下文的组成代码示例： 12345const ExecutionContextObj &#x3D; &amp;#123;    VO: window, &#x2F;&#x2F; 变量对象    ScopeChain: &amp;#">
+<meta name="description" content="在前面的文章《JavaScript之执行上下文栈》中讲到，当 JavaScript 代码执行一段可执行代码(executable code)时，会创建对应的执行上下文(execution context)。执行上下文的组成代码示例： 12345const ExecutionContextObj &#x3D; &amp;#123;    VO: window, &#x2F;&#x2F; 变量对象    ScopeChain: &amp;#123">
 <meta property="og:type" content="article">
 <meta property="og:title" content="四、JavaScript之变量对象">
 <meta property="og:url" content="https://hedahang.github.io/2019/07/12/%E5%8F%98%E9%87%8F%E5%AF%B9%E8%B1%A1/index.html">
 <meta property="og:site_name" content="Munachar">
-<meta property="og:description" content="在前面的文章《JavaScript之执行上下文栈》执行上下文：指当前执行环境中的变量、函数声明，参数（arguments），作用域链，this等信息。JavaScript 中运行任何的代码都是在执行上下文中运行。执行上下文的组成代码示例： 12345const ExecutionContextObj &#x3D; &amp;#123;    VO: window, &#x2F;&#x2F; 变量对象    ScopeChain: &amp;#">
+<meta property="og:description" content="在前面的文章《JavaScript之执行上下文栈》中讲到，当 JavaScript 代码执行一段可执行代码(executable code)时，会创建对应的执行上下文(execution context)。执行上下文的组成代码示例： 12345const ExecutionContextObj &#x3D; &amp;#123;    VO: window, &#x2F;&#x2F; 变量对象    ScopeChain: &amp;#123">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-07-12T08:12:24.000Z">
-<meta property="article:modified_time" content="2021-06-21T07:23:03.357Z">
+<meta property="article:modified_time" content="2021-06-21T10:09:05.444Z">
 <meta property="article:author" content="Munachar">
 <meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
@@ -149,7 +149,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">执行上下文的类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">3.</span> <span class="nav-text">执行上下文生命周期</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.</span> <span class="nav-text">变量对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="nav-number">1.1.</span> <span class="nav-text">全局上下文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="nav-number">1.2.</span> <span class="nav-text">函数上下文</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">执行过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E5%85%A5%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="nav-number">2.1.</span> <span class="nav-text">进入执行上下文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C"><span class="nav-number">2.2.</span> <span class="nav-text">代码执行</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -259,7 +259,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-06-21 15:23:03" itemprop="dateModified" datetime="2021-06-21T15:23:03+08:00">2021-06-21</time>
+        <time title="修改时间：2021-06-21 18:09:05" itemprop="dateModified" datetime="2021-06-21T18:09:05+08:00">2021-06-21</time>
       </span>
 
   
@@ -272,15 +272,62 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>在前面的文章《JavaScript之执行上下文栈》<br>执行上下文：指当前执行环境中的变量、函数声明，参数（arguments），作用域链，this等信息。JavaScript 中运行任何的代码都是在执行上下文中运行。<br>执行上下文的组成代码示例：</p>
+        <p>在前面的文章<a href="https://hedahang.github.io/2019/06/26/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E6%A0%88/">《JavaScript之执行上下文栈》</a>中讲到，当 JavaScript 代码执行一段可执行代码(executable code)时，会创建对应的执行上下文(execution context)。<br>执行上下文的组成代码示例：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const ExecutionContextObj = &#123;</span><br><span class="line">    VO: window, // 变量对象</span><br><span class="line">    ScopeChain: &#123;&#125;, // 作用域链</span><br><span class="line">    this: window</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="执行上下文的类型"><a href="#执行上下文的类型" class="headerlink" title="执行上下文的类型"></a>执行上下文的类型</h3><p>执行上下文总共有三种类型：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">全局执行上下文： 这是默认的、最基础的执行上下文。不在任何函数中的代码都位于全局执行上下文中。它做了两件事：1. 创建一个全局对象，在浏览器中这个全局对象就是 window 对象。2. 将 this 指针指向这个全局对象。一个程序中只能存在一个全局执行上下文。</span><br><span class="line">函数执行上下文： 每次调用函数时，都会为该函数创建一个新的执行上下文。每个函数都拥有自己的执行上下文，但是只有在函数被调用的时候才会被创建。一个程序中可以存在任意数量的函数执行上下文。每当一个新的执行上下文被创建，它都会按照特定的顺序执行一系列步骤，具体过程将在本文后面讨论。</span><br><span class="line">Eval 函数执行上下文： 运行在 eval 函数中的代码也获得了自己的执行上下文，但不常用，所以在这里不做讨论。</span><br></pre></td></tr></table></figure>
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="执行上下文生命周期"><a href="#执行上下文生命周期" class="headerlink" title="执行上下文生命周期"></a>执行上下文生命周期</h3><p>执行上下文的生命周期包括三个阶段：创建阶段→执行阶段→回收阶段</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">1. 创建阶段</span><br><span class="line">  生成变量对象</span><br><span class="line">  创建arguments</span><br><span class="line">  扫描函数声明</span><br><span class="line">  扫描变量声明</span><br><span class="line">  建立作用域链</span><br><span class="line">  确定this的指向</span><br><span class="line">2. 执行阶段</span><br><span class="line">  变量赋值</span><br><span class="line">  函数的引用</span><br><span class="line">  执行其他代码</span><br><span class="line">3. 回收阶段</span><br><span class="line">  执行上下文出栈等待虚拟机回收执行上下文</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
+<p>本文主要记录创建变量对象的过程。</p>
+<h2 id="变量对象"><a href="#变量对象" class="headerlink" title="变量对象"></a>变量对象</h2><p>变量对象是与执行上下文相关的数据作用域，存储了上下文中定义的变量和函数声明。<br>变量对象式一个抽象的概念，在不同的上下文中，表示不同的对象:</p>
+<h3 id="全局上下文"><a href="#全局上下文" class="headerlink" title="全局上下文"></a>全局上下文</h3><p>全局执行上下文的变量对象</p>
+<ul>
+<li>全局执行上下文中，变量对象就是全局对象。</li>
+<li>在顶层js代码中，this指向全局对象，全局变量会作为该对象的属性来被查询。在浏览器中，window就是全局对象。</li>
+</ul>
+<h3 id="函数上下文"><a href="#函数上下文" class="headerlink" title="函数上下文"></a>函数上下文</h3><p>函数执行上下文的变量对象</p>
+<ul>
+<li>函数上下文中，变量对象VO就是活动对象AO。</li>
+<li>初始化时，带有arguments属性。</li>
+</ul>
 <span id="more"></span>
+<h2 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h2><p>执行上下文的代码会分成两个阶段进行处理：分析(进入执行上下文)和执行(代码执行)，我们也可以叫做：</p>
+<h3 id="进入执行上下文"><a href="#进入执行上下文" class="headerlink" title="进入执行上下文"></a>进入执行上下文</h3><p>当进入执行上下文时，这时候还没有执行代码，<br>变量对象会包括：</p>
+<ol>
+<li>函数的所有形参 (如果是函数上下文)</li>
+</ol>
+<ul>
+<li>由名称和对应值组成的一个变量对象的属性被创建</li>
+<li>没有实参，属性值设为 undefined</li>
+</ul>
+<ol start="2">
+<li>函数声明</li>
+</ol>
+<ul>
+<li>由名称和对应值（函数对象(function-object)）组成一个变量对象的属性被创建</li>
+<li>如果变量对象已经存在相同名称的属性，则完全替换这个属性</li>
+</ul>
+<ol start="3">
+<li>变量声明</li>
+</ol>
+<ul>
+<li>由名称和对应值（undefined）组成一个变量对象的属性被创建；</li>
+<li>如果变量名称跟已经声明的形式参数或函数相同，则变量声明不会干扰已经存在的这类属性</li>
+</ul>
+<p>举个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">a</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> b = <span class="number">2</span>;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">c</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">  <span class="keyword">var</span> d = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line"></span><br><span class="line">  b = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<p>在进入执行上下文后，这时候的 AO 是：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">AO = &#123;</span><br><span class="line">    <span class="attr">arguments</span>: &#123;</span><br><span class="line">        <span class="number">0</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="attr">length</span>: <span class="number">1</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">a</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="attr">b</span>: <span class="literal">undefined</span>,</span><br><span class="line">    <span class="attr">c</span>: reference to <span class="function"><span class="keyword">function</span> <span class="title">c</span>(<span class="params"></span>)</span>&#123;&#125;,</span><br><span class="line">    <span class="attr">d</span>: <span class="literal">undefined</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="代码执行"><a href="#代码执行" class="headerlink" title="代码执行"></a>代码执行</h3><p>在代码执行阶段，会顺序执行代码，根据代码，修改变量对象的值</p>
+<p>还是上面的例子，当代码执行完后，这时候的 AO 是：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">AO = &#123;</span><br><span class="line">    <span class="attr">arguments</span>: &#123;</span><br><span class="line">        <span class="number">0</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="attr">length</span>: <span class="number">1</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">a</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="attr">b</span>: <span class="number">3</span>,</span><br><span class="line">    <span class="attr">c</span>: reference to <span class="function"><span class="keyword">function</span> <span class="title">c</span>(<span class="params"></span>)</span>&#123;&#125;,</span><br><span class="line">    <span class="attr">d</span>: reference to FunctionExpression <span class="string">&quot;d&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>到这里变量对象的创建过程就介绍完了，让我们简洁的总结我们上述所说：</p>
+<ul>
+<li><p>全局上下文的变量对象初始化是全局对象</p>
+</li>
+<li><p>函数上下文的变量对象初始化只包括 Arguments 对象</p>
+</li>
+<li><p>在进入执行上下文时会给变量对象添加形参、函数声明、变量声明等初始的属性值</p>
+</li>
+<li><p>在代码执行阶段，会再次修改变量对象的属性值</p>
+</li>
+</ul>
 
     </div>
 
