@@ -1,0 +1,2085 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>AJAX的XMLHttpRequest对象使用</title>
+    <url>/2016/05/20/AJAX%E7%9A%84XMLHttpRequest%E5%AF%B9%E8%B1%A1%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<blockquote>
+<h3 id="代码如下"><a href="#代码如下" class="headerlink" title="代码如下"></a>代码如下</h3><pre><code>   //1 创建XHR对象
+    var xhr = null;
+    if(window.XMLHttpRequest)&#123;  //新IE、其它浏览器
+        xhr = new XMLHttpRequest();  
+    &#125;else &#123; //老IE
+        xhr = new ActiveXObject(&#39;Microsoft.XMLHTTP&#39;);
+    &#125;
+//2 监听XHR的状态改变
+    xhr.onreadystatechange = function()&#123;
+      if(xhr.readyState===4)&#123; //DONE响应消息接收完成
+        if(xhr.status===200)&#123;
+          console.log(&#39;响应接收完成且成功&#39;);
+          console.log(&#39;响应主体：&#39;+xhr.responseText);
+          doResponse(xhr.responseText);//调用自定义的函数，处理响应数据
+        &#125;else &#123;
+          console.log(&#39;响应接收完成但不成功&#39;);
+          console.log(&#39;响应状态码为：&#39;+xhr.status);
+        &#125;
+      &#125;
+    &#125;
+</code></pre>
+</blockquote>
+<span id="more"></span>
+<pre><code>//3 打开连接
+    xhr.open(&#39;GET&#39;,&#39;test.php?uname=&#39;+n, true);
+//4 发送请求消息
+    xhr.send( null );
+</code></pre>
+]]></content>
+      <tags>
+        <tag>AJAX</tag>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于JS的模块化开发总结</title>
+    <url>/2017/04/10/CommonJSAMDCMD%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<p>一直都在说JS的模块化开发，以前研究和使用过require之类的方法，但是一直不是很明确，今天还是在总结一下：</p>
+<ul>
+<li><strong>知识点一</strong> ：AMD/CMD/CommonJs是JS模块化开发的标准；</li>
+<li><strong>知识点二</strong> ：commonjs是用在服务器端的，同步的，如nodejs；amd, cmd是用在浏览器端的，异步的，如requirejs和seajs；</li>
+<li><strong>知识点三</strong> ：AMD/CMD区别，虽然都是并行加载js文件，但还是有所区别，AMD是预加载，在并行加载js文件同时，还会解析执行该模块（因为还需要执行，所以在加载某个模块前，这个模块的依赖模块需要先加载完成）；而CMD是懒加载，虽然会一开始就并行加载js文件，但是不会执行，而是在需要的时候才执行。<span id="more"></span></li>
+</ul>
+<p><strong>CommonJS</strong></p>
+<blockquote>
+<p>CommonJs 是服务器端模块的规范。<br>根据CommonJS规范，一个单独的文件就是一个模块。加载模块使用require方法，该方法读取一个文件并执行，最后返回文件内部的exports对象。<br>例如:<br>// foobar.js</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//私有变量</span></span><br><span class="line"><span class="keyword">var</span> test = <span class="number">123</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//公有方法</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foobar</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">this</span>.foo = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// do someing ...</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">this</span>.bar = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">//do someing ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>//exports对象上的方法和变量是公有的</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> foobar = <span class="keyword">new</span> foobar();</span><br><span class="line"><span class="built_in">exports</span>.foobar = foobar;</span><br></pre></td></tr></table></figure>
+<p>//require方法默认读取js文件，所以可以省略js后缀</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> test = <span class="built_in">require</span>(<span class="string">&#x27;./boobar&#x27;</span>).foobar;</span><br><span class="line">test.bar();</span><br></pre></td></tr></table></figure>
+<p>CommonJS 加载模块是同步的，所以只有加载完成才能执行后面的操作。像Node.js主要用于服务器的编程，加载的模块文件一般都已经存在本地硬盘，所以加载起来比较快，不用考虑异步加载的方式，所以CommonJS规范比较适用。但如果是浏览器环境，要从服务器加载模块，这是就必须采用异步模式。所以就有了 AMD  CMD 解决方案。</p>
+<p><strong>AMD</strong></p>
+<blockquote>
+<p>AMD 是 RequireJS 在推广过程中对模块定义的规范化产出<br>AMD异步加载模块。它的模块支持对象 函数 构造器 字符串 JSON等各种类型的模块。<br>适用AMD规范适用define方法定义模块。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//通过数组引入依赖 ，回调函数通过形参传入依赖</span></span><br><span class="line">define([<span class="string">&#x27;someModule1&#x27;</span>, ‘someModule2’], <span class="function"><span class="keyword">function</span> (<span class="params">someModule1, someModule2</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">foo</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">/// someing</span></span><br><span class="line">        someModule1.test();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="attr">foo</span>: foo&#125;</span><br><span class="line">&#125;);</span><br><span class="line">AMD规范允许输出模块兼容CommonJS规范，这时define方法如下：</span><br><span class="line"></span><br><span class="line">define(<span class="function"><span class="keyword">function</span> (<span class="params"><span class="built_in">require</span>, <span class="built_in">exports</span>, <span class="built_in">module</span></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> reqModule = <span class="built_in">require</span>(<span class="string">&quot;./someModule&quot;</span>);</span><br><span class="line">    requModule.test();</span><br><span class="line"></span><br><span class="line">    <span class="built_in">exports</span>.asplode = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">//someing</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><strong>CMD</strong></p>
+<blockquote>
+<p>CMD是SeaJS 在推广过程中对模块定义的规范化产出</p>
+</blockquote>
+<p>CMD和AMD的区别有以下几点：</p>
+<blockquote>
+<p>1.对于依赖的模块AMD是提前执行，CMD是延迟执行。不过RequireJS从2.0开始，也改成可以延迟执行（根据写法不同，处理方式不通过）。<br>2.CMD推崇依赖就近，AMD推崇依赖前置。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//AMD</span></span><br><span class="line">define([<span class="string">&#x27;./a&#x27;</span>,<span class="string">&#x27;./b&#x27;</span>], <span class="function"><span class="keyword">function</span> (<span class="params">a, b</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//依赖一开始就写好</span></span><br><span class="line">    a.test();</span><br><span class="line">    b.test();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//CMD</span></span><br><span class="line">define(<span class="function"><span class="keyword">function</span> (<span class="params">requie, <span class="built_in">exports</span>, <span class="built_in">module</span></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//依赖可以就近书写</span></span><br><span class="line">    <span class="keyword">var</span> a = <span class="built_in">require</span>(<span class="string">&#x27;./a&#x27;</span>);</span><br><span class="line">    a.test();</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">//软依赖</span></span><br><span class="line">    <span class="keyword">if</span> (status) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> b = requie(<span class="string">&#x27;./b&#x27;</span>);</span><br><span class="line">        b.test();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 虽然 AMD也支持CMD写法，但依赖前置是官方文档的默认模块定义写法。</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>3.AMD的api默认是一个当多个用，CMD严格的区分推崇职责单一。例如：AMD里require分全局的和局部的。CMD里面没有全局的 require,提供 seajs.use()来实现模块系统的加载启动。CMD里每个API都简单纯粹。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>H5新特性</title>
+    <url>/2016/07/10/H5%E6%96%B0%E7%89%B9%E6%80%A7/</url>
+    <content><![CDATA[<h3 id="表单新特性————新的-input-type"><a href="#表单新特性————新的-input-type" class="headerlink" title="表单新特性————新的 input type"></a>表单新特性————新的 input type</h3><pre><code>&lt;input type=&quot;?&quot;&gt;
+</code></pre>
+<p>1.1 原有的type: </p>
+<pre><code>text、password、radio、checkbox、hidden、file、image、button、submit、reset
+</code></pre>
+<p>1.2 新增的type:</p>
+<pre><code>email、search、url、tel、number、range、color、date、week、month
+
+1. email:  要求输入必需符合邮箱格式  xx@xx
+2. url:  要求输入必需符合URL格式  xx:yy
+3. tel:  无输入格式验证，在手机中弹出的数字键盘，而不是字母键盘
+4. number: 要求输入一个整型数字，可以配合max/min/step新属性使用
+5. search: Chrome中会显示一个x号
+6. range: 范围选择器、滑块，可以配合max/min/step新属性使用
+7. color：颜色选择器，Chrome/FF偷懒了，都直接使用操作系统自带的颜色选择器
+8. date：日期选择器，FF不支持    
+9. month：月份选择器，FF不支持
+10. week：星期选择器，FF不支持    
+</code></pre>
+<span id="more"></span>
+<blockquote>
+<p>提示：<br>(1) HTML5新添的input type存在严重的兼容性问题！<br>  (2) 新特性弹出的提示消息本质是“窗口”，不是HTML元素，无法使用JS、CSS进行控制！</p>
+</blockquote>
+<h3 id="表单新特性————新的表单元素"><a href="#表单新特性————新的表单元素" class="headerlink" title="表单新特性————新的表单元素"></a>表单新特性————新的表单元素</h3><p>2.1 原有的表单输入元素：</p>
+<pre><code>input、textarea、select/option
+</code></pre>
+<p>2.2 新增的表单元素</p>
+<pre><code>(1)&lt;datalist&gt;&lt;/datalist&gt;        数据列表，本身是不可见元素，为某个input提供可选输入的列表，使用方法：
+    &lt;datalist id=&quot;LISTID&quot;&gt;&lt;option&gt;选项名&lt;/option&gt;&lt;/datalist&gt;
+    &lt;input type=&quot;text&quot; list=&quot;LISTID&quot;&gt;
+
+(2)&lt;progress&gt;&lt;/progress&gt;    进度条，仅用于进度的提示，不能被用户操作，也不会被提交。
+    &lt;progress value=&quot;0.5&quot;&gt;&lt;/progress&gt;
+
+(3)&lt;meter&gt;&lt;/meter&gt;        刻度尺，仅用于水平/数量的提示，不能被用户操作，也不会被提交。需要指定如下属性：
+    &lt;meter min=&quot;最小值&quot; max=&quot;最大值&quot; low=&quot;下限值&quot; high=&quot;上限值&quot; optimum=&quot;最优值&quot;  value=&quot;当前实际值&quot;&gt;&lt;/meter&gt;
+    如果最优值小于下限值，刻度尺颜色分配：
+    min (绿色) low (黄色) high (红色) max
+    如果最优值大于下限值且小于上限值，刻度尺颜色分配：
+    min (黄色) low (绿色) high (黄色) max
+    如果最优值大于上限值，刻度尺颜色分配：
+    min (红色) low (黄色) high (绿色) max
+
+(4)&lt;output&gt;&lt;/output&gt;    语义标签，表示一个计算的输出值，仅用于计算结果的提示，不能被用户操作，也不会被提交。
+</code></pre>
+<p>提示：上述四个新元素存在兼容性问题。</p>
+<h3 id="表单新特性————input的新属性"><a href="#表单新特性————input的新属性" class="headerlink" title="表单新特性————input的新属性"></a>表单新特性————input的新属性</h3><p>3.1 原有的input属性</p>
+<pre><code>&lt;input id=&quot;&quot; class=&quot;&quot; style=&quot;&quot; title=&quot;&quot; name=&quot;&quot; value=&quot;&quot; type=&quot;&quot; readonly  checked  selected  diabled &gt;
+</code></pre>
+<p>3.2 新增的input属性</p>
+<pre><code>&lt;input type=&quot;number&quot; max=&quot;最大值&quot; min=&quot;最小值&quot; step=&quot;步长&quot;&gt;
+&lt;input type=&quot;text&quot; list=&quot;datalist元素的ID&quot;  autocomplete=&quot;on/off&quot;&gt;
+&lt;meter min=&quot;最小值&quot; max=&quot;最大值&quot; low=&quot;下限值&quot; high=&quot;上限值&quot; optimum=&quot;最优值&quot;  value=&quot;当前实际值&quot;&gt;&lt;/meter&gt;
+
+(1)placeholder：占位符，用于在input中显示提示性文字，注意：不是value
+(2)autocomplete：可赋值为on或off，是否记录之前提交的内容，以实现下次输入时的自动提示
+(3)autofocus：自动获得输入焦点
+(4)multiple：用于email/url/tel等，允许使用逗号指定多个输入
+(5)form：为input指定form属性，可以将input从form内部提到外部，且不影响输入域的提交
+  与表单输入验证有关的属性：
+(6)required：必填属性，若用户未填写内容，则无法提交
+(7)minlength：限制最少的字符个数，非标准，FF不支持
+(8)maxlength：限制最大的字符个数
+(9)max：一般用于number、range、&lt;meter&gt;、&lt;progress&gt;，表示允许的数字最大值
+(10)min：一般用于number、range、&lt;meter&gt;、&lt;progress&gt;，表示允许的数字最小值
+(11)step：一般用于number、range，表示步长
+(12)pattern：使用正则表达式进行验证
+&lt;input type=&quot;text&quot; name=&quot;cellphone&quot; placeholder=&quot;请输入手机号&quot; pattern=&quot;^1[358]\d&#123;9&#125;$&quot; required&gt;
+</code></pre>
+<h3 id="如何修改表单的提示消息"><a href="#如何修改表单的提示消息" class="headerlink" title="如何修改表单的提示消息"></a>如何修改表单的提示消息</h3><p>HTML5表单可能在如下情形下弹出提示消息：<br>(1)特定的input type不被满足，如email、url<br>(2)特定的验证属性不被满足，如required、pattern、step、minlength<br>  不同的浏览器会弹出不同的提示消息。如何自定义弹出的提示消息：<br>  HTML5为所有的表单输入域都添加了一个validity对象属性，该对象中包含如下的属性：</p>
+<blockquote>
+<p>1.badInput:false            无效的输入，如<br>2.customError:false            是否存在自定义错误<br>3.patternMismatch:false        正则表达式不匹配，违反pattern验证<br>4.rangeOverflow:false        数字范围过大，违反了max验证<br>5.rangeUnderflow:false        数字范围过小，违反了min验证<br>6.stepMismatch:false            步长不匹配，违反step验证<br>7.tooLong:false                字符个数太长，违反maxlength验证<br>8.tooShort:false            字符个数太短，违反minlength验证<br>9.typeMismatch:false            类型不匹配，如email/url格式错误<br>10.valid:true                当前输入值是否有效<br>11.valueMissing:false            缺少值，违反required验证</p>
+</blockquote>
+<p>上述属性会随着用户的输入即时的发生改变，只要有一项验证失败，对应的boolean值就会变成true，导致valid属性变为false；只有当所有其他属性都变为false，valid属性才会变为true，该输入域是有效的，可以被提交了。<br>通过检查上述属性是否为true，可以通过“设置自定义的有效性消息setCustomValidity”设置自定义的错误消息——validity.customError就会变为true，自定义错误消息的优先级高于浏览器默认的消息优先级。</p>
+<pre><code>if( input.validity.xxx === true )&#123;
+    input.setCustomValidity(&quot;自定义消息&quot;);
+&#125;else &#123;
+    input.setCustomValidity(&quot;&quot;);
+&#125;    
+</code></pre>
+]]></content>
+      <tags>
+        <tag>HTML5</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Canvas绘图技术</title>
+    <url>/2016/07/12/H5%E6%96%B0%E7%89%B9%E6%80%A7%E2%80%94%E2%80%94Canvas/</url>
+    <content><![CDATA[<h2 id="HTML5新特性——Canvas绘图技术"><a href="#HTML5新特性——Canvas绘图技术" class="headerlink" title="HTML5新特性——Canvas绘图技术"></a>HTML5新特性——Canvas绘图技术</h2><p>提示：Canvas绘图的难点在方法和属性的记忆上！<br>Canvas技术用于在网页上实现绘图，主要应用领域：</p>
+<blockquote>
+<ul>
+<li>绘制各种统计图表，柱状图、饼图、曲线图、分布图…</li>
+<li>动画和游戏</li>
+</ul>
+</blockquote>
+<p>  使用Canvas的方法：</p>
+<pre><code>&lt;canvas width=&quot;500&quot;  height=&quot;400&quot;&gt;
+    您的浏览器不支持Canvas标签！
+&lt;/canvas&gt;
+</code></pre>
+<span id="more"></span>
+<p>提示：</p>
+<ol>
+<li><p> Canvas的宽和高只能用属性方式声明！若使用样式来声明则无效。</p>
+</li>
+<li><p> Canvas的本意是“画布/画板”，可以盛放绘制的内容；真正执行绘图任务的是“画笔/绘图上下文对象”——Context</p>
+</li>
+<li><p>每一个画布，有且只有一个画笔对象：</p>
+ <pre>
+ var ctx = canvas.getContext( '2d' );
+ </pre></li>
+<li><p>画笔/绘图上下文对象的成员：</p>
+<pre>
+ 1.fillStyle:"#000000"            填充颜色
+ 2.font:"10px sans-serif"            字体
+ 3.globalAlpha:1                    全局透明度
+ 4.lineCap:"butt"                    线的端点样式
+ 5.lineJoin:"miter"                线的连接处样式
+ 6.lineWidth:1                    线条的宽度
+ 7.shadowBlur:0                    阴影部分模糊距离
+ 8.shadowColor:"rgba(0, 0, 0, 0)"    阴影部分颜色
+ 9.shadowOffsetX:0                阴影水平偏移量
+ 10.shadowOffsetY:0                阴影竖直偏移量
+ 11.strokeStyle:"#000000"            轮廓/描边颜色
+ 12.arc:arc()                    绘制一个弧线
+ 13.beginPath:beginPath()        开始绘制路径
+ 14.clearRect:clearRect()        清除一个矩形范围
+ 15.clip:clip()                裁切
+ 16.closePath:closePath()        闭合一条路径
+ 17.createLinearGradient:createLinearGradient() 创建一个线性渐变色
+ 18.createRadialGradient:createRadialGradient() 创建一个径向渐变色
+ 19.drawImage:drawImage()        绘制一幅图像
+ 20.ellipse:ellipse()            绘制一个椭圆
+ 21.fill:fill()                填充一条路径
+ 22.fillRect:fillRect()        填充一个矩形区域
+ 23.fillText:fillText()        填充一段文本
+ 24.lineTo:lineTo()            绘制一条直线
+ 25.measureText:measureText()    测量一段文本，得到宽度
+ 26.moveTo:moveTo()            移动画笔到指定点
+ 27.rect:rect()                绘制一个矩形路径
+ 28.rotate:rotate()            旋转
+ 29.scale:scale()                缩放
+ 30.stroke:stroke()            对一条路径描边
+ 31.strokeRect:strokeRect()    对一个矩形进行描边
+ 32.strokeText:strokeText()    对一段文本进行描边
+ 33.translate:translate()        进行位移
+</pre></li>
+<li><p>使用画笔在画布上绘制图形<br></p>
+</li>
+<li><p>1  绘制矩形(长方形)——矩形以自己的左上角作定位点</p>
+  <pre>ctx.lineWidth = 10;                修改描边的宽度
+  ctx.strokeStyle = '颜色'/渐变色;    修改描边的颜色
+  ctx.strokeRect(x, y, w, h)            描边一个矩形
+  ctx.fillStyle = '颜色'/渐变色对象;    填充样式
+  ctx.fillRect(x, y, w, h)            填充一个矩形
+  ctx.clearRect(x,y, w, h);            清除一个矩形范围内所有内容
+</pre></li>
+<li><p>2  绘制文本——文字以自己的坐下角作定位点</p>
+  <pre>ctx.font = '20px SimHei';        设置字体大小和样式
+  var w = ctx.measureText(txt).width;    获取一段文本的宽度
+  ctx.strokeStyle = "颜色"/渐变;
+  ctx.strokeText(txt, x, y)            对文字进行描边
+  ctx.fillStyle = "颜色"/渐变;
+  ctx.fillText(txt, x, y)                对文字进行填充
+  </pre></li>
+<li><p>3  绘制路径</p>
+<pre><code>  ctx.beginPath( );        //开始一条新路径
+</code></pre>
+<p>  …在路径上添加定位点…</p>
+<pre><code>  ctx.closePath( );        //闭合当前路径 
+</code></pre>
+<p>  路径的两个用途：</p>
+<pre><code>  (1)ctx.stroke();    //描边刚刚绘制的路径
+  (2)ctx.fill();        //填充刚刚绘制的路径
+</code></pre>
+<p>  常见的添加定位点的方法：</p>
+<pre><code>  ctx.moveTo(x,y);    //把画笔移动到指定点
+  ctx.lineTo(x,y);        //从上一个点开始到当前点绘制一条直线
+  ctx.arc(x,y,r,sAngle,eAngle);        //绘制一条圆弧线
+  ctx.ellipse(x,y,rx,ry,sAngle,eAngle);    //绘制一条椭圆弧线
+</code></pre>
+</li>
+<li><p>4  绘制图像——以图像的左上角为定位点</p>
+<pre><code>  ctx.rotate( angle );    //旋转画笔，此后绘制的图像/图像都会旋转——旋转围绕着画布的坐标原点为轴
+  ctx.translate(x, y);    //平移坐标轴的原点
+  ctx.drawImage(img, x, y);        //原宽原高的绘制图像
+  ctx.drawImage(img, x, y, width, height);  //使用指定的宽和高绘制图像
+  
+</code></pre>
+<p>  提示：</p>
+<pre><code>  1)创建图片： var img =new Image();  img.src=&quot;xx.jpg&quot;;
+  2)使用图片必须等待加载完成！  img.onload = function()&#123; ... &#125;        
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</code></pre>
+</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>HTML5</tag>
+        <tag>Canvas</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>H5新特性——音视频</title>
+    <url>/2016/07/11/H5%E6%96%B0%E7%89%B9%E6%80%A7%E2%80%94%E2%80%94%E8%A7%86%E9%A2%91/</url>
+    <content><![CDATA[<p>HTML5之前在页面播放需要使用flash播放器；HTML5添加两个标签：</p>
+<pre><code>&lt;video&gt;&lt;/video&gt;
+&lt;audio&gt;&lt;/audio&gt;
+</code></pre>
+<p>这两个标签有一些特殊属性、事件、方法。</p>
+<h3 id="HTML5新特性——视频"><a href="#HTML5新特性——视频" class="headerlink" title="HTML5新特性——视频"></a>HTML5新特性——视频</h3><p>1.Video标签可用的属性：</p>
+<pre><code>(1)src：待播放的资源的URL
+(2)width：播放区域的宽度
+(3)height：播放区域的高度
+(4)controls：是否显示播放控件，默认不显示
+(5)autoplay：是否自动播放，默认不自动播放
+(6)loop：是否循环播放，默认不循环
+(7)preload：如何预加载视频，可以赋值为
+    “none”：不预加载
+    “metadata”：只预加载元数据，如影片宽、高、大小、时长
+    “auto”：（默认值）自动预加载元数据以及部分影片数据
+(8)poster：影片播放之前显示的“电影海报”
+</code></pre>
+<span id="more"></span>
+<p>2.Video对象的成员</p>
+<pre><code>1.autoplay:false
+2.controls:false
+3.currentTime:0             当前播放到哪一秒
+4.duration:NaN            总时长
+5.ended:false
+6.loop:false            是否循环
+7.muted:false            是否静音
+8.oncanplay:null            当能够播放时触发
+9.oncanplaythrough:null    当能够顺利播放一段时间
+10.onended:null            当播放的结尾时触发
+11.onerror:null            当播放错误时触发
+12.onloadeddata:null        当加载了影片数据时触发
+13.onloadedmetadata:null    当加载了影片元数据时触发
+14.onpause:null            当影片暂停时触发
+15.onplay:null            当影片开始播放时触发
+16.paused:true            当前是否处于暂停状态
+17.poster:&quot;&quot;                电影海报
+18.preload:&quot;auto&quot;            如何预加载
+19.src:&quot;http://127.0.0.1/html5_day02/resource/birds.mp4&quot;
+20.videoHeight:0
+21.videoWidth:0
+22.volume:1
+23.play(): function()&#123;&#125;    使用JS控制影片播放
+24.pause(): function()&#123;&#125;    使用JS控制影片暂停
+</code></pre>
+<h3 id="HTML5新特性——音频"><a href="#HTML5新特性——音频" class="headerlink" title="HTML5新特性——音频"></a>HTML5新特性——音频</h3><p>HTML5之前，播放音频可以使用flash播放器，或者使用bgsound（IE专有，只能网页的背景音乐，不能使用JS控制播放、音量）。<br>HTML5中，使用audio标签来播放音频。该标签的常用属性与video几乎一样，如：</p>
+<pre><code>(1)src
+(2)autoplay：是否自动播放，默认为false
+(3)controls：是否显示播放控制条，默认为false
+(4)loop：是否循环播放，默认为false
+</code></pre>
+]]></content>
+      <tags>
+        <tag>HTML5</tag>
+        <tag>video</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HTML5离线存储和本地缓存</title>
+    <url>/2016/07/15/H5%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98%E5%92%8C%E7%A6%BB%E7%BA%BF%E7%BC%93%E5%AD%98/</url>
+    <content><![CDATA[<h1 id="一、离线缓存"><a href="#一、离线缓存" class="headerlink" title="一、离线缓存"></a>一、离线缓存</h1><p>有一个web应用有三个文件index.html,a.js,b.css，现在需要把js和css文件缓存起来</p>
+<p>   1.在index.html里加上<html manifest="test.manifest"></p>
+<p>   2.manifest清单格式如下</p>
+<blockquote>
+<pre><code>CACHE MANIFEST
+#上面一句必须
+#v1.0.0
+#需要缓存的文件
+CACHE:
+a.js
+b.css
+#不需要缓存的文件
+NETWORK:
+*
+#无法访问页面
+FALLBACK:
+404.html
+复制代码
+</code></pre>
+</blockquote>
+<p>3.manifest文件的mime-type必须是 text/cache-manifest类型</p>
+<blockquote>
+<p>注意点：<br>  a.对于每个index.html?id=1或index.html?id=2都会分别缓存index.html页面，可以通过chrome浏览器Resources/Application Cache观察<br>  b.如果想更新缓存内容，只要修改下manifest文件即可，如改版本号v1.0.1</p>
+</blockquote>
+<span id="more"></span>
+<p>4.离线存储如果资源有更新，可以通过如下代码来监听，但第一次加载还会是原来的版本</p>
+<blockquote>
+<pre><code>window.applicationCache.addEventListener(&#39;updateready&#39;,function(e)&#123;
+    if(window.applicationCache.status == window.applicationCache.UPDATEREADY)&#123;
+        window.applicationCache.swapCache();
+        if(confirm(&quot;loding new?&quot;))&#123;
+            window.location.reload()
+        &#125;
+    &#125;
+&#125;,false)    
+</code></pre>
+</blockquote>
+<h1 id="二、本地缓存"><a href="#二、本地缓存" class="headerlink" title="二、本地缓存"></a>二、本地缓存</h1><pre><code>localStorage.setItem(&quot;key&quot;,&quot;value&quot;)
+
+localStorage.getItem(&quot;key&quot;,&quot;value&quot;)
+
+localStorage.removeItem(&quot;key&quot;)
+
+localStorage.clear()
+</code></pre>
+<p>1.本地存储永不过期，除非自己去清除</p>
+<p>2.可以通过chrome浏览器Resources/Local Storage来查看</p>
+<p>3.不同域下就算key相同取不到的值也不同，如localhost和127.0.0.1</p>
+]]></content>
+      <tags>
+        <tag>H5</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hamming Distance</title>
+    <url>/2016/09/03/HammingDistance/</url>
+    <content><![CDATA[<h1 style="color:#2dbe60"> Hamming Distance </h1>
+The <a href="https://en.wikipedia.org/wiki/Hamming_distance" target="_blank" style="box-sizing: border-box; color: rgb(0, 136, 204); text-decoration: none; background-color: transparent;">Hamming distance</a> between two integers is the number of positions at which the corresponding bits are different.
+Given two integers x and y, calculate the Hamming distance.
+**Note:**
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">0</span> ≤ x, y &lt; <span class="number">2</span>^<span class="number">31.</span></span><br></pre></td></tr></table></figure>
+**Example:**
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Input: x = 1, y = 4</span><br><span class="line"></span><br><span class="line">Output: 2</span><br><span class="line"></span><br><span class="line">Explanation:</span><br><span class="line">1   (0 0 0 1)</span><br><span class="line">4   (0 1 0 0)</span><br><span class="line">       ?   ?</span><br><span class="line"></span><br><span class="line">The above arrows point to positions where the corresponding bits are different.</span><br></pre></td></tr></table></figure>
+**代码如下:**
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">x</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">y</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span>  hammingDistance = <span class="function"><span class="keyword">function</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">         <span class="keyword">var</span> z = x^y;</span><br><span class="line">         z = z.toString(<span class="number">2</span>).split(<span class="string">&quot;&quot;</span>);</span><br><span class="line">         <span class="keyword">var</span> result = <span class="number">0</span>;</span><br><span class="line">         z.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">val</span>)</span>&#123;</span><br><span class="line">              <span class="keyword">if</span>(val === <span class="string">&#x27;1&#x27;</span>)&#123;</span><br><span class="line">                    result++;</span><br><span class="line">              &#125;</span><br><span class="line">         &#125;)</span><br><span class="line">         <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+-------------------
+
+]]></content>
+      <categories>
+        <category>JS 算法</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JavaScript代码收集</title>
+    <url>/2016/07/20/Javascript%E4%BB%A3%E7%A0%81%E6%94%B6%E9%9B%86/</url>
+    <content><![CDATA[<h2 id="1-根据userAgent判断是否手机"><a href="#1-根据userAgent判断是否手机" class="headerlink" title="1.根据userAgent判断是否手机"></a>1.根据userAgent判断是否手机</h2><pre><code>if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent)))&#123;
+    if(window.location.href.indexOf(&quot;?mobile&quot;)&lt;0)&#123;
+        try&#123;
+            if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent))&#123;
+                //移动端
+            &#125;else if(/iPad/i.test(navigator.userAgent))&#123;
+                //这里对ipad做了处理
+            &#125;else&#123;
+                //移动端
+            &#125;
+        &#125;catch(e)&#123;&#125;
+    &#125;
+&#125;else&#123;
+    //pc端
+&#125;
+var ISWP = !!(navigator.userAgent.match(/Windows\sPhone/i));
+</code></pre>
+<span id="more"></span>
+<h2 id="2-this-constructor-prototype例子"><a href="#2-this-constructor-prototype例子" class="headerlink" title="2.this, constructor, prototype例子"></a>2.this, constructor, prototype例子</h2><pre><code>var Tinker = function()&#123;
+    this.elements = [];
+
+&#125;;
+    Tinker.fn = Tinker.prototype = &#123;
+        constructor: Tinker,
+        extend: function(obj)&#123;
+            var p;
+            for(p in obj)&#123;
+                this.constructor.prototype[p] = obj[p];//此处若看明白了, 那么前面的就理解了
+            &#125;
+        &#125;
+    
+    &#125;
+    Tinker.fn.extend(&#123;
+       get: function()&#123;
+            var length = arguments.length,
+            i = 0;
+           for(; i &lt; length; i++)&#123;
+               this.elements.push(arguments[i]); //此处若看明白了, 那么前面的就理解了
+           &#125;
+           return this;//此处若看明白了, 那么前面的就理解了
+       &#125;,
+       each: function(fn)&#123;
+            var i = 0,
+                length = this.elements.length;
+            for(; i &lt; length; i++)&#123;
+                fn.call(this.elements[i], i, this.elements[i]);
+            &#125;
+            return this;//此处若看明白了, 那么前面的就理解了
+       &#125;
+        
+    &#125;);
+</code></pre>
+<h2 id="3-模仿jquery-each"><a href="#3-模仿jquery-each" class="headerlink" title="3.模仿jquery each"></a>3.模仿jquery each</h2><pre><code>function each(obj, fn)&#123;
+    var i;
+    if(Object.prototype.toString.call(obj) === &#39;[object Array]&#39;)&#123;
+        for(i = 0, length = obj.length; i &lt; length; i++)&#123;
+            fn.call(obj[i], i, obj[i]);
+        &#125;
+    &#125;
+    else if(typeof obj === &#39;object&#39;)&#123;
+        for(i in obj)&#123;
+            if(obj.hasOwnProperty(i))&#123;
+               fn.call(obj[i], i, obj[i]);
+            &#125;
+        &#125;
+    &#125;
+    else&#123;
+        return false;
+    &#125;
+&#125;
+    
+</code></pre>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>aplly&amp;call方法的使用</title>
+    <url>/2016/07/02/aplly&amp;call%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h4 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h4><p>在一个对象中绑定函数，称为这个对象的方法。<br>在JavaScript中，对象的定义是这样的：</p>
+<pre><code>var xiaoming = &#123;
+    name: ‘小明’,
+    birth: 1990
+&#125;;
+</code></pre>
+<p>但是，如果我们给xiaoming绑定一个函数，就可以做更多的事情。比如，写个age()方法，返回xiaoming的年龄：</p>
+<pre><code>var xiaoming = &#123;
+    name: ‘小明’,
+    birth: 1990,
+    age: function () &#123;
+    var y = new Date().getFullYear();
+        return y - this.birth;
+    &#125;
+&#125;;
+xiaoming.age; // function xiaoming.age()
+xiaoming.age(); // 今年调用是25,明年调用就变成26了
+</code></pre>
+<p>绑定到对象上的函数称为方法，和普通函数也没啥区别，但是它在内部使用了一个this关键字，这个东东是什么？</p>
+<p>在一个方法内部，this是一个特殊变量，它始终指向当前对象，也就是xiaoming这个变量。所以，this.birth可以拿到xiaoming的birth属性。</p>
+<span id="more"></span>
+<p>让我们拆开写：</p>
+<pre><code>function getAge() &#123;
+    var y = new Date().getFullYear();
+r    eturn y - this.birth;
+&#125;
+
+var xiaoming = &#123;
+    name: ‘小明’,
+    birth: 1990,
+    age: getAge
+&#125;;
+xiaoming.age(); // 25, 正常结果
+getAge(); // NaN
+</code></pre>
+<p>单独调用函数getAge()怎么返回了NaN？请注意，我们已经进入到了JavaScript的一个大坑里。</p>
+<p>JavaScript的函数内部如果调用了this，那么这个this到底指向谁？</p>
+<p>答案是，视情况而定！</p>
+<p>如果以对象的方法形式调用，比如xiaoming.age()，该函数的this指向被调用的对象，也就是xiaoming，这是符合我们预期的。</p>
+<p>如果单独调用函数，比如getAge()，此时，该函数的this指向全局对象，也就是window。</p>
+<p>坑爹啊！</p>
+<p>更坑爹的是，如果这么写：</p>
+<pre><code>var fn = xiaoming.age; // 先拿到xiaoming的age函数
+fn(); // NaN
+</code></pre>
+<p>也是不行的！要保证this指向正确，必须用obj.xxx()的形式调用！</p>
+<p>由于这是一个巨大的设计错误，要想纠正可没那么简单。ECMA决定，在strict模式下让函数的this指向undefined，因此，在strict模式下，你会得到一个错误：</p>
+<pre><code>‘use strict’;
+
+var xiaoming = &#123;
+    name: ‘小明’,
+    birth: 1990,
+    age: function () &#123;
+        var y = new Date().getFullYear();
+        return y - this.birth;
+    &#125;
+&#125;;
+var fn = xiaoming.age;
+fn(); // Uncaught TypeError: Cannot read property ‘birth’ of undefined
+</code></pre>
+<p>这个决定只是让错误及时暴露出来，并没有解决this应该指向的正确位置。</p>
+<p>有些时候，喜欢重构的你把方法重构了一下：</p>
+<pre><code>‘use strict’;
+
+var xiaoming = &#123;
+    name: ‘小明’,
+    birth: 1990,
+    age: function () &#123;
+    function getAgeFromBirth() &#123;
+        var y = new Date().getFullYear();
+        return y - this.birth;
+    &#125;
+    return getAgeFromBirth();
+    &#125;
+&#125;;
+xiaoming.age(); // Uncaught TypeError: Cannot read property ‘birth’ of undefined
+</code></pre>
+<p>结果又报错了！原因是this指针只在age方法的函数内指向xiaoming，在函数内部定义的函数，this又指向undefined了！（在非strict模式下，它重新指向全局对象window！）</p>
+<p>修复的办法也不是没有，我们用一个that变量首先捕获this：</p>
+<pre><code>‘use strict’;
+
+var xiaoming = &#123;
+    name: ‘小明’,
+    birth: 1990,
+    age: function () &#123;
+        var that = this; // 在方法内部一开始就捕获this
+        function getAgeFromBirth() &#123;
+            var y = new Date().getFullYear();
+            return y - that.birth; // 用that而不是this
+        &#125;
+        return getAgeFromBirth();
+    &#125;
+&#125;;
+xiaoming.age(); // 25
+</code></pre>
+<p>用var that = this;，你就可以放心地在方法内部定义其他函数，而不是把所有语句都堆到一个方法中。</p>
+<h4 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h4><p>虽然在一个独立的函数调用中，根据是否是strict模式，this指向undefined或window，不过，我们还是可以控制this的指向的！</p>
+<p>要指定函数的this指向哪个对象，可以用函数本身的apply方法，它接收两个参数，第一个参数就是需要绑定的this变量，第二个参数是Array，表示函数本身的参数。</p>
+<p>用apply修复getAge()调用：</p>
+<pre><code>function getAge() &#123;
+    var y = new Date().getFullYear();
+    return y - this.birth;
+&#125;
+
+var xiaoming = &#123;
+    name: ‘小明’,
+    birth: 1990,
+    age: getAge
+&#125;;
+xiaoming.age(); // 25
+getAge.apply(xiaoming, []); // 25, this指向xiaoming, 参数为空
+</code></pre>
+<p>另一个与apply()类似的方法是call()，唯一区别是：</p>
+<p>apply()把参数打包成Array再传入；</p>
+<p>call()把参数按顺序传入。</p>
+<p>比如调用Math.max(3, 5, 4)，分别用apply()和call()实现如下：</p>
+<p>Math.max.apply(null, [3, 5, 4]); // 5<br>Math.max.call(null, 3, 5, 4); // 5<br>对普通函数调用，我们通常把this绑定为null。</p>
+<h4 id="装饰器"><a href="#装饰器" class="headerlink" title="装饰器"></a>装饰器</h4><p>利用apply()，我们还可以动态改变函数的行为。</p>
+<p>JavaScript的所有对象都是动态的，即使内置的函数，我们也可以重新指向新的函数。</p>
+<p>现在假定我们想统计一下代码一共调用了多少次parseInt()，可以把所有的调用都找出来，然后手动加上count += 1，不过这样做太傻了。最佳方案是用我们自己的函数替换掉默认的parseInt()：</p>
+<pre><code>var count = 0;
+var oldParseInt = parseInt; // 保存原函数
+
+window.parseInt = function () &#123;
+count += 1;
+return oldParseInt.apply(null, arguments); // 调用原函数
+&#125;;
+
+// 测试:
+parseInt(‘10’);
+parseInt(‘20’);
+parseInt(‘30’);
+count; // 3
+</code></pre>
+]]></content>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>content换行符与打点loading效果实例页面</title>
+    <url>/2020/06/19/content%E6%8D%A2%E8%A1%8C%E7%AC%A6%E4%B8%8E%E6%89%93%E7%82%B9loading%E6%95%88%E6%9E%9C%E5%AE%9E%E4%BE%8B%E9%A1%B5%E9%9D%A2/</url>
+    <content><![CDATA[<p>代码如下：</p>
+<h3 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">dot &#123;</span><br><span class="line">    <span class="attribute">display</span>: inline-block; </span><br><span class="line">    <span class="attribute">height</span>: <span class="number">1em</span>;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">1</span>;</span><br><span class="line">    <span class="attribute">text-align</span>: left;</span><br><span class="line">    <span class="attribute">vertical-align</span>: -.<span class="number">25em</span>;</span><br><span class="line">    <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br><span class="line">dot<span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">&#x27;...\A..\A.&#x27;</span>;</span><br><span class="line">    <span class="attribute">white-space</span>: pre-wrap;</span><br><span class="line">    <span class="attribute">animation</span>: dot <span class="number">3s</span> infinite step-start both;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@keyframes</span> dot &#123;</span><br><span class="line">    <span class="number">33%</span> &#123; <span class="attribute">transform</span>: <span class="built_in">translateY</span>(-<span class="number">2em</span>); &#125;</span><br><span class="line">    <span class="number">66%</span> &#123; <span class="attribute">transform</span>: <span class="built_in">translateY</span>(-<span class="number">1em</span>); &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wrap&quot;</span>&gt;</span>正在加载中<span class="tag">&lt;<span class="name">dot</span>&gt;</span>...<span class="tag">&lt;/<span class="name">dot</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>面试题</title>
+    <url>/2016/06/23/count%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h3 id="count方法"><a href="#count方法" class="headerlink" title="count方法"></a>count方法</h3><p>封装一个count方法，能实现如此调用：count(a)(b)(c)(d)(e)… 并且返回的值为参数连乘的结果，即abcde*…。如count(1)(3)(7) 得到21</p>
+<pre><code>function count(x)&#123;
+    var fn = function(y)&#123;
+        return count(x*y);
+    &#125;
+    fn.toString = function()&#123;
+        return x;
+    &#125;;
+    return fn;
+&#125;;
+</code></pre>
+]]></content>
+      <categories>
+        <category>Testing</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>css中overflow滑动效果在IOS中不流畅</title>
+    <url>/2017/04/23/css%E4%B8%ADoverflow%E6%BB%91%E5%8A%A8%E6%95%88%E6%9E%9C%E5%9C%A8IOS%E4%B8%AD%E4%B8%8D%E6%B5%81%E7%95%85/</url>
+    <content><![CDATA[<p>最近新作的一个项目中遇到一个问题，有一段很长的表格，手机显示器展示不全，需要做滑动继续展示的效果；<br>OK，很简单，使用overflow-x:auto;谷歌模拟器一切正常，安卓正常，可是打完包在IOS上，滑动效果慢到完全跟随手指的移动而移动，这样是肯定不行的经过百度发现了解决之道；<br>-webkit-overflow-scrolling: touch;<br>度娘说这句话是启动了硬件加速的特性，所以滑动起来会非常流畅；不过会影响性能；经过测试，发现影响看不出，果断选择用它；<br>完美解决~~~~~~~</p>
+]]></content>
+      <categories>
+        <category>css</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+        <tag>IOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Flex布局</title>
+    <url>/2018/08/01/flex%E5%B8%83%E5%B1%80/</url>
+    <content><![CDATA[<p>Flex 是 Flexible Box 的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。</p>
+<h3 id="容器的属性"><a href="#容器的属性" class="headerlink" title="容器的属性"></a>容器的属性</h3><h4 id="flex-direction属性"><a href="#flex-direction属性" class="headerlink" title="flex-direction属性"></a>flex-direction属性</h4><p><span style="color: cornflowerblue">flex-direction属性决定主轴的方向（即项目的排列方向）。</span></p>
+<ul>
+<li>row（默认值）：主轴为水平方向，起点在左端。</li>
+<li>row-reverse：主轴为水平方向，起点在右端。</li>
+<li>column：主轴为垂直方向，起点在上沿。</li>
+<li>column-reverse：主轴为垂直方向，起点在下沿。</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.box</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">300px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">120px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#89479B</span>;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">    <span class="attribute">flex-direction</span>:row;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box box1&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+<h4 id="flex-wrap属性"><a href="#flex-wrap属性" class="headerlink" title="flex-wrap属性"></a>flex-wrap属性</h4><p><span style="color: cornflowerblue">默认情况下，项目都排在一条线（又称”轴线”）上。flex-wrap属性定义，如果一条轴线排不下，如何换行。</span></p>
+<ul>
+<li>nowrap（默认）：不换行。</li>
+<li>wrap：换行，第一行在上方。</li>
+<li>wrap-reverse：换行，第一行在下方。</li>
+</ul>
+<h4 id="flex-flow属性"><a href="#flex-flow属性" class="headerlink" title="flex-flow属性"></a>flex-flow属性</h4><p><span style="color: cornflowerblue">flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap。。</span></p>
+<h4 id="justify-content属性"><a href="#justify-content属性" class="headerlink" title="justify-content属性"></a>justify-content属性</h4><p><span style="color: cornflowerblue">justify-content属性定义了项目在主轴上的对齐方式。</span></p>
+<ul>
+<li>flex-start（默认值）：左对齐</li>
+<li>flex-end：右对齐</li>
+<li>center： 居中</li>
+<li>space-between：两端对齐，项目之间的间隔都相等。</li>
+<li>space-around：每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。</li>
+</ul>
+<h4 id="align-items属性"><a href="#align-items属性" class="headerlink" title="align-items属性"></a>align-items属性</h4><p><span style="color: cornflowerblue">align-items属性定义项目在交叉轴上如何对齐</span></p>
+<ul>
+<li>flex-start：交叉轴的起点对齐。</li>
+<li>flex-end：交叉轴的终点对齐。</li>
+<li>center：交叉轴的中点对齐。</li>
+<li>baseline: 项目的第一行文字的基线对齐。</li>
+<li>stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。</li>
+</ul>
+<h4 id="align-content属性"><a href="#align-content属性" class="headerlink" title="align-content属性"></a>align-content属性</h4><p><span style="color: cornflowerblue">align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。</span></p>
+<ul>
+<li>flex-start：与交叉轴的起点对齐。</li>
+<li>flex-end：与交叉轴的终点对齐。</li>
+<li>center：与交叉轴的中点对齐。</li>
+<li>space-between：与交叉轴两端对齐，轴线之间的间隔平均分布。</li>
+<li>space-around：每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。</li>
+<li>stretch（默认值）：轴线占满整个交叉轴。</li>
+</ul>
+<h3 id="项目的属性"><a href="#项目的属性" class="headerlink" title="项目的属性"></a>项目的属性</h3><h4 id="order属性"><a href="#order属性" class="headerlink" title="order属性"></a>order属性</h4><p><span style="color: cornflowerblue">order属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。</span></p>
+<h4 id="flex-grow属性"><a href="#flex-grow属性" class="headerlink" title="flex-grow属性"></a>flex-grow属性</h4><p><span style="color: cornflowerblue">flex-grow属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。</span><br>如果所有项目的flex-grow属性都为1，则它们将等分剩余空间（如果有的话）。如果一个项目的flex-grow属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。</p>
+<h4 id="flex-shrink属性"><a href="#flex-shrink属性" class="headerlink" title="flex-shrink属性"></a>flex-shrink属性</h4><p><span style="color: cornflowerblue">flex-shrink属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。</span><br>如果所有项目的flex-shrink属性都为1，当空间不足时，都将等比例缩小。如果一个项目的flex-shrink属性为0，其他项目都为1，则空间不足时，前者不缩小。负值对该属性无效。</p>
+<h4 id="flex-basis属性"><a href="#flex-basis属性" class="headerlink" title="flex-basis属性"></a>flex-basis属性</h4><p><span style="color: cornflowerblue">flex-basis属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。</span><br>它可以设为跟width或height属性一样的值（比如100px），则项目将占据固定空间。</p>
+<h4 id="flex属性"><a href="#flex属性" class="headerlink" title="flex属性"></a>flex属性</h4><p><span style="color: cornflowerblue">flex属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。</span><br>该属性有两个快捷值：auto (1 1 auto) 和 none (0 0 auto)。建议优先使用这个属性，而不是单独写三个分离的属性，因为浏览器会推算相关值。</p>
+<h4 id="align-self属性"><a href="#align-self属性" class="headerlink" title="align-self属性"></a>align-self属性</h4><p><span style="color: cornflowerblue">align-self属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。</span><br>该属性可能取6个值，除了auto，其他都与align-items属性完全一致</p>
+]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2015/07/11/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>hexo 常用命令</title>
+    <url>/2016/06/28/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<h2 id="常用部署步骤"><a href="#常用部署步骤" class="headerlink" title="常用部署步骤"></a>常用部署步骤</h2><blockquote>
+<p>每次部署的步骤，可按以下三步来进行。</p>
+</blockquote>
+<pre><code>hexo clean
+hexo generate
+hexo deploy
+</code></pre>
+<h6 id="一些常用命令："><a href="#一些常用命令：" class="headerlink" title="一些常用命令："></a>一些常用命令：</h6><pre><code>hexo new ”postName” #新建文章
+
+hexo new page ”pageName” #新建页面
+
+hexo generate #生成静态页面至public目录
+
+hexo server #开启预览访问端口（默认端口4000，’ctrl + c’关闭server）
+
+hexo deploy #将.deploy目录部署到GitHub
+
+hexo help # 查看帮助
+
+hexo version #查看Hexo的版本
+</code></pre>
+]]></content>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于Markdown的基本用法</title>
+    <url>/2018/07/11/markerdown%E8%AF%AD%E6%B3%95/</url>
+    <content><![CDATA[<p>Markdown 是一种文本格式。你可以用它来控制文档的显示。使用 markdown，你可以创建粗体的文字，斜体的文字，添加图片，并且创建列表 等等。基本上来讲，Markdown 就是普通的文字加上 # 或者 * 等符号。</p>
+<h3 id="语法说明"><a href="#语法说明" class="headerlink" title="语法说明"></a>语法说明</h3><h4 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"># 这是 <span class="tag">&lt;<span class="name">h1</span>&gt;</span> 一级标题</span><br><span class="line">## 这是 <span class="tag">&lt;<span class="name">h2</span>&gt;</span> 二级标题</span><br><span class="line">### 这是 <span class="tag">&lt;<span class="name">h3</span>&gt;</span> 三级标题</span><br><span class="line">#### 这是 <span class="tag">&lt;<span class="name">h4</span>&gt;</span> 四级标题</span><br><span class="line">##### 这是 <span class="tag">&lt;<span class="name">h5</span>&gt;</span> 五级标题</span><br><span class="line">###### 这是 <span class="tag">&lt;<span class="name">h6</span>&gt;</span> 六级标题</span><br></pre></td></tr></table></figure>
+<h4 id="强调"><a href="#强调" class="headerlink" title="强调"></a>强调</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">*这会是 斜体 的文字*</span><br><span class="line">_这会是 斜体 的文字_</span><br><span class="line"></span><br><span class="line">**这会是 粗体 的文字**</span><br><span class="line">__这会是 粗体 的文字__</span><br><span class="line"></span><br><span class="line">_你也 **组合** 这些符号_</span><br><span class="line"></span><br><span class="line">~~这个文字将会被横线删除~~</span><br></pre></td></tr></table></figure>
+<hr>
+<span id="more"></span>
+<h4 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h4><h5 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h5><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">- Item 1</span><br><span class="line">- Item 2</span><br><span class="line">  - Item 2a</span><br><span class="line">  - Item 2b</span><br></pre></td></tr></table></figure>
+<h5 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h5><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">1. Item 1</span><br><span class="line">1. Item 2</span><br><span class="line">1. Item 3</span><br><span class="line">   1. Item 3a</span><br><span class="line">   1. Item 3b</span><br></pre></td></tr></table></figure>
+<h4 id="添加图片"><a href="#添加图片" class="headerlink" title="添加图片"></a>添加图片</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">![GitHub Logo](/images/logo.png)</span><br><span class="line">Format: ![Alt Text](url)</span><br></pre></td></tr></table></figure>
+<p>测试图片：<br><img src="/uploads/author.jpg" alt="GitHub Logo"></p>
+<h4 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">https://github.com - 自动生成！</span><br><span class="line">[GitHub](https://github.com)</span><br></pre></td></tr></table></figure>
+<h4 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">正如 Kanye West 所说：</span><br><span class="line"></span><br><span class="line">&gt; We&#x27;re living the future so</span><br><span class="line">&gt; the present is our past.</span><br></pre></td></tr></table></figure>
+<h4 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">如下，三个或者更多的:</span><br><span class="line"></span><br><span class="line">连字符: ---</span><br><span class="line"></span><br><span class="line">星号: ***</span><br><span class="line"></span><br><span class="line">下划线: ___</span><br></pre></td></tr></table></figure>
+<h4 id="行内代码"><a href="#行内代码" class="headerlink" title="行内代码"></a>行内代码</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">我觉得你应该在这里使用</span><br><span class="line">`function()&#123;console.log(&#x27;行内代码&#x27;)&#125;` </span><br><span class="line">才对。</span><br></pre></td></tr></table></figure>
+<h4 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h4><p>你可以在你的代码上面和下面添加 ``` 来表示代码块</p>
+<h5 id="语法高亮"><a href="#语法高亮" class="headerlink" title="语法高亮"></a>语法高亮</h5><p>代码块可以添加任何一种语言的语法高亮，如：</p>
+<figure class="highlight javascript"><figcaption><span>&#123;.class1 .class&#125;</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="代码行数"><a href="#代码行数" class="headerlink" title="代码行数"></a>代码行数</h5><p>如果你想要你的代码块显示代码行数，只要添加 line-numbers class 就可以了。例如：</p>
+<figure class="highlight javascript"><figcaption><span>&#123;.line-numbers&#125;</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>你可以通过添加 highlight 属性的方式来高亮代码行数，例如：</p>
+<figure class="highlight javascript"><figcaption><span>&#123;.line-numbers, highlight</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> number = add(<span class="number">10</span>,<span class="number">20</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="任务列表"><a href="#任务列表" class="headerlink" title="任务列表"></a>任务列表</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">- [x] @mentions, #refs, [links](), **formatting**, and <span class="tag">&lt;<span class="name">del</span>&gt;</span>tags<span class="tag">&lt;/<span class="name">del</span>&gt;</span> supported</span><br><span class="line">- [x] list syntax required (any unordered or ordered list supported)</span><br><span class="line">- [x] this is a complete item</span><br><span class="line">- [ ] this is an incomplete item</span><br></pre></td></tr></table></figure>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> @mentions, #refs, <a href="">links</a>, <strong>formatting</strong>, and <del>tags</del> supported</li>
+<li><input checked="" disabled="" type="checkbox"> list syntax required (any unordered or ordered list supported)</li>
+<li><input checked="" disabled="" type="checkbox"> this is a complete item</li>
+<li><input disabled="" type="checkbox"> this is an incomplete item<h4 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">First Header | Second Header</span><br><span class="line">------------ | -------------</span><br><span class="line">Content from cell 1 | Content from cell 2</span><br><span class="line">Content in the first column | Content in the second column</span><br></pre></td></tr></table></figure>
+First Header | Second Header</li>
+<li>———– | ————-<br>Content from cell 1 | Content from cell 2<br>Content in the first column | Content in the second column</li>
+</ul>
+<h3 id="扩展的语法"><a href="#扩展的语法" class="headerlink" title="扩展的语法"></a>扩展的语法</h3><h4 id="Emoji-amp-Font-Awesome"><a href="#Emoji-amp-Font-Awesome" class="headerlink" title="Emoji &amp; Font-Awesome"></a>Emoji &amp; Font-Awesome</h4><p>只适用于 markdown-it parser 而不适用于 pandoc parser。 缺省下是启用的。你可以在插件设置里禁用此功能。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">:smile:</span><br><span class="line">:fa-car:</span><br></pre></td></tr></table></figure>
+<p>:smile:<br>:fa-car:</p>
+<h4 id="上标"><a href="#上标" class="headerlink" title="上标"></a>上标</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">30^th^</span><br></pre></td></tr></table></figure>
+<p>30^th^</p>
+<h4 id="下标"><a href="#下标" class="headerlink" title="下标"></a>下标</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">H~2~O</span><br></pre></td></tr></table></figure>
+<p>H<del>2</del>O</p>
+<h4 id="脚注"><a href="#脚注" class="headerlink" title="脚注"></a>脚注</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">Content [^1]</span><br><span class="line">[^1]: Hi! This is a footnote</span><br></pre></td></tr></table></figure>
+<p>Content [^1]<br>[^1]: Hi! This is a footnote</p>
+<h4 id="标记"><a href="#标记" class="headerlink" title="标记"></a>标记</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">==marked==</span><br></pre></td></tr></table></figure>
+<p>==marked==</p>
+<p><span>213123</span></p>
+]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Markdown语法学习</title>
+    <url>/2016/06/13/next_study/</url>
+    <content><![CDATA[<h3 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h3><pre><code># 这是 H1 #
+
+## 这是 H2 ##
+
+### 这是 H3 ######
+</code></pre>
+<h3 id="引用块"><a href="#引用块" class="headerlink" title="引用块"></a>引用块</h3><pre><code>&gt;This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,
+consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.
+&gt;&gt;Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
+&gt; 
+&gt; 1.   这是第一行列表项。
+&gt; 2.   这是第二行列表项。
+&gt; 
+&gt; 给出一些例子代码：
+&gt; 
+&gt;     return shell_exec(&quot;echo $input | $markdown_script&quot;);
+</code></pre>
+<blockquote>
+<p>This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,<br>consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.</p>
+<blockquote>
+<p>Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.</p>
+</blockquote>
+<ol>
+<li>  这是第一行列表项。</li>
+<li>  这是第二行列表项。</li>
+</ol>
+<p>给出一些例子代码：</p>
+<pre><code>return shell_exec(&quot;echo $input | $markdown_script&quot;);
+</code></pre>
+</blockquote>
+<span id="more"></span>
+
+<h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><pre><code>&gt;&gt; * Red
+* Green
+* Blue
+&gt;&gt; + Tom
++ Jack 
++ Jerry
+&gt;&gt; + 张三丰
++ 张翠山
++ 张无忌
+&gt; 有序列表 1.
+&gt;&gt; 1.  Bird
+2.  McHale
+3.  Parish
+
+&gt; 1.  This is a list item with two paragraphs. Lorem ipsum dolor
+    sit amet, consectetuer adipiscing elit. Aliquam hendrerit
+    mi posuere lectus.
+
+&gt;   Vestibulum enim wisi, viverra nec, fringilla in, laoreet
+    vitae, risus. Donec sit amet nisl. Aliquam semper ipsum
+    sit amet velit.
+
+&gt; 2.  Suspendisse id sem consectetuer libero luctus adipiscing.
+1986\. What a great season.
+</code></pre>
+<blockquote>
+<p>无序列表 *,+,-</p>
+<blockquote>
+<ul>
+<li>Red</li>
+</ul>
+</blockquote>
+</blockquote>
+<ul>
+<li>Green</li>
+<li>Blue<blockquote>
+<blockquote>
+<ul>
+<li>Tom</li>
+</ul>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li>Jack </li>
+<li>Jerry<blockquote>
+<blockquote>
+<ul>
+<li>张三丰</li>
+</ul>
+</blockquote>
+</blockquote>
+</li>
+<li>张翠山</li>
+<li>张无忌<blockquote>
+<p>有序列表 1.</p>
+<blockquote>
+<ol>
+<li> Bird</li>
+</ol>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+<ol start="2">
+<li> McHale</li>
+<li> Parish</li>
+</ol>
+<blockquote>
+<ol>
+<li>This is a list item with two paragraphs. Lorem ipsum dolor<br> sit amet, consectetuer adipiscing elit. Aliquam hendrerit<br> mi posuere lectus.</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>  Vestibulum enim wisi, viverra nec, fringilla in, laoreet<br>    vitae, risus. Donec sit amet nisl. Aliquam semper ipsum<br>    sit amet velit.</p>
+</blockquote>
+<blockquote>
+<ol start="2">
+<li> Suspendisse id sem consectetuer libero luctus adipiscing.<br>1986. What a great season.</li>
+</ol>
+</blockquote>
+<h3 id="代码区块"><a href="#代码区块" class="headerlink" title="代码区块"></a>代码区块</h3><p>这是一个普通的段落：</p>
+<pre><code>这是一个代码区块
+&lt;div class=&quot;footer&quot;&gt;
+    &amp;copy; 2004 Foo Corporation
+&lt;/div&gt;
+</code></pre>
+<h3 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h3><p>你可以在一行中用三个以上的星号、减号、底线来建立一个分隔线，行内不能有其他东西。你也可以在星号或是减号中间插入空格。下面每种写法都可以建立分隔线：</p>
+
+<pre><code>* * *
+
+***
+
+*****
+
+- - -
+
+---------------------------------------
+</code></pre>
+<hr/>
+
+<h3>区段元素</h3>
+> #### 链接
+<p>Markdown 支持两种形式的链接语法： 行内式和参考式两种形式。
+不管是哪一种，链接文字都是用 [方括号] 来标记。
+要建立一个行内式的链接，只要在方块括号后面紧接着圆括号并插入网址链接即可，如果你还想要加上链接的 title 文字，只要在网址后面，用双引号把 title 文字包起来即可，例如：</p>
+>
+>     This is [an example](http://example.com/ "Title") inline link.
+> 
+>     [This link](http://example.net/) has no title attribute.
+> 会产生
+> This is [an example](https://munachar.github.io/404.html "Title") inline link.
+> 
+> [This link](http://www.baidu.com/) has no title attribute.
+> 下面是一个参考式链接的范例：
+>
+>      I get 10 times more traffic from [Google] [1] than from[Yahoo] [2] or [MSN] [3].
+>
+>          [1]: http://google.com/        "Google"
+>          [2]: http://search.yahoo.com/  "Yahoo Search"
+>          [3]: http://search.msn.com/    "MSN Search" 
+> 或者：
+>
+>     I get 10 times more traffic from [Google][] than from[Yahoo][] or [MSN][].
+>
+>          [google]: http://google.com/        "Google"
+>          [yahoo]:  http://search.yahoo.com/  "Yahoo Search"
+>          [msn]:    http://search.msn.com/    "MSN Search"br
+> #### 强调
+<p>Markdown 使用星号（\*）和底线（\_）作为标记强调字词的符号，被 \* 或 \_ 包围的字词会被转成用 <\em\> 标签包围，用两个 \* 或 \_ 包起来的话，则会被转成 <strong>，例如：</p>
+>
+>     *single asterisks*
+>
+>     _single underscores_
+>
+>     **double asterisks**
+>
+>     __double underscores__
+>效果如下：
+> *single asterisks*
+>
+> _single underscores_
+>
+> **double asterisks**
+>
+> __double underscores__
+> #### 代码
+如果要标记一小段行内代码，你可以用反引号把它包起来（`），例如：
+>
+>     Use the `printf()` function.
+效果如下：
+> Use the `printf()` function.
+> A single backtick in a code span: `` ` ``
+>
+> A backtick-delimited string in a code span: `` `<foo>` ``
+> #### 图片
+Markdown 使用一种和链接很相似的语法来标记图片，同样也允许两种样式： 行内式和参考式。
+
+<blockquote>
+<p>行内式的图片语法看起来像是：</p>
+<pre><code>![Alt text](/path/to/img.jpg)
+
+![Alt text](/path/to/img.jpg &quot;Optional title&quot;)
+</code></pre>
+<p>详细叙述如下：</p>
+<ul>
+<li>一个惊叹号 !</li>
+<li>接着一个方括号，里面放上图片的替代文字</li>
+<li>接着一个普通括号，里面放上图片的网址，最后还可以用引号包住并加上 选择性的 ‘title’ 文字。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>参考式的图片语法则长得像这样：</p>
+</blockquote>
+<pre>![Alt text][id]</pre>
+<blockquote>
+<p>「id」是图片参考的名称，图片参考的定义方式则和连结参考一样：</p>
+<pre><code>[id]: url/to/image  &quot;Optional title attribute&quot;
+</code></pre>
+<p>到目前为止， Markdown 还没有办法指定图片的宽高，如果你需要的话，你可以使用普通的 <img> 标签。</p>
+</blockquote>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><blockquote>
+<h4 id="自动链接"><a href="#自动链接" class="headerlink" title="自动链接"></a>自动链接</h4><p>Markdown 支持以比较简短的自动链接形式来处理网址和电子邮件信箱，只要是用方括号包起来， Markdown 就会自动把它转成链接。一般网址的链接文字就和链接地址一样，例如：</p>
+<pre><code>&lt;http://example.com/&gt;
+</code></pre>
+<p>Markdown 会转为：</p>
+<pre><code>&lt;a href=&quot;http://example.com/&quot;&gt;http://example.com/&lt;/a&gt;
+</code></pre>
+<p>邮址的自动链接也很类似，只是 Markdown 会先做一个编码转换的过程，把文字字符转成 16 进位码的 HTML 实体，这样的格式可以糊弄一些不好的邮址收集机器人，例如：</p>
+<pre><code>&lt;address@example.com&gt;
+</code></pre>
+<p>Markdown 会转成：</p>
+<pre><code> &lt;a href=&quot;&amp;#x6D;&amp;#x61;i&amp;#x6C;&amp;#x74;&amp;#x6F;:&amp;#x61;&amp;#x64;&amp;#x64;&amp;#x72;&amp;#x65;
+&amp;#115;&amp;#115;&amp;#64;&amp;#101;&amp;#120;&amp;#x61;&amp;#109;&amp;#x70;&amp;#x6C;e&amp;#x2E;&amp;#99;&amp;#111;
+&amp;#109;&quot;&gt;&amp;#x61;&amp;#x64;&amp;#x64;&amp;#x72;&amp;#x65;&amp;#115;&amp;#115;&amp;#64;&amp;#101;&amp;#120;&amp;#x61;
+&amp;#109;&amp;#x70;&amp;#x6C;e&amp;#x2E;&amp;#99;&amp;#111;&amp;#109;&lt;/a&gt;
+</code></pre>
+<p>在浏览器里面，这段字串（其实是 <a href="mailto:address@example.com">address@example.com</a>）会变成一个可以点击的「<a href="mailto:&#97;&#x64;&#100;&#x72;&#x65;&#x73;&#x73;&#64;&#101;&#120;&#97;&#109;&#112;&#x6c;&#101;&#46;&#99;&#x6f;&#109;">&#97;&#x64;&#100;&#x72;&#x65;&#x73;&#x73;&#64;&#101;&#120;&#97;&#109;&#112;&#x6c;&#101;&#46;&#99;&#x6f;&#109;</a>」链接。</p>
+</blockquote>
+<p>（这种作法虽然可以糊弄不少的机器人，但并不能全部挡下来，不过总比什么都不做好些。不管怎样，公开你的信箱终究会引来广告信件的。）</p>
+<blockquote>
+<h4 id="反斜杠"><a href="#反斜杠" class="headerlink" title="反斜杠"></a>反斜杠</h4><p>Markdown 可以利用反斜杠来插入一些在语法中有其它意义的符号，例如：如果你想要用星号加在文字旁边的方式来做出强调效果（但不用 <em> 标签），你可以在星号的前面加上反斜杠：</p>
+<pre><code>\*literal asterisks\*
+</code></pre>
+<p>Markdown 支持以下这些符号前面加上反斜杠来帮助插入普通的符号：</p>
+<pre><code>\   反斜线
+`   反引号
+*   星号
+_   底线
+&#123;&#125;  花括号
+[]  方括号
+()  括弧
+#   井字号
++   加号
+-   减号
+.   英文句点
+!   惊叹号
+</code></pre>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>study</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>postName</title>
+    <url>/2015/08/12/postName/</url>
+    <content><![CDATA[<pre><code>1. Git安装和Github设置
+使用Mac电脑可以直brew安装,
+
+brew install git         #Mac电脑使用brew安装
+sudo apt-get install git #Ubuntu系统使用这条命令安装
+git操作和github上SSH设置请看这篇博文
+
+使用Github Page搭建博客, 需要遵循一定的规则, 需要在github建立仓库,仓库名为Github用户.github.io, 更多详情请参考官方文档
+
+2. Node.js安装
+mac电脑可以直接通过brew安装
+
+#安装命令
+brew install node  #如果我没记错的话,最新版的node.js的包中已经集成了npm包管理工具
+
+使用以下命令验证是否安装成功
+node -v
+npm -v
+
+文／Andrew_liu（简书作者）
+原文链接：http://www.jianshu.com/p/858ecf233db9
+著作权归作者所有，转载请联系作者获得授权，并标注“简书作者”。
+</code></pre>
+]]></content>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>postcss-pxtorem的使用</title>
+    <url>/2020/11/11/postcss-pxtorem%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<p>最近公司要开发一个H5的项目，这里用postcss-pxtorem来处理自适应的问题；</p>
+<blockquote>
+<p>postcss-pxtorem是PostCSS的插件，用于将像素单元生成rem单位。前端开发还原设计稿的重要性毋庸置疑，目前应用的单位最多还是rem,然而每次在制作过程中需要自己计算rem值，为了能够直接按照设计图的尺寸开发，并且能自动编译转换成rem，下面就来分享下postcss-pxtorem的使用。</p>
+</blockquote>
+<h2 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install postcss-pxtorem -D</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<h2 id="设置规则"><a href="#设置规则" class="headerlink" title="设置规则"></a>设置规则</h2><p>更改postcss.config.js,该文件为使用vue-cli3自动创建的文件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  plugins: &#123;</span><br><span class="line">    &#x27;autoprefixer&#x27;: &#123; // autoprefixer 是自动补全代码用的</span><br><span class="line">      browsers: [&#x27;Android &gt;= 4.0&#x27;, &#x27;iOS &gt;= 7&#x27;]</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x27;postcss-pxtorem&#x27;: &#123;</span><br><span class="line">      rootValue: 16,//结果为：设计稿元素尺寸/16，比如元素宽320px,最终页面会换算成 20rem</span><br><span class="line">      propList: [&#x27;*&#x27;]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="设置根节点"><a href="#设置根节点" class="headerlink" title="设置根节点"></a>设置根节点</h2><p>首先我们要在src目录下，新建 assets/js/rem.js文件；</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">c</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> e = <span class="built_in">document</span>.documentElement || <span class="built_in">document</span>.body,</span><br><span class="line">    a = <span class="string">&quot;orientationchange&quot;</span> <span class="keyword">in</span> <span class="built_in">window</span> ? <span class="string">&quot;orientationchange&quot;</span> : <span class="string">&quot;resize&quot;</span>,</span><br><span class="line">    b = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> f = e.clientWidth;</span><br><span class="line">      <span class="comment">// 320 默认大小16px; 320px = 20rem ;每个元素px基础上/16</span></span><br><span class="line">      e.style.fontSize = f / <span class="number">20</span> + <span class="string">&quot;px&quot;</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">  b();</span><br><span class="line">  c.addEventListener(a, b, <span class="literal">false</span>);</span><br><span class="line">&#125;)(<span class="built_in">window</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>然后在main.js中引入rem.js就可以了。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&quot;@assets/js/rem&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>vue</tag>
+        <tag>css</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>事件冒泡</title>
+    <url>/2016/06/25/%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1/</url>
+    <content><![CDATA[<h3 id="什么是JS事件冒泡？"><a href="#什么是JS事件冒泡？" class="headerlink" title="什么是JS事件冒泡？"></a>什么是JS事件冒泡？</h3><p>在一个对象上触发某类事件（比如单击onclick事件），如果此对象定义了此事件的处理程序，那么此事件就会调用这个处理程序，如果没有定义此事件处理程序或者事件返回true，那么这个事件会向这个对象的父级对象传播，从里到外，直至它被处理（父级对象所有同类事件都将被激活），或者它到达了对象层次的最顶层，即document对象（有些浏览器是window）。</p>
+<ol>
+<li><p>event.stopPropagation();<br>事件处理过程中，阻止了事件冒泡，但不会阻击默认行为（它就执行了超链接的跳转）</p>
+</li>
+<li><p>return false;<br>事件处理过程中，阻止了事件冒泡，也阻止了默认行为（比如刚才它就没有执行超链接的跳转）</p>
+</li>
+<li><p>event.preventDefault();<br>如果把它放在头部A标签的click事件中点击“点击我”。<br>会发现它依次弹出：我是最里层—-&gt;我是中间层—-&gt;我是最外层，但最后却没有跳转到百度<br>它的作用是：事件处理过程中，不阻击事件冒泡，但阻击默认行为（它只执行所有弹框，却没有执行超链接跳转）</p>
+</li>
+</ol>
+<hr>
+<span id="more"></span>
+<h3 id="事件周期"><a href="#事件周期" class="headerlink" title="事件周期:"></a>事件周期:</h3><blockquote>
+<p>DOM: 3个阶段:</p>
+<blockquote>
+<ul>
+<li>捕获: 由最外层元素向内，逐级记录绑定的事件处理函数，只是记录，而不触发</li>
+</ul>
+</blockquote>
+</blockquote>
+<ul>
+<li>目标触发: 首先触发实际发生事件的元素上绑定的处理函数（目标元素: 实际发生事件的元素）</li>
+<li>冒泡: 由内层向外层依次执行各级绑定的处理函数<blockquote>
+<p>鄙视:能否修改事件触发的顺序: ——能！</p>
+<pre><code> elem.addEventListener(“事件名”,函数对象,false/true);
+</code></pre>
+<p>第三个参数: 是否在捕获阶段提前触发，<br>默认false，只能在冒泡阶段顺序触发<br>改为true，可在捕获阶段提前触发！<br>在捕获阶段提前触发的处理函数，冒泡阶段不会重复触发。<br>IE8: 2个阶段: 没有捕获！——不能修改事件触发的顺序<br>elem.attachEvent(“on事件名”,函数对象)</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="取消冒泡"><a href="#取消冒泡" class="headerlink" title="取消冒泡"></a>取消冒泡</h3><blockquote>
+<p>取消冒泡: 一般用于事件处理函数的末尾</p>
+<pre><code>DOM: e.stopPropagation();
+IE8: e.cancelBubble=true;
+</code></pre>
+<p>兼容: </p>
+<pre><code>if(e.stopPropagation!==undefined)&#123;
+    e.stopPropagation();
+&#125;else&#123;
+    e.cancelBubble=true;
+&#125;
+</code></pre>
+<p>利用冒泡:<br>优化: 如果多个平级子元素都绑定了相同的事件处理函数，则只需要在父元素上绑定一次即可。不必反复绑定！<br>为什么: 绑定的事件处理函数越多，页面的执行效率越低。应尽量减少页面中绑定的事件处理函数个数。<br>核心问题：如何获得目标元素:</p>
+<pre><code>var target=e.target||e.srcElement
+</code></pre>
+</blockquote>
+<h3 id="DOM-IE8"><a href="#DOM-IE8" class="headerlink" title="DOM IE8"></a>DOM IE8</h3><blockquote>
+<p>取消事件: 在事件处理函数执行过程中，发生了异常或错误，希望事件不再继续触发。<br>如何取消:<br>   js动态绑定事件处理函数: </p>
+<pre><code>DOM: e.preventDefault();
+IE8: e.returnValue=false;
+</code></pre>
+<p>兼容: </p>
+<pre><code>if(e.preventDefault!==undefined)&#123;
+    e.preventDefault();
+&#125;else&#123;
+    e.returnValue=false;
+&#125; 
+</code></pre>
+</blockquote>
+<p>参考网址：<a href="http://www.jb51.net/article/32792.htm">事件冒泡</a></p>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>二、JavaScript之作用域</title>
+    <url>/2019/06/15/%E4%BD%9C%E7%94%A8%E5%9F%9F/</url>
+    <content><![CDATA[<h2 id="什么是作用域"><a href="#什么是作用域" class="headerlink" title="什么是作用域"></a>什么是作用域</h2><p>作用域是指程序源代码中定义变量的区域。</p>
+<p>作用域规定了如何查找变量，也就是确定当前执行代码对变量的访问权限。</p>
+<p>JavaScript 采用词法作用域(lexical scoping)，也就是静态作用域。</p>
+<h2 id="词法作用域"><a href="#词法作用域" class="headerlink" title="词法作用域"></a>词法作用域</h2><p>在你不知道的javascript上卷中是这样定义的：</p>
+<blockquote>
+<p>词法作用域就是定义在词法阶段的作用域。换句话说，词法作用域是由你在写代码时将变量和块作用域写在哪里来决定的，因此当词法分析器处理代码时会保持作用域不变(大部分情况下是这样的)。</p>
+</blockquote>
+<p>在JS中词法作用域的规则：<a href="https://github.com/getify/You-Dont-Know-JS/blob/1ed-zh-CN/scope%20%26%20closures/ch1.md">点这里</a></p>
+<p>请看下面这段代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var value = 1;</span><br><span class="line"></span><br><span class="line">function foo() &#123;</span><br><span class="line">    console.log(value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function bar() &#123;</span><br><span class="line">    var value = 2;</span><br><span class="line">    foo();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar(); // ???</span><br></pre></td></tr></table></figure>
+<p>假设JavaScript采用静态作用域，让我们分析下执行过程：<br>执行 foo 函数，先从 foo 函数内部查找是否有局部变量 value，如果没有，就根据书写的位置，查找上面一层的代码，也就是 value 等于 1，所以结果会打印 1。</p>
+<p>假设JavaScript采用动态作用域，让我们分析下执行过程：<br>执行 foo 函数，依然是从 foo 函数内部查找是否有局部变量 value。如果没有，就从调用函数的作用域，也就是 bar 函数内部查找 value 变量，所以结果会打印 2。</p>
+<p>前面我们已经说了，JavaScript采用的是静态作用域，所以这个例子的结果是 1。</p>
+<span id="more"></span>
+<p>再看下面这段代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function foo(a) &#123;</span><br><span class="line"></span><br><span class="line">	var b = a * 2;</span><br><span class="line"></span><br><span class="line">	function bar(c) &#123;</span><br><span class="line">		console.log( a, b, c );</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	bar(b * 3);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo( 2 ); // 2 4 12</span><br></pre></td></tr></table></figure>
+<p>在这个代码示例中有三个固有的嵌套作用域：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">包围着全局作用域，只有一个标识符：foo。</span><br><span class="line">包围着作用域 foo，它含有三个标识符：a，bar 和 b。</span><br><span class="line">包围着作用域 bar，它里面只包含一个标识符：c。</span><br></pre></td></tr></table></figure>
+<p>当我们执行console.log(…)语句的时候，开始查找三个被引用的变量 a，b 和 c。它首先从最内部的作用域气泡开始，也就是 bar(…) 函数的作用域。在这里它找不到 a，所以它向上走一层，到外面下一个最近的作用域气泡，foo(…) 的作用域。它在这里找到了 a，于是它就使用这个 a。同样的事情也发生在 b 身上。但是对于 c，它在 bar(..) 内部就找到了。</p>
+<p>如果在 foo(..) 内部定义一个变量 c，console.log(…) 语句也仍然会找到并使用 bar(…) 中的那一个，而不会使用 foo(…) 中的那一个。</p>
+<p><strong>一旦找到第一个匹配，作用域查询就停止了。</strong>相同的标识符名称可以在嵌套作用域的多个层中被指定，这称为“遮蔽（shadowing）”（内部的标识符“遮蔽”了外部的标识符）。无论如何遮蔽，作用域查询总是从当前被执行的最内侧的作用域开始，向外/向上不断查找，直到第一个匹配才停止。</p>
+<p><strong>注意：</strong>全局变量也自动地是全局对象（在浏览器中是 window，等等）的属性，所以不直接通过全局变量的词法名称，而通过将它作为全局对象的一个属性引用来间接地引用，是可能的。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var a = 5;</span><br><span class="line">function foo(a) &#123;</span><br><span class="line">  console.log(a);</span><br><span class="line">  console.log(window.a)</span><br><span class="line">&#125;</span><br><span class="line">foo(2) // 2,5</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于CSS hacks的使用</title>
+    <url>/2016/07/10/%E5%85%B3%E4%BA%8ECSS%20hack/</url>
+    <content><![CDATA[<h4 id="讨论CSS-hacks，条件引用或者其他。"><a href="#讨论CSS-hacks，条件引用或者其他。" class="headerlink" title="讨论CSS hacks，条件引用或者其他。"></a>讨论CSS hacks，条件引用或者其他。</h4><pre><code>background-color:#f1ee18;/*所有识别*/
+
+background-color:#00deff\9; /*IE6、7、8识别*/
+
++background-color:#a200ff;/*IE6、7识别*/
+
+_background-color:#1e0bd1;/*IE6识别*/
+
+:root#test&#123;background-color:purple\9;&#125;:root是给ie9的，
+
+@media screen and (-webkit-min-device-pixel-ratio:0)&#123;
+    .bb&#123;background-color:#f1ee18&#125;/* Safari(Chrome) 有效 */
+&#125;&#123;&#125; 
+@media all and (min-width: 0px)&#123; 
+    .bb&#123;
+        background-color:#f1ee18;/*opera and Safari(Chrome) and firefox*/ 
+        background-color:#4cac70\0;/* 仅 Opera 有效 */ 
+    &#125;
+&#125;&#123;&#125; 
+
+.bb, x:-moz-any-link, x:default&#123;
+    background-color:#4eff00;/*IE7、Firefox3.5及以下 识别 */
+&#125; 
+@-moz-document url-prefix()&#123;
+    .bb&#123;
+        background-color:#4eff00;/*仅 Firefox 识别 */
+    &#125;
+&#125; 
+* +html .bb&#123;background-color:#a200ff;&#125;/* 仅IE7 识别 */&lt;!-- more --&gt;    
+</code></pre>
+<p><img src="/uploads/CSS_hack.png" alt="GitHub Logo"></p>
+]]></content>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于vue中mixins混入的用法</title>
+    <url>/2020/06/22/%E5%85%B3%E4%BA%8Emixins%E6%B7%B7%E5%85%A5%E7%9A%84%E7%94%A8%E6%B3%95/</url>
+    <content><![CDATA[<p>最近项目中要用到很多eCharts图表组件，需要在窗口尺寸发生变化时，重置图表的大小，此时如果在每个组件里面都去实现一段监听代码，代码重复太多了，此时就可以使用混入来解决这个问题，mixins是Vue提供的一种混合机制，用来更高效的实现组件内容的复用。</p>
+<h1 id="JS代码："><a href="#JS代码：" class="headerlink" title="JS代码："></a>JS代码：</h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 混入代码</span></span><br><span class="line"><span class="keyword">import</span> &#123; debounce &#125; <span class="keyword">from</span> <span class="string">&quot;lodash&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> resizeChartMethod = <span class="built_in">Symbol</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 在组件内部将图表init的引用映射到chart属性上</span></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="attr">myChart</span>: <span class="literal">null</span>,</span><br><span class="line">      [resizeChartMethod]: <span class="literal">null</span></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">created</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> _this = <span class="built_in">this</span>;</span><br><span class="line">    <span class="built_in">this</span>[resizeChartMethod] = debounce(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (_this.myChart) &#123;</span><br><span class="line">        _this.myChart.resize();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;, <span class="number">100</span>);</span><br><span class="line">    <span class="built_in">window</span>.addEventListener(<span class="string">&quot;resize&quot;</span>, <span class="built_in">this</span>[resizeChartMethod]);</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">methods</span>: &#123;&#125;,</span><br><span class="line">  <span class="function"><span class="title">beforeDestroy</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">window</span>.removeEventListener(<span class="string">&quot;reisze&quot;</span>, <span class="built_in">this</span>[resizeChartMethod]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<h1 id="图表组件代码"><a href="#图表组件代码" class="headerlink" title="图表组件代码"></a>图表组件代码</h1><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;chart&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> echartMixins <span class="keyword">from</span> <span class="string">&#x27;./echarts-mixins&#x27;</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="comment">// mixins属性用于导入混入，是一个数组，数组可以传入多个混入对象</span></span><br><span class="line">  <span class="attr">mixins</span>: [echartMixins],</span><br><span class="line">  <span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="attr">chart</span>: <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">created</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.chart = echarts.init(<span class="built_in">this</span>.$el)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+        <tag>VUE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Web前端资源分享</title>
+    <url>/2016/07/04/%E5%89%8D%E7%AB%AF%E8%B5%84%E6%BA%90%E7%BD%91/</url>
+    <content><![CDATA[<p>Web前端资源分享：</p>
+<ul>
+<li>官方：<ul>
+<li>W3C：<a href="http://www.w3.org/">http://www.w3.org/</a></li>
+<li>ECMA：<a href="http://www.ecmascript.org/">http://www.ecmascript.org/</a></li>
+<li>Mozilla：<a href="https://developer.mozilla.org/zh-CN/">https://developer.mozilla.org/zh-CN/</a></li>
+</ul>
+</li>
+<li>微软提供的H5实验室：<br><a href="http://html5labs.interoperabilitybridges.com/">http://html5labs.interoperabilitybridges.com/</a><span id="more"></span></li>
+<li>第三方国内：<ul>
+<li>前端网：<a href="http://www.w3cfuns.com/portal.php">http://www.w3cfuns.com/portal.php</a></li>
+<li>H5基地：<a href="http://html5.360.cn/">http://html5.360.cn/</a></li>
+<li>前端里：<a href="http://www.yyyweb.com/">http://www.yyyweb.com</a></li>
+</ul>
+</li>
+<li>国内各大公司前端团队博客：<ul>
+<li>携程：<a href="http://ued.ctrip.com/blog/">http://ued.ctrip.com/blog/</a></li>
+<li>网易：<a href="http://uedc.163.com/">http://uedc.163.com</a></li>
+<li>腾讯：<ul>
+<li><a href="http://isux.tencent.com/">http://isux.tencent.com</a></li>
+<li><a href="http://www.alloyteam.com/">http://www.alloyteam.com</a></li>
+</ul>
+</li>
+<li>百度：<ul>
+<li><a href="http://fex.baidu.com/">http://fex.baidu.com</a></li>
+<li><a href="http://efe.baidu.com/">http://efe.baidu.com</a></li>
+<li><a href="http://mweb.baidu.com/">http://mweb.baidu.com</a></li>
+</ul>
+</li>
+<li>淘宝：<a href="http://ued.taobao.org/blog/">http://ued.taobao.org/blog/</a></li>
+<li>360：<a href="http://www.75team.com/">http://www.75team.com</a></li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>资源</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【加载更多】插件</title>
+    <url>/2017/08/15/%E5%8A%A0%E8%BD%BD%E6%9B%B4%E5%A4%9A%E6%8F%92%E4%BB%B6%E5%B0%81%E8%A3%85/</url>
+    <content><![CDATA[<p>关于如何实现『加载更多』功能，网上有插件可用，例如比较著名的使用iscroll.js实现的上拉加载更多、下拉刷新功能。</p>
+<p>但实际用起来却是很麻烦。由于是第三方插件，要按照对方定义的方法使用，用起来总感觉很不顺心。再加上iscroll.js本身并没有集成加载更多的功能，需要进行自行扩展。想继续使用iscroll.js实现加载更多功能的，上面给的链接可以看看。</p>
+<p>h5项目里需要实现简单的分页功能，由于是移动端，考虑用『加载更多』会更好，而不是PC端的翻页。</p>
+<hr>
+<span id="more"></span>
+<p><strong>JS代码：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * loadmore.js</span></span><br><span class="line"><span class="comment"> * 加载更多</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @time 2017-7-08 15:40:25</span></span><br><span class="line"><span class="comment"> * @author munachar</span></span><br><span class="line"><span class="comment"> * 可以传的参数默认有：size,scroll 可以自定义</span></span><br><span class="line"><span class="comment"> * */</span></span><br><span class="line"></span><br><span class="line">;(<span class="function"><span class="keyword">function</span>(<span class="params">w,$</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">var</span> loadmore = &#123;</span><br><span class="line">         <span class="comment">/*单页加载更多 通用方法</span></span><br><span class="line"><span class="comment">          *</span></span><br><span class="line"><span class="comment">          * @param callback 回调方法</span></span><br><span class="line"><span class="comment">          * @param config 自定义参数</span></span><br><span class="line"><span class="comment">          * */</span></span><br><span class="line">         <span class="attr">get</span> : <span class="function"><span class="keyword">function</span>(<span class="params">callback, config</span>)</span>&#123;</span><br><span class="line">             <span class="keyword">var</span> config = config ? config : &#123;&#125;; <span class="comment">/*防止未传参数报错*/</span></span><br><span class="line">             <span class="keyword">var</span> counter = <span class="number">1</span>; <span class="comment">/*计数器*/</span></span><br><span class="line">             <span class="keyword">var</span> pageStart = config.size ? config.size : <span class="number">10</span>;</span><br><span class="line">             <span class="keyword">var</span> pageSize = config.size ? config.size : <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">             <span class="comment">/*通过自动监听滚动事件加载更多,可选支持*/</span></span><br><span class="line">             config.isEnd = <span class="literal">false</span>; <span class="comment">/*结束标志*/</span></span><br><span class="line">             config.isAjax = <span class="literal">false</span>; <span class="comment">/*防止滚动过快，服务端没来得及响应造成多次请求*/</span></span><br><span class="line">             $(config.ele).scroll(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                 <span class="comment">/*是否开启滚动加载*/</span></span><br><span class="line">                 <span class="keyword">if</span>(!config.scroll)&#123;</span><br><span class="line">                     <span class="keyword">return</span>;</span><br><span class="line">                 &#125;</span><br><span class="line">                 <span class="comment">/*滚动加载时如果已经没有更多的数据了、正在发生请求时，不能继续进行*/</span></span><br><span class="line">                 <span class="keyword">if</span>(config.isEnd == <span class="literal">true</span> || config.isAjax == <span class="literal">true</span>)&#123;</span><br><span class="line">                     <span class="keyword">return</span>;</span><br><span class="line">                 &#125;</span><br><span class="line">                 <span class="comment">/*当滚动到最底部以上100像素时， 加载新内容*/</span></span><br><span class="line">                 <span class="keyword">if</span> ($(<span class="built_in">this</span>).find(<span class="string">&quot;ul&quot;</span>).height() - $(<span class="built_in">this</span>).scrollTop() - $(<span class="built_in">this</span>).height()&lt;<span class="number">100</span>)&#123;</span><br><span class="line">                     counter ++;</span><br><span class="line">                     pageStart = counter * pageSize;</span><br><span class="line">                     callback &amp;&amp; callback.call( $(config.ele),config, pageStart, pageSize);</span><br><span class="line">                 &#125;</span><br><span class="line">             &#125;);</span><br><span class="line">             <span class="comment">/*第一次自动加载*/</span></span><br><span class="line">             callback &amp;&amp; callback.call( $(config.ele),config, pageStart, pageSize);</span><br><span class="line">         &#125;,</span><br><span class="line">     &#125;</span><br><span class="line">     $.loadmore = loadmore;</span><br><span class="line"> &#125;)(<span class="built_in">window</span>, <span class="built_in">window</span>.jQuery || <span class="built_in">window</span>.Zepto);</span><br></pre></td></tr></table></figure>
+<p><strong>如何调用：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">$.loadmore.get(getData, &#123;</span><br><span class="line">                <span class="attr">ele</span>:<span class="built_in">window</span>,  <span class="comment">// 绑定滚动监听元素 默认是window</span></span><br><span class="line">                <span class="attr">scroll</span>: <span class="literal">true</span>,  <span class="comment">//默认是false,是否支持滚动加载</span></span><br><span class="line">                <span class="attr">size</span>:<span class="number">10</span>,  <span class="comment">//默认是10</span></span><br><span class="line">                <span class="attr">flag</span>: <span class="number">1</span>, <span class="comment">//自定义参数，可选，示例里没有用到</span></span><br><span class="line">            &#125;);</span><br></pre></td></tr></table></figure>
+<p>第一个参数是回调函数，即我们的业务逻辑。我把我的业务逻辑方法贴出来：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params">config, offset,size</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">    config.isAjax = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        <span class="attr">type</span>: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">        <span class="attr">url</span>: <span class="string">&#x27;json/blog.json&#x27;</span>,</span><br><span class="line">        <span class="attr">dataType</span>: <span class="string">&#x27;json&#x27;</span>,</span><br><span class="line">        <span class="attr">success</span>: <span class="function"><span class="keyword">function</span>(<span class="params">reponse</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">            config.isAjax = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">var</span> data = reponse.list;</span><br><span class="line">            <span class="keyword">var</span> sum = reponse.list.length;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">var</span> result = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/************业务逻辑块：实现拼接html内容并append到页面*****************/</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">//console.log(offset , size, sum);</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">/*如果剩下的记录数不够分页，就让分页数取剩下的记录数</span></span><br><span class="line"><span class="comment">            * 例如分页数是5，只剩2条，则只取2条</span></span><br><span class="line"><span class="comment">            *</span></span><br><span class="line"><span class="comment">            * 实际MySQL查询时不写这个</span></span><br><span class="line"><span class="comment">            */</span></span><br><span class="line">            <span class="keyword">if</span>(sum - offset &lt; size )&#123;</span><br><span class="line">                size = sum - offset;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="comment">/*使用for循环模拟SQL里的limit(offset,size)*/</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">var</span> i=offset; i&lt; (offset+size); i++)&#123;</span><br><span class="line">                result +=<span class="string">&#x27;&lt;div class=&quot;weui_media_box weui_media_text&quot;&gt;&#x27;</span>+</span><br><span class="line">                        <span class="string">&#x27;&lt;a href=&quot;&#x27;</span>+ data[i].url +<span class="string">&#x27;&quot; target=&quot;_blank&quot;&gt;&lt;h4 class=&quot;weui_media_title&quot;&gt;&#x27;</span>+ data[i].title +<span class="string">&#x27;&lt;/h4&gt;&lt;/a&gt;&#x27;</span>+</span><br><span class="line">                        <span class="string">&#x27;&lt;p class=&quot;weui_media_desc&quot;&gt;&#x27;</span>+ data[i].desc +<span class="string">&#x27;&lt;/p&gt;&#x27;</span>+</span><br><span class="line">                    <span class="string">&#x27;&lt;/div&gt;&#x27;</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            $(<span class="string">&#x27;.js-blog-list&#x27;</span>).append(result);</span><br><span class="line"></span><br><span class="line">            <span class="comment">/*******************************************/</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">/*隐藏more*/</span></span><br><span class="line">            <span class="keyword">if</span> ( (offset + size) &gt;= sum)&#123;</span><br><span class="line">                $(<span class="string">&quot;.js-load-more&quot;</span>).hide();</span><br><span class="line">                config.isEnd = <span class="literal">true</span>; <span class="comment">/*停止滚动加载请求*/</span></span><br><span class="line">                <span class="comment">//提示没有了</span></span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                $(<span class="string">&quot;.js-load-more&quot;</span>).show();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">error</span>: <span class="function"><span class="keyword">function</span>(<span class="params">xhr, type</span>)</span>&#123;</span><br><span class="line">            alert(<span class="string">&#x27;Ajax error!&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上仅贴出核心代码，详细案列：<a href="https://github.com/hedahang/loadingMoreUp">@Munachar</a></p>
+]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+        <tag>jQuery</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>一、原型和原型链</title>
+    <url>/2019/06/11/%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE/</url>
+    <content><![CDATA[<h2 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h2><p>首先创建一个构造函数</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function Person() &#123;&#125;</span><br><span class="line">var person = new Person();</span><br><span class="line">person.name = &#x27;lilei&#x27;;</span><br><span class="line">console.log(person.name) // lilei</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，Person 就是一个构造函数，我们使用 new 创建了一个实例对象 person。</p>
+<h3 id="prototype"><a href="#prototype" class="headerlink" title="prototype"></a>prototype</h3><p>每个函数都有一个prototype属性，那这个属性到底是指向哪里呢？是这个函数的原型吗？</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function Person() &#123;&#125;</span><br><span class="line">Person.prototype.name = &#x27;lilei&#x27;;</span><br><span class="line">var person1 = new Person();</span><br><span class="line">var person2 = new Person();</span><br><span class="line">console.log(person1.name) // lilei</span><br><span class="line">console.log(person2.name) // lilei</span><br></pre></td></tr></table></figure>
+<p>从这里可以看出，函数Person的prototype熟悉指向了一个对象，这个对象就是正在调用该构造函数而创建的实例的原型，也就是这个例子中的person的原型。<br>那什么是原型呢？可以这样理解，每个JavaScript对象（null除外）在创建的时候都会关联另一个对象，这个对象就是我们所说的原型，每一个对象都会从原型继承属性。</p>
+<h3 id="proto"><a href="#proto" class="headerlink" title="proto"></a><strong>proto</strong></h3><p>每一个JavaScript对象（null除外）都具有的一个属性叫 ‘<strong>proto</strong>‘ , 这个属性指向该对象的原型。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function Person() &#123;&#125;</span><br><span class="line">var person = new Person();</span><br><span class="line">console.log(person.__proto__ === Person.prototype); // true</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<h3 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h3><p>前面我们已经知道实例对象和构造函数都可以指向原型，那么原型是否有属性指向构造函数或者实例呢？<br>因为一个构造函数可以生成多个实例，所以原型没有指向实例的属性，，但是原型可以指向构造函数，这就要讲到第三个属性：constructor，每个原型都有一个 constructor 属性指向关联的构造函数。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function Person() &#123;&#125;</span><br><span class="line">console.log(Person === Person.prototype.constructor); // true</span><br></pre></td></tr></table></figure>
+<p>综上我们已经得出</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function Person() &#123;&#125;</span><br><span class="line"></span><br><span class="line">var person = new Person();</span><br><span class="line"></span><br><span class="line">console.log(person.__proto__ == Person.prototype) // true</span><br><span class="line">console.log(Person.prototype.constructor == Person) // true</span><br><span class="line">// 顺便学习一个ES5的方法,可以获得对象的原型</span><br><span class="line">console.log(Object.getPrototypeOf(person) === Person.prototype) // true</span><br></pre></td></tr></table></figure>
+<h2 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h2><p>在前面，我们已经知道什么是原型，下面我们说说原型链。<br>当读取实例的属性时，如果找不到，就会查找与对象关联的原型中的属性，如果还查不到，就去找原型的原型，一直找到最顶层为止。<br>那么原型的最顶层是什么呢？请看下面的代码</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">console.log(Object.prototype.__proto__ === null) // true</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>null字面意思：空值，这个值的语义是，希望表示一个对象被人为的重置为空对象，而非一个变量最原始的状态 。<br>所以 Object.prototype.<strong>proto</strong> 的值为 null 跟 Object.prototype 没有原型，其实表达了一个意思。<br>所以查找属性的时候查到 Object.prototype 就可以停止查找了，所以原型的最顶层就是null。<br>最后用一张图来表示之间的关系：<br><img src="/images/prototype.png" alt="(原型图)"><br>图中由相互关联的原型组成的链状结构就是原型链，也就是蓝色的这条线。</p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>双飞翼布局和圣杯布局</title>
+    <url>/2017/06/23/%E5%8F%8C%E9%A3%9E%E7%BF%BC%E5%B8%83%E5%B1%80%E5%92%8C%E5%9C%A3%E6%9D%AF%E5%B8%83%E5%B1%80/</url>
+    <content><![CDATA[<h1 id="双飞翼布局和圣杯布局"><a href="#双飞翼布局和圣杯布局" class="headerlink" title="双飞翼布局和圣杯布局"></a>双飞翼布局和圣杯布局</h1><p><br><strong>圣杯布局和双飞翼布局</strong>基本上是一致的，都是两边固定宽度，中间自适应的三栏布局，其中，中间栏放到文档流前面，保证先行渲染。解决方案大体相同，都是三栏全部float:left浮动，区别在于解决中间栏div的内容不被遮挡上，圣杯布局是中间栏在添加相对定位，并配合left和right属性，效果上表现为三栏是单独分开的（如果可以看到空隙的话），而双飞翼布局是在中间栏的div中嵌套一个div，内容写在嵌套的div里，然后对嵌套的div设置margin-left和margin-right，效果上表现为左右两栏在中间栏的上面，中间栏还是100%宽度，只不过中间栏的内容通过margin的值显示在中间。</p>
+<hr>
+<span id="more"></span>
+
+<h2 id="双飞翼布局"><a href="#双飞翼布局" class="headerlink" title="双飞翼布局"></a>双飞翼布局</h2><h3 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.wrap</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">200px</span> auto;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.main</span>,<span class="selector-class">.left</span>,<span class="selector-class">.right</span>&#123;</span><br><span class="line">    <span class="attribute">float</span>: left;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.main</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#C899FF</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.main</span> <span class="selector-tag">p</span>&#123;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span> <span class="number">60px</span> <span class="number">0</span> <span class="number">40px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">200px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.left</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">40px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#EBAD5A</span>;</span><br><span class="line">    <span class="attribute">margin-left</span>: -<span class="number">100%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.right</span>&#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">60px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#348F26</span>;</span><br><span class="line">    <span class="attribute">margin-left</span>: -<span class="number">60px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wrap&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;main&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span>mainmainmainmain<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;left&quot;</span>&gt;</span>left<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;right&quot;</span>&gt;</span>right<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="圣杯布局"><a href="#圣杯布局" class="headerlink" title="圣杯布局"></a>圣杯布局</h2><h3 id="CSS-1"><a href="#CSS-1" class="headerlink" title="CSS"></a>CSS</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#hd</span>&#123;</span><br><span class="line">    <span class="attribute">height</span>:<span class="number">50px</span>;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#666</span>;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#bd</span>&#123;</span><br><span class="line">    <span class="comment">/*左右栏通过添加负的margin放到正确的位置了，此段代码是为了摆正中间栏的位置*/</span></span><br><span class="line">    <span class="attribute">padding</span>:<span class="number">0</span> <span class="number">200px</span> <span class="number">0</span> <span class="number">180px</span>;</span><br><span class="line">    <span class="attribute">height</span>:<span class="number">100px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#middle</span>&#123;</span><br><span class="line">    <span class="attribute">float</span><span class="selector-pseudo">:left</span>;</span><br><span class="line">    <span class="attribute">width</span>:<span class="number">100%</span>;<span class="comment">/*左栏上去到第一行*/</span></span><br><span class="line">    <span class="attribute">height</span>:<span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">background</span>:blue;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#left</span>&#123;</span><br><span class="line">    <span class="attribute">float</span><span class="selector-pseudo">:left</span>;</span><br><span class="line">    <span class="attribute">width</span>:<span class="number">180px</span>;</span><br><span class="line">    <span class="attribute">height</span>:<span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">margin-left</span>:-<span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">background</span>:<span class="number">#0c9</span>;</span><br><span class="line">    <span class="comment">/*中间栏的位置摆正之后，左栏的位置也相应右移，通过相对定位的left恢复到正确位置*/</span></span><br><span class="line">    <span class="attribute">position</span>:relative;</span><br><span class="line">    <span class="attribute">left</span>:-<span class="number">180px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#right</span>&#123;</span><br><span class="line">    <span class="attribute">float</span><span class="selector-pseudo">:left</span>;</span><br><span class="line">    <span class="attribute">width</span>:<span class="number">200px</span>;</span><br><span class="line">    <span class="attribute">height</span>:<span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">margin-left</span>:-<span class="number">200px</span>;</span><br><span class="line">    <span class="attribute">background</span>:<span class="number">#0c9</span>;</span><br><span class="line">    <span class="comment">/*中间栏的位置摆正之后，右栏的位置也相应左移，通过相对定位的right恢复到正确位置*/</span></span><br><span class="line">    <span class="attribute">position</span>:relative;</span><br><span class="line">    <span class="attribute">right</span>:-<span class="number">200px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#footer</span>&#123;</span><br><span class="line">    <span class="attribute">height</span>:<span class="number">50px</span>;</span><br><span class="line">    <span class="attribute">background</span>: <span class="number">#666</span>;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="HTML-1"><a href="#HTML-1" class="headerlink" title="HTML"></a>HTML</h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;hd&quot;</span>&gt;</span>header<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;bd&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;middle&quot;</span>&gt;</span>middle<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;left&quot;</span>&gt;</span>left<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;right&quot;</span>&gt;</span>right<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;footer&quot;</span>&gt;</span>footer<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>布局</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+        <tag>HTML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>四、JavaScript之变量对象</title>
+    <url>/2019/07/12/%E5%8F%98%E9%87%8F%E5%AF%B9%E8%B1%A1/</url>
+    <content><![CDATA[<p>在前面的文章《JavaScript之执行上下文栈》<br>执行上下文：指当前执行环境中的变量、函数声明，参数（arguments），作用域链，this等信息。JavaScript 中运行任何的代码都是在执行上下文中运行。<br>执行上下文的组成代码示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const ExecutionContextObj = &#123;</span><br><span class="line">    VO: window, // 变量对象</span><br><span class="line">    ScopeChain: &#123;&#125;, // 作用域链</span><br><span class="line">    this: window</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="执行上下文的类型"><a href="#执行上下文的类型" class="headerlink" title="执行上下文的类型"></a>执行上下文的类型</h3><p>执行上下文总共有三种类型：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">全局执行上下文： 这是默认的、最基础的执行上下文。不在任何函数中的代码都位于全局执行上下文中。它做了两件事：1. 创建一个全局对象，在浏览器中这个全局对象就是 window 对象。2. 将 this 指针指向这个全局对象。一个程序中只能存在一个全局执行上下文。</span><br><span class="line">函数执行上下文： 每次调用函数时，都会为该函数创建一个新的执行上下文。每个函数都拥有自己的执行上下文，但是只有在函数被调用的时候才会被创建。一个程序中可以存在任意数量的函数执行上下文。每当一个新的执行上下文被创建，它都会按照特定的顺序执行一系列步骤，具体过程将在本文后面讨论。</span><br><span class="line">Eval 函数执行上下文： 运行在 eval 函数中的代码也获得了自己的执行上下文，但不常用，所以在这里不做讨论。</span><br></pre></td></tr></table></figure>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="执行上下文生命周期"><a href="#执行上下文生命周期" class="headerlink" title="执行上下文生命周期"></a>执行上下文生命周期</h3><p>执行上下文的生命周期包括三个阶段：创建阶段→执行阶段→回收阶段</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1. 创建阶段</span><br><span class="line">  生成变量对象</span><br><span class="line">  创建arguments</span><br><span class="line">  扫描函数声明</span><br><span class="line">  扫描变量声明</span><br><span class="line">  建立作用域链</span><br><span class="line">  确定this的指向</span><br><span class="line">2. 执行阶段</span><br><span class="line">  变量赋值</span><br><span class="line">  函数的引用</span><br><span class="line">  执行其他代码</span><br><span class="line">3. 回收阶段</span><br><span class="line">  执行上下文出栈等待虚拟机回收执行上下文</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基于Vue项目开发中遇到的坑及总结</title>
+    <url>/2017/08/10/%E5%9F%BA%E4%BA%8EVue%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91%E5%8F%8A%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<p>项目在5月底启动，属于创业公司的业务扩展吧，IOS和安卓都有成型的版本，所以要做一个对应的移动端H5版的达人、KTV、派对预订，入口是微信公众号，当然少不了jssdk的使用，以及balabala的授权处理等。</p>
+<h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><hr>最初是考虑用React+Redux+Webpack，前后端完全分离，但考虑到人手不足，前后端暂时做不了完全分离，然后还有对React也不熟悉，项目时间等问题，然后就被Boss否了。
+最终用了更熟悉的Vue+Vuex+Webpack。主要还是因为更轻，API更加友好，上手速度更快，可以马上开工。
+比较遗憾的是因为各种原因前后端分离还不是很彻底，前端用的是smarty模板加js渲染页面。好处是首屏数据可以放到script标签里面直出，在进度条读完的时候页面就能够渲染出来了，提高首屏渲染时间。但是调试的时候十分麻烦，因为没有Node做中间层，每次都要在本地完整地跑个服务器，不然拿不到数据。
+Vue，Vuex，Vue-router，Webpack这些不了解的同学就去看看<a href="https://cn.vuejs.org/v2/guide/installation.html" target="_blank" rel="external">文档</a>。MV*框架用好了真的是极大地解放生产力，特别是页面的交互十分复杂的时候。
+<span id="more"></span>
+## 项目过程中遇到的坑
+<hr>
+1. 遇到的第一个的坑就是transition。首页有一个滑动的banner，我是直接用css3的transition配合js定时改变transform实现的。滑动在chrome中模拟没问题，ios中没问题，但是安卓中就没有滑动，百思不得其解。起初还以为是兼容性问题，搞了好久才发现需要在css中先增加一个transform: translateX(0)，像下面一样，不然之后再通过js更改transform是没法在安卓中触发transition的。
+<pre>
+.slide-wp{
+    transform:  translateX(0);
+    -webkit-transform:  translateX(0);
+    transition: transform  1.5s ease;
+    -webkit-transition: transform 1.5s ease;
+}
+</pre>大家知道，transition的作用是令CSS的属性值在一定的时间区间内平滑地过渡。
+所以个人猜测，在安卓中，当没有初始值时，translateX的改动没有被平滑地过渡，就是说transition并不知道translateX是从什么地方开始过渡的，所以也就没有平滑之说，也就没有动画了。
+<hr>2. 第二个就是ES6。既然用了Webpack，当然就要配合Bebel用上ES6啦。写的时候还是很爽的。let，const，模块，箭头函数，字符串模版，对象属性简写，解构等等…但帅不过3秒，在chrome上模拟地跑一点问题都没有，一到移动端就直接白屏，页面都没有渲染出来。
+排查了好久，才发现是某些扩展运算符...，某些解构和for...of...循环的问题。因为这些ES6的特性（其实不指这些）在Bebel中转换是要用到[Symbol.iterator]接口的。如下面这样。
+转码前:
+<pre>1.const [a, b, c, d, e] = 'hello';
+2.console.log(a, b, c, d, e);//'h','e','l','l','o'</pre>
+转码后:
+<pre>1.'use strict';
+2.var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i['return']) _i['return'](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError('Invalid attempt to destructure non-iterable instance'); } }; })();
+3.
+4.var _hello = 'hello';
+5.
+6.var _hello2 = _slicedToArray(_hello, 5);
+7.
+8.var a = _hello2[0];
+9.var b = _hello2[1];
+10.var c = _hello2[2];
+11.var d = _hello2[3];
+12.var e = _hello2[4];
+13.
+14.console.log(a, b, c, d, e);//'h','e','l','l','o'</pre>
+第一行先声明的_slicedToArray函数用到了[Symbol.iterator]接口，然而浏览器对这个接口的支持还很有限，特别是移动端，只有Firefox Mobile36版本以上才支持，其它清一色挂掉。
+所以说ES6虽好，但真要用到实际项目中的话，还不能太激进，有些特性经过Bebel转码后性能上可能还会有所下降，所以还是应该合理地使用ES6。如果是自己折腾倒无所谓，Symbol，Class，Generator，Promise这些就随便炫技吧
+<hr>3. 第三个坑就是Vue使用的问题。如其说是坑，还是不如说是我自身还不够熟悉Vue。先看一下官方说明：
+<br><code>受 ES5 的限制，Vue.js 不能检测到对象属性的添加或删除。因为 Vue.js 在初始化实例时将属性转为 getter/setter，所以属性必须在 data 对象上才能让 Vue.js 转换它，才能让它是响应的。</code>
+<br>当时需要在props传来的某些对象数据中增加一个是否可视属性，用来控制一个与其关联的弹出框。增加后点击视图上一点反应都没有，但是用console.log打印出来发现值的确的有变化的。
+也就是说，<b>数据的变化不能触发视图更新。</b>原因就是如上面所说，因为这个属性是我后来添加的，不能被Vuejs检测到。这时候需要使用$set(key, value)这个API。
+话说里面的语法需要注意下，第一个参数key是一个字符串，是一个keypath，如果假如你的数据是这样:<pre>data(){
+            visitors : [{
+                    "id": 1,
+                    ...
+                }, {
+                    "id": 2,
+                    ...
+                }, {
+                    "id": 3,
+                    ...
+                }],
+        }
+    </pre>
+你需要在某次操作后为visitiors里面的每个对象增加一个show属性,则需要这样写：<pre>let str;
+         for (let i = 0 , len = this.visitors.length ; i < len; i++) {
+             str = "visitors[" + i + "].show";
+             this.$set(str,true);
+         }
+    </pre>
+之前真的被这东西搞了很久，明明数据变化了，视图却不更新。个人感觉新手刚使用Vue时很难发现这个问题。也怪自己对Vue，对ES5<code>getter/setter</code>的理解还不够吧。
+<hr>4. IOS上CSS3动画的问题。在对img或者设置了background-image的DOM元素设置CSS动画时，动画在刚进入页面的时候有可能不被触发，需要滑动一下屏幕动画才动，安卓下则没有问题。
+刚开始还以为是没有设置初始值的问题，但感觉不应该会是这样的。后来在stackoverflow上找到了解决办法(<a href="http://stackoverflow.com/questions/29219534/css-animation-not-always-starting-in-ios-8-safari" target="_blank" rel="external">戳这里</a>)。
+给动画加个0.1s秒的延时<pre>animation: slide 1.5s 0.1s linear infinite;
+    webkit-animation: slide 1.5s 0.1s linear infinite;
+</pre>
+
+<h2 id="关于Vuex"><a href="#关于Vuex" class="headerlink" title="关于Vuex"></a>关于Vuex</h2><hr>
+Vuex 之于 vue，就相当于 Redux 之于 React。它是一套数据管理架构实现，用于解决在大型前端应用时数据流动，数据管理等问题。
+
+<p>因为组件一旦多起来，不同组件之间的通信和数据流动会变得十分繁琐及难以追踪，特别是在子组件向同级子组件通信时，你可能需要先$dispatch到父组件，再$broadcast给子组件，整个事件流十分繁杂，也很难调试。<br>Vuex就是用来解决这些问题的。更具体的说明可以看文档，我就不过多叙述了。我就说一下我对Vuex的一些理解。</p>
+<p>Vuex里面的数据流是单向的,就像官方说的那样：</p>
+<ol>
+<li>用户在组件中的输入操作触发 action 调用；</li>
+<li>Actions 通过分发 mutations 来修改 store 实例的状态；</li>
+<li>Store 实例的状态变化反过来又通过 getters 被组件获知。</li>
+</ol>
+<p>而且为了保证数据是单向流动，并且是可监控和可预测的，除了在mutation handlers 外，其它地方不允许直接修改 store 里面的 state。</p>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何共享一个原型对象</title>
+    <url>/2016/07/08/%E5%A6%82%E4%BD%95%E5%85%B1%E4%BA%AB%E4%B8%80%E4%B8%AA%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1/</url>
+    <content><![CDATA[<p>我们想创建一个Student构造函数：</p>
+<pre><code>function Student(props) &#123;
+    this.name = props.name || &#39;Unnamed&#39;;
+&#125;
+Student.prototype.hello = function () &#123;
+    alert(&#39;Hello, &#39; + this.name + &#39;!&#39;);
+&#125;
+</code></pre>
+<p>现在，我们要基于Student扩展出PrimaryStudent，可以先定义出PrimaryStudent：</p>
+<pre><code>function PrimaryStudent(props) &#123;
+    // 调用Student构造函数，绑定this变量:
+    Student.call(this, props);
+    this.grade = props.grade || 1;
+&#125;
+</code></pre>
+<span id="more"></span>    
+<p>但是，调用了Student构造函数不等于继承了Student，PrimaryStudent创建的对象的原型是：</p>
+<pre><code>new PrimaryStudent() ----&gt; PrimaryStudent.prototype ----&gt; Object.prototype ----&gt; null
+</code></pre>
+<p>必须想办法把原型链修改为：</p>
+<pre><code>new PrimaryStudent() ----&gt; PrimaryStudent.prototype ----&gt; Student.prototype ----&gt; Object.prototype ----&gt; null
+</code></pre>
+<p>这样，原型链对了，继承关系就对了。新的基于PrimaryStudent创建的对象不但能调用PrimaryStudent.prototype定义的方法，也可以调用Student.prototype定义的方法。</p>
+<p>如果你想用最简单粗暴的方法这么干：</p>
+<pre><code>PrimaryStudent.prototype = Student.prototype;
+</code></pre>
+<p>是不行的！如果这样的话，PrimaryStudent和Student共享一个原型对象，那还要定义PrimaryStudent干啥？</p>
+<p>我们必须借助一个中间对象来实现正确的原型链，这个中间对象的原型要指向Student.prototype。为了实现这一点，参考道爷（就是发明JSON的那个道格拉斯）的代码，中间对象可以用一个空函数F来实现：</p>
+<pre><code>// PrimaryStudent构造函数:
+function PrimaryStudent(props) &#123;
+    Student.call(this, props);
+    this.grade = props.grade || 1;
+&#125;
+
+// 空函数F:
+function F() &#123;
+&#125;
+
+// 把F的原型指向Student.prototype:
+F.prototype = Student.prototype;
+
+// 把PrimaryStudent的原型指向一个新的F对象，F对象的原型正好指向Student.prototype:
+PrimaryStudent.prototype = new F();
+
+// 把PrimaryStudent原型的构造函数修复为PrimaryStudent:
+PrimaryStudent.prototype.constructor = PrimaryStudent;
+
+// 继续在PrimaryStudent原型（就是new F()对象）上定义方法： (可以省略)
+PrimaryStudent.prototype.getGrade = function () &#123;
+    return this.grade;
+&#125;;
+
+// 创建xiaoming:
+var xiaoming = new PrimaryStudent(&#123;
+    name: &#39;小明&#39;,
+    grade: 2
+&#125;);
+xiaoming.name; // &#39;小明&#39;
+xiaoming.grade; // 2
+
+// 验证原型:
+xiaoming.__proto__ === PrimaryStudent.prototype; // true
+xiaoming.__proto__.__proto__ === Student.prototype; // true
+
+// 验证继承关系:
+xiaoming instanceof PrimaryStudent; // true
+xiaoming instanceof Student; // true
+</code></pre>
+<p>注意，函数F仅用于桥接，我们仅创建了一个new F()实例，而且，没有改变原有的Student定义的原型链。</p>
+<p>如果把继承这个动作用一个inherits()函数封装起来，还可以隐藏F的定义，并简化代码：</p>
+<pre><code>function inherits(Child, Parent) &#123;
+    var F = function () &#123;&#125;;
+    F.prototype = Parent.prototype;
+    Child.prototype = new F();
+    Child.prototype.constructor = Child;
+&#125;
+</code></pre>
+<p>这个inherits()函数可以复用：</p>
+<pre><code>function Student(props) &#123;
+    this.name = props.name || &#39;Unnamed&#39;;
+&#125;
+
+Student.prototype.hello = function () &#123;
+    alert(&#39;Hello, &#39; + this.name + &#39;!&#39;);
+&#125;
+
+function PrimaryStudent(props) &#123;
+    Student.call(this, props);
+    this.grade = props.grade || 1;
+&#125;
+
+// 实现原型继承链:
+inherits(PrimaryStudent, Student);
+
+// 绑定其他方法到PrimaryStudent原型:
+PrimaryStudent.prototype.getGrade = function () &#123;
+    return this.grade;
+&#125;;
+</code></pre>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><ul>
+<li>JavaScript的原型继承实现方式就是：</li>
+<li>定义新的构造函数，并在内部用call()调用希望“继承”的构造函数，并绑定this；</li>
+<li>借助中间函数F实现原型链继承，最好通过封装的inherits函数完成；</li>
+<li>继续在新的构造函数的原型上定义新方法。</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何处理信息过载</title>
+    <url>/2016/05/04/%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E4%BF%A1%E6%81%AF%E8%BF%87%E8%BD%BD/</url>
+    <content><![CDATA[<h3 id="一、俯瞰全景"><a href="#一、俯瞰全景" class="headerlink" title="一、俯瞰全景"></a>一、俯瞰全景</h3><blockquote>
+<p>用断舍离的自在力俯瞰信息输入全景<br>微信：群、订阅号、朋友圈<br>微博、日报、新闻等APP<br>书籍、杂志<br>音频<br>其他</p>
+</blockquote>
+<h3 id="二、正本清源"><a href="#二、正本清源" class="headerlink" title="二、正本清源"></a>二、正本清源</h3><blockquote>
+<p>梳理反思，及时清理对你造成困扰的信息源头。<br>以下是我的使用习惯，供参考<br>微信清退规则<br>群：没有群规，且超过一个月不曾发言<br>订阅号：未读数超 30<br>朋友圈：固定时间查阅<br>APP：关掉推送通知，关不掉就卸掉</p>
+</blockquote>
+<span id="more"></span>
+<h3 id="三、书籍"><a href="#三、书籍" class="headerlink" title="三、书籍"></a>三、书籍</h3><blockquote>
+<p>尽量阅读纸质书，不读杂志<br>读「元学科」相关的著作<br>阅读经典与诚意之作<br>阅读器存放的书不超过四本</p>
+</blockquote>
+<h3 id="四、音频"><a href="#四、音频" class="headerlink" title="四、音频"></a>四、音频</h3><blockquote>
+<p>只在通勤时收听</p>
+</blockquote>
+<h3 id="五、社交"><a href="#五、社交" class="headerlink" title="五、社交"></a>五、社交</h3><blockquote>
+<p>远离社交媒体<br>尽可能独立思考地输出代表作<br>有可追溯的记录平台<br>让自己变得优秀，方可与优秀的人相聚</p>
+</blockquote>
+<blockquote>
+<p>会当凌绝顶，一览众山小。当你攀爬上思想巅峰，你便知，所谓信息过载，便如山边之行云，待一一退去，方可领略真知的雄伟。</p>
+</blockquote>
+<p>作者：陈素封<br>链接：<a href="http://www.zhihu.com/question/19685050/answer/71453024">http://www.zhihu.com/question/19685050/answer/71453024</a><br>来源：知乎<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+]]></content>
+      <tags>
+        <tag>转载</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于IOS、安卓与原生JS交互的总结</title>
+    <url>/2016/11/03/%E5%AE%89%E5%8D%93IOS%E4%B8%8EJS%E4%BA%A4%E4%BA%92/</url>
+    <content><![CDATA[<p>最近在App中需要做一些页面，其中涉及到了与原生APP交互的问题，现在做下总结方便以后查询</p>
+<p><strong>Android与JS交互</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">var</span> browser=&#123;</span><br><span class="line">    <span class="attr">versions</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> u = navigator.userAgent, app = navigator.appVersion;</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="comment">//移动终端浏览器版本信息</span></span><br><span class="line">            <span class="attr">trident</span>: u.indexOf(<span class="string">&#x27;Trident&#x27;</span>) &gt; -<span class="number">1</span>, <span class="comment">//IE内核</span></span><br><span class="line">            <span class="attr">presto</span>: u.indexOf(<span class="string">&#x27;Presto&#x27;</span>) &gt; -<span class="number">1</span>, <span class="comment">//opera内核</span></span><br><span class="line">            <span class="attr">webKit</span>: u.indexOf(<span class="string">&#x27;AppleWebKit&#x27;</span>) &gt; -<span class="number">1</span>, <span class="comment">//苹果、谷歌内核</span></span><br><span class="line">            <span class="attr">gecko</span>: u.indexOf(<span class="string">&#x27;Gecko&#x27;</span>) &gt; -<span class="number">1</span> &amp;&amp; u.indexOf(<span class="string">&#x27;KHTML&#x27;</span>) == -<span class="number">1</span>, <span class="comment">//火狐内核</span></span><br><span class="line">            <span class="attr">mobile</span>: !!u.match(<span class="regexp">/AppleWebKit.*Mobile.*/</span>)||!!u.match(<span class="regexp">/AppleWebKit/</span>), <span class="comment">//是否为移动终端</span></span><br><span class="line">            <span class="attr">ios</span>: !!u.match(<span class="regexp">/\(i[^;]+;( U;)? CPU.+Mac OS X/</span>), <span class="comment">//ios终端</span></span><br><span class="line">            <span class="attr">android</span>: u.indexOf(<span class="string">&#x27;Android&#x27;</span>) &gt; -<span class="number">1</span> || u.indexOf(<span class="string">&#x27;Linux&#x27;</span>) &gt; -<span class="number">1</span>, <span class="comment">//android终端或者uc浏览器</span></span><br><span class="line">            <span class="attr">iPhone</span>: u.indexOf(<span class="string">&#x27;iPhone&#x27;</span>) &gt; -<span class="number">1</span> || u.indexOf(<span class="string">&#x27;Mac&#x27;</span>) &gt; -<span class="number">1</span>, <span class="comment">//是否为iPhone或者QQHD浏览器</span></span><br><span class="line">            <span class="attr">iPad</span>: u.indexOf(<span class="string">&#x27;iPad&#x27;</span>) &gt; -<span class="number">1</span>, <span class="comment">//是否iPad</span></span><br><span class="line">            <span class="attr">webApp</span>: u.indexOf(<span class="string">&#x27;Safari&#x27;</span>) == -<span class="number">1</span> <span class="comment">//是否web应该程序，没有头部与底部</span></span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;(),</span><br><span class="line">    <span class="attr">language</span>:(navigator.browserLanguage || navigator.language).toLowerCase()</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showToast</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">android.showToast(<span class="string">&quot;&#x27;title: Money+Funny，这可能是全成都最适合你的兼职！&#x27;,&#x27;content:拼K高校首席体验官公开招募！底薪1000元多玩多赚！速来！速来！速来！&#x27;,&#x27;urlId:http://www.tanshikeji.com/Home/Active/special_form.html&#x27;&quot;</span>);</span><br><span class="line"><span class="comment">//    android.showToast(&quot;&#123;\&quot;title\&quot;:\&quot; 我报名了拼K高校首席体验官！ 你也快来！\&quot;,\&quot;content\&quot;:\&quot;拼K高校首席体验官公开招募！底薪1000元多玩多赚！速来！速来！速来！\&quot;,\&quot;urlId:http://www.tanshikeji.com/Home/Active/special\&quot;&#125;&quot;);</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showClick</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">   <span class="keyword">if</span>( navigator.userAgent.indexOf(<span class="string">&#x27;Android&#x27;</span>) &gt; -<span class="number">1</span> ||  navigator.userAgent.indexOf(<span class="string">&#x27;Linux&#x27;</span>) &gt; -<span class="number">1</span>)&#123;</span><br><span class="line"><span class="comment">//        e.preventDefault();</span></span><br><span class="line">    &#125;</span><br><span class="line">    android.showClick(<span class="string">&quot;http://www.tanshikeji.com/Home/Active/special_form.html&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">&#x27;android_share&#x27;</span>).onclick = showToast;</span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">&#x27;from_click&#x27;</span>).onclick = showClick;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<p><strong>IOS与JS交互:</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"><span class="comment">/*这段代码是固定的，必须要放到js中*/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setupWebViewJavascriptBridge</span>(<span class="params">callback</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">window</span>.WebViewJavascriptBridge) &#123; <span class="keyword">return</span> callback(WebViewJavascriptBridge); &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">window</span>.WVJBCallbacks) &#123; <span class="keyword">return</span> <span class="built_in">window</span>.WVJBCallbacks.push(callback); &#125;</span><br><span class="line">    <span class="built_in">window</span>.WVJBCallbacks = [callback];</span><br><span class="line">    <span class="keyword">var</span> WVJBIframe = <span class="built_in">document</span>.createElement(<span class="string">&#x27;iframe&#x27;</span>);</span><br><span class="line">    WVJBIframe.style.display = <span class="string">&#x27;none&#x27;</span>;</span><br><span class="line">    WVJBIframe.src = <span class="string">&#x27;wvjbscheme://__BRIDGE_LOADED__&#x27;</span>;</span><br><span class="line">    <span class="built_in">document</span>.documentElement.appendChild(WVJBIframe);</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">document</span>.documentElement.removeChild(WVJBIframe) &#125;, <span class="number">0</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*与OC交互的所有JS方法都要放在此处注册，才能调用通过JS调用OC或者让OC调用这里的JS*/</span></span><br><span class="line">setupWebViewJavascriptBridge(<span class="function"><span class="keyword">function</span>(<span class="params">bridge</span>) </span>&#123;</span><br><span class="line">    <span class="comment">/*我们在这注册一个js调用OC的方法，不带参数，且不用ObjC端反馈结果给JS：打开本demo对应的博文*/</span></span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">&#x27;ios_share&#x27;</span>).onclick = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">        bridge.callHandler(<span class="string">&#x27;getShareObjC&#x27;</span>, &#123;</span><br><span class="line">            <span class="string">&#x27;title&#x27;</span>: <span class="string">&#x27;Money+Funny，这可能是全成都最适合你的兼职！&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;content&#x27;</span>:<span class="string">&#x27;拼K高校首席体验官公开招募！底薪1000元多玩多赚！速来！速来！速来！&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;urlId&#x27;</span>:<span class="string">&#x27;http://www.tanshikeji.com/Home/Active/special_form.html&#x27;</span></span><br><span class="line">        &#125;, <span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line"><span class="comment">//            alert(&quot;success&quot;+response);</span></span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+
+]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+        <tag>IOS</tag>
+        <tag>Android</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>常用正则表达式</title>
+    <url>/2016/07/06/%E5%B8%B8%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</url>
+    <content><![CDATA[<p>正则表达式，一个十分古老而又强大的文本处理工具，仅仅用一段非常简短的表达式语句，便能够快速实现一个非常复杂的业务逻辑。熟练地掌握正则表达式的话，能够使你的开发效率得到极大的提升。</p>
+<p>正则表达式经常被用于字段或任意字符串的校验，如下面这段校验基本日期格式的JavaScript代码：</p>
+<pre><code>var reg = /^(\\d&#123;1,4&#125;)(-|\\/)(\\d&#123;1,2&#125;)\\2(\\d&#123;1,2&#125;)$/; 
+var r = fieldValue.match(reg);             
+if(r==null)alert(&#39;Date format error!&#39;);
+</code></pre>
+<p>下面是技匠整理的，在前端开发中经常使用到的20个正则表达式。</p>
+<hr>
+<span id="more"></span>
+<h3 id="校验密码强度"><a href="#校验密码强度" class="headerlink" title="校验密码强度"></a>校验密码强度</h3><p>密码的强度必须是包含大小写字母和数字的组合，不能使用特殊字符，长度在8-10之间。</p>
+<pre><code>^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).&#123;8,10&#125;$
+</code></pre>
+<h3 id="校验中文"><a href="#校验中文" class="headerlink" title="校验中文"></a>校验中文</h3><p>字符串仅能是中文。</p>
+<pre><code>^[\\u4e00-\\u9fa5]&#123;0,&#125;$
+</code></pre>
+<h3 id="由数字、26个英文字母或下划线组成的字符串"><a href="#由数字、26个英文字母或下划线组成的字符串" class="headerlink" title="由数字、26个英文字母或下划线组成的字符串"></a>由数字、26个英文字母或下划线组成的字符串</h3><pre><code>^\\w+$
+</code></pre>
+<h3 id="校验E-Mail-地址"><a href="#校验E-Mail-地址" class="headerlink" title="校验E-Mail 地址"></a>校验E-Mail 地址</h3><p>同密码一样，下面是E-mail地址合规性的正则检查语句。</p>
+<pre><code>[\\w!#$%&amp;&#39;*+/=?^_`&#123;|&#125;~-]+(?:\\.[\\w!#$%&amp;&#39;*+/=?^_`&#123;|&#125;~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?
+</code></pre>
+<h3 id="校验身份证号码"><a href="#校验身份证号码" class="headerlink" title="校验身份证号码"></a>校验身份证号码</h3><p>下面是身份证号码的正则校验。15 或 18位。</p>
+<p>15位：</p>
+<pre><code>^[1-9]\\d&#123;7&#125;((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d&#123;3&#125;$
+</code></pre>
+<p>18位：</p>
+<pre><code>^[1-9]\\d&#123;5&#125;[1-9]\\d&#123;3&#125;((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d&#123;3&#125;([0-9]|X)$
+</code></pre>
+<h3 id="校验日期"><a href="#校验日期" class="headerlink" title="校验日期"></a>校验日期</h3><p>“yyyy-mm-dd“ 格式的日期校验，已考虑平闰年。</p>
+<pre><code>^(?:(?!0000)[0-9]&#123;4&#125;-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]&#123;2&#125;(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$
+</code></pre>
+<h3 id="校验金额"><a href="#校验金额" class="headerlink" title="校验金额"></a>校验金额</h3><p>金额校验，精确到2位小数。</p>
+<pre><code>^[0-9]+(.[0-9]&#123;2&#125;)?$
+</code></pre>
+<h3 id="校验手机号"><a href="#校验手机号" class="headerlink" title="校验手机号"></a>校验手机号</h3><p>下面是国内 13、15、18开头的手机号正则表达式。（可根据目前国内收集号扩展前两位开头号码）</p>
+<pre><code>^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d&#123;8&#125;$
+</code></pre>
+<h3 id="判断IE的版本"><a href="#判断IE的版本" class="headerlink" title="判断IE的版本"></a>判断IE的版本</h3><p>IE目前还没被完全取代，很多页面还是需要做版本兼容，下面是IE版本检查的表达式。</p>
+<pre><code>^.*MSIE [5-8](?:\\.[0-9]+)?(?!.*Trident\\/[5-9]\\.0).*$
+</code></pre>
+<h3 id="校验IP-v4地址"><a href="#校验IP-v4地址" class="headerlink" title="校验IP-v4地址"></a>校验IP-v4地址</h3><p>IP4 正则语句。</p>
+<pre><code>\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.)&#123;3&#125;(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b
+</code></pre>
+<h3 id="校验IP-v6地址"><a href="#校验IP-v6地址" class="headerlink" title="校验IP-v6地址"></a>校验IP-v6地址</h3><p>IP6 正则语句。</p>
+<pre><code>(([0-9a-fA-F]&#123;1,4&#125;:)&#123;7,7&#125;[0-9a-fA-F]&#123;1,4&#125;|([0-9a-fA-F]&#123;1,4&#125;:)&#123;1,7&#125;:|([0-9a-fA-F]&#123;1,4&#125;:)&#123;1,6&#125;:[0-9a-fA-F]&#123;1,4&#125;|([0-9a-fA-F]&#123;1,4&#125;:)&#123;1,5&#125;(:[0-9a-fA-F]&#123;1,4&#125;)&#123;1,2&#125;|([0-9a-fA-F]&#123;1,4&#125;:)&#123;1,4&#125;(:[0-9a-fA-F]&#123;1,4&#125;)&#123;1,3&#125;|([0-9a-fA-F]&#123;1,4&#125;:)&#123;1,3&#125;(:[0-9a-fA-F]&#123;1,4&#125;)&#123;1,4&#125;|([0-9a-fA-F]&#123;1,4&#125;:)&#123;1,2&#125;(:[0-9a-fA-F]&#123;1,4&#125;)&#123;1,5&#125;|[0-9a-fA-F]&#123;1,4&#125;:((:[0-9a-fA-F]&#123;1,4&#125;)&#123;1,6&#125;)|:((:[0-9a-fA-F]&#123;1,4&#125;)&#123;1,7&#125;|:)|fe80:(:[0-9a-fA-F]&#123;0,4&#125;)&#123;0,4&#125;%[0-9a-zA-Z]&#123;1,&#125;|::(ffff(:0&#123;1,4&#125;)&#123;0,1&#125;:)&#123;0,1&#125;((25[0-5]|(2[0-4]|1&#123;0,1&#125;[0-9])&#123;0,1&#125;[0-9])\\.)&#123;3,3&#125;(25[0-5]|(2[0-4]|1&#123;0,1&#125;[0-9])&#123;0,1&#125;[0-9])|([0-9a-fA-F]&#123;1,4&#125;:)&#123;1,4&#125;:((25[0-5]|(2[0-4]|1&#123;0,1&#125;[0-9])&#123;0,1&#125;[0-9])\\.)&#123;3,3&#125;(25[0-5]|(2[0-4]|1&#123;0,1&#125;[0-9])&#123;0,1&#125;[0-9]))
+</code></pre>
+<h3 id="检查URL的前缀"><a href="#检查URL的前缀" class="headerlink" title="检查URL的前缀"></a>检查URL的前缀</h3><p>应用开发中很多时候需要区分请求是HTTPS还是HTTP，通过下面的表达式可以取出一个url的前缀然后再逻辑判断。</p>
+<pre><code>if (!s.match(/^[a-zA-Z]+:\\/\\//))
+&#123;
+    s = &#39;http://&#39; + s;
+&#125;
+</code></pre>
+<h3 id="提取URL链接"><a href="#提取URL链接" class="headerlink" title="提取URL链接"></a>提取URL链接</h3><p>下面的这个表达式可以筛选出一段文本中的URL。</p>
+<pre><code>^(f|ht)&#123;1&#125;(tp|tps):\\/\\/([\\w-]+\\.)+[\\w-]+(\\/[\\w- ./?%&amp;=]*)?
+</code></pre>
+<h3 id="文件路径及扩展名校验"><a href="#文件路径及扩展名校验" class="headerlink" title="文件路径及扩展名校验"></a>文件路径及扩展名校验</h3><p>验证windows下文件路径和扩展名（下面的例子中为.txt文件）</p>
+<pre><code>^([a-zA-Z]\\:|\\\\)\\\\([^\\\\]+\\\\)*[^\\/:*?&quot;&lt;&gt;|]+\\.txt(l)?$
+</code></pre>
+<h3 id="提取Color-Hex-Codes"><a href="#提取Color-Hex-Codes" class="headerlink" title="提取Color Hex Codes"></a>提取Color Hex Codes</h3><p>有时需要抽取网页中的颜色代码，可以使用下面的表达式。</p>
+<pre><code>^#([A-Fa-f0-9]&#123;6&#125;|[A-Fa-f0-9]&#123;3&#125;)$
+</code></pre>
+<h3 id="提取网页图片"><a href="#提取网页图片" class="headerlink" title="提取网页图片"></a>提取网页图片</h3><p>假若你想提取网页中所有图片信息，可以利用下面的表达式。</p>
+<pre><code>\\&lt; *[img][^\\\\&gt;]*[src] *= *[\\&quot;\\&#39;]&#123;0,1&#125;([^\\&quot;\\&#39;\\ &gt;]*)
+</code></pre>
+<h3 id="提取页面超链接"><a href="#提取页面超链接" class="headerlink" title="提取页面超链接"></a>提取页面超链接</h3><p>提取html中的超链接。</p>
+<pre><code>(&lt;a\\s*(?!.*\\brel=)[^&gt;]*)(href=&quot;https?:\\/\\/)((?!(?:(?:www\\.)?&#39;.implode(&#39;|(?:www\\.)?&#39;, $follow_list).&#39;))[^&quot;]+)&quot;((?!.*\\brel=)[^&gt;]*)(?:[^&gt;]*)&gt;
+</code></pre>
+<h3 id="查找CSS属性"><a href="#查找CSS属性" class="headerlink" title="查找CSS属性"></a>查找CSS属性</h3><p>通过下面的表达式，可以搜索到相匹配的CSS属性。</p>
+<pre><code>^\\s*[a-zA-Z\\-]+\\s*[:]&#123;1&#125;\\s[a-zA-Z0-9\\s.#]+[;]&#123;1&#125;
+</code></pre>
+<h3 id="抽取注释"><a href="#抽取注释" class="headerlink" title="抽取注释"></a>抽取注释</h3><p>如果你需要移除HMTL中的注释，可以使用如下的表达式。</p>
+<pre><code>&lt;!--(.*?)--&gt;
+</code></pre>
+<h3 id="匹配HTML标签"><a href="#匹配HTML标签" class="headerlink" title="匹配HTML标签"></a>匹配HTML标签</h3><p>通过下面的表达式可以匹配出HTML中的标签属性。</p>
+<pre><code>&lt;\\/?\\w+((\\s+\\w+(\\s*=\\s*(?:&quot;.*?&quot;|&#39;.*?&#39;|[\\^&#39;&quot;&gt;\\s]+))?)+\\s*|\\s*)\\/?&gt;
+</code></pre>
+<p>文／技匠（简书签约作者）<br>原文链接：<a href="http://www.jianshu.com/p/e7bb97218946">http://www.jianshu.com/p/e7bb97218946</a></p>
+]]></content>
+      <tags>
+        <tag>Expression</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>三、JavaScript之执行上下文栈</title>
+    <url>/2019/06/26/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E6%A0%88/</url>
+    <content><![CDATA[<p>由于JS是单线程的，每次只能做一件事情，其他的事情会放在指定的上下文栈中排队等待执行，所以执行上下文栈的作用是用来跟踪代码的，。</p>
+<p>JS解释器在初始化代码的时候，首先会创建一个新的全局执行上下文到执行上下文栈顶中，然后随着每次函数的调用都会创建一个新的执行上下文放入到栈顶中，随着函数执行完毕后被执行上下文栈顶弹出，直到回到全局的执行上下文中。（栈：一种数据结构，遵循后进先出的原则）。下面我们说说执行上下文栈是如何工作的。<br>为了模拟执行上下文栈的行为，让我们定义执行上下文栈是一个数组：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ECStack = [];</span><br></pre></td></tr></table></figure>
+<p>当 JavaScript 开始要解释执行代码的时候，最先遇到的就是全局代码，所以初始化的时候首先就会向执行上下文栈压入一个全局执行上下文，我们用 globalContext 表示它，并且只有当整个应用程序结束的时候，ECStack 才会被清空，所以程序结束之前， ECStack 最底部永远有个 globalContext：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ECStack = [</span><br><span class="line">    globalContext</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+<p>现在我们执行下面这段代码：</p>
+<span id="more"></span>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var color = &#x27;blue&#x27;;</span><br><span class="line">function changeColor() &#123;</span><br><span class="line">    var anotherColor = &#x27;red&#x27;;</span><br><span class="line">    function swapColors() &#123;</span><br><span class="line">        var tempColor = anotherColor;</span><br><span class="line">        anotherColor = color;</span><br><span class="line">        color = tempColor;</span><br><span class="line">    &#125;</span><br><span class="line">    swapColors();</span><br><span class="line">&#125;</span><br><span class="line">changeColor();</span><br></pre></td></tr></table></figure>
+<p>上述代码运行按照如下步骤：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">当上述代码在浏览器中加载时，JavaScript 引擎会创建一个全局执行上下文并且将它推入当前的执行栈</span><br><span class="line">调用 changeColor函数时，此时changeColor函数内部代码还未执行，js执行引擎立即创建一个changeColor的执行上下文（简称EC），然后把这执行上下文压入到执行栈（简称ECStack）中。</span><br><span class="line">执行changeColor函数过程中，调用swapColors函数，同样地，swapColors函数执行之前也创建了一个swapColors的执行上下文，并压入到执行栈中。</span><br><span class="line">swapColors函数执行完成，swapColors函数的执行上下文出栈，并且被销毁。</span><br><span class="line">changeColor函数执行完成，changeColor函数的执行上下文出栈，并且被销毁。</span><br></pre></td></tr></table></figure>
+<p><img src="/images/esstack.png" alt="(流程图)"></p>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>清除浮动</title>
+    <url>/2016/07/01/%E6%B8%85%E6%A5%9A%E6%B5%AE%E5%8A%A8/</url>
+    <content><![CDATA[<h4 id="清除浮动"><a href="#清除浮动" class="headerlink" title="清除浮动"></a>清除浮动</h4><pre><code>.order_con:after&#123;
+    content: ‘.’;
+    display: block;
+    visibility: hidden;
+    width: 0px;
+    height: 0px;
+    clear: both;
+&#125;
+</code></pre>
+]]></content>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>移动端软键盘挡住输入框</title>
+    <url>/2016/12/13/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%BD%AF%E9%94%AE%E7%9B%98%E6%8C%A1%E4%BD%8F%E8%BE%93%E5%85%A5%E6%A1%86/</url>
+    <content><![CDATA[<p>在IOS端不需要加这一段代码，在软键盘出来的时候页面会自动被顶上去，但是Android不会，所以加一些条件判断，代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> u = navigator.userAgent;</span><br><span class="line"><span class="keyword">var</span> isAndroid = u.indexOf(<span class="string">&#x27;Android&#x27;</span>) &gt; -<span class="number">1</span> || u.indexOf(<span class="string">&#x27;Adr&#x27;</span>) &gt; -<span class="number">1</span>; <span class="comment">//android终端</span></span><br><span class="line"><span class="keyword">var</span> isiOS = !!u.match(<span class="regexp">/\(i[^;]+;( U;)? CPU.+Mac OS X/</span>); <span class="comment">//ios终端</span></span><br><span class="line"><span class="comment">//处理isAndroid问题</span></span><br><span class="line"><span class="keyword">if</span> (isAndroid) &#123;</span><br><span class="line">     $(<span class="built_in">window</span>).on(<span class="string">&#x27;resize&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">          <span class="keyword">if</span> (<span class="built_in">document</span>.activeElement.tagName == <span class="string">&quot;INPUT&quot;</span> || <span class="built_in">document</span>.activeElement.tagName == <span class="string">&quot;TEXTAREA&quot;</span>) &#123;</span><br><span class="line">               <span class="built_in">window</span>.setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">　　　　　　　　<span class="built_in">document</span>.activeElement.scrollIntoViewIfNeeded();</span><br><span class="line">　　　　　　&#125;, <span class="number">0</span>);</span><br><span class="line">　　　&#125;</span><br><span class="line">　　  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+        <tag>IOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>不用0，1，2，以及加减乘除来进行运算</title>
+    <url>/2016/07/03/%E7%A8%8B%E5%BA%8F%E8%BF%90%E7%AE%97/</url>
+    <content><![CDATA[<p>很久很久以前，有个叫阿隆佐·邱奇，发现只需要用函数，就可以用计算机实现运算，而不需要0、1、2、3这些数字和+、-、*、/这些符号。</p>
+<p>JavaScript支持函数，所以可以通过JavaScript用函数来写这些计算。来试试：</p>
+<pre><code>&#39;use strict&#39;;
+// 定义数字0:
+var zero = function (f) &#123;
+    return function (x) &#123;
+        return x;
+    &#125;
+&#125;;
+// 定义数字1:
+var one = function (f) &#123;
+    return function (x) &#123;
+        return f(x);
+    &#125;
+&#125;;
+// 定义加法:
+function add(n, m) &#123;
+    return function (f) &#123;
+        return function (x) &#123;
+            return m(f)(n(f)(x));
+        &#125;
+    &#125;
+&#125;
+// 计算数字2 = 1 + 1:
+var two = add(one, one);
+// 计算数字3 = 1 + 2:
+var three = add(one, two);
+// 计算数字5 = 2 + 3:
+var five = add(two, three);
+
+// 你说它是3就是3，你说它是5就是5，你怎么证明？
+// 给3传一个函数,会打印3次:
+(three(function () &#123;
+    console.log(&#39;print 3 times&#39;);
+&#125;))();
+
+// 给5传一个函数,会打印5次:
+(five(function () &#123;
+    console.log(&#39;print 5 times&#39;);
+&#125;))();
+</code></pre>
+]]></content>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>移动端的长按事件</title>
+    <url>/2017/01/13/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E7%9A%84%E9%95%BF%E6%8C%89%E4%BA%8B%E4%BB%B6/</url>
+    <content><![CDATA[<p><strong>Demo代码：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>/&gt;</span></span></span><br><span class="line"><span class="xml">	<span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></span><br><span class="line"><span class="xml">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;width:100%;&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;touchArea&quot;</span> <span class="attr">style</span>=<span class="string">&quot;width:90%; height:200px; background-color:#CCC;font-size:100px&quot;</span>&gt;</span>长按我<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span></span><br><span class="line"><span class="javascript"><span class="xml"><span class="keyword">var</span> timeOutEvent=<span class="number">0</span>;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">	$(<span class="string">&quot;#touchArea&quot;</span>).on(&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">		<span class="attr">touchstart</span>: <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">			timeOutEvent = <span class="built_in">setTimeout</span>(<span class="string">&quot;longPress()&quot;</span>,<span class="number">500</span>);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">		 	e.preventDefault();</span></span></span><br><span class="line"><span class="javascript"><span class="xml">		&#125;,</span></span></span><br><span class="line"><span class="javascript"><span class="xml">		<span class="attr">touchmove</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">            		<span class="built_in">clearTimeout</span>(timeOutEvent);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">		    	timeOutEvent = <span class="number">0</span>;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">		&#125;,</span></span></span><br><span class="line"><span class="javascript"><span class="xml">		<span class="attr">touchend</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">	   		<span class="built_in">clearTimeout</span>(timeOutEvent);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">			<span class="keyword">if</span>(timeOutEvent!=<span class="number">0</span>)&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">			    alert(<span class="string">&quot;你这是点击，不是长按&quot;</span>);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">			&#125;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">			<span class="keyword">return</span> <span class="literal">false</span>;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">		&#125;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">	&#125;)</span></span></span><br><span class="line"><span class="javascript"><span class="xml">&#125;);</span></span></span><br><span class="line"><span class="javascript"><span class="xml"></span></span></span><br><span class="line"><span class="javascript"><span class="xml"></span></span></span><br><span class="line"><span class="javascript"><span class="xml"><span class="function"><span class="keyword">function</span> <span class="title">longPress</span>(<span class="params"></span>)</span>&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">    timeOutEvent = <span class="number">0</span>;</span></span></span><br><span class="line"><span class="javascript"><span class="xml">    alert(<span class="string">&quot;长按事件触发发&quot;</span>);</span></span></span><br><span class="line"><span class="javascript"><span class="xml">&#125;</span></span></span><br><span class="line"><span class="javascript"><span class="xml"></span></span></span><br><span class="line"><span class="javascript"><span class="xml"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>模板引擎、字节转换、map函数</title>
+    <url>/2016/06/23/%E9%9D%A2%E8%AF%95%E9%A2%98/</url>
+    <content><![CDATA[<h5 id="1-模板引擎"><a href="#1-模板引擎" class="headerlink" title="1. 模板引擎"></a>1. 模板引擎</h5><pre><code>var reg = /\$\&#123;[a-zA-Z]+\&#125;/g;
+var tpl = &quot;hello $&#123;who&#125;!&quot;;
+var obj = &#123;who:&quot;world&quot;&#125;;
+function template(tpl,obj)&#123;
+        var s = reg.exec(tpl);
+        var s1 = s[0].slice(2,-1);
+        document.write(tpl.replace(reg,obj[s1]));
+    &#125;
+    //template(tpl,obj);
+    template(&#39;Hello,$&#123;name&#125;&#39;,&#123;name:&quot;hedahang&quot;&#125;);
+</code></pre>
+<span id="more"></span>
+<h5 id="2-字节转换"><a href="#2-字节转换" class="headerlink" title="2. 字节转换"></a>2. 字节转换</h5><pre><code>&lt;pre&gt;function bytesToSize(bytes) &#123;
+    if (bytes === 0) return &#39;0 B&#39;;
+    var k = 1024,
+            sizes = [&#39;B&#39;, &#39;KB&#39;, &#39;MB&#39;, &#39;GB&#39;, &#39;TB&#39;, &#39;PB&#39;, &#39;EB&#39;, &#39;ZB&#39;, &#39;YB&#39;],
+            i = Math.floor(Math.log(bytes) / Math.log(k));
+    return (bytes / Math.pow(k, i)).toPrecision(3) + &#39; &#39; + sizes[i];
+&#125;
+console.log( bytesToSize(12345));&lt;/pre&gt;
+</code></pre>
+<h5 id="3-map函数"><a href="#3-map函数" class="headerlink" title="3. map函数"></a>3. map函数</h5><pre><code>&lt;pre&gt;function map(arr,fun)&#123;
+    var array = [];
+    for(var i = 0;i&lt;arr.length;i++)&#123;
+        if( i == 0)&#123;
+            array[i] = fun(0,arr[i]);
+        &#125;else&#123;
+            array[i] = fun(arr[i-1],arr[i])
+        &#125;
+    console.log(array);
+    &#125;
+&#125;
+map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
+</code></pre>
+]]></content>
+      <categories>
+        <category>Testing</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>素数算法</title>
+    <url>/2016/06/21/%E7%B4%A0%E6%95%B0%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<h3 id="找出数组中的素数"><a href="#找出数组中的素数" class="headerlink" title="找出数组中的素数"></a>找出数组中的素数</h3><p>例如    shu([1,2,5,9,7,8,6,13,56,48,46]) = [2, 5, 7, 13];</p>
+<pre><code>function shu(arr)&#123;
+    return arr.filter(
+        function(num) &#123;
+          if (num == 1) &#123;
+            return false;
+          &#125;
+          if (num == 2) &#123;
+            return true;
+          &#125;
+          for (var i = 2; i &lt;= Math.sqrt(num); i++) &#123;
+            if (num % i == 0) &#123;
+              return false;
+            &#125;
+          &#125;
+          return true;
+        &#125;
+    )
+&#125;
+</code></pre>
+]]></content>
+      <categories>
+        <category>Testing</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Markdown编辑器：马克飞象</title>
+    <url>/2016/07/23/%E9%A9%AC%E5%85%8B%E9%A3%9E%E8%B1%A1/</url>
+    <content><![CDATA[<h1 id="欢迎使用马克飞象"><a href="#欢迎使用马克飞象" class="headerlink" title="欢迎使用马克飞象"></a>欢迎使用马克飞象</h1><p>@(示例笔记本)[马克飞象|帮助|Markdown]</p>
+<p><strong>马克飞象</strong>是一款专为印象笔记（Evernote）打造的Markdown编辑器，通过精心的设计与技术实现，配合印象笔记强大的存储和同步功能，带来前所未有的书写体验。特点概述：</p>
+<ul>
+<li><strong>功能丰富</strong> ：支持高亮代码块、<em>LaTeX</em> 公式、流程图，本地图片以及附件上传，甚至截图粘贴，工作学习好帮手；</li>
+<li><strong>得心应手</strong> ：简洁高效的编辑器，提供<a href="http://maxiang.info/client_zh">桌面客户端</a>以及<a href="https://chrome.google.com/webstore/detail/kidnkfckhbdkfgbicccmdggmpgogehop">离线Chrome App</a>，支持移动端 Web；</li>
+<li><strong>深度整合</strong> ：支持选择笔记本和添加标签，支持从印象笔记跳转编辑，轻松管理。</li>
+</ul>
+<hr>
+<span id="more"></span>
+<p>[TOC]</p>
+<h2 id="Markdown简介"><a href="#Markdown简介" class="headerlink" title="Markdown简介"></a>Markdown简介</h2><blockquote>
+<p>Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档，然后转换成格式丰富的HTML页面。    —— <a href="https://zh.wikipedia.org/wiki/Markdown">维基百科</a></p>
+</blockquote>
+<p>正如您在阅读的这份文档，它使用简单的符号标识不同的标题，将某些文字标记为<strong>粗体</strong>或者<em>斜体</em>，创建一个<a href="http://www.example.com/">链接</a>或一个脚注[^demo]。下面列举了几个高级功能，更多语法请按<code>Ctrl + /</code>查看帮助。</p>
+<h3 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">@requires_authorization</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">somefunc</span>(<span class="params">param1=<span class="string">&#x27;&#x27;</span>, param2=<span class="number">0</span></span>):</span></span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;A docstring&#x27;&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">if</span> param1 &gt; param2: <span class="comment"># interesting</span></span><br><span class="line">        <span class="built_in">print</span> <span class="string">&#x27;Greater&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> (param2 - param1 + <span class="number">1</span>) <span class="keyword">or</span> <span class="literal">None</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SomeClass</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>message = <span class="string">&#x27;&#x27;&#x27;interpreter</span></span><br><span class="line"><span class="string"><span class="meta">... </span>prompt&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+<h3 id="LaTeX-公式"><a href="#LaTeX-公式" class="headerlink" title="LaTeX 公式"></a>LaTeX 公式</h3><p>可以创建行内公式，例如 $\Gamma(n) = (n-1)!\quad\forall n\in\mathbb N$。或者块级公式：</p>
+<p>$$    x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$</p>
+<h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><table>
+<thead>
+<tr>
+<th align="left">Item</th>
+<th align="right">Value</th>
+<th align="center">Qty</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Computer</td>
+<td align="right">1600 USD</td>
+<td align="center">5</td>
+</tr>
+<tr>
+<td align="left">Phone</td>
+<td align="right">12 USD</td>
+<td align="center">12</td>
+</tr>
+<tr>
+<td align="left">Pipe</td>
+<td align="right">1 USD</td>
+<td align="center">234</td>
+</tr>
+</tbody></table>
+<h3 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">st=&gt;start: Start</span><br><span class="line">e=&gt;end</span><br><span class="line">op=&gt;operation: My Operation</span><br><span class="line">cond=&gt;condition: Yes or No?</span><br><span class="line"></span><br><span class="line">st-&gt;op-&gt;cond</span><br><span class="line">cond(yes)-&gt;e</span><br><span class="line">cond(no)-&gt;op</span><br></pre></td></tr></table></figure>
+
+<p>以及时序图:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Alice-&gt;Bob: Hello Bob, how are you?</span><br><span class="line">Note right of Bob: Bob thinks</span><br><span class="line">Bob--&gt;Alice: I am good thanks!</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>提示：</strong>想了解更多，请查看<strong>流程图</strong><a href="http://adrai.github.io/flowchart.js/">语法</a>以及<strong>时序图</strong><a href="http://bramp.github.io/js-sequence-diagrams/">语法</a>。</p>
+</blockquote>
+<h3 id="复选框"><a href="#复选框" class="headerlink" title="复选框"></a>复选框</h3><p>使用 <code>- [ ]</code> 和 <code>- [x]</code> 语法可以创建复选框，实现 todo-list 等功能。例如：</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 已完成事项</li>
+<li><input disabled="" type="checkbox"> 待办事项1</li>
+<li><input disabled="" type="checkbox"> 待办事项2</li>
+</ul>
+<blockquote>
+<p><strong>注意：</strong>目前支持尚不完全，在印象笔记中勾选复选框是无效、不能同步的，所以必须在<strong>马克飞象</strong>中修改 Markdown 原文才可生效。下个版本将会全面支持。</p>
+</blockquote>
+<h2 id="印象笔记相关"><a href="#印象笔记相关" class="headerlink" title="印象笔记相关"></a>印象笔记相关</h2><h3 id="笔记本和标签"><a href="#笔记本和标签" class="headerlink" title="笔记本和标签"></a>笔记本和标签</h3><p><strong>马克飞象</strong>增加了<code>@(笔记本)[标签A|标签B]</code>语法, 以选择笔记本和添加标签。 <strong>绑定账号后</strong>， 输入<code>(</code>自动会出现笔记本列表，请从中选择。</p>
+<h3 id="笔记标题"><a href="#笔记标题" class="headerlink" title="笔记标题"></a>笔记标题</h3><p><strong>马克飞象</strong>会自动使用文档内出现的第一个标题作为笔记标题。例如本文，就是第一行的 <code>欢迎使用马克飞象</code>。</p>
+<h3 id="快捷编辑"><a href="#快捷编辑" class="headerlink" title="快捷编辑"></a>快捷编辑</h3><p>保存在印象笔记中的笔记，右上角会有一个红色的编辑按钮，点击后会回到<strong>马克飞象</strong>中打开并编辑该笔记。</p>
+<blockquote>
+<p><strong>注意：</strong>目前用户在印象笔记中单方面做的任何修改，马克飞象是无法自动感知和更新的。所以请务必回到马克飞象编辑。</p>
+</blockquote>
+<h3 id="数据同步"><a href="#数据同步" class="headerlink" title="数据同步"></a>数据同步</h3><p><strong>马克飞象</strong>通过<strong>将Markdown原文以隐藏内容保存在笔记中</strong>的精妙设计，实现了对Markdown的存储和再次编辑。既解决了其他产品只是单向导出HTML的单薄，又规避了服务端存储Markdown带来的隐私安全问题。这样，服务端仅作为对印象笔记 API调用和数据转换之用。</p>
+<blockquote>
+<p><strong>隐私声明：用户所有的笔记数据，均保存在印象笔记中。马克飞象不存储用户的任何笔记数据。</strong></p>
+</blockquote>
+<h3 id="离线存储"><a href="#离线存储" class="headerlink" title="离线存储"></a>离线存储</h3><p><strong>马克飞象</strong>使用浏览器离线存储将内容实时保存在本地，不必担心网络断掉或浏览器崩溃。为了节省空间和避免冲突，已同步至印象笔记并且不再修改的笔记将删除部分本地缓存，不过依然可以随时通过<code>文档管理</code>打开。</p>
+<blockquote>
+<p><strong>注意：</strong>虽然浏览器存储大部分时候都比较可靠，但印象笔记作为专业云存储，更值得信赖。以防万一，<strong>请务必经常及时同步到印象笔记</strong>。</p>
+</blockquote>
+<h2 id="编辑器相关"><a href="#编辑器相关" class="headerlink" title="编辑器相关"></a>编辑器相关</h2><h3 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h3><p>右侧系统菜单（快捷键<code>Ctrl + M</code>）的<code>设置</code>中，提供了界面字体、字号、自定义CSS、vim/emacs 键盘模式等高级选项。</p>
+<h3 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h3><p>帮助    <code>Ctrl + /</code><br>同步文档    <code>Ctrl + S</code><br>创建文档    <code>Ctrl + Alt + N</code><br>最大化编辑器    <code>Ctrl + Enter</code><br>预览文档 <code>Ctrl + Alt + Enter</code><br>文档管理    <code>Ctrl + O</code><br>系统菜单    <code>Ctrl + M</code></p>
+<p>加粗    <code>Ctrl + B</code><br>插入图片    <code>Ctrl + G</code><br>插入链接    <code>Ctrl + L</code><br>提升标题    <code>Ctrl + H</code></p>
+<h2 id="关于收费"><a href="#关于收费" class="headerlink" title="关于收费"></a>关于收费</h2><p><strong>马克飞象</strong>为新用户提供 10 天的试用期，试用期过后需要<a href="maxiang.info/vip.html">续费</a>才能继续使用。未购买或者未及时续费，将不能同步新的笔记。之前保存过的笔记依然可以编辑。</p>
+<h2 id="反馈与建议"><a href="#反馈与建议" class="headerlink" title="反馈与建议"></a>反馈与建议</h2><ul>
+<li>微博：<a href="http://weibo.com/u/2788354117">@马克飞象</a>，<a href="http://weibo.com/ggock" title="开发者个人账号">@GGock</a></li>
+<li>邮箱：<a href="mailto:&#x68;&#x75;&#x73;&#116;&#x67;&#111;&#99;&#x6b;&#64;&#103;&#109;&#97;&#105;&#x6c;&#46;&#99;&#x6f;&#109;">&#x68;&#x75;&#x73;&#116;&#x67;&#111;&#99;&#x6b;&#64;&#103;&#109;&#97;&#105;&#x6c;&#46;&#99;&#x6f;&#109;</a></li>
+</ul>
+<hr>
+<p>感谢阅读这份帮助文档。请点击右上角，绑定印象笔记账号，开启全新的记录与分享体验吧。</p>
+<p>[^demo]: 这是一个示例脚注。请查阅 <a href="https://github.com/fletcher/MultiMarkdown/wiki/MultiMarkdown-Syntax-Guide#footnotes">MultiMarkdown 文档</a> 关于脚注的说明。 <strong>限制：</strong> 印象笔记的笔记内容使用 <a href="https://dev.yinxiang.com/doc/articles/enml.php">ENML</a> 格式，基于 HTML，但是不支持某些标签和属性，例如id，这就导致<code>脚注</code>和<code>TOC</code>无法正常点击。</p>
+]]></content>
+      <categories>
+        <category>Testing</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
+        <tag>编辑器</tag>
+      </tags>
+  </entry>
+</search>
