@@ -436,6 +436,86 @@ Given two integers x and y, calculate the Hamming distance.
       </tags>
   </entry>
   <entry>
+    <title>JavaScript代码收集</title>
+    <url>/2016/07/20/Javascript%E4%BB%A3%E7%A0%81%E6%94%B6%E9%9B%86/</url>
+    <content><![CDATA[<h2 id="1-根据userAgent判断是否手机"><a href="#1-根据userAgent判断是否手机" class="headerlink" title="1.根据userAgent判断是否手机"></a>1.根据userAgent判断是否手机</h2><pre><code>if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent)))&#123;
+    if(window.location.href.indexOf(&quot;?mobile&quot;)&lt;0)&#123;
+        try&#123;
+            if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent))&#123;
+                //移动端
+            &#125;else if(/iPad/i.test(navigator.userAgent))&#123;
+                //这里对ipad做了处理
+            &#125;else&#123;
+                //移动端
+            &#125;
+        &#125;catch(e)&#123;&#125;
+    &#125;
+&#125;else&#123;
+    //pc端
+&#125;
+var ISWP = !!(navigator.userAgent.match(/Windows\sPhone/i));
+</code></pre>
+<span id="more"></span>
+<h2 id="2-this-constructor-prototype例子"><a href="#2-this-constructor-prototype例子" class="headerlink" title="2.this, constructor, prototype例子"></a>2.this, constructor, prototype例子</h2><pre><code>var Tinker = function()&#123;
+    this.elements = [];
+
+&#125;;
+    Tinker.fn = Tinker.prototype = &#123;
+        constructor: Tinker,
+        extend: function(obj)&#123;
+            var p;
+            for(p in obj)&#123;
+                this.constructor.prototype[p] = obj[p];//此处若看明白了, 那么前面的就理解了
+            &#125;
+        &#125;
+    
+    &#125;
+    Tinker.fn.extend(&#123;
+       get: function()&#123;
+            var length = arguments.length,
+            i = 0;
+           for(; i &lt; length; i++)&#123;
+               this.elements.push(arguments[i]); //此处若看明白了, 那么前面的就理解了
+           &#125;
+           return this;//此处若看明白了, 那么前面的就理解了
+       &#125;,
+       each: function(fn)&#123;
+            var i = 0,
+                length = this.elements.length;
+            for(; i &lt; length; i++)&#123;
+                fn.call(this.elements[i], i, this.elements[i]);
+            &#125;
+            return this;//此处若看明白了, 那么前面的就理解了
+       &#125;
+        
+    &#125;);
+</code></pre>
+<h2 id="3-模仿jquery-each"><a href="#3-模仿jquery-each" class="headerlink" title="3.模仿jquery each"></a>3.模仿jquery each</h2><pre><code>function each(obj, fn)&#123;
+    var i;
+    if(Object.prototype.toString.call(obj) === &#39;[object Array]&#39;)&#123;
+        for(i = 0, length = obj.length; i &lt; length; i++)&#123;
+            fn.call(obj[i], i, obj[i]);
+        &#125;
+    &#125;
+    else if(typeof obj === &#39;object&#39;)&#123;
+        for(i in obj)&#123;
+            if(obj.hasOwnProperty(i))&#123;
+               fn.call(obj[i], i, obj[i]);
+            &#125;
+        &#125;
+    &#125;
+    else&#123;
+        return false;
+    &#125;
+&#125;
+    
+</code></pre>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>aplly&amp;call方法的使用</title>
     <url>/2016/07/02/aplly&amp;call%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<h4 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h4><p>在一个对象中绑定函数，称为这个对象的方法。<br>在JavaScript中，对象的定义是这样的：</p>
@@ -578,86 +658,6 @@ count; // 3
       </tags>
   </entry>
   <entry>
-    <title>JavaScript代码收集</title>
-    <url>/2016/07/20/Javascript%E4%BB%A3%E7%A0%81%E6%94%B6%E9%9B%86/</url>
-    <content><![CDATA[<h2 id="1-根据userAgent判断是否手机"><a href="#1-根据userAgent判断是否手机" class="headerlink" title="1.根据userAgent判断是否手机"></a>1.根据userAgent判断是否手机</h2><pre><code>if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent)))&#123;
-    if(window.location.href.indexOf(&quot;?mobile&quot;)&lt;0)&#123;
-        try&#123;
-            if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent))&#123;
-                //移动端
-            &#125;else if(/iPad/i.test(navigator.userAgent))&#123;
-                //这里对ipad做了处理
-            &#125;else&#123;
-                //移动端
-            &#125;
-        &#125;catch(e)&#123;&#125;
-    &#125;
-&#125;else&#123;
-    //pc端
-&#125;
-var ISWP = !!(navigator.userAgent.match(/Windows\sPhone/i));
-</code></pre>
-<span id="more"></span>
-<h2 id="2-this-constructor-prototype例子"><a href="#2-this-constructor-prototype例子" class="headerlink" title="2.this, constructor, prototype例子"></a>2.this, constructor, prototype例子</h2><pre><code>var Tinker = function()&#123;
-    this.elements = [];
-
-&#125;;
-    Tinker.fn = Tinker.prototype = &#123;
-        constructor: Tinker,
-        extend: function(obj)&#123;
-            var p;
-            for(p in obj)&#123;
-                this.constructor.prototype[p] = obj[p];//此处若看明白了, 那么前面的就理解了
-            &#125;
-        &#125;
-    
-    &#125;
-    Tinker.fn.extend(&#123;
-       get: function()&#123;
-            var length = arguments.length,
-            i = 0;
-           for(; i &lt; length; i++)&#123;
-               this.elements.push(arguments[i]); //此处若看明白了, 那么前面的就理解了
-           &#125;
-           return this;//此处若看明白了, 那么前面的就理解了
-       &#125;,
-       each: function(fn)&#123;
-            var i = 0,
-                length = this.elements.length;
-            for(; i &lt; length; i++)&#123;
-                fn.call(this.elements[i], i, this.elements[i]);
-            &#125;
-            return this;//此处若看明白了, 那么前面的就理解了
-       &#125;
-        
-    &#125;);
-</code></pre>
-<h2 id="3-模仿jquery-each"><a href="#3-模仿jquery-each" class="headerlink" title="3.模仿jquery each"></a>3.模仿jquery each</h2><pre><code>function each(obj, fn)&#123;
-    var i;
-    if(Object.prototype.toString.call(obj) === &#39;[object Array]&#39;)&#123;
-        for(i = 0, length = obj.length; i &lt; length; i++)&#123;
-            fn.call(obj[i], i, obj[i]);
-        &#125;
-    &#125;
-    else if(typeof obj === &#39;object&#39;)&#123;
-        for(i in obj)&#123;
-            if(obj.hasOwnProperty(i))&#123;
-               fn.call(obj[i], i, obj[i]);
-            &#125;
-        &#125;
-    &#125;
-    else&#123;
-        return false;
-    &#125;
-&#125;
-    
-</code></pre>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>content换行符与打点loading效果实例页面</title>
     <url>/2020/06/19/content%E6%8D%A2%E8%A1%8C%E7%AC%A6%E4%B8%8E%E6%89%93%E7%82%B9loading%E6%95%88%E6%9E%9C%E5%AE%9E%E4%BE%8B%E9%A1%B5%E9%9D%A2/</url>
     <content><![CDATA[<p>代码如下：</p>
@@ -705,24 +705,6 @@ var ISWP = !!(navigator.userAgent.match(/Windows\sPhone/i));
         <tag>CSS</tag>
         <tag>IOS</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2015/07/11/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html">Deployment</a></p>
-]]></content>
   </entry>
   <entry>
     <title>Flex布局</title>
@@ -786,6 +768,24 @@ var ISWP = !!(navigator.userAgent.match(/Windows\sPhone/i));
       </tags>
   </entry>
   <entry>
+    <title>Hello World</title>
+    <url>/2015/07/11/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>hexo 常用命令</title>
     <url>/2016/06/28/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
     <content><![CDATA[<h2 id="常用部署步骤"><a href="#常用部署步骤" class="headerlink" title="常用部署步骤"></a>常用部署步骤</h2><blockquote>
@@ -812,58 +812,6 @@ hexo version #查看Hexo的版本
 ]]></content>
       <tags>
         <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于Markdown的基本用法</title>
-    <url>/2018/07/11/markerdown%E8%AF%AD%E6%B3%95/</url>
-    <content><![CDATA[<p>Markdown 是一种文本格式。你可以用它来控制文档的显示。使用 markdown，你可以创建粗体的文字，斜体的文字，添加图片，并且创建列表 等等。基本上来讲，Markdown 就是普通的文字加上 # 或者 * 等符号。</p>
-<h3 id="语法说明"><a href="#语法说明" class="headerlink" title="语法说明"></a>语法说明</h3><h4 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"># 这是 <span class="tag">&lt;<span class="name">h1</span>&gt;</span> 一级标题</span><br><span class="line">## 这是 <span class="tag">&lt;<span class="name">h2</span>&gt;</span> 二级标题</span><br><span class="line">### 这是 <span class="tag">&lt;<span class="name">h3</span>&gt;</span> 三级标题</span><br><span class="line">#### 这是 <span class="tag">&lt;<span class="name">h4</span>&gt;</span> 四级标题</span><br><span class="line">##### 这是 <span class="tag">&lt;<span class="name">h5</span>&gt;</span> 五级标题</span><br><span class="line">###### 这是 <span class="tag">&lt;<span class="name">h6</span>&gt;</span> 六级标题</span><br></pre></td></tr></table></figure>
-<h4 id="强调"><a href="#强调" class="headerlink" title="强调"></a>强调</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">*这会是 斜体 的文字*</span><br><span class="line">_这会是 斜体 的文字_</span><br><span class="line"></span><br><span class="line">**这会是 粗体 的文字**</span><br><span class="line">__这会是 粗体 的文字__</span><br><span class="line"></span><br><span class="line">_你也 **组合** 这些符号_</span><br><span class="line"></span><br><span class="line">~~这个文字将会被横线删除~~</span><br></pre></td></tr></table></figure>
-<hr>
-<span id="more"></span>
-<h4 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h4><h5 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h5><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">- Item 1</span><br><span class="line">- Item 2</span><br><span class="line">  - Item 2a</span><br><span class="line">  - Item 2b</span><br></pre></td></tr></table></figure>
-<h5 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h5><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">1. Item 1</span><br><span class="line">1. Item 2</span><br><span class="line">1. Item 3</span><br><span class="line">   1. Item 3a</span><br><span class="line">   1. Item 3b</span><br></pre></td></tr></table></figure>
-<h4 id="添加图片"><a href="#添加图片" class="headerlink" title="添加图片"></a>添加图片</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">![GitHub Logo](/images/logo.png)</span><br><span class="line">Format: ![Alt Text](url)</span><br></pre></td></tr></table></figure>
-<p>测试图片：<br><img src="/uploads/author.jpg" alt="GitHub Logo"></p>
-<h4 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">https://github.com - 自动生成！</span><br><span class="line">[GitHub](https://github.com)</span><br></pre></td></tr></table></figure>
-<h4 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">正如 Kanye West 所说：</span><br><span class="line"></span><br><span class="line">&gt; We&#x27;re living the future so</span><br><span class="line">&gt; the present is our past.</span><br></pre></td></tr></table></figure>
-<h4 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">如下，三个或者更多的:</span><br><span class="line"></span><br><span class="line">连字符: ---</span><br><span class="line"></span><br><span class="line">星号: ***</span><br><span class="line"></span><br><span class="line">下划线: ___</span><br></pre></td></tr></table></figure>
-<h4 id="行内代码"><a href="#行内代码" class="headerlink" title="行内代码"></a>行内代码</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">我觉得你应该在这里使用</span><br><span class="line">`function()&#123;console.log(&#x27;行内代码&#x27;)&#125;` </span><br><span class="line">才对。</span><br></pre></td></tr></table></figure>
-<h4 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h4><p>你可以在你的代码上面和下面添加 ``` 来表示代码块</p>
-<h5 id="语法高亮"><a href="#语法高亮" class="headerlink" title="语法高亮"></a>语法高亮</h5><p>代码块可以添加任何一种语言的语法高亮，如：</p>
-<figure class="highlight javascript"><figcaption><span>&#123;.class1 .class&#125;</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="代码行数"><a href="#代码行数" class="headerlink" title="代码行数"></a>代码行数</h5><p>如果你想要你的代码块显示代码行数，只要添加 line-numbers class 就可以了。例如：</p>
-<figure class="highlight javascript"><figcaption><span>&#123;.line-numbers&#125;</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>你可以通过添加 highlight 属性的方式来高亮代码行数，例如：</p>
-<figure class="highlight javascript"><figcaption><span>&#123;.line-numbers, highlight</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> number = add(<span class="number">10</span>,<span class="number">20</span>);</span><br></pre></td></tr></table></figure>
-<h4 id="任务列表"><a href="#任务列表" class="headerlink" title="任务列表"></a>任务列表</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">- [x] @mentions, #refs, [links](), **formatting**, and <span class="tag">&lt;<span class="name">del</span>&gt;</span>tags<span class="tag">&lt;/<span class="name">del</span>&gt;</span> supported</span><br><span class="line">- [x] list syntax required (any unordered or ordered list supported)</span><br><span class="line">- [x] this is a complete item</span><br><span class="line">- [ ] this is an incomplete item</span><br></pre></td></tr></table></figure>
-<ul>
-<li><input checked="" disabled="" type="checkbox"> @mentions, #refs, <a href="">links</a>, <strong>formatting</strong>, and <del>tags</del> supported</li>
-<li><input checked="" disabled="" type="checkbox"> list syntax required (any unordered or ordered list supported)</li>
-<li><input checked="" disabled="" type="checkbox"> this is a complete item</li>
-<li><input disabled="" type="checkbox"> this is an incomplete item<h4 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">First Header | Second Header</span><br><span class="line">------------ | -------------</span><br><span class="line">Content from cell 1 | Content from cell 2</span><br><span class="line">Content in the first column | Content in the second column</span><br></pre></td></tr></table></figure>
-First Header | Second Header</li>
-<li>———– | ————-<br>Content from cell 1 | Content from cell 2<br>Content in the first column | Content in the second column</li>
-</ul>
-<h3 id="扩展的语法"><a href="#扩展的语法" class="headerlink" title="扩展的语法"></a>扩展的语法</h3><h4 id="Emoji-amp-Font-Awesome"><a href="#Emoji-amp-Font-Awesome" class="headerlink" title="Emoji &amp; Font-Awesome"></a>Emoji &amp; Font-Awesome</h4><p>只适用于 markdown-it parser 而不适用于 pandoc parser。 缺省下是启用的。你可以在插件设置里禁用此功能。</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">:smile:</span><br><span class="line">:fa-car:</span><br></pre></td></tr></table></figure>
-<p>:smile:<br>:fa-car:</p>
-<h4 id="上标"><a href="#上标" class="headerlink" title="上标"></a>上标</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">30^th^</span><br></pre></td></tr></table></figure>
-<p>30^th^</p>
-<h4 id="下标"><a href="#下标" class="headerlink" title="下标"></a>下标</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">H~2~O</span><br></pre></td></tr></table></figure>
-<p>H<del>2</del>O</p>
-<h4 id="脚注"><a href="#脚注" class="headerlink" title="脚注"></a>脚注</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">Content [^1]</span><br><span class="line">[^1]: Hi! This is a footnote</span><br></pre></td></tr></table></figure>
-<p>Content [^1]<br>[^1]: Hi! This is a footnote</p>
-<h4 id="标记"><a href="#标记" class="headerlink" title="标记"></a>标记</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">==marked==</span><br></pre></td></tr></table></figure>
-<p>==marked==</p>
-<p><span>213123</span></p>
-]]></content>
-      <categories>
-        <category>Markdown</category>
-      </categories>
-      <tags>
-        <tag>Markdown</tag>
       </tags>
   </entry>
   <entry>
@@ -1099,7 +1047,7 @@ Markdown 使用一种和链接很相似的语法来标记图片，同样也允�
 &amp;#109;&quot;&gt;&amp;#x61;&amp;#x64;&amp;#x64;&amp;#x72;&amp;#x65;&amp;#115;&amp;#115;&amp;#64;&amp;#101;&amp;#120;&amp;#x61;
 &amp;#109;&amp;#x70;&amp;#x6C;e&amp;#x2E;&amp;#99;&amp;#111;&amp;#109;&lt;/a&gt;
 </code></pre>
-<p>在浏览器里面，这段字串（其实是 <a href="mailto:address@example.com">address@example.com</a>）会变成一个可以点击的「<a href="mailto:&#x61;&#100;&#100;&#x72;&#x65;&#115;&#115;&#x40;&#x65;&#120;&#97;&#x6d;&#x70;&#108;&#101;&#x2e;&#99;&#111;&#109;">&#x61;&#100;&#100;&#x72;&#x65;&#115;&#115;&#x40;&#x65;&#120;&#97;&#x6d;&#x70;&#108;&#101;&#x2e;&#99;&#111;&#109;</a>」链接。</p>
+<p>在浏览器里面，这段字串（其实是 <a href="mailto:address@example.com">address@example.com</a>）会变成一个可以点击的「<a href="mailto:&#x61;&#x64;&#100;&#114;&#101;&#x73;&#x73;&#64;&#x65;&#x78;&#x61;&#109;&#112;&#x6c;&#x65;&#x2e;&#x63;&#x6f;&#x6d;">&#x61;&#x64;&#100;&#114;&#101;&#x73;&#x73;&#64;&#x65;&#x78;&#x61;&#109;&#112;&#x6c;&#x65;&#x2e;&#x63;&#x6f;&#x6d;</a>」链接。</p>
 </blockquote>
 <p>（这种作法虽然可以糊弄不少的机器人，但并不能全部挡下来，不过总比什么都不做好些。不管怎样，公开你的信箱终究会引来广告信件的。）</p>
 <blockquote>
@@ -1124,6 +1072,58 @@ _   底线
 ]]></content>
       <tags>
         <tag>study</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于Markdown的基本用法</title>
+    <url>/2018/07/11/markerdown%E8%AF%AD%E6%B3%95/</url>
+    <content><![CDATA[<p>Markdown 是一种文本格式。你可以用它来控制文档的显示。使用 markdown，你可以创建粗体的文字，斜体的文字，添加图片，并且创建列表 等等。基本上来讲，Markdown 就是普通的文字加上 # 或者 * 等符号。</p>
+<h3 id="语法说明"><a href="#语法说明" class="headerlink" title="语法说明"></a>语法说明</h3><h4 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"># 这是 <span class="tag">&lt;<span class="name">h1</span>&gt;</span> 一级标题</span><br><span class="line">## 这是 <span class="tag">&lt;<span class="name">h2</span>&gt;</span> 二级标题</span><br><span class="line">### 这是 <span class="tag">&lt;<span class="name">h3</span>&gt;</span> 三级标题</span><br><span class="line">#### 这是 <span class="tag">&lt;<span class="name">h4</span>&gt;</span> 四级标题</span><br><span class="line">##### 这是 <span class="tag">&lt;<span class="name">h5</span>&gt;</span> 五级标题</span><br><span class="line">###### 这是 <span class="tag">&lt;<span class="name">h6</span>&gt;</span> 六级标题</span><br></pre></td></tr></table></figure>
+<h4 id="强调"><a href="#强调" class="headerlink" title="强调"></a>强调</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">*这会是 斜体 的文字*</span><br><span class="line">_这会是 斜体 的文字_</span><br><span class="line"></span><br><span class="line">**这会是 粗体 的文字**</span><br><span class="line">__这会是 粗体 的文字__</span><br><span class="line"></span><br><span class="line">_你也 **组合** 这些符号_</span><br><span class="line"></span><br><span class="line">~~这个文字将会被横线删除~~</span><br></pre></td></tr></table></figure>
+<hr>
+<span id="more"></span>
+<h4 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h4><h5 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h5><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">- Item 1</span><br><span class="line">- Item 2</span><br><span class="line">  - Item 2a</span><br><span class="line">  - Item 2b</span><br></pre></td></tr></table></figure>
+<h5 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h5><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">1. Item 1</span><br><span class="line">1. Item 2</span><br><span class="line">1. Item 3</span><br><span class="line">   1. Item 3a</span><br><span class="line">   1. Item 3b</span><br></pre></td></tr></table></figure>
+<h4 id="添加图片"><a href="#添加图片" class="headerlink" title="添加图片"></a>添加图片</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">![GitHub Logo](/images/logo.png)</span><br><span class="line">Format: ![Alt Text](url)</span><br></pre></td></tr></table></figure>
+<p>测试图片：<br><img src="/uploads/author.jpg" alt="GitHub Logo"></p>
+<h4 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">https://github.com - 自动生成！</span><br><span class="line">[GitHub](https://github.com)</span><br></pre></td></tr></table></figure>
+<h4 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">正如 Kanye West 所说：</span><br><span class="line"></span><br><span class="line">&gt; We&#x27;re living the future so</span><br><span class="line">&gt; the present is our past.</span><br></pre></td></tr></table></figure>
+<h4 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">如下，三个或者更多的:</span><br><span class="line"></span><br><span class="line">连字符: ---</span><br><span class="line"></span><br><span class="line">星号: ***</span><br><span class="line"></span><br><span class="line">下划线: ___</span><br></pre></td></tr></table></figure>
+<h4 id="行内代码"><a href="#行内代码" class="headerlink" title="行内代码"></a>行内代码</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">我觉得你应该在这里使用</span><br><span class="line">`function()&#123;console.log(&#x27;行内代码&#x27;)&#125;` </span><br><span class="line">才对。</span><br></pre></td></tr></table></figure>
+<h4 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h4><p>你可以在你的代码上面和下面添加 ``` 来表示代码块</p>
+<h5 id="语法高亮"><a href="#语法高亮" class="headerlink" title="语法高亮"></a>语法高亮</h5><p>代码块可以添加任何一种语言的语法高亮，如：</p>
+<figure class="highlight javascript"><figcaption><span>&#123;.class1 .class&#125;</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="代码行数"><a href="#代码行数" class="headerlink" title="代码行数"></a>代码行数</h5><p>如果你想要你的代码块显示代码行数，只要添加 line-numbers class 就可以了。例如：</p>
+<figure class="highlight javascript"><figcaption><span>&#123;.line-numbers&#125;</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>你可以通过添加 highlight 属性的方式来高亮代码行数，例如：</p>
+<figure class="highlight javascript"><figcaption><span>&#123;.line-numbers, highlight</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> number = add(<span class="number">10</span>,<span class="number">20</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="任务列表"><a href="#任务列表" class="headerlink" title="任务列表"></a>任务列表</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">- [x] @mentions, #refs, [links](), **formatting**, and <span class="tag">&lt;<span class="name">del</span>&gt;</span>tags<span class="tag">&lt;/<span class="name">del</span>&gt;</span> supported</span><br><span class="line">- [x] list syntax required (any unordered or ordered list supported)</span><br><span class="line">- [x] this is a complete item</span><br><span class="line">- [ ] this is an incomplete item</span><br></pre></td></tr></table></figure>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> @mentions, #refs, <a href="">links</a>, <strong>formatting</strong>, and <del>tags</del> supported</li>
+<li><input checked="" disabled="" type="checkbox"> list syntax required (any unordered or ordered list supported)</li>
+<li><input checked="" disabled="" type="checkbox"> this is a complete item</li>
+<li><input disabled="" type="checkbox"> this is an incomplete item<h4 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">First Header | Second Header</span><br><span class="line">------------ | -------------</span><br><span class="line">Content from cell 1 | Content from cell 2</span><br><span class="line">Content in the first column | Content in the second column</span><br></pre></td></tr></table></figure>
+First Header | Second Header</li>
+<li>———– | ————-<br>Content from cell 1 | Content from cell 2<br>Content in the first column | Content in the second column</li>
+</ul>
+<h3 id="扩展的语法"><a href="#扩展的语法" class="headerlink" title="扩展的语法"></a>扩展的语法</h3><h4 id="Emoji-amp-Font-Awesome"><a href="#Emoji-amp-Font-Awesome" class="headerlink" title="Emoji &amp; Font-Awesome"></a>Emoji &amp; Font-Awesome</h4><p>只适用于 markdown-it parser 而不适用于 pandoc parser。 缺省下是启用的。你可以在插件设置里禁用此功能。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">:smile:</span><br><span class="line">:fa-car:</span><br></pre></td></tr></table></figure>
+<p>:smile:<br>:fa-car:</p>
+<h4 id="上标"><a href="#上标" class="headerlink" title="上标"></a>上标</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">30^th^</span><br></pre></td></tr></table></figure>
+<p>30^th^</p>
+<h4 id="下标"><a href="#下标" class="headerlink" title="下标"></a>下标</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">H~2~O</span><br></pre></td></tr></table></figure>
+<p>H<del>2</del>O</p>
+<h4 id="脚注"><a href="#脚注" class="headerlink" title="脚注"></a>脚注</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">Content [^1]</span><br><span class="line">[^1]: Hi! This is a footnote</span><br></pre></td></tr></table></figure>
+<p>Content [^1]<br>[^1]: Hi! This is a footnote</p>
+<h4 id="标记"><a href="#标记" class="headerlink" title="标记"></a>标记</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">==marked==</span><br></pre></td></tr></table></figure>
+<p>==marked==</p>
+<p><span>213123</span></p>
+]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
       </tags>
   </entry>
   <entry>
@@ -1155,62 +1155,6 @@ npm -v
 ]]></content>
       <tags>
         <tag>JS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>postcss-pxtorem的使用</title>
-    <url>/2020/11/11/postcss-pxtorem%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<p>最近公司要开发一个H5的项目，这里用postcss-pxtorem来处理自适应的问题；</p>
-<blockquote>
-<p>postcss-pxtorem是PostCSS的插件，用于将像素单元生成rem单位。前端开发还原设计稿的重要性毋庸置疑，目前应用的单位最多还是rem,然而每次在制作过程中需要自己计算rem值，为了能够直接按照设计图的尺寸开发，并且能自动编译转换成rem，下面就来分享下postcss-pxtorem的使用。</p>
-</blockquote>
-<h2 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install postcss-pxtorem -D</span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-<h2 id="设置规则"><a href="#设置规则" class="headerlink" title="设置规则"></a>设置规则</h2><p>更改postcss.config.js,该文件为使用vue-cli3自动创建的文件</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  plugins: &#123;</span><br><span class="line">    &#x27;autoprefixer&#x27;: &#123; // autoprefixer 是自动补全代码用的</span><br><span class="line">      browsers: [&#x27;Android &gt;= 4.0&#x27;, &#x27;iOS &gt;= 7&#x27;]</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x27;postcss-pxtorem&#x27;: &#123;</span><br><span class="line">      rootValue: 16,//结果为：设计稿元素尺寸/16，比如元素宽320px,最终页面会换算成 20rem</span><br><span class="line">      propList: [&#x27;*&#x27;]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="设置根节点"><a href="#设置根节点" class="headerlink" title="设置根节点"></a>设置根节点</h2><p>首先我们要在src目录下，新建 assets/js/rem.js文件；</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">c</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> e = <span class="built_in">document</span>.documentElement || <span class="built_in">document</span>.body,</span><br><span class="line">    a = <span class="string">&quot;orientationchange&quot;</span> <span class="keyword">in</span> <span class="built_in">window</span> ? <span class="string">&quot;orientationchange&quot;</span> : <span class="string">&quot;resize&quot;</span>,</span><br><span class="line">    b = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> f = e.clientWidth;</span><br><span class="line">      <span class="comment">// 320 默认大小16px; 320px = 20rem ;每个元素px基础上/16</span></span><br><span class="line">      e.style.fontSize = f / <span class="number">20</span> + <span class="string">&quot;px&quot;</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">  b();</span><br><span class="line">  c.addEventListener(a, b, <span class="literal">false</span>);</span><br><span class="line">&#125;)(<span class="built_in">window</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>然后在main.js中引入rem.js就可以了。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&quot;@assets/js/rem&quot;</span>;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>vue</tag>
-        <tag>css</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>二、JavaScript之作用域</title>
-    <url>/2019/06/15/%E4%BD%9C%E7%94%A8%E5%9F%9F/</url>
-    <content><![CDATA[<h2 id="什么是作用域"><a href="#什么是作用域" class="headerlink" title="什么是作用域"></a>什么是作用域</h2><p>作用域是指程序源代码中定义变量的区域。</p>
-<p>作用域规定了如何查找变量，也就是确定当前执行代码对变量的访问权限。</p>
-<p>JavaScript 采用词法作用域(lexical scoping)，也就是静态作用域。</p>
-<h2 id="词法作用域"><a href="#词法作用域" class="headerlink" title="词法作用域"></a>词法作用域</h2><p>在你不知道的javascript上卷中是这样定义的：</p>
-<blockquote>
-<p>词法作用域就是定义在词法阶段的作用域。换句话说，词法作用域是由你在写代码时将变量和块作用域写在哪里来决定的，因此当词法分析器处理代码时会保持作用域不变(大部分情况下是这样的)。</p>
-</blockquote>
-<p>在JS中词法作用域的规则：<a href="https://github.com/getify/You-Dont-Know-JS/blob/1ed-zh-CN/scope%20%26%20closures/ch1.md">点这里</a></p>
-<p>请看下面这段代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var value = 1;</span><br><span class="line"></span><br><span class="line">function foo() &#123;</span><br><span class="line">    console.log(value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function bar() &#123;</span><br><span class="line">    var value = 2;</span><br><span class="line">    foo();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar(); // ???</span><br></pre></td></tr></table></figure>
-<p>假设JavaScript采用静态作用域，让我们分析下执行过程：<br>执行 foo 函数，先从 foo 函数内部查找是否有局部变量 value，如果没有，就根据书写的位置，查找上面一层的代码，也就是 value 等于 1，所以结果会打印 1。</p>
-<p>假设JavaScript采用动态作用域，让我们分析下执行过程：<br>执行 foo 函数，依然是从 foo 函数内部查找是否有局部变量 value。如果没有，就从调用函数的作用域，也就是 bar 函数内部查找 value 变量，所以结果会打印 2。</p>
-<p>前面我们已经说了，JavaScript采用的是静态作用域，所以这个例子的结果是 1。</p>
-<span id="more"></span>
-<p>再看下面这段代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function foo(a) &#123;</span><br><span class="line"></span><br><span class="line">	var b = a * 2;</span><br><span class="line"></span><br><span class="line">	function bar(c) &#123;</span><br><span class="line">		console.log( a, b, c );</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	bar(b * 3);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo( 2 ); // 2 4 12</span><br></pre></td></tr></table></figure>
-<p>在这个代码示例中有三个固有的嵌套作用域：</p>
-<ul>
-<li>包围着全局作用域，只有一个标识符：foo。</li>
-<li>包围着作用域 foo，它含有三个标识符：a，bar 和 b。</li>
-<li>包围着作用域 bar，它里面只包含一个标识符：c。</li>
-</ul>
-<p>当我们执行console.log(…)语句的时候，开始查找三个被引用的变量 a，b 和 c。它首先从最内部的作用域气泡开始，也就是 bar(…) 函数的作用域。在这里它找不到 a，所以它向上走一层，到外面下一个最近的作用域气泡，foo(…) 的作用域。它在这里找到了 a，于是它就使用这个 a。同样的事情也发生在 b 身上。但是对于 c，它在 bar(..) 内部就找到了。</p>
-<p>如果在 foo(..) 内部定义一个变量 c，console.log(…) 语句也仍然会找到并使用 bar(…) 中的那一个，而不会使用 foo(…) 中的那一个。</p>
-<p><strong>一旦找到第一个匹配，作用域查询就停止了。</strong>相同的标识符名称可以在嵌套作用域的多个层中被指定，这称为“遮蔽（shadowing）”（内部的标识符“遮蔽”了外部的标识符）。无论如何遮蔽，作用域查询总是从当前被执行的最内侧的作用域开始，向外/向上不断查找，直到第一个匹配才停止。</p>
-<p><strong>注意：</strong>全局变量也自动地是全局对象（在浏览器中是 window，等等）的属性，所以不直接通过全局变量的词法名称，而通过将它作为全局对象的一个属性引用来间接地引用，是可能的。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var a = 5;</span><br><span class="line">function foo(a) &#123;</span><br><span class="line">  console.log(a);</span><br><span class="line">  console.log(window.a)</span><br><span class="line">&#125;</span><br><span class="line">foo(2) // 2,5</span><br></pre></td></tr></table></figure>]]></content>
-      <tags>
-        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -1276,6 +1220,62 @@ IE8: e.returnValue=false;
 </blockquote>
 <p>参考网址：<a href="http://www.jb51.net/article/32792.htm">事件冒泡</a></p>
 ]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>postcss-pxtorem的使用</title>
+    <url>/2020/11/11/postcss-pxtorem%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<p>最近公司要开发一个H5的项目，这里用postcss-pxtorem来处理自适应的问题；</p>
+<blockquote>
+<p>postcss-pxtorem是PostCSS的插件，用于将像素单元生成rem单位。前端开发还原设计稿的重要性毋庸置疑，目前应用的单位最多还是rem,然而每次在制作过程中需要自己计算rem值，为了能够直接按照设计图的尺寸开发，并且能自动编译转换成rem，下面就来分享下postcss-pxtorem的使用。</p>
+</blockquote>
+<h2 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install postcss-pxtorem -D</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<h2 id="设置规则"><a href="#设置规则" class="headerlink" title="设置规则"></a>设置规则</h2><p>更改postcss.config.js,该文件为使用vue-cli3自动创建的文件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  plugins: &#123;</span><br><span class="line">    &#x27;autoprefixer&#x27;: &#123; // autoprefixer 是自动补全代码用的</span><br><span class="line">      browsers: [&#x27;Android &gt;= 4.0&#x27;, &#x27;iOS &gt;= 7&#x27;]</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x27;postcss-pxtorem&#x27;: &#123;</span><br><span class="line">      rootValue: 16,//结果为：设计稿元素尺寸/16，比如元素宽320px,最终页面会换算成 20rem</span><br><span class="line">      propList: [&#x27;*&#x27;]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="设置根节点"><a href="#设置根节点" class="headerlink" title="设置根节点"></a>设置根节点</h2><p>首先我们要在src目录下，新建 assets/js/rem.js文件；</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">c</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> e = <span class="built_in">document</span>.documentElement || <span class="built_in">document</span>.body,</span><br><span class="line">    a = <span class="string">&quot;orientationchange&quot;</span> <span class="keyword">in</span> <span class="built_in">window</span> ? <span class="string">&quot;orientationchange&quot;</span> : <span class="string">&quot;resize&quot;</span>,</span><br><span class="line">    b = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> f = e.clientWidth;</span><br><span class="line">      <span class="comment">// 320 默认大小16px; 320px = 20rem ;每个元素px基础上/16</span></span><br><span class="line">      e.style.fontSize = f / <span class="number">20</span> + <span class="string">&quot;px&quot;</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">  b();</span><br><span class="line">  c.addEventListener(a, b, <span class="literal">false</span>);</span><br><span class="line">&#125;)(<span class="built_in">window</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>然后在main.js中引入rem.js就可以了。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&quot;@assets/js/rem&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>vue</tag>
+        <tag>css</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>二、JavaScript之作用域</title>
+    <url>/2019/06/15/%E4%BD%9C%E7%94%A8%E5%9F%9F/</url>
+    <content><![CDATA[<h2 id="什么是作用域"><a href="#什么是作用域" class="headerlink" title="什么是作用域"></a>什么是作用域</h2><p>作用域是指程序源代码中定义变量的区域。</p>
+<p>作用域规定了如何查找变量，也就是确定当前执行代码对变量的访问权限。</p>
+<p>JavaScript 采用词法作用域(lexical scoping)，也就是静态作用域。</p>
+<h2 id="词法作用域"><a href="#词法作用域" class="headerlink" title="词法作用域"></a>词法作用域</h2><p>在你不知道的javascript上卷中是这样定义的：</p>
+<blockquote>
+<p>词法作用域就是定义在词法阶段的作用域。换句话说，词法作用域是由你在写代码时将变量和块作用域写在哪里来决定的，因此当词法分析器处理代码时会保持作用域不变(大部分情况下是这样的)。</p>
+</blockquote>
+<p>在JS中词法作用域的规则：<a href="https://github.com/getify/You-Dont-Know-JS/blob/1ed-zh-CN/scope%20%26%20closures/ch1.md">点这里</a></p>
+<p>请看下面这段代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var value = 1;</span><br><span class="line"></span><br><span class="line">function foo() &#123;</span><br><span class="line">    console.log(value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function bar() &#123;</span><br><span class="line">    var value = 2;</span><br><span class="line">    foo();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar(); // ???</span><br></pre></td></tr></table></figure>
+<p>假设JavaScript采用静态作用域，让我们分析下执行过程：<br>执行 foo 函数，先从 foo 函数内部查找是否有局部变量 value，如果没有，就根据书写的位置，查找上面一层的代码，也就是 value 等于 1，所以结果会打印 1。</p>
+<p>假设JavaScript采用动态作用域，让我们分析下执行过程：<br>执行 foo 函数，依然是从 foo 函数内部查找是否有局部变量 value。如果没有，就从调用函数的作用域，也就是 bar 函数内部查找 value 变量，所以结果会打印 2。</p>
+<p>前面我们已经说了，JavaScript采用的是静态作用域，所以这个例子的结果是 1。</p>
+<span id="more"></span>
+<p>再看下面这段代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function foo(a) &#123;</span><br><span class="line"></span><br><span class="line">	var b = a * 2;</span><br><span class="line"></span><br><span class="line">	function bar(c) &#123;</span><br><span class="line">		console.log( a, b, c );</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	bar(b * 3);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo( 2 ); // 2 4 12</span><br></pre></td></tr></table></figure>
+<p>在这个代码示例中有三个固有的嵌套作用域：</p>
+<ul>
+<li>包围着全局作用域，只有一个标识符：foo。</li>
+<li>包围着作用域 foo，它含有三个标识符：a，bar 和 b。</li>
+<li>包围着作用域 bar，它里面只包含一个标识符：c。</li>
+</ul>
+<p>当我们执行console.log(…)语句的时候，开始查找三个被引用的变量 a，b 和 c。它首先从最内部的作用域气泡开始，也就是 bar(…) 函数的作用域。在这里它找不到 a，所以它向上走一层，到外面下一个最近的作用域气泡，foo(…) 的作用域。它在这里找到了 a，于是它就使用这个 a。同样的事情也发生在 b 身上。但是对于 c，它在 bar(..) 内部就找到了。</p>
+<p>如果在 foo(..) 内部定义一个变量 c，console.log(…) 语句也仍然会找到并使用 bar(…) 中的那一个，而不会使用 foo(…) 中的那一个。</p>
+<p><strong>一旦找到第一个匹配，作用域查询就停止了。</strong>相同的标识符名称可以在嵌套作用域的多个层中被指定，这称为“遮蔽（shadowing）”（内部的标识符“遮蔽”了外部的标识符）。无论如何遮蔽，作用域查询总是从当前被执行的最内侧的作用域开始，向外/向上不断查找，直到第一个匹配才停止。</p>
+<p><strong>注意：</strong>全局变量也自动地是全局对象（在浏览器中是 window，等等）的属性，所以不直接通过全局变量的词法名称，而通过将它作为全局对象的一个属性引用来间接地引用，是可能的。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var a = 5;</span><br><span class="line">function foo(a) &#123;</span><br><span class="line">  console.log(a);</span><br><span class="line">  console.log(window.a)</span><br><span class="line">&#125;</span><br><span class="line">foo(2) // 2,5</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
         <tag>JavaScript</tag>
       </tags>
@@ -1461,13 +1461,19 @@ _background-color:#1e0bd1;/*IE6识别*/
 <li>全局执行上下文中，变量对象就是全局对象。</li>
 <li>在顶层js代码中，this指向全局对象，全局变量会作为该对象的属性来被查询。在浏览器中，window就是全局对象。</li>
 </ul>
+<p>这样我们就能理解为什么，在全局上下文中声明一个变量时，我们能够通过全局对象的一个​​属性来间接引用它（例如，当变量的名称事先不知道时）：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">&#x27;test&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">// &quot;test&quot;</span></span><br><span class="line"> </span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>[<span class="string">&#x27;a&#x27;</span>]); <span class="comment">// &quot;test&quot;</span></span><br><span class="line"><span class="built_in">console</span>.log(a === <span class="built_in">this</span>.a); <span class="comment">// true</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">var</span> aKey = <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>[aKey]); <span class="comment">//  &quot;test&quot;</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="函数上下文"><a href="#函数上下文" class="headerlink" title="函数上下文"></a>函数上下文</h3><p>函数执行上下文的变量对象</p>
 <ul>
 <li>函数上下文中，变量对象VO就是活动对象AO。</li>
 <li>初始化时，带有arguments属性。</li>
 </ul>
+<p>Arguments 对象（简称 ArgO）是一个位于函数上下文的激活对象中的对象，包含以下属性：</p>
+<p>callee - 链接到正在执行的函数；<br>length -实际传递的参数数量；<br>properties-indexes（数字，缩减为字符串），其中的值是函数的形参（在参数列表中从左到右）。这些索引属性的数量 == arguments.length。arguments 对象的 index 属性值和存在的形参是可以互换的：</p>
 <span id="more"></span>
-<h2 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h2><p>执行上下文的代码会分成两个阶段进行处理：分析(进入执行上下文)和执行(代码执行)，我们也可以叫做：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">x, y, z</span>) </span>&#123;</span><br><span class="line"> </span><br><span class="line">  <span class="comment">// 描述函数参数的数量(x, y, z)  </span></span><br><span class="line">  <span class="built_in">console</span>.log(foo.length); <span class="comment">// 3</span></span><br><span class="line">   </span><br><span class="line">  <span class="comment">// 实际传输参数的数量,只有(x, y)  </span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">arguments</span>.length); <span class="comment">// 2</span></span><br><span class="line">   </span><br><span class="line">  <span class="comment">// 函数本身的引用  </span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">arguments</span>.callee === foo); <span class="comment">// true</span></span><br><span class="line"> </span><br><span class="line">  <span class="comment">// arguments对象的index属性值和存在的形参是可以互换</span></span><br><span class="line">  <span class="built_in">console</span>.log(x === <span class="built_in">arguments</span>[<span class="number">0</span>]); <span class="comment">// true</span></span><br><span class="line">  <span class="built_in">console</span>.log(x); <span class="comment">// 10</span></span><br><span class="line">  <span class="built_in">arguments</span>[<span class="number">0</span>] = <span class="number">20</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(x); <span class="comment">// 20</span></span><br><span class="line">  x = <span class="number">30</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">arguments</span>[<span class="number">0</span>]); <span class="comment">// 30</span></span><br><span class="line">   </span><br><span class="line">  <span class="comment">// 然而，对于未指定的z参数,是无法和arguments的值进行互换的</span></span><br><span class="line">  z = <span class="number">40</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">arguments</span>[<span class="number">2</span>]); <span class="comment">// undefined</span></span><br><span class="line"> </span><br><span class="line">  <span class="built_in">arguments</span>[<span class="number">2</span>] = <span class="number">50</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(z); <span class="comment">// 40</span></span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line">foo(<span class="number">10</span>, <span class="number">20</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h2><p>执行上下文的代码会分成两个阶段进行处理：分析(进入执行上下文)和执行(代码执行)：</p>
 <h3 id="进入执行上下文"><a href="#进入执行上下文" class="headerlink" title="进入执行上下文"></a>进入执行上下文</h3><p>当进入执行上下文时，这时候还没有执行代码，<br>变量对象会包括：</p>
 <ol>
 <li>函数的所有形参 (如果是函数上下文)</li>
@@ -1491,12 +1497,28 @@ _background-color:#1e0bd1;/*IE6识别*/
 <li>如果变量名称跟已经声明的形式参数或函数相同，则变量声明不会干扰已经存在的这类属性</li>
 </ul>
 <p>举个例子：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">a</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> b = <span class="number">2</span>;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">c</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">  <span class="keyword">var</span> d = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line"></span><br><span class="line">  b = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> c = <span class="number">10</span>;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">d</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">  <span class="keyword">var</span> e = <span class="function"><span class="keyword">function</span> <span class="title">_e</span>(<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line">  (<span class="function"><span class="keyword">function</span> <span class="title">x</span>(<span class="params"></span>) </span>&#123;&#125;);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
 <p>在进入执行上下文后，这时候的 AO 是：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">AO = &#123;</span><br><span class="line">    <span class="attr">arguments</span>: &#123;</span><br><span class="line">        <span class="number">0</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="attr">length</span>: <span class="number">1</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">a</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="attr">b</span>: <span class="literal">undefined</span>,</span><br><span class="line">    <span class="attr">c</span>: reference to <span class="function"><span class="keyword">function</span> <span class="title">c</span>(<span class="params"></span>)</span>&#123;&#125;,</span><br><span class="line">    <span class="attr">d</span>: <span class="literal">undefined</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">AO = &#123;</span><br><span class="line">    <span class="attr">arguments</span>: &#123;</span><br><span class="line">        <span class="number">0</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="attr">length</span>: <span class="number">1</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">a</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="attr">b</span>: <span class="literal">undefined</span>,</span><br><span class="line">    <span class="attr">c</span>: <span class="literal">undefined</span>,</span><br><span class="line">    <span class="attr">d</span>: reference to <span class="function"><span class="keyword">function</span> <span class="title">d</span>(<span class="params"></span>)</span>&#123;&#125;,</span><br><span class="line">    <span class="attr">e</span>: <span class="literal">undefined</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>请注意，AO 中不包含“x”函数。这是因为，“x”是不是一个函数声明，而是一个FunctionExpression（函数表达式）是不影响VO。然而，函数“_e”也是一个表达式函数，但是，正如我们将在下面看到的，通过将对其的引用分配给变量“e”，它可以通过“e”使用。您其他帖子中阅读 FunctionDeclaration 和 FunctionExpression 之间的区别。</p>
 <h3 id="代码执行"><a href="#代码执行" class="headerlink" title="代码执行"></a>代码执行</h3><p>在代码执行阶段，会顺序执行代码，根据代码，修改变量对象的值</p>
 <p>还是上面的例子，当代码执行完后，这时候的 AO 是：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">AO = &#123;</span><br><span class="line">    <span class="attr">arguments</span>: &#123;</span><br><span class="line">        <span class="number">0</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="attr">length</span>: <span class="number">1</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">a</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="attr">b</span>: <span class="number">3</span>,</span><br><span class="line">    <span class="attr">c</span>: reference to <span class="function"><span class="keyword">function</span> <span class="title">c</span>(<span class="params"></span>)</span>&#123;&#125;,</span><br><span class="line">    <span class="attr">d</span>: reference to FunctionExpression <span class="string">&quot;d&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">AO = &#123;</span><br><span class="line">    <span class="attr">arguments</span>: &#123;</span><br><span class="line">        <span class="number">0</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="attr">length</span>: <span class="number">1</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">a</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="attr">b</span>: <span class="literal">undefined</span>,</span><br><span class="line">    <span class="attr">c</span>: <span class="number">10</span></span><br><span class="line">    <span class="attr">d</span>: reference to <span class="function"><span class="keyword">function</span> <span class="title">d</span>(<span class="params"></span>)</span>&#123;&#125;,</span><br><span class="line">    <span class="attr">e</span>: reference to FunctionExpression <span class="string">&quot;_e&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再次注意 FunctionExpression_e仅以变量为代价保留在内存中e。FunctionExpressionx没有进入 AO/VO：也就是说，如果你试图在代码中x声明之前或之后调用一个函数，就会出现“x未定义”错误。未保存的 FunctionExpression 只能与声明一起调用，或递归调用。</p>
+<p>来看一个示例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(x); <span class="comment">// function</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">var</span> x = <span class="number">10</span>;</span><br><span class="line"><span class="built_in">console</span>.log(x); <span class="comment">// 10</span></span><br><span class="line"> </span><br><span class="line">x = <span class="number">20</span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">x</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"> </span><br><span class="line"><span class="built_in">console</span>.log(x); <span class="comment">// 20</span></span><br></pre></td></tr></table></figure>
+<p>为什么第一个输出中的“x”是一个函数，甚至在申明之前可用？为什么不是 10 或 20？因为，根据规则——VO在进入上下文时填充了函数声明，在同一个地方，进入时声明了变量“x”，但VO中的变量的优先级低于函数声明，因此，在进入时，VO填充会以如下方式发生：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">VO = &#123;&#125;;</span><br><span class="line"> </span><br><span class="line">VO[<span class="string">&#x27;x&#x27;</span>] = reference to <span class="function"><span class="keyword">function</span> <span class="title">x</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// 发现 var x = 10;</span></span><br><span class="line"><span class="comment">// 由于之前已经填充了函数声明，变量‘x’不会覆盖函数的值</span></span><br><span class="line"> </span><br><span class="line">VO[<span class="string">&#x27;x&#x27;</span>] = reference to <span class="function"><span class="keyword">function</span> <span class="title">x</span>(<span class="params"></span>)</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>但是已经在执行代码时，VO被修改成这样：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">VO[<span class="string">&#x27;x&#x27;</span>] = <span class="number">10</span>;</span><br><span class="line">VO[<span class="string">&#x27;x&#x27;</span>] = <span class="number">20</span>;</span><br></pre></td></tr></table></figure>
+<p>再看一个示例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="keyword">var</span> b = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(b); <span class="comment">// undefined, 而不是 &quot;b is not defined&quot;</span></span><br></pre></td></tr></table></figure>
+<p>在这个例子中，我们看到变量在进入上下文时就会进入 VO（例如，永远不会执行 else 块，但是，变量“b”仍然存在于 VO 中）</p>
+<h2 id="关于变量"><a href="#关于变量" class="headerlink" title="关于变量"></a>关于变量</h2><p>在JavaScript中，使用var申明和不适用var申明是有区别，请记住：变量仅使用 var 关键字声明。<br>比如：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(b); <span class="comment">// b is not defined</span></span><br><span class="line">b = <span class="number">20</span>;</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+<p>这里我们看到”b is not defined”，因为 这不是一个变量，“b”只会在代码执行时创建;<br>关于变量的另一个重点，与简单属性不同，变量接收{DontDelete}属性，这意味着无法使用delete运算符删除：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">a = <span class="number">10</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.a); <span class="comment">// 10</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">delete</span> a); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.a); <span class="comment">// undefined</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">var</span> b = <span class="number">20</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.b); <span class="comment">// 20</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">delete</span> b); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.b); <span class="comment">// 任然是20</span></span><br></pre></td></tr></table></figure>
+
 <p>到这里变量对象的创建过程就介绍完了，让我们简洁的总结我们上述所说：</p>
 <ul>
 <li><p>全局上下文的变量对象初始化是全局对象</p>
@@ -1506,6 +1528,8 @@ _background-color:#1e0bd1;/*IE6识别*/
 <li><p>在进入执行上下文时会给变量对象添加形参、函数声明、变量声明等初始的属性值</p>
 </li>
 <li><p>在代码执行阶段，会再次修改变量对象的属性值</p>
+</li>
+<li><p>在进入执行上下文时,var声明的变量才会被添加并赋初始值</p>
 </li>
 </ul>
 ]]></content>
@@ -1717,6 +1741,27 @@ PrimaryStudent.prototype.getGrade = function () &#123;
       </tags>
   </entry>
   <entry>
+    <title>关于IOS、安卓与原生JS交互的总结</title>
+    <url>/2016/11/03/%E5%AE%89%E5%8D%93IOS%E4%B8%8EJS%E4%BA%A4%E4%BA%92/</url>
+    <content><![CDATA[<p>最近在App中需要做一些页面，其中涉及到了与原生APP交互的问题，现在做下总结方便以后查询</p>
+<p><strong>Android与JS交互</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">var</span> browser=&#123;</span><br><span class="line">    <span class="attr">versions</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> u = navigator.userAgent, app = navigator.appVersion;</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="comment">//移动终端浏览器版本信息</span></span><br><span class="line">            <span class="attr">trident</span>: u.indexOf(<span class="string">&#x27;Trident&#x27;</span>) &gt; -<span class="number">1</span>, <span class="comment">//IE内核</span></span><br><span class="line">            <span class="attr">presto</span>: u.indexOf(<span class="string">&#x27;Presto&#x27;</span>) &gt; -<span class="number">1</span>, <span class="comment">//opera内核</span></span><br><span class="line">            <span class="attr">webKit</span>: u.indexOf(<span class="string">&#x27;AppleWebKit&#x27;</span>) &gt; -<span class="number">1</span>, <span class="comment">//苹果、谷歌内核</span></span><br><span class="line">            <span class="attr">gecko</span>: u.indexOf(<span class="string">&#x27;Gecko&#x27;</span>) &gt; -<span class="number">1</span> &amp;&amp; u.indexOf(<span class="string">&#x27;KHTML&#x27;</span>) == -<span class="number">1</span>, <span class="comment">//火狐内核</span></span><br><span class="line">            <span class="attr">mobile</span>: !!u.match(<span class="regexp">/AppleWebKit.*Mobile.*/</span>)||!!u.match(<span class="regexp">/AppleWebKit/</span>), <span class="comment">//是否为移动终端</span></span><br><span class="line">            <span class="attr">ios</span>: !!u.match(<span class="regexp">/\(i[^;]+;( U;)? CPU.+Mac OS X/</span>), <span class="comment">//ios终端</span></span><br><span class="line">            <span class="attr">android</span>: u.indexOf(<span class="string">&#x27;Android&#x27;</span>) &gt; -<span class="number">1</span> || u.indexOf(<span class="string">&#x27;Linux&#x27;</span>) &gt; -<span class="number">1</span>, <span class="comment">//android终端或者uc浏览器</span></span><br><span class="line">            <span class="attr">iPhone</span>: u.indexOf(<span class="string">&#x27;iPhone&#x27;</span>) &gt; -<span class="number">1</span> || u.indexOf(<span class="string">&#x27;Mac&#x27;</span>) &gt; -<span class="number">1</span>, <span class="comment">//是否为iPhone或者QQHD浏览器</span></span><br><span class="line">            <span class="attr">iPad</span>: u.indexOf(<span class="string">&#x27;iPad&#x27;</span>) &gt; -<span class="number">1</span>, <span class="comment">//是否iPad</span></span><br><span class="line">            <span class="attr">webApp</span>: u.indexOf(<span class="string">&#x27;Safari&#x27;</span>) == -<span class="number">1</span> <span class="comment">//是否web应该程序，没有头部与底部</span></span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;(),</span><br><span class="line">    <span class="attr">language</span>:(navigator.browserLanguage || navigator.language).toLowerCase()</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showToast</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">android.showToast(<span class="string">&quot;&#x27;title: Money+Funny，这可能是全成都最适合你的兼职！&#x27;,&#x27;content:拼K高校首席体验官公开招募！底薪1000元多玩多赚！速来！速来！速来！&#x27;,&#x27;urlId:http://www.tanshikeji.com/Home/Active/special_form.html&#x27;&quot;</span>);</span><br><span class="line"><span class="comment">//    android.showToast(&quot;&#123;\&quot;title\&quot;:\&quot; 我报名了拼K高校首席体验官！ 你也快来！\&quot;,\&quot;content\&quot;:\&quot;拼K高校首席体验官公开招募！底薪1000元多玩多赚！速来！速来！速来！\&quot;,\&quot;urlId:http://www.tanshikeji.com/Home/Active/special\&quot;&#125;&quot;);</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showClick</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">   <span class="keyword">if</span>( navigator.userAgent.indexOf(<span class="string">&#x27;Android&#x27;</span>) &gt; -<span class="number">1</span> ||  navigator.userAgent.indexOf(<span class="string">&#x27;Linux&#x27;</span>) &gt; -<span class="number">1</span>)&#123;</span><br><span class="line"><span class="comment">//        e.preventDefault();</span></span><br><span class="line">    &#125;</span><br><span class="line">    android.showClick(<span class="string">&quot;http://www.tanshikeji.com/Home/Active/special_form.html&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">&#x27;android_share&#x27;</span>).onclick = showToast;</span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">&#x27;from_click&#x27;</span>).onclick = showClick;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<p><strong>IOS与JS交互:</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"><span class="comment">/*这段代码是固定的，必须要放到js中*/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setupWebViewJavascriptBridge</span>(<span class="params">callback</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">window</span>.WebViewJavascriptBridge) &#123; <span class="keyword">return</span> callback(WebViewJavascriptBridge); &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">window</span>.WVJBCallbacks) &#123; <span class="keyword">return</span> <span class="built_in">window</span>.WVJBCallbacks.push(callback); &#125;</span><br><span class="line">    <span class="built_in">window</span>.WVJBCallbacks = [callback];</span><br><span class="line">    <span class="keyword">var</span> WVJBIframe = <span class="built_in">document</span>.createElement(<span class="string">&#x27;iframe&#x27;</span>);</span><br><span class="line">    WVJBIframe.style.display = <span class="string">&#x27;none&#x27;</span>;</span><br><span class="line">    WVJBIframe.src = <span class="string">&#x27;wvjbscheme://__BRIDGE_LOADED__&#x27;</span>;</span><br><span class="line">    <span class="built_in">document</span>.documentElement.appendChild(WVJBIframe);</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">document</span>.documentElement.removeChild(WVJBIframe) &#125;, <span class="number">0</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*与OC交互的所有JS方法都要放在此处注册，才能调用通过JS调用OC或者让OC调用这里的JS*/</span></span><br><span class="line">setupWebViewJavascriptBridge(<span class="function"><span class="keyword">function</span>(<span class="params">bridge</span>) </span>&#123;</span><br><span class="line">    <span class="comment">/*我们在这注册一个js调用OC的方法，不带参数，且不用ObjC端反馈结果给JS：打开本demo对应的博文*/</span></span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">&#x27;ios_share&#x27;</span>).onclick = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">        bridge.callHandler(<span class="string">&#x27;getShareObjC&#x27;</span>, &#123;</span><br><span class="line">            <span class="string">&#x27;title&#x27;</span>: <span class="string">&#x27;Money+Funny，这可能是全成都最适合你的兼职！&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;content&#x27;</span>:<span class="string">&#x27;拼K高校首席体验官公开招募！底薪1000元多玩多赚！速来！速来！速来！&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;urlId&#x27;</span>:<span class="string">&#x27;http://www.tanshikeji.com/Home/Active/special_form.html&#x27;</span></span><br><span class="line">        &#125;, <span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line"><span class="comment">//            alert(&quot;success&quot;+response);</span></span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+
+]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+        <tag>IOS</tag>
+        <tag>Android</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>如何处理信息过载</title>
     <url>/2016/05/04/%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E4%BF%A1%E6%81%AF%E8%BF%87%E8%BD%BD/</url>
     <content><![CDATA[<h3 id="一、俯瞰全景"><a href="#一、俯瞰全景" class="headerlink" title="一、俯瞰全景"></a>一、俯瞰全景</h3><blockquote>
@@ -1745,24 +1790,44 @@ PrimaryStudent.prototype.getGrade = function () &#123;
       </tags>
   </entry>
   <entry>
-    <title>关于IOS、安卓与原生JS交互的总结</title>
-    <url>/2016/11/03/%E5%AE%89%E5%8D%93IOS%E4%B8%8EJS%E4%BA%A4%E4%BA%92/</url>
-    <content><![CDATA[<p>最近在App中需要做一些页面，其中涉及到了与原生APP交互的问题，现在做下总结方便以后查询</p>
-<p><strong>Android与JS交互</strong></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">var</span> browser=&#123;</span><br><span class="line">    <span class="attr">versions</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> u = navigator.userAgent, app = navigator.appVersion;</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="comment">//移动终端浏览器版本信息</span></span><br><span class="line">            <span class="attr">trident</span>: u.indexOf(<span class="string">&#x27;Trident&#x27;</span>) &gt; -<span class="number">1</span>, <span class="comment">//IE内核</span></span><br><span class="line">            <span class="attr">presto</span>: u.indexOf(<span class="string">&#x27;Presto&#x27;</span>) &gt; -<span class="number">1</span>, <span class="comment">//opera内核</span></span><br><span class="line">            <span class="attr">webKit</span>: u.indexOf(<span class="string">&#x27;AppleWebKit&#x27;</span>) &gt; -<span class="number">1</span>, <span class="comment">//苹果、谷歌内核</span></span><br><span class="line">            <span class="attr">gecko</span>: u.indexOf(<span class="string">&#x27;Gecko&#x27;</span>) &gt; -<span class="number">1</span> &amp;&amp; u.indexOf(<span class="string">&#x27;KHTML&#x27;</span>) == -<span class="number">1</span>, <span class="comment">//火狐内核</span></span><br><span class="line">            <span class="attr">mobile</span>: !!u.match(<span class="regexp">/AppleWebKit.*Mobile.*/</span>)||!!u.match(<span class="regexp">/AppleWebKit/</span>), <span class="comment">//是否为移动终端</span></span><br><span class="line">            <span class="attr">ios</span>: !!u.match(<span class="regexp">/\(i[^;]+;( U;)? CPU.+Mac OS X/</span>), <span class="comment">//ios终端</span></span><br><span class="line">            <span class="attr">android</span>: u.indexOf(<span class="string">&#x27;Android&#x27;</span>) &gt; -<span class="number">1</span> || u.indexOf(<span class="string">&#x27;Linux&#x27;</span>) &gt; -<span class="number">1</span>, <span class="comment">//android终端或者uc浏览器</span></span><br><span class="line">            <span class="attr">iPhone</span>: u.indexOf(<span class="string">&#x27;iPhone&#x27;</span>) &gt; -<span class="number">1</span> || u.indexOf(<span class="string">&#x27;Mac&#x27;</span>) &gt; -<span class="number">1</span>, <span class="comment">//是否为iPhone或者QQHD浏览器</span></span><br><span class="line">            <span class="attr">iPad</span>: u.indexOf(<span class="string">&#x27;iPad&#x27;</span>) &gt; -<span class="number">1</span>, <span class="comment">//是否iPad</span></span><br><span class="line">            <span class="attr">webApp</span>: u.indexOf(<span class="string">&#x27;Safari&#x27;</span>) == -<span class="number">1</span> <span class="comment">//是否web应该程序，没有头部与底部</span></span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;(),</span><br><span class="line">    <span class="attr">language</span>:(navigator.browserLanguage || navigator.language).toLowerCase()</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showToast</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">android.showToast(<span class="string">&quot;&#x27;title: Money+Funny，这可能是全成都最适合你的兼职！&#x27;,&#x27;content:拼K高校首席体验官公开招募！底薪1000元多玩多赚！速来！速来！速来！&#x27;,&#x27;urlId:http://www.tanshikeji.com/Home/Active/special_form.html&#x27;&quot;</span>);</span><br><span class="line"><span class="comment">//    android.showToast(&quot;&#123;\&quot;title\&quot;:\&quot; 我报名了拼K高校首席体验官！ 你也快来！\&quot;,\&quot;content\&quot;:\&quot;拼K高校首席体验官公开招募！底薪1000元多玩多赚！速来！速来！速来！\&quot;,\&quot;urlId:http://www.tanshikeji.com/Home/Active/special\&quot;&#125;&quot;);</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showClick</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">   <span class="keyword">if</span>( navigator.userAgent.indexOf(<span class="string">&#x27;Android&#x27;</span>) &gt; -<span class="number">1</span> ||  navigator.userAgent.indexOf(<span class="string">&#x27;Linux&#x27;</span>) &gt; -<span class="number">1</span>)&#123;</span><br><span class="line"><span class="comment">//        e.preventDefault();</span></span><br><span class="line">    &#125;</span><br><span class="line">    android.showClick(<span class="string">&quot;http://www.tanshikeji.com/Home/Active/special_form.html&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">&#x27;android_share&#x27;</span>).onclick = showToast;</span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">&#x27;from_click&#x27;</span>).onclick = showClick;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+    <title>三、JavaScript之执行上下文栈</title>
+    <url>/2019/06/26/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E6%A0%88/</url>
+    <content><![CDATA[<p>由于JS是单线程的，每次只能做一件事情，其他的事情会放在指定的上下文栈中排队等待执行，所以执行上下文栈的作用是用来跟踪代码的，。</p>
+<p>JS解释器在初始化代码的时候，首先会创建一个新的全局执行上下文到执行上下文栈顶中，然后随着每次函数的调用都会创建一个新的执行上下文放入到栈顶中，随着函数执行完毕后被执行上下文栈顶弹出，直到回到全局的执行上下文中。（栈：一种数据结构，遵循后进先出的原则）。下面我们说说执行上下文栈是如何工作的。<br>为了模拟执行上下文栈的行为，让我们定义执行上下文栈是一个数组：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ECStack = [];</span><br></pre></td></tr></table></figure>
+<p>当 JavaScript 开始要解释执行代码的时候，最先遇到的就是全局代码，所以初始化的时候首先就会向执行上下文栈压入一个全局执行上下文，我们用 globalContext 表示它，并且只有当整个应用程序结束的时候，ECStack 才会被清空，所以程序结束之前， ECStack 最底部永远有个 globalContext：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ECStack = [</span><br><span class="line">    globalContext</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+<p>现在我们执行下面这段代码：</p>
 <span id="more"></span>
-<p><strong>IOS与JS交互:</strong></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"><span class="comment">/*这段代码是固定的，必须要放到js中*/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setupWebViewJavascriptBridge</span>(<span class="params">callback</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">window</span>.WebViewJavascriptBridge) &#123; <span class="keyword">return</span> callback(WebViewJavascriptBridge); &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">window</span>.WVJBCallbacks) &#123; <span class="keyword">return</span> <span class="built_in">window</span>.WVJBCallbacks.push(callback); &#125;</span><br><span class="line">    <span class="built_in">window</span>.WVJBCallbacks = [callback];</span><br><span class="line">    <span class="keyword">var</span> WVJBIframe = <span class="built_in">document</span>.createElement(<span class="string">&#x27;iframe&#x27;</span>);</span><br><span class="line">    WVJBIframe.style.display = <span class="string">&#x27;none&#x27;</span>;</span><br><span class="line">    WVJBIframe.src = <span class="string">&#x27;wvjbscheme://__BRIDGE_LOADED__&#x27;</span>;</span><br><span class="line">    <span class="built_in">document</span>.documentElement.appendChild(WVJBIframe);</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">document</span>.documentElement.removeChild(WVJBIframe) &#125;, <span class="number">0</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*与OC交互的所有JS方法都要放在此处注册，才能调用通过JS调用OC或者让OC调用这里的JS*/</span></span><br><span class="line">setupWebViewJavascriptBridge(<span class="function"><span class="keyword">function</span>(<span class="params">bridge</span>) </span>&#123;</span><br><span class="line">    <span class="comment">/*我们在这注册一个js调用OC的方法，不带参数，且不用ObjC端反馈结果给JS：打开本demo对应的博文*/</span></span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">&#x27;ios_share&#x27;</span>).onclick = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">        bridge.callHandler(<span class="string">&#x27;getShareObjC&#x27;</span>, &#123;</span><br><span class="line">            <span class="string">&#x27;title&#x27;</span>: <span class="string">&#x27;Money+Funny，这可能是全成都最适合你的兼职！&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;content&#x27;</span>:<span class="string">&#x27;拼K高校首席体验官公开招募！底薪1000元多玩多赚！速来！速来！速来！&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;urlId&#x27;</span>:<span class="string">&#x27;http://www.tanshikeji.com/Home/Active/special_form.html&#x27;</span></span><br><span class="line">        &#125;, <span class="function"><span class="keyword">function</span>(<span class="params">response</span>) </span>&#123;</span><br><span class="line"><span class="comment">//            alert(&quot;success&quot;+response);</span></span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var color = &#x27;blue&#x27;;</span><br><span class="line">function changeColor() &#123;</span><br><span class="line">    var anotherColor = &#x27;red&#x27;;</span><br><span class="line">    function swapColors() &#123;</span><br><span class="line">        var tempColor = anotherColor;</span><br><span class="line">        anotherColor = color;</span><br><span class="line">        color = tempColor;</span><br><span class="line">    &#125;</span><br><span class="line">    swapColors();</span><br><span class="line">&#125;</span><br><span class="line">changeColor();</span><br></pre></td></tr></table></figure>
+<p>上述代码运行按照如下步骤：</p>
+<ul>
+<li>当上述代码在浏览器中加载时，JavaScript 引擎会创建一个全局执行上下文并且将它推入当前的执行栈</li>
+<li>调用 changeColor函数时，此时changeColor函数内部代码还未执行，js执行引擎立即创建一个changeColor的执行上下文（简称EC），然后把这执行上下文压入到执行栈（简称ECStack）中。</li>
+<li>执行changeColor函数过程中，调用swapColors函数，同样地，swapColors函数执行之前也创建了一个swapColors的执行上下文，并压入到执行栈中。</li>
+<li>swapColors函数执行完成，swapColors函数的执行上下文出栈，并且被销毁。</li>
+<li>changeColor函数执行完成，changeColor函数的执行上下文出栈，并且被销毁。<br><img src="/images/esstack.png" alt="(流程图)"></li>
+</ul>
 ]]></content>
-      <categories>
-        <category>JS</category>
-      </categories>
       <tags>
-        <tag>JS</tag>
-        <tag>IOS</tag>
-        <tag>Android</tag>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>清除浮动</title>
+    <url>/2016/07/01/%E6%B8%85%E6%A5%9A%E6%B5%AE%E5%8A%A8/</url>
+    <content><![CDATA[<h4 id="清除浮动"><a href="#清除浮动" class="headerlink" title="清除浮动"></a>清除浮动</h4><pre><code>.order_con:after&#123;
+    content: ‘.’;
+    display: block;
+    visibility: hidden;
+    width: 0px;
+    height: 0px;
+    clear: both;
+&#125;
+</code></pre>
+]]></content>
+      <tags>
+        <tag>CSS</tag>
       </tags>
   </entry>
   <entry>
@@ -1847,47 +1912,6 @@ if(r==null)alert(&#39;Date format error!&#39;);
 ]]></content>
       <tags>
         <tag>Expression</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>三、JavaScript之执行上下文栈</title>
-    <url>/2019/06/26/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E6%A0%88/</url>
-    <content><![CDATA[<p>由于JS是单线程的，每次只能做一件事情，其他的事情会放在指定的上下文栈中排队等待执行，所以执行上下文栈的作用是用来跟踪代码的，。</p>
-<p>JS解释器在初始化代码的时候，首先会创建一个新的全局执行上下文到执行上下文栈顶中，然后随着每次函数的调用都会创建一个新的执行上下文放入到栈顶中，随着函数执行完毕后被执行上下文栈顶弹出，直到回到全局的执行上下文中。（栈：一种数据结构，遵循后进先出的原则）。下面我们说说执行上下文栈是如何工作的。<br>为了模拟执行上下文栈的行为，让我们定义执行上下文栈是一个数组：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ECStack = [];</span><br></pre></td></tr></table></figure>
-<p>当 JavaScript 开始要解释执行代码的时候，最先遇到的就是全局代码，所以初始化的时候首先就会向执行上下文栈压入一个全局执行上下文，我们用 globalContext 表示它，并且只有当整个应用程序结束的时候，ECStack 才会被清空，所以程序结束之前， ECStack 最底部永远有个 globalContext：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ECStack = [</span><br><span class="line">    globalContext</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
-<p>现在我们执行下面这段代码：</p>
-<span id="more"></span>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var color = &#x27;blue&#x27;;</span><br><span class="line">function changeColor() &#123;</span><br><span class="line">    var anotherColor = &#x27;red&#x27;;</span><br><span class="line">    function swapColors() &#123;</span><br><span class="line">        var tempColor = anotherColor;</span><br><span class="line">        anotherColor = color;</span><br><span class="line">        color = tempColor;</span><br><span class="line">    &#125;</span><br><span class="line">    swapColors();</span><br><span class="line">&#125;</span><br><span class="line">changeColor();</span><br></pre></td></tr></table></figure>
-<p>上述代码运行按照如下步骤：</p>
-<ul>
-<li>当上述代码在浏览器中加载时，JavaScript 引擎会创建一个全局执行上下文并且将它推入当前的执行栈</li>
-<li>调用 changeColor函数时，此时changeColor函数内部代码还未执行，js执行引擎立即创建一个changeColor的执行上下文（简称EC），然后把这执行上下文压入到执行栈（简称ECStack）中。</li>
-<li>执行changeColor函数过程中，调用swapColors函数，同样地，swapColors函数执行之前也创建了一个swapColors的执行上下文，并压入到执行栈中。</li>
-<li>swapColors函数执行完成，swapColors函数的执行上下文出栈，并且被销毁。</li>
-<li>changeColor函数执行完成，changeColor函数的执行上下文出栈，并且被销毁。<br><img src="/images/esstack.png" alt="(流程图)"></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>清除浮动</title>
-    <url>/2016/07/01/%E6%B8%85%E6%A5%9A%E6%B5%AE%E5%8A%A8/</url>
-    <content><![CDATA[<h4 id="清除浮动"><a href="#清除浮动" class="headerlink" title="清除浮动"></a>清除浮动</h4><pre><code>.order_con:after&#123;
-    content: ‘.’;
-    display: block;
-    visibility: hidden;
-    width: 0px;
-    height: 0px;
-    clear: both;
-&#125;
-</code></pre>
-]]></content>
-      <tags>
-        <tag>CSS</tag>
       </tags>
   </entry>
   <entry>
@@ -2124,7 +2148,7 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
 <h2 id="关于收费"><a href="#关于收费" class="headerlink" title="关于收费"></a>关于收费</h2><p><strong>马克飞象</strong>为新用户提供 10 天的试用期，试用期过后需要<a href="maxiang.info/vip.html">续费</a>才能继续使用。未购买或者未及时续费，将不能同步新的笔记。之前保存过的笔记依然可以编辑。</p>
 <h2 id="反馈与建议"><a href="#反馈与建议" class="headerlink" title="反馈与建议"></a>反馈与建议</h2><ul>
 <li>微博：<a href="http://weibo.com/u/2788354117">@马克飞象</a>，<a href="http://weibo.com/ggock" title="开发者个人账号">@GGock</a></li>
-<li>邮箱：<a href="mailto:&#104;&#117;&#x73;&#116;&#x67;&#111;&#x63;&#x6b;&#x40;&#x67;&#109;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#104;&#117;&#x73;&#116;&#x67;&#111;&#x63;&#x6b;&#x40;&#x67;&#109;&#x61;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#109;</a></li>
+<li>邮箱：<a href="mailto:&#x68;&#117;&#x73;&#116;&#x67;&#111;&#99;&#107;&#64;&#103;&#x6d;&#97;&#105;&#108;&#46;&#99;&#x6f;&#109;">&#x68;&#117;&#x73;&#116;&#x67;&#111;&#99;&#107;&#64;&#103;&#x6d;&#97;&#105;&#108;&#46;&#99;&#x6f;&#109;</a></li>
 </ul>
 <hr>
 <p>感谢阅读这份帮助文档。请点击右上角，绑定印象笔记账号，开启全新的记录与分享体验吧。</p>
