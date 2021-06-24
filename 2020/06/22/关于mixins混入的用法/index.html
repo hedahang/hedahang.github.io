@@ -14,22 +14,22 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;hedahang.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Pisces&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="最近项目中要用到很多eCharts图表组件，需要在窗口尺寸发生变化时，重置图表的大小，此时如果在每个组件里面都去实现一段监听代码，代码重复太多了，此时就可以使用混入来解决这个问题，mixins是Vue提供的一种混合机制，用来更高效的实现组件内容的复用。 JS代码：1234567891011121314151617181920212223242526&#x2F;&#x2F; 混入代码import &amp;#123; debo">
+<meta name="description" content="最近项目中要用到很多eCharts图表组件，需要在窗口尺寸发生变化时，重置图表的大小，此时如果在每个组件里面都去实现一段监听代码，代码重复太多了，此时就可以使用混入来解决这个问题，mixins是Vue提供的一种混合机制，用来更高效的实现组件内容的复用。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于vue中mixins混入的用法">
 <meta property="og:url" content="https://hedahang.github.io/2020/06/22/%E5%85%B3%E4%BA%8Emixins%E6%B7%B7%E5%85%A5%E7%9A%84%E7%94%A8%E6%B3%95/index.html">
-<meta property="og:site_name" content="Munachar">
-<meta property="og:description" content="最近项目中要用到很多eCharts图表组件，需要在窗口尺寸发生变化时，重置图表的大小，此时如果在每个组件里面都去实现一段监听代码，代码重复太多了，此时就可以使用混入来解决这个问题，mixins是Vue提供的一种混合机制，用来更高效的实现组件内容的复用。 JS代码：1234567891011121314151617181920212223242526&#x2F;&#x2F; 混入代码import &amp;#123; debo">
+<meta property="og:site_name" content="个人笔记">
+<meta property="og:description" content="最近项目中要用到很多eCharts图表组件，需要在窗口尺寸发生变化时，重置图表的大小，此时如果在每个组件里面都去实现一段监听代码，代码重复太多了，此时就可以使用混入来解决这个问题，mixins是Vue提供的一种混合机制，用来更高效的实现组件内容的复用。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-06-22T08:26:10.000Z">
-<meta property="article:modified_time" content="2021-06-16T07:13:25.763Z">
-<meta property="article:author" content="Munachar">
+<meta property="article:modified_time" content="2021-06-24T06:49:26.586Z">
+<meta property="article:author" content="muna">
 <meta property="article:tag" content="JS">
 <meta property="article:tag" content="VUE">
 <meta name="twitter:card" content="summary">
@@ -42,7 +42,7 @@
 <script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;hedahang.github.io&#x2F;2020&#x2F;06&#x2F;22&#x2F;%E5%85%B3%E4%BA%8Emixins%E6%B7%B7%E5%85%A5%E7%9A%84%E7%94%A8%E6%B3%95&#x2F;&quot;,&quot;path&quot;:&quot;2020&#x2F;06&#x2F;22&#x2F;关于mixins混入的用法&#x2F;&quot;,&quot;title&quot;:&quot;关于vue中mixins混入的用法&quot;}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
-<title>关于vue中mixins混入的用法 | Munachar</title>
+<title>关于vue中mixins混入的用法 | 个人笔记</title>
   
 
   <script src="/js/third-party/analytics/baidu-analytics.js"></script>
@@ -73,7 +73,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Munachar</h1>
+      <h1 class="site-title">个人笔记</h1>
       <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">Quick notes</p>
@@ -156,7 +156,7 @@
 
         <div class="site-overview-wrap sidebar-panel">
           <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">Munachar</p>
+  <p class="site-author-name" itemprop="name">muna</p>
   <div class="site-description" itemprop="description">Everything is good in its season.</div>
 </div>
 <div class="site-state-wrap site-overview-item animated">
@@ -164,7 +164,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives">
         
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">46</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -233,12 +233,12 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Munachar">
+      <meta itemprop="name" content="muna">
       <meta itemprop="description" content="Everything is good in its season.">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Munachar">
+      <meta itemprop="name" content="个人笔记">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -260,7 +260,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-06-16 15:13:25" itemprop="dateModified" datetime="2021-06-16T15:13:25+08:00">2021-06-16</time>
+        <time title="修改时间：2021-06-24 14:49:26" itemprop="dateModified" datetime="2021-06-24T14:49:26+08:00">2021-06-24</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -283,8 +283,9 @@
     
     <div class="post-body" itemprop="articleBody">
         <p>最近项目中要用到很多eCharts图表组件，需要在窗口尺寸发生变化时，重置图表的大小，此时如果在每个组件里面都去实现一段监听代码，代码重复太多了，此时就可以使用混入来解决这个问题，mixins是Vue提供的一种混合机制，用来更高效的实现组件内容的复用。</p>
-<h1 id="JS代码："><a href="#JS代码：" class="headerlink" title="JS代码："></a>JS代码：</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 混入代码</span></span><br><span class="line"><span class="keyword">import</span> &#123; debounce &#125; <span class="keyword">from</span> <span class="string">&quot;lodash&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> resizeChartMethod = <span class="built_in">Symbol</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 在组件内部将图表init的引用映射到chart属性上</span></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="attr">myChart</span>: <span class="literal">null</span>,</span><br><span class="line">      [resizeChartMethod]: <span class="literal">null</span></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">created</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> _this = <span class="built_in">this</span>;</span><br><span class="line">    <span class="built_in">this</span>[resizeChartMethod] = debounce(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (_this.myChart) &#123;</span><br><span class="line">        _this.myChart.resize();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;, <span class="number">100</span>);</span><br><span class="line">    <span class="built_in">window</span>.addEventListener(<span class="string">&quot;resize&quot;</span>, <span class="built_in">this</span>[resizeChartMethod]);</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">methods</span>: &#123;&#125;,</span><br><span class="line">  <span class="function"><span class="title">beforeDestroy</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">window</span>.removeEventListener(<span class="string">&quot;reisze&quot;</span>, <span class="built_in">this</span>[resizeChartMethod]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <span id="more"></span>
+
+<h1 id="JS代码："><a href="#JS代码：" class="headerlink" title="JS代码："></a>JS代码：</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 混入代码</span></span><br><span class="line"><span class="keyword">import</span> &#123; debounce &#125; <span class="keyword">from</span> <span class="string">&quot;lodash&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> resizeChartMethod = <span class="built_in">Symbol</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 在组件内部将图表init的引用映射到chart属性上</span></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="attr">myChart</span>: <span class="literal">null</span>,</span><br><span class="line">      [resizeChartMethod]: <span class="literal">null</span></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">created</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> _this = <span class="built_in">this</span>;</span><br><span class="line">    <span class="built_in">this</span>[resizeChartMethod] = debounce(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (_this.myChart) &#123;</span><br><span class="line">        _this.myChart.resize();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;, <span class="number">100</span>);</span><br><span class="line">    <span class="built_in">window</span>.addEventListener(<span class="string">&quot;resize&quot;</span>, <span class="built_in">this</span>[resizeChartMethod]);</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">methods</span>: &#123;&#125;,</span><br><span class="line">  <span class="function"><span class="title">beforeDestroy</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">window</span>.removeEventListener(<span class="string">&quot;reisze&quot;</span>, <span class="built_in">this</span>[resizeChartMethod]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h1 id="图表组件代码"><a href="#图表组件代码" class="headerlink" title="图表组件代码"></a>图表组件代码</h1><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;chart&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> echartMixins <span class="keyword">from</span> <span class="string">&#x27;./echarts-mixins&#x27;</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="comment">// mixins属性用于导入混入，是一个数组，数组可以传入多个混入对象</span></span><br><span class="line">  <span class="attr">mixins</span>: [echartMixins],</span><br><span class="line">  <span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="attr">chart</span>: <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">created</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.chart = echarts.init(<span class="built_in">this</span>.$el)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
     </div>
@@ -336,7 +337,7 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Munachar</span>
+  <span class="author" itemprop="copyrightHolder">muna</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>

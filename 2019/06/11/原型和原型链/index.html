@@ -14,23 +14,23 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;hedahang.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Pisces&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="原型首先创建一个构造函数 1234function Person() &amp;#123;&amp;#125;var person &#x3D; new Person();person.name &#x3D; &amp;#x27;lilei&amp;#x27;;console.log(person.name) &#x2F;&#x2F; lilei 在这个例子中，Person 就是一个构造函数，我们使用 new 创建了一个实例对象 person。 prototype每个">
+<meta name="description" content="原型首先创建一个构造函数 1234function Person() &amp;#123;&amp;#125;var person &#x3D; new Person();person.name &#x3D; &amp;#x27;lilei&amp;#x27;;console.log(person.name) &#x2F;&#x2F; lilei">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一、JavaScript之原型和原型链">
 <meta property="og:url" content="https://hedahang.github.io/2019/06/11/%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE/index.html">
-<meta property="og:site_name" content="Munachar">
-<meta property="og:description" content="原型首先创建一个构造函数 1234function Person() &amp;#123;&amp;#125;var person &#x3D; new Person();person.name &#x3D; &amp;#x27;lilei&amp;#x27;;console.log(person.name) &#x2F;&#x2F; lilei 在这个例子中，Person 就是一个构造函数，我们使用 new 创建了一个实例对象 person。 prototype每个">
+<meta property="og:site_name" content="个人笔记">
+<meta property="og:description" content="原型首先创建一个构造函数 1234function Person() &amp;#123;&amp;#125;var person &#x3D; new Person();person.name &#x3D; &amp;#x27;lilei&amp;#x27;;console.log(person.name) &#x2F;&#x2F; lilei">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://hedahang.github.io/images/prototype.png">
 <meta property="article:published_time" content="2019-06-11T03:10:59.000Z">
-<meta property="article:modified_time" content="2021-06-22T09:51:53.197Z">
-<meta property="article:author" content="Munachar">
+<meta property="article:modified_time" content="2021-06-24T07:04:41.965Z">
+<meta property="article:author" content="muna">
 <meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://hedahang.github.io/images/prototype.png">
@@ -43,7 +43,7 @@
 <script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;hedahang.github.io&#x2F;2019&#x2F;06&#x2F;11&#x2F;%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE&#x2F;&quot;,&quot;path&quot;:&quot;2019&#x2F;06&#x2F;11&#x2F;原型和原型链&#x2F;&quot;,&quot;title&quot;:&quot;一、JavaScript之原型和原型链&quot;}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
-<title>一、JavaScript之原型和原型链 | Munachar</title>
+<title>一、JavaScript之原型和原型链 | 个人笔记</title>
   
 
   <script src="/js/third-party/analytics/baidu-analytics.js"></script>
@@ -74,7 +74,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Munachar</h1>
+      <h1 class="site-title">个人笔记</h1>
       <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">Quick notes</p>
@@ -157,7 +157,7 @@
 
         <div class="site-overview-wrap sidebar-panel">
           <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">Munachar</p>
+  <p class="site-author-name" itemprop="name">muna</p>
   <div class="site-description" itemprop="description">Everything is good in its season.</div>
 </div>
 <div class="site-state-wrap site-overview-item animated">
@@ -165,7 +165,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives">
         
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">46</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -234,12 +234,12 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Munachar">
+      <meta itemprop="name" content="muna">
       <meta itemprop="description" content="Everything is good in its season.">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Munachar">
+      <meta itemprop="name" content="个人笔记">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -261,7 +261,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-06-22 17:51:53" itemprop="dateModified" datetime="2021-06-22T17:51:53+08:00">2021-06-22</time>
+        <time title="修改时间：2021-06-24 15:04:41" itemprop="dateModified" datetime="2021-06-24T15:04:41+08:00">2021-06-24</time>
       </span>
 
   
@@ -276,13 +276,13 @@
     <div class="post-body" itemprop="articleBody">
         <h2 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h2><p>首先创建一个构造函数</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;&#125;</span><br><span class="line">var person = new Person();</span><br><span class="line">person.name = &#x27;lilei&#x27;;</span><br><span class="line">console.log(person.name) // lilei</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
 <p>在这个例子中，Person 就是一个构造函数，我们使用 new 创建了一个实例对象 person。</p>
 <h3 id="prototype"><a href="#prototype" class="headerlink" title="prototype"></a>prototype</h3><p>每个函数都有一个prototype属性，那这个属性到底是指向哪里呢？是这个函数的原型吗？</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;&#125;</span><br><span class="line">Person.prototype.name = &#x27;lilei&#x27;;</span><br><span class="line">var person1 = new Person();</span><br><span class="line">var person2 = new Person();</span><br><span class="line">console.log(person1.name) // lilei</span><br><span class="line">console.log(person2.name) // lilei</span><br></pre></td></tr></table></figure>
 <p>从这里可以看出，函数Person的prototype熟悉指向了一个对象，这个对象就是正在调用该构造函数而创建的实例的原型，也就是这个例子中的person的原型。<br>那什么是原型呢？可以这样理解，每个JavaScript对象（null除外）在创建的时候都会关联另一个对象，这个对象就是我们所说的原型，每一个对象都会从原型继承属性。</p>
 <h3 id="proto"><a href="#proto" class="headerlink" title="proto"></a><strong>proto</strong></h3><p>每一个JavaScript对象（null除外）都具有的一个属性叫 ‘<strong>proto</strong>‘ , 这个属性指向该对象的原型。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;&#125;</span><br><span class="line">var person = new Person();</span><br><span class="line">console.log(person.__proto__ === Person.prototype); // true</span><br></pre></td></tr></table></figure>
-<span id="more"></span>
 <h3 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h3><p>前面我们已经知道实例对象和构造函数都可以指向原型，那么原型是否有属性指向构造函数或者实例呢？<br>因为一个构造函数可以生成多个实例，所以原型没有指向实例的属性，，但是原型可以指向构造函数，这就要讲到第三个属性：constructor，每个原型都有一个 constructor 属性指向关联的构造函数。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;&#125;</span><br><span class="line">console.log(Person === Person.prototype.constructor); // true</span><br></pre></td></tr></table></figure>
 <p>综上我们已经得出</p>
@@ -341,7 +341,7 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Munachar</span>
+  <span class="author" itemprop="copyrightHolder">muna</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>

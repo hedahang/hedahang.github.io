@@ -14,22 +14,22 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;hedahang.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Pisces&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="定义在前面我们已经知道，当JavaScript代码执行一段可执行代码(executable code)时，会创建对应的执行上下文(execution context)。对于每个执行上下文，都有三个重要属性：  变量对象(Variable object，VO) 作用域链(Scope chain) this  前面我们已经讨论了变量对象和作用域链，本文主要说说对this的理解。this与上下文的可执行">
+<meta name="description" content="定义在前面我们已经知道，当JavaScript代码执行一段可执行代码(executable code)时，会创建对应的执行上下文(execution context)。对于每个执行上下文，都有三个重要属性：  变量对象(Variable object，VO) 作用域链(Scope chain) this">
 <meta property="og:type" content="article">
 <meta property="og:title" content="六、JavaScript之this理解">
 <meta property="og:url" content="https://hedahang.github.io/2019/08/06/this/index.html">
-<meta property="og:site_name" content="Munachar">
-<meta property="og:description" content="定义在前面我们已经知道，当JavaScript代码执行一段可执行代码(executable code)时，会创建对应的执行上下文(execution context)。对于每个执行上下文，都有三个重要属性：  变量对象(Variable object，VO) 作用域链(Scope chain) this  前面我们已经讨论了变量对象和作用域链，本文主要说说对this的理解。this与上下文的可执行">
+<meta property="og:site_name" content="个人笔记">
+<meta property="og:description" content="定义在前面我们已经知道，当JavaScript代码执行一段可执行代码(executable code)时，会创建对应的执行上下文(execution context)。对于每个执行上下文，都有三个重要属性：  变量对象(Variable object，VO) 作用域链(Scope chain) this">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-08-06T04:14:44.000Z">
-<meta property="article:modified_time" content="2021-06-23T06:01:17.449Z">
-<meta property="article:author" content="Munachar">
+<meta property="article:modified_time" content="2021-06-24T07:11:52.813Z">
+<meta property="article:author" content="muna">
 <meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
 
@@ -41,7 +41,7 @@
 <script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;hedahang.github.io&#x2F;2019&#x2F;08&#x2F;06&#x2F;this&#x2F;&quot;,&quot;path&quot;:&quot;2019&#x2F;08&#x2F;06&#x2F;this&#x2F;&quot;,&quot;title&quot;:&quot;六、JavaScript之this理解&quot;}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
-<title>六、JavaScript之this理解 | Munachar</title>
+<title>六、JavaScript之this理解 | 个人笔记</title>
   
 
   <script src="/js/third-party/analytics/baidu-analytics.js"></script>
@@ -72,7 +72,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Munachar</h1>
+      <h1 class="site-title">个人笔记</h1>
       <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">Quick notes</p>
@@ -155,7 +155,7 @@
 
         <div class="site-overview-wrap sidebar-panel">
           <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">Munachar</p>
+  <p class="site-author-name" itemprop="name">muna</p>
   <div class="site-description" itemprop="description">Everything is good in its season.</div>
 </div>
 <div class="site-state-wrap site-overview-item animated">
@@ -163,7 +163,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives">
         
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">46</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -232,12 +232,12 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Munachar">
+      <meta itemprop="name" content="muna">
       <meta itemprop="description" content="Everything is good in its season.">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Munachar">
+      <meta itemprop="name" content="个人笔记">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -259,7 +259,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-06-23 14:01:17" itemprop="dateModified" datetime="2021-06-23T14:01:17+08:00">2021-06-23</time>
+        <time title="修改时间：2021-06-24 15:11:52" itemprop="dateModified" datetime="2021-06-24T15:11:52+08:00">2021-06-24</time>
       </span>
 
   
@@ -276,12 +276,11 @@
 <ul>
 <li>变量对象(Variable object，VO)</li>
 <li>作用域链(Scope chain)</li>
-<li>this</li>
+<li>this<span id="more"></span></li>
 </ul>
 <p>前面我们已经讨论了变量对象和作用域链，本文主要说说对this的理解。<br>this与上下文的可执行代码类型直接相关。该值在进入上下文时确定，并且在代码在上下文中运行时是不可变的。</p>
 <h2 id="全局代码中This的值"><a href="#全局代码中This的值" class="headerlink" title="全局代码中This的值"></a>全局代码中This的值</h2><p>在全局代码中，this值始终是全局对象本身。因此，可以间接引用它：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 显式定义全局对象</span></span><br><span class="line"><span class="built_in">this</span>.a = <span class="number">10</span>; <span class="comment">// global.a = 10</span></span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">// 10</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">// 通过赋值隐式定义</span></span><br><span class="line">b = <span class="number">20</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">this</span>.b); <span class="comment">// 20</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">// 全局上下文变量声明</span></span><br><span class="line"><span class="keyword">var</span> c = <span class="number">30</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">this</span>.c); <span class="comment">// 30</span></span><br></pre></td></tr></table></figure>
-<span id="more"></span>
 <h2 id="函数代码中This的值"><a href="#函数代码中This的值" class="headerlink" title="函数代码中This的值"></a>函数代码中This的值</h2><p>this的第一个（可能也是主要的）特征是在这种类型代码中的值没有静态绑定到函数。</p>
 <p>如上所述，this值是在进入上下文时确定的，如果使用功能代码，则每次的值都可能完全不同。<br>所以，在代码运行时this值是不可变的，即无法为其分配新值，因为它不是变量。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = &#123;<span class="attr">x</span>: <span class="number">10</span>&#125;;</span><br><span class="line"><span class="keyword">var</span> bar = &#123;</span><br><span class="line">  <span class="attr">x</span>: <span class="number">20</span>,</span><br><span class="line">  <span class="attr">test</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span> === bar); <span class="comment">// true</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.x); <span class="comment">// 20</span></span><br><span class="line">    <span class="comment">// this = foo; // error, Invalid left-hand side in assignment</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.x); <span class="comment">// 如果不报错这里将会是10,</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">bar.test(); <span class="comment">// true, 20</span></span><br><span class="line">foo.test = bar.test;</span><br><span class="line"><span class="comment">//现在this的值将指向“foo”——即使我们正在调用相同的函数  </span></span><br><span class="line">foo.test(); <span class="comment">// false, 10</span></span><br></pre></td></tr></table></figure>
@@ -380,8 +379,8 @@
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2020/06/19/content%E6%8D%A2%E8%A1%8C%E7%AC%A6%E4%B8%8E%E6%89%93%E7%82%B9loading%E6%95%88%E6%9E%9C%E5%AE%9E%E4%BE%8B%E9%A1%B5%E9%9D%A2/" rel="next" title="content换行符与打点loading效果实例页面">
-                  content换行符与打点loading效果实例页面 <i class="fa fa-chevron-right"></i>
+                <a href="/2019/08/26/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/" rel="next" title="七、JavaScript之执行上下文">
+                  七、JavaScript之执行上下文 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -408,7 +407,7 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Munachar</span>
+  <span class="author" itemprop="copyrightHolder">muna</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>
