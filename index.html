@@ -159,13 +159,13 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives">
         
-          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-count">47</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -480,6 +480,125 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2019/09/21/call%E3%80%81apply%E3%80%81bind%E7%9A%84%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="muna">
+      <meta itemprop="description" content="Everything is good in its season.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/09/21/call%E3%80%81apply%E3%80%81bind%E7%9A%84%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0/" class="post-title-link" itemprop="url">九、JavaScript之call、apply和bind的模拟实现</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-09-21 22:22:14" itemprop="dateCreated datePublished" datetime="2019-09-21T22:22:14+08:00">2019-09-21</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-06-25 10:04:26" itemprop="dateModified" datetime="2021-06-25T10:04:26+08:00">2021-06-25</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JavaScript%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">深入理解JavaScript系列</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="call"><a href="#call" class="headerlink" title="call"></a>call</h2><p>简单来说</p>
+<blockquote>
+<p>call()方法在将函数的第一个参数值指定到 this 和剩余参数指定的情况下调用某个函数或方法。</p>
+</blockquote>
+<p>使用示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>, a, b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// this指向第一个参数foo;</span></span><br><span class="line">bar.call(foo, <span class="number">1</span>, <span class="number">2</span>); <span class="comment">// &#123;name: &quot;lilei&quot;&#125; 1 2</span></span><br><span class="line"><span class="comment">// a,b未传参数，默认是undefined</span></span><br><span class="line">bar.call(foo); <span class="comment">// &#123;name: &quot;lilei&quot;&#125; undefined undefined</span></span><br><span class="line"><span class="comment">// call方法不传参数或传递null/undefined，this都指向window(非严格模式)</span></span><br><span class="line">bar.call(); <span class="comment">// window undefined undefined</span></span><br><span class="line">bar.call(<span class="literal">null</span>); <span class="comment">// window undefined undefined</span></span><br><span class="line">bar.call(<span class="literal">undefined</span>); <span class="comment">// window undefined undefined</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="模拟实现"><a href="#模拟实现" class="headerlink" title="模拟实现"></a>模拟实现</h3><p>call 方法的模拟实现需要明白 call 的原理：</p>
+<ol>
+<li>this 指向的改变</li>
+<li>call 函数中执行调用的函数</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myCall = <span class="function"><span class="keyword">function</span> (<span class="params">context, ...args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (context === <span class="literal">null</span> || context === <span class="literal">undefined</span>) &#123;</span><br><span class="line">    context = <span class="built_in">window</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    context = <span class="built_in">Object</span>(context);</span><br><span class="line">  &#125;</span><br><span class="line">  context.fn = <span class="built_in">this</span>;</span><br><span class="line">  <span class="keyword">delete</span> context.fn(...args);</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>, a, b);</span><br><span class="line">&#125;</span><br><span class="line">bar.myCall(foo, <span class="number">1</span>, <span class="number">2</span>); <span class="comment">// &#123;name: &quot;lilei&quot;, fn: ƒ&#125; 1 2</span></span><br><span class="line">bar.myCall(foo); <span class="comment">// &#123;name: &quot;lilei&quot;, fn: ƒ&#125; undefined undefined</span></span><br><span class="line">bar.myCall(); <span class="comment">// Window undefined undefined</span></span><br><span class="line">bar.myCall(<span class="literal">null</span>); <span class="comment">// Window undefined undefined</span></span><br><span class="line">bar.myCall(<span class="literal">undefined</span>); <span class="comment">// Window undefined undefined</span></span><br><span class="line">bar.myCall(<span class="number">23</span>, <span class="number">24</span>); <span class="comment">// Number &#123;23, fn: ƒ&#125; undefined undefined</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h2><p>apply 的使用与 apply 基本一致，两者之间的区别：apply 的第二个参数是数组[arg1,arg2,arg3,…]，call 的第二个参数是列表(arg1,arg2,arg3,…)；<br>使用示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>, a, b);</span><br><span class="line">&#125;</span><br><span class="line">bar.apply(foo, [<span class="number">1</span>, <span class="number">2</span>]); <span class="comment">// &#123;name: &quot;lilei&quot;&#125; 1 2</span></span><br><span class="line">bar.apply(foo); <span class="comment">// &#123;name: &quot;lilei&quot;&#125; undefined undefined</span></span><br><span class="line">bar.apply(); <span class="comment">// window undefined undefined</span></span><br><span class="line">bar.apply(<span class="literal">null</span>); <span class="comment">// window undefined undefined</span></span><br><span class="line">bar.apply(<span class="literal">undefined</span>); <span class="comment">// window undefined undefined</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="模拟实现-1"><a href="#模拟实现-1" class="headerlink" title="模拟实现"></a>模拟实现</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myApply = <span class="function"><span class="keyword">function</span> (<span class="params">context, args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (context === <span class="literal">null</span> || context === <span class="literal">undefined</span>) &#123;</span><br><span class="line">    context = <span class="built_in">window</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    context = <span class="built_in">Object</span>(context);</span><br><span class="line">  &#125;</span><br><span class="line">  context.fn = <span class="built_in">this</span>;</span><br><span class="line">  <span class="keyword">delete</span> context.fn(args);</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h2><p>引用 MDN 中的介绍</p>
+<blockquote>
+<p>bind() 方法创建一个新的函数，在 bind() 被调用时，这个新函数的 this 被指定为 bind() 的第一个参数，而其余参数将作为新函数的参数，供调用时使用。</p>
+</blockquote>
+<p>由此看出 bind 的特点：</p>
+<ul>
+<li>bind 返回一个新的函数。</li>
+<li>这个新的函数可以预置参数。</li>
+</ul>
+<p>举个例子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>, a, b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> fn = bar.bind(foo, <span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">fn(); <span class="comment">//// &#123;name: &quot;lilei&quot;&#125; 1 2</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="模拟实现-2"><a href="#模拟实现-2" class="headerlink" title="模拟实现"></a>模拟实现</h3><p>1.实现返回一个函数，并可以传递参数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myBind = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 保存要绑定的this</span></span><br><span class="line">  <span class="keyword">var</span> _this = <span class="built_in">arguments</span>[<span class="number">0</span>];</span><br><span class="line">  <span class="comment">// 获取预置参数</span></span><br><span class="line">  <span class="keyword">var</span> args = [].slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>);</span><br><span class="line">  <span class="keyword">var</span> self = <span class="built_in">this</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 获取执行时传入的参数</span></span><br><span class="line">    <span class="keyword">var</span> restArgs = [].slice.call(<span class="built_in">arguments</span>);</span><br><span class="line">    <span class="comment">// 合并参数</span></span><br><span class="line">    <span class="keyword">var</span> allArgs = args.concat(restArgs);</span><br><span class="line">    <span class="keyword">return</span> self.apply(_this, allArgs);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>接下来最重要的一点，bind 返回的函数支持 new 调用：</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myBind = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> self = <span class="built_in">this</span>;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> self !== <span class="string">&quot;function&quot;</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;绑定的目标必须是函数&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 保存要绑定的this</span></span><br><span class="line">  <span class="keyword">var</span> _this = <span class="built_in">arguments</span>[<span class="number">0</span>];</span><br><span class="line">  <span class="comment">// 获取预置参数</span></span><br><span class="line">  <span class="keyword">var</span> args = [].slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>);</span><br><span class="line">  <span class="keyword">var</span> fNOP = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line">  <span class="keyword">var</span> fBound = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 获取执行时传入的参数</span></span><br><span class="line">    <span class="keyword">var</span> restArgs = [].slice.call(<span class="built_in">arguments</span>);</span><br><span class="line">    <span class="comment">// 合并参数</span></span><br><span class="line">    <span class="keyword">var</span> allArgs = args.concat(restArgs);</span><br><span class="line">    <span class="comment">// instanceof 运算符用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上。</span></span><br><span class="line">    <span class="keyword">return</span> self.apply(<span class="built_in">this</span> <span class="keyword">instanceof</span> fBound ? <span class="built_in">this</span> : _this, allArgs);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">// 原型链关系处理</span></span><br><span class="line">  <span class="comment">// fBound.prototype = Object.create(self.prototype || Function.prototype);</span></span><br><span class="line">  fNOP.prototype = <span class="built_in">this</span>.prototype;</span><br><span class="line">  fBound.prototype = <span class="keyword">new</span> fNOP();</span><br><span class="line">  <span class="keyword">return</span> fBound;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a target="_blank" rel="noopener" href="https://github.com/mqyqingfeng/Blog/issues/11">https://github.com/mqyqingfeng/Blog/issues/11</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2019/09/11/%E5%80%BC%E4%BC%A0%E9%80%92/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -511,8 +630,17 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-06-24 14:46:56" itemprop="dateModified" datetime="2021-06-24T14:46:56+08:00">2021-06-24</time>
+        <time title="修改时间：2021-06-24 15:32:56" itemprop="dateModified" datetime="2021-06-24T15:32:56+08:00">2021-06-24</time>
       </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JavaScript%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">深入理解JavaScript系列</span></a>
+        </span>
+    </span>
 
   
 </div>
@@ -592,8 +720,17 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-06-24 10:38:44" itemprop="dateModified" datetime="2021-06-24T10:38:44+08:00">2021-06-24</time>
+        <time title="修改时间：2021-06-24 15:32:17" itemprop="dateModified" datetime="2021-06-24T15:32:17+08:00">2021-06-24</time>
       </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JavaScript%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">深入理解JavaScript系列</span></a>
+        </span>
+    </span>
 
   
 </div>
@@ -674,8 +811,17 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-06-24 14:47:26" itemprop="dateModified" datetime="2021-06-24T14:47:26+08:00">2021-06-24</time>
+        <time title="修改时间：2021-06-24 15:32:47" itemprop="dateModified" datetime="2021-06-24T15:32:47+08:00">2021-06-24</time>
       </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JavaScript%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">深入理解JavaScript系列</span></a>
+        </span>
+    </span>
 
   
 </div>
@@ -836,8 +982,17 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-06-24 14:48:29" itemprop="dateModified" datetime="2021-06-24T14:48:29+08:00">2021-06-24</time>
+        <time title="修改时间：2021-06-24 15:33:02" itemprop="dateModified" datetime="2021-06-24T15:33:02+08:00">2021-06-24</time>
       </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JavaScript%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">深入理解JavaScript系列</span></a>
+        </span>
+    </span>
 
   
 </div>
@@ -915,8 +1070,17 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-06-24 14:48:42" itemprop="dateModified" datetime="2021-06-24T14:48:42+08:00">2021-06-24</time>
+        <time title="修改时间：2021-06-24 15:32:21" itemprop="dateModified" datetime="2021-06-24T15:32:21+08:00">2021-06-24</time>
       </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JavaScript%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">深入理解JavaScript系列</span></a>
+        </span>
+    </span>
 
   
 </div>
@@ -932,85 +1096,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/07/12/%E5%8F%98%E9%87%8F%E5%AF%B9%E8%B1%A1/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2019/06/26/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E6%A0%88/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="muna">
-      <meta itemprop="description" content="Everything is good in its season.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人笔记">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/06/26/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E6%A0%88/" class="post-title-link" itemprop="url">三、JavaScript之执行上下文栈</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2019-06-26 19:12:24" itemprop="dateCreated datePublished" datetime="2019-06-26T19:12:24+08:00">2019-06-26</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-06-24 14:47:33" itemprop="dateModified" datetime="2021-06-24T14:47:33+08:00">2021-06-24</time>
-      </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>由于JS是单线程的，每次只能做一件事情，其他的事情会放在指定的上下文栈中排队等待执行，所以执行上下文栈的作用是用来跟踪代码的，。</p>
-<p>JS解释器在初始化代码的时候，首先会创建一个新的全局执行上下文到执行上下文栈顶中，然后随着每次函数的调用都会创建一个新的执行上下文放入到栈顶中，随着函数执行完毕后被执行上下文栈顶弹出，直到回到全局的执行上下文中。（栈：一种数据结构，遵循后进先出的原则）。下面我们说说执行上下文栈是如何工作的。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/06/26/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E6%A0%88/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
