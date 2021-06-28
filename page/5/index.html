@@ -159,7 +159,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives">
         
-          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-count">48</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -223,6 +223,96 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2016/06/23/%E9%9D%A2%E8%AF%95%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="muna">
+      <meta itemprop="description" content="Everything is good in its season.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2016/06/23/%E9%9D%A2%E8%AF%95%E9%A2%98/" class="post-title-link" itemprop="url">模板引擎、字节转换、map函数</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-06-23 20:28:10" itemprop="dateCreated datePublished" datetime="2016-06-23T20:28:10+08:00">2016-06-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Testing/" itemprop="url" rel="index"><span itemprop="name">Testing</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h5 id="1-模板引擎"><a href="#1-模板引擎" class="headerlink" title="1. 模板引擎"></a>1. 模板引擎</h5><pre><code>var reg = /\$\&#123;[a-zA-Z]+\&#125;/g;
+var tpl = &quot;hello $&#123;who&#125;!&quot;;
+var obj = &#123;who:&quot;world&quot;&#125;;
+function template(tpl,obj)&#123;
+        var s = reg.exec(tpl);
+        var s1 = s[0].slice(2,-1);
+        document.write(tpl.replace(reg,obj[s1]));
+    &#125;
+    //template(tpl,obj);
+    template(&#39;Hello,$&#123;name&#125;&#39;,&#123;name:&quot;hedahang&quot;&#125;);
+</code></pre>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2016/06/23/%E9%9D%A2%E8%AF%95%E9%A2%98/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2016/06/23/count%E6%96%B9%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -249,13 +339,6 @@
 
       <time title="创建时间：2016-06-23 14:11:29" itemprop="dateCreated datePublished" datetime="2016-06-23T14:11:29+08:00">2016-06-23</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-06-24 15:07:08" itemprop="dateModified" datetime="2021-06-24T15:07:08+08:00">2021-06-24</time>
-      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -336,13 +419,6 @@
 
       <time title="创建时间：2016-06-21 18:50:59" itemprop="dateCreated datePublished" datetime="2016-06-21T18:50:59+08:00">2016-06-21</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-06-16 15:13:25" itemprop="dateModified" datetime="2021-06-16T15:13:25+08:00">2021-06-16</time>
-      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -435,13 +511,6 @@
 
       <time title="创建时间：2016-06-13 14:15:33" itemprop="dateCreated datePublished" datetime="2016-06-13T14:15:33+08:00">2016-06-13</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-06-24 15:11:30" itemprop="dateModified" datetime="2021-06-24T15:11:30+08:00">2021-06-24</time>
-      </span>
 
   
 </div>
@@ -518,13 +587,6 @@
 
       <time title="创建时间：2016-05-20 10:09:29" itemprop="dateCreated datePublished" datetime="2016-05-20T10:09:29+08:00">2016-05-20</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-06-24 15:04:57" itemprop="dateModified" datetime="2021-06-24T15:04:57+08:00">2021-06-24</time>
-      </span>
 
   
 </div>
@@ -597,13 +659,6 @@
 
       <time title="创建时间：2016-05-04 14:11:29" itemprop="dateCreated datePublished" datetime="2016-05-04T14:11:29+08:00">2016-05-04</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-06-16 15:13:25" itemprop="dateModified" datetime="2021-06-16T15:13:25+08:00">2021-06-16</time>
-      </span>
 
   
 </div>
@@ -680,13 +735,6 @@
 
       <time title="创建时间：2015-08-12 14:11:29" itemprop="dateCreated datePublished" datetime="2015-08-12T14:11:29+08:00">2015-08-12</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-06-24 15:11:41" itemprop="dateModified" datetime="2021-06-24T15:11:41+08:00">2021-06-24</time>
-      </span>
 
   
 </div>
@@ -760,13 +808,6 @@
 
       <time title="创建时间：2015-07-11 22:11:29" itemprop="dateCreated datePublished" datetime="2015-07-11T22:11:29+08:00">2015-07-11</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-06-16 15:13:25" itemprop="dateModified" datetime="2021-06-16T15:13:25+08:00">2021-06-16</time>
-      </span>
 
   
 </div>
