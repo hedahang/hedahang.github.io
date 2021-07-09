@@ -22,8 +22,8 @@
 <script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;hedahang.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Pisces&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script><script src="/js/config.js"></script>
 <meta name="description" content="在项目开发中，我们经常会进行类型判断，这里对JS类型判断的方式进行一下总结。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="二、JavaScript专题之类型判断">
-<meta property="og:url" content="https://hedahang.github.io/2020/02/14/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD/index.html">
+<meta property="og:title" content="三、JavaScript专题之类型判断(上)">
+<meta property="og:url" content="https://hedahang.github.io/2020/02/14/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD%E4%B8%8A/index.html">
 <meta property="og:site_name" content="个人笔记">
 <meta property="og:description" content="在项目开发中，我们经常会进行类型判断，这里对JS类型判断的方式进行一下总结。">
 <meta property="og:locale" content="zh_CN">
@@ -34,14 +34,14 @@
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://hedahang.github.io/2020/02/14/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD/">
+<link rel="canonical" href="https://hedahang.github.io/2020/02/14/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD%E4%B8%8A/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;hedahang.github.io&#x2F;2020&#x2F;02&#x2F;14&#x2F;%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD&#x2F;&quot;,&quot;path&quot;:&quot;2020&#x2F;02&#x2F;14&#x2F;类型判断&#x2F;&quot;,&quot;title&quot;:&quot;二、JavaScript专题之类型判断&quot;}</script>
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;hedahang.github.io&#x2F;2020&#x2F;02&#x2F;14&#x2F;%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD%E4%B8%8A&#x2F;&quot;,&quot;path&quot;:&quot;2020&#x2F;02&#x2F;14&#x2F;类型判断上&#x2F;&quot;,&quot;title&quot;:&quot;三、JavaScript专题之类型判断(上)&quot;}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
-<title>二、JavaScript专题之类型判断 | 个人笔记</title>
+<title>三、JavaScript专题之类型判断(上) | 个人笔记</title>
   
 
   <script src="/js/third-party/analytics/baidu-analytics.js"></script>
@@ -163,7 +163,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives">
         
-          <span class="site-state-item-count">51</span>
+          <span class="site-state-item-count">52</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -228,7 +228,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2020/02/14/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD/">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2020/02/14/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD%E4%B8%8A/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -241,7 +241,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          二、JavaScript专题之类型判断
+          三、JavaScript专题之类型判断(上)
         </h1>
 
         <div class="post-meta-container">
@@ -403,6 +403,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!<span class="built_in">Array</span>.isArray) &#123;</span><br><span class="line">  <span class="built_in">Array</span>.isArray = <span class="function"><span class="keyword">function</span>(<span class="params">arg</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Object</span>.prototype.toString.call(arg) === <span class="string">&#x27;[object Array]&#x27;</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://bbs.huaweicloud.com/blogs/238951">https://bbs.huaweicloud.com/blogs/238951</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/mqyqingfeng/Blog/issues/28">https://github.com/mqyqingfeng/Blog/issues/28</a></li>
 </ul>
 
     </div>
@@ -425,8 +426,8 @@
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2020/06/19/content%E6%8D%A2%E8%A1%8C%E7%AC%A6%E4%B8%8E%E6%89%93%E7%82%B9loading%E6%95%88%E6%9E%9C%E5%AE%9E%E4%BE%8B%E9%A1%B5%E9%9D%A2/" rel="next" title="content换行符与打点loading效果实例页面">
-                  content换行符与打点loading效果实例页面 <i class="fa fa-chevron-right"></i>
+                <a href="/2020/02/18/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD%E4%B8%8B/" rel="next" title="四、JavaScript专题之类型判断(下)">
+                  四、JavaScript专题之类型判断(下) <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
