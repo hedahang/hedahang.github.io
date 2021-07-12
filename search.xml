@@ -84,87 +84,6 @@
       </tags>
   </entry>
   <entry>
-    <title>H5新特性</title>
-    <url>/2016/07/10/H5%E6%96%B0%E7%89%B9%E6%80%A7/</url>
-    <content><![CDATA[<h3 id="表单新特性————新的-input-type"><a href="#表单新特性————新的-input-type" class="headerlink" title="表单新特性————新的 input type"></a>表单新特性————新的 input type</h3><pre><code>&lt;input type=&quot;?&quot;&gt;
-</code></pre>
-<p>1.1 原有的 type:</p>
-<pre><code>text、password、radio、checkbox、hidden、file、image、button、submit、reset
-</code></pre>
-<span id="more"></span>
-<p>1.2 新增的 type:</p>
-<pre><code>email、search、url、tel、number、range、color、date、week、month
-
-1. email:  要求输入必需符合邮箱格式  xx@xx
-2. url:  要求输入必需符合URL格式  xx:yy
-3. tel:  无输入格式验证，在手机中弹出的数字键盘，而不是字母键盘
-4. number: 要求输入一个整型数字，可以配合max/min/step新属性使用
-5. search: Chrome中会显示一个x号
-6. range: 范围选择器、滑块，可以配合max/min/step新属性使用
-7. color：颜色选择器，Chrome/FF偷懒了，都直接使用操作系统自带的颜色选择器
-8. date：日期选择器，FF不支持
-9. month：月份选择器，FF不支持
-10. week：星期选择器，FF不支持
-</code></pre>
-<!-- more -->
-
-<blockquote>
-<p>提示：<br>(1) HTML5 新添的 input type 存在严重的兼容性问题！<br>(2) 新特性弹出的提示消息本质是“窗口”，不是 HTML 元素，无法使用 JS、CSS 进行控制！</p>
-</blockquote>
-<h3 id="表单新特性————新的表单元素"><a href="#表单新特性————新的表单元素" class="headerlink" title="表单新特性————新的表单元素"></a>表单新特性————新的表单元素</h3><p>2.1 原有的表单输入元素：<br>input、textarea、select/option<br>2.2 新增的表单元素</p>
-<pre><code>(1)&lt;datalist&gt;&lt;/datalist&gt;        数据列表，本身是不可见元素，为某个input提供可选输入的列表，使用方法：
-    &lt;datalist id=&quot;LISTID&quot;&gt;&lt;option&gt;选项名&lt;/option&gt;&lt;/datalist&gt;
-    &lt;input type=&quot;text&quot; list=&quot;LISTID&quot;&gt;
-
-(2)&lt;progress&gt;&lt;/progress&gt;    进度条，仅用于进度的提示，不能被用户操作，也不会被提交。
-    &lt;progress value=&quot;0.5&quot;&gt;&lt;/progress&gt;
-
-(3)&lt;meter&gt;&lt;/meter&gt;        刻度尺，仅用于水平/数量的提示，不能被用户操作，也不会被提交。需要指定如下属性：
-    &lt;meter min=&quot;最小值&quot; max=&quot;最大值&quot; low=&quot;下限值&quot; high=&quot;上限值&quot; optimum=&quot;最优值&quot;  value=&quot;当前实际值&quot;&gt;&lt;/meter&gt;
-    如果最优值小于下限值，刻度尺颜色分配：
-    min (绿色) low (黄色) high (红色) max
-    如果最优值大于下限值且小于上限值，刻度尺颜色分配：
-    min (黄色) low (绿色) high (黄色) max
-    如果最优值大于上限值，刻度尺颜色分配：
-    min (红色) low (黄色) high (绿色) max
-
-(4)&lt;output&gt;&lt;/output&gt;    语义标签，表示一个计算的输出值，仅用于计算结果的提示，不能被用户操作，也不会被提交。
-</code></pre>
-<p>提示：上述四个新元素存在兼容性问题。</p>
-<h3 id="表单新特性————input-的新属性"><a href="#表单新特性————input-的新属性" class="headerlink" title="表单新特性————input 的新属性"></a>表单新特性————input 的新属性</h3><p>3.1 原有的 input 属性</p>
-<pre><code>&lt;input id=&quot;&quot; class=&quot;&quot; style=&quot;&quot; title=&quot;&quot; name=&quot;&quot; value=&quot;&quot; type=&quot;&quot; readonly  checked  selected  diabled &gt;
-</code></pre>
-<p>3.2 新增的 input 属性</p>
-<pre><code>&lt;input type=&quot;number&quot; max=&quot;最大值&quot; min=&quot;最小值&quot; step=&quot;步长&quot;&gt;
-&lt;input type=&quot;text&quot; list=&quot;datalist元素的ID&quot;  autocomplete=&quot;on/off&quot;&gt;
-&lt;meter min=&quot;最小值&quot; max=&quot;最大值&quot; low=&quot;下限值&quot; high=&quot;上限值&quot; optimum=&quot;最优值&quot;  value=&quot;当前实际值&quot;&gt;&lt;/meter&gt;
-
-(1)placeholder：占位符，用于在input中显示提示性文字，注意：不是value
-(2)autocomplete：可赋值为on或off，是否记录之前提交的内容，以实现下次输入时的自动提示
-(3)autofocus：自动获得输入焦点
-(4)multiple：用于email/url/tel等，允许使用逗号指定多个输入
-(5)form：为input指定form属性，可以将input从form内部提到外部，且不影响输入域的提交
-  与表单输入验证有关的属性：
-(6)required：必填属性，若用户未填写内容，则无法提交
-(7)minlength：限制最少的字符个数，非标准，FF不支持
-(8)maxlength：限制最大的字符个数
-(9)max：一般用于number、range、&lt;meter&gt;、&lt;progress&gt;，表示允许的数字最大值
-(10)min：一般用于number、range、&lt;meter&gt;、&lt;progress&gt;，表示允许的数字最小值
-(11)step：一般用于number、range，表示步长
-(12)pattern：使用正则表达式进行验证
-&lt;input type=&quot;text&quot; name=&quot;cellphone&quot; placeholder=&quot;请输入手机号&quot; pattern=&quot;^1[358]\d&#123;9&#125;$&quot; required&gt;
-</code></pre>
-<h3 id="如何修改表单的提示消息"><a href="#如何修改表单的提示消息" class="headerlink" title="如何修改表单的提示消息"></a>如何修改表单的提示消息</h3><p>HTML5 表单可能在如下情形下弹出提示消息：<br>(1)特定的 input type 不被满足，如 email、url<br>(2)特定的验证属性不被满足，如 required、pattern、step、minlength<br>不同的浏览器会弹出不同的提示消息。如何自定义弹出的提示消息：<br>HTML5 为所有的表单输入域都添加了一个 validity 对象属性，该对象中包含如下的属性：</p>
-<blockquote>
-<p>1.badInput:false 无效的输入，如<br>2.customError:false 是否存在自定义错误<br>3.patternMismatch:false 正则表达式不匹配，违反 pattern 验证<br>4.rangeOverflow:false 数字范围过大，违反了 max 验证<br>5.rangeUnderflow:false 数字范围过小，违反了 min 验证<br>6.stepMismatch:false 步长不匹配，违反 step 验证<br>7.tooLong:false 字符个数太长，违反 maxlength 验证<br>8.tooShort:false 字符个数太短，违反 minlength 验证<br>9.typeMismatch:false 类型不匹配，如 email/url 格式错误<br>10.valid:true 当前输入值是否有效<br>11.valueMissing:false 缺少值，违反 required 验证</p>
-</blockquote>
-<p>上述属性会随着用户的输入即时的发生改变，只要有一项验证失败，对应的 boolean 值就会变成 true，导致 valid 属性变为 false；只有当所有其他属性都变为 false，valid 属性才会变为 true，该输入域是有效的，可以被提交了。<br>通过检查上述属性是否为 true，可以通过“设置自定义的有效性消息 setCustomValidity”设置自定义的错误消息——validity.customError 就会变为 true，自定义错误消息的优先级高于浏览器默认的消息优先级。<br>if( input.validity.xxx === true ){<br>input.setCustomValidity(“自定义消息”);<br>}else {<br>input.setCustomValidity(“”);<br>}</p>
-]]></content>
-      <tags>
-        <tag>HTML5</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Canvas绘图技术</title>
     <url>/2016/07/12/H5%E6%96%B0%E7%89%B9%E6%80%A7%E2%80%94%E2%80%94Canvas/</url>
     <content><![CDATA[<h2 id="HTML5-新特性——Canvas-绘图技术"><a href="#HTML5-新特性——Canvas-绘图技术" class="headerlink" title="HTML5 新特性——Canvas 绘图技术"></a>HTML5 新特性——Canvas 绘图技术</h2><p>提示：Canvas 绘图的难点在方法和属性的记忆上！<br>Canvas 技术用于在网页上实现绘图，主要应用领域：</p>
@@ -273,6 +192,87 @@ var ctx = canvas.getContext( '2d' );
       <tags>
         <tag>HTML5</tag>
         <tag>Canvas</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>H5新特性</title>
+    <url>/2016/07/10/H5%E6%96%B0%E7%89%B9%E6%80%A7/</url>
+    <content><![CDATA[<h3 id="表单新特性————新的-input-type"><a href="#表单新特性————新的-input-type" class="headerlink" title="表单新特性————新的 input type"></a>表单新特性————新的 input type</h3><pre><code>&lt;input type=&quot;?&quot;&gt;
+</code></pre>
+<p>1.1 原有的 type:</p>
+<pre><code>text、password、radio、checkbox、hidden、file、image、button、submit、reset
+</code></pre>
+<span id="more"></span>
+<p>1.2 新增的 type:</p>
+<pre><code>email、search、url、tel、number、range、color、date、week、month
+
+1. email:  要求输入必需符合邮箱格式  xx@xx
+2. url:  要求输入必需符合URL格式  xx:yy
+3. tel:  无输入格式验证，在手机中弹出的数字键盘，而不是字母键盘
+4. number: 要求输入一个整型数字，可以配合max/min/step新属性使用
+5. search: Chrome中会显示一个x号
+6. range: 范围选择器、滑块，可以配合max/min/step新属性使用
+7. color：颜色选择器，Chrome/FF偷懒了，都直接使用操作系统自带的颜色选择器
+8. date：日期选择器，FF不支持
+9. month：月份选择器，FF不支持
+10. week：星期选择器，FF不支持
+</code></pre>
+<!-- more -->
+
+<blockquote>
+<p>提示：<br>(1) HTML5 新添的 input type 存在严重的兼容性问题！<br>(2) 新特性弹出的提示消息本质是“窗口”，不是 HTML 元素，无法使用 JS、CSS 进行控制！</p>
+</blockquote>
+<h3 id="表单新特性————新的表单元素"><a href="#表单新特性————新的表单元素" class="headerlink" title="表单新特性————新的表单元素"></a>表单新特性————新的表单元素</h3><p>2.1 原有的表单输入元素：<br>input、textarea、select/option<br>2.2 新增的表单元素</p>
+<pre><code>(1)&lt;datalist&gt;&lt;/datalist&gt;        数据列表，本身是不可见元素，为某个input提供可选输入的列表，使用方法：
+    &lt;datalist id=&quot;LISTID&quot;&gt;&lt;option&gt;选项名&lt;/option&gt;&lt;/datalist&gt;
+    &lt;input type=&quot;text&quot; list=&quot;LISTID&quot;&gt;
+
+(2)&lt;progress&gt;&lt;/progress&gt;    进度条，仅用于进度的提示，不能被用户操作，也不会被提交。
+    &lt;progress value=&quot;0.5&quot;&gt;&lt;/progress&gt;
+
+(3)&lt;meter&gt;&lt;/meter&gt;        刻度尺，仅用于水平/数量的提示，不能被用户操作，也不会被提交。需要指定如下属性：
+    &lt;meter min=&quot;最小值&quot; max=&quot;最大值&quot; low=&quot;下限值&quot; high=&quot;上限值&quot; optimum=&quot;最优值&quot;  value=&quot;当前实际值&quot;&gt;&lt;/meter&gt;
+    如果最优值小于下限值，刻度尺颜色分配：
+    min (绿色) low (黄色) high (红色) max
+    如果最优值大于下限值且小于上限值，刻度尺颜色分配：
+    min (黄色) low (绿色) high (黄色) max
+    如果最优值大于上限值，刻度尺颜色分配：
+    min (红色) low (黄色) high (绿色) max
+
+(4)&lt;output&gt;&lt;/output&gt;    语义标签，表示一个计算的输出值，仅用于计算结果的提示，不能被用户操作，也不会被提交。
+</code></pre>
+<p>提示：上述四个新元素存在兼容性问题。</p>
+<h3 id="表单新特性————input-的新属性"><a href="#表单新特性————input-的新属性" class="headerlink" title="表单新特性————input 的新属性"></a>表单新特性————input 的新属性</h3><p>3.1 原有的 input 属性</p>
+<pre><code>&lt;input id=&quot;&quot; class=&quot;&quot; style=&quot;&quot; title=&quot;&quot; name=&quot;&quot; value=&quot;&quot; type=&quot;&quot; readonly  checked  selected  diabled &gt;
+</code></pre>
+<p>3.2 新增的 input 属性</p>
+<pre><code>&lt;input type=&quot;number&quot; max=&quot;最大值&quot; min=&quot;最小值&quot; step=&quot;步长&quot;&gt;
+&lt;input type=&quot;text&quot; list=&quot;datalist元素的ID&quot;  autocomplete=&quot;on/off&quot;&gt;
+&lt;meter min=&quot;最小值&quot; max=&quot;最大值&quot; low=&quot;下限值&quot; high=&quot;上限值&quot; optimum=&quot;最优值&quot;  value=&quot;当前实际值&quot;&gt;&lt;/meter&gt;
+
+(1)placeholder：占位符，用于在input中显示提示性文字，注意：不是value
+(2)autocomplete：可赋值为on或off，是否记录之前提交的内容，以实现下次输入时的自动提示
+(3)autofocus：自动获得输入焦点
+(4)multiple：用于email/url/tel等，允许使用逗号指定多个输入
+(5)form：为input指定form属性，可以将input从form内部提到外部，且不影响输入域的提交
+  与表单输入验证有关的属性：
+(6)required：必填属性，若用户未填写内容，则无法提交
+(7)minlength：限制最少的字符个数，非标准，FF不支持
+(8)maxlength：限制最大的字符个数
+(9)max：一般用于number、range、&lt;meter&gt;、&lt;progress&gt;，表示允许的数字最大值
+(10)min：一般用于number、range、&lt;meter&gt;、&lt;progress&gt;，表示允许的数字最小值
+(11)step：一般用于number、range，表示步长
+(12)pattern：使用正则表达式进行验证
+&lt;input type=&quot;text&quot; name=&quot;cellphone&quot; placeholder=&quot;请输入手机号&quot; pattern=&quot;^1[358]\d&#123;9&#125;$&quot; required&gt;
+</code></pre>
+<h3 id="如何修改表单的提示消息"><a href="#如何修改表单的提示消息" class="headerlink" title="如何修改表单的提示消息"></a>如何修改表单的提示消息</h3><p>HTML5 表单可能在如下情形下弹出提示消息：<br>(1)特定的 input type 不被满足，如 email、url<br>(2)特定的验证属性不被满足，如 required、pattern、step、minlength<br>不同的浏览器会弹出不同的提示消息。如何自定义弹出的提示消息：<br>HTML5 为所有的表单输入域都添加了一个 validity 对象属性，该对象中包含如下的属性：</p>
+<blockquote>
+<p>1.badInput:false 无效的输入，如<br>2.customError:false 是否存在自定义错误<br>3.patternMismatch:false 正则表达式不匹配，违反 pattern 验证<br>4.rangeOverflow:false 数字范围过大，违反了 max 验证<br>5.rangeUnderflow:false 数字范围过小，违反了 min 验证<br>6.stepMismatch:false 步长不匹配，违反 step 验证<br>7.tooLong:false 字符个数太长，违反 maxlength 验证<br>8.tooShort:false 字符个数太短，违反 minlength 验证<br>9.typeMismatch:false 类型不匹配，如 email/url 格式错误<br>10.valid:true 当前输入值是否有效<br>11.valueMissing:false 缺少值，违反 required 验证</p>
+</blockquote>
+<p>上述属性会随着用户的输入即时的发生改变，只要有一项验证失败，对应的 boolean 值就会变成 true，导致 valid 属性变为 false；只有当所有其他属性都变为 false，valid 属性才会变为 true，该输入域是有效的，可以被提交了。<br>通过检查上述属性是否为 true，可以通过“设置自定义的有效性消息 setCustomValidity”设置自定义的错误消息——validity.customError 就会变为 true，自定义错误消息的优先级高于浏览器默认的消息优先级。<br>if( input.validity.xxx === true ){<br>input.setCustomValidity(“自定义消息”);<br>}else {<br>input.setCustomValidity(“”);<br>}</p>
+]]></content>
+      <tags>
+        <tag>HTML5</tag>
       </tags>
   </entry>
   <entry>
@@ -504,6 +504,72 @@ var ISWP = !!(navigator.userAgent.match(/Windows\sPhone/i));
       </tags>
   </entry>
   <entry>
+    <title>九、JavaScript之call、apply和bind的模拟实现</title>
+    <url>/2019/09/21/call%E3%80%81apply%E3%80%81bind%E7%9A%84%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0/</url>
+    <content><![CDATA[<h2 id="call"><a href="#call" class="headerlink" title="call"></a>call</h2><p>简单来说</p>
+<blockquote>
+<p>call()方法在将函数的第一个参数值指定到 this 和剩余参数指定的情况下调用某个函数或方法。</p>
+</blockquote>
+<span id="more"></span>
+<p>使用示例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>, a, b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// this指向第一个参数foo;</span></span><br><span class="line">bar.call(foo, <span class="number">1</span>, <span class="number">2</span>); <span class="comment">// &#123;name: &quot;lilei&quot;&#125; 1 2</span></span><br><span class="line"><span class="comment">// a,b未传参数，默认是undefined</span></span><br><span class="line">bar.call(foo); <span class="comment">// &#123;name: &quot;lilei&quot;&#125; undefined undefined</span></span><br><span class="line"><span class="comment">// call方法不传参数或传递null/undefined，this都指向window(非严格模式)</span></span><br><span class="line">bar.call(); <span class="comment">// window undefined undefined</span></span><br><span class="line">bar.call(<span class="literal">null</span>); <span class="comment">// window undefined undefined</span></span><br><span class="line">bar.call(<span class="literal">undefined</span>); <span class="comment">// window undefined undefined</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="模拟实现"><a href="#模拟实现" class="headerlink" title="模拟实现"></a>模拟实现</h3><p>call 方法的模拟实现需要明白 call 的原理：</p>
+<ol>
+<li>this 指向的改变</li>
+<li>call 函数中执行调用的函数</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myCall = <span class="function"><span class="keyword">function</span> (<span class="params">context, ...args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (context === <span class="literal">null</span> || context === <span class="literal">undefined</span>) &#123;</span><br><span class="line">    context = <span class="built_in">window</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    context = <span class="built_in">Object</span>(context);</span><br><span class="line">  &#125;</span><br><span class="line">  context.fn = <span class="built_in">this</span>;</span><br><span class="line">  <span class="keyword">delete</span> context.fn(...args);</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>, a, b);</span><br><span class="line">&#125;</span><br><span class="line">bar.myCall(foo, <span class="number">1</span>, <span class="number">2</span>); <span class="comment">// &#123;name: &quot;lilei&quot;, fn: ƒ&#125; 1 2</span></span><br><span class="line">bar.myCall(foo); <span class="comment">// &#123;name: &quot;lilei&quot;, fn: ƒ&#125; undefined undefined</span></span><br><span class="line">bar.myCall(); <span class="comment">// Window undefined undefined</span></span><br><span class="line">bar.myCall(<span class="literal">null</span>); <span class="comment">// Window undefined undefined</span></span><br><span class="line">bar.myCall(<span class="literal">undefined</span>); <span class="comment">// Window undefined undefined</span></span><br><span class="line">bar.myCall(<span class="number">23</span>, <span class="number">24</span>); <span class="comment">// Number &#123;23, fn: ƒ&#125; undefined undefined</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h2><p>apply 的使用与 apply 基本一致，两者之间的区别：apply 的第二个参数是数组[arg1,arg2,arg3,…]，call 的第二个参数是列表(arg1,arg2,arg3,…)；<br>使用示例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>, a, b);</span><br><span class="line">&#125;</span><br><span class="line">bar.apply(foo, [<span class="number">1</span>, <span class="number">2</span>]); <span class="comment">// &#123;name: &quot;lilei&quot;&#125; 1 2</span></span><br><span class="line">bar.apply(foo); <span class="comment">// &#123;name: &quot;lilei&quot;&#125; undefined undefined</span></span><br><span class="line">bar.apply(); <span class="comment">// window undefined undefined</span></span><br><span class="line">bar.apply(<span class="literal">null</span>); <span class="comment">// window undefined undefined</span></span><br><span class="line">bar.apply(<span class="literal">undefined</span>); <span class="comment">// window undefined undefined</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="模拟实现-1"><a href="#模拟实现-1" class="headerlink" title="模拟实现"></a>模拟实现</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myApply = <span class="function"><span class="keyword">function</span> (<span class="params">context, args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (context === <span class="literal">null</span> || context === <span class="literal">undefined</span>) &#123;</span><br><span class="line">    context = <span class="built_in">window</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    context = <span class="built_in">Object</span>(context);</span><br><span class="line">  &#125;</span><br><span class="line">  context.fn = <span class="built_in">this</span>;</span><br><span class="line">  <span class="keyword">delete</span> context.fn(args);</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h2><p>引用 MDN 中的介绍</p>
+<blockquote>
+<p>bind() 方法创建一个新的函数，在 bind() 被调用时，这个新函数的 this 被指定为 bind() 的第一个参数，而其余参数将作为新函数的参数，供调用时使用。</p>
+</blockquote>
+<p>由此看出 bind 的特点：</p>
+<ul>
+<li>bind 返回一个新的函数。</li>
+<li>这个新的函数可以预置参数。</li>
+</ul>
+<p>举个例子</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>, a, b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> fn = bar.bind(foo, <span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">fn(); <span class="comment">//// &#123;name: &quot;lilei&quot;&#125; 1 2</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="模拟实现-2"><a href="#模拟实现-2" class="headerlink" title="模拟实现"></a>模拟实现</h3><p>1.实现返回一个函数，并可以传递参数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myBind = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 保存要绑定的this</span></span><br><span class="line">  <span class="keyword">var</span> _this = <span class="built_in">arguments</span>[<span class="number">0</span>];</span><br><span class="line">  <span class="comment">// 获取预置参数</span></span><br><span class="line">  <span class="keyword">var</span> args = [].slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>);</span><br><span class="line">  <span class="keyword">var</span> self = <span class="built_in">this</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 获取执行时传入的参数</span></span><br><span class="line">    <span class="keyword">var</span> restArgs = [].slice.call(<span class="built_in">arguments</span>);</span><br><span class="line">    <span class="comment">// 合并参数</span></span><br><span class="line">    <span class="keyword">var</span> allArgs = args.concat(restArgs);</span><br><span class="line">    <span class="keyword">return</span> self.apply(_this, allArgs);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>接下来最重要的一点，bind 返回的函数支持 new 调用：</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myBind = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> self = <span class="built_in">this</span>;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> self !== <span class="string">&quot;function&quot;</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;绑定的目标必须是函数&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 保存要绑定的this</span></span><br><span class="line">  <span class="keyword">var</span> _this = <span class="built_in">arguments</span>[<span class="number">0</span>];</span><br><span class="line">  <span class="comment">// 获取预置参数</span></span><br><span class="line">  <span class="keyword">var</span> args = [].slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>);</span><br><span class="line">  <span class="keyword">var</span> fNOP = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line">  <span class="keyword">var</span> fBound = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 获取执行时传入的参数</span></span><br><span class="line">    <span class="keyword">var</span> restArgs = [].slice.call(<span class="built_in">arguments</span>);</span><br><span class="line">    <span class="comment">// 合并参数</span></span><br><span class="line">    <span class="keyword">var</span> allArgs = args.concat(restArgs);</span><br><span class="line">    <span class="comment">// instanceof 运算符用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上。</span></span><br><span class="line">    <span class="comment">// 当作为构造函数时，this 指向实例，此时结果为 true，将绑定函数的 this 指向该实例，可以让实例获得来自绑定函数的值</span></span><br><span class="line">    <span class="comment">// 当作为普通函数时，this 指向 window，此时结果为 false，将绑定函数的 this 指向 context </span></span><br><span class="line">    <span class="keyword">return</span> self.apply(<span class="built_in">this</span> <span class="keyword">instanceof</span> fBound ? <span class="built_in">this</span> : _this, allArgs);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">// 原型链关系处理</span></span><br><span class="line">  <span class="comment">// fBound.prototype = Object.create(self.prototype || Function.prototype);</span></span><br><span class="line">  fNOP.prototype = <span class="built_in">this</span>.prototype;</span><br><span class="line">  fBound.prototype = <span class="keyword">new</span> fNOP();</span><br><span class="line">  <span class="keyword">return</span> fBound;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://github.com/mqyqingfeng/Blog/issues/11">https://github.com/mqyqingfeng/Blog/issues/11</a></p>
+]]></content>
+      <categories>
+        <category>深入理解JavaScript系列笔记</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>content换行符与打点loading效果实例页面</title>
+    <url>/2020/06/19/content%E6%8D%A2%E8%A1%8C%E7%AC%A6%E4%B8%8E%E6%89%93%E7%82%B9loading%E6%95%88%E6%9E%9C%E5%AE%9E%E4%BE%8B%E9%A1%B5%E9%9D%A2/</url>
+    <content><![CDATA[<p>代码如下：</p>
+<h3 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h3><span id="more"></span>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">dot &#123;</span><br><span class="line">    <span class="attribute">display</span>: inline-block; </span><br><span class="line">    <span class="attribute">height</span>: <span class="number">1em</span>;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">1</span>;</span><br><span class="line">    <span class="attribute">text-align</span>: left;</span><br><span class="line">    <span class="attribute">vertical-align</span>: -.<span class="number">25em</span>;</span><br><span class="line">    <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br><span class="line">dot<span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">&#x27;...\A..\A.&#x27;</span>;</span><br><span class="line">    <span class="attribute">white-space</span>: pre-wrap;</span><br><span class="line">    <span class="attribute">animation</span>: dot <span class="number">3s</span> infinite step-start both;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@keyframes</span> dot &#123;</span><br><span class="line">    <span class="number">33%</span> &#123; <span class="attribute">transform</span>: <span class="built_in">translateY</span>(-<span class="number">2em</span>); &#125;</span><br><span class="line">    <span class="number">66%</span> &#123; <span class="attribute">transform</span>: <span class="built_in">translateY</span>(-<span class="number">1em</span>); &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wrap&quot;</span>&gt;</span>正在加载中<span class="tag">&lt;<span class="name">dot</span>&gt;</span>...<span class="tag">&lt;/<span class="name">dot</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>aplly&amp;call方法的使用</title>
     <url>/2016/07/02/aplly&amp;call%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<h4 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h4><p>在一个对象中绑定函数，称为这个对象的方法。<br>在JavaScript中，对象的定义是这样的：</p>
@@ -646,72 +712,6 @@ count; // 3
       </tags>
   </entry>
   <entry>
-    <title>九、JavaScript之call、apply和bind的模拟实现</title>
-    <url>/2019/09/21/call%E3%80%81apply%E3%80%81bind%E7%9A%84%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0/</url>
-    <content><![CDATA[<h2 id="call"><a href="#call" class="headerlink" title="call"></a>call</h2><p>简单来说</p>
-<blockquote>
-<p>call()方法在将函数的第一个参数值指定到 this 和剩余参数指定的情况下调用某个函数或方法。</p>
-</blockquote>
-<span id="more"></span>
-<p>使用示例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>, a, b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// this指向第一个参数foo;</span></span><br><span class="line">bar.call(foo, <span class="number">1</span>, <span class="number">2</span>); <span class="comment">// &#123;name: &quot;lilei&quot;&#125; 1 2</span></span><br><span class="line"><span class="comment">// a,b未传参数，默认是undefined</span></span><br><span class="line">bar.call(foo); <span class="comment">// &#123;name: &quot;lilei&quot;&#125; undefined undefined</span></span><br><span class="line"><span class="comment">// call方法不传参数或传递null/undefined，this都指向window(非严格模式)</span></span><br><span class="line">bar.call(); <span class="comment">// window undefined undefined</span></span><br><span class="line">bar.call(<span class="literal">null</span>); <span class="comment">// window undefined undefined</span></span><br><span class="line">bar.call(<span class="literal">undefined</span>); <span class="comment">// window undefined undefined</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="模拟实现"><a href="#模拟实现" class="headerlink" title="模拟实现"></a>模拟实现</h3><p>call 方法的模拟实现需要明白 call 的原理：</p>
-<ol>
-<li>this 指向的改变</li>
-<li>call 函数中执行调用的函数</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myCall = <span class="function"><span class="keyword">function</span> (<span class="params">context, ...args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (context === <span class="literal">null</span> || context === <span class="literal">undefined</span>) &#123;</span><br><span class="line">    context = <span class="built_in">window</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    context = <span class="built_in">Object</span>(context);</span><br><span class="line">  &#125;</span><br><span class="line">  context.fn = <span class="built_in">this</span>;</span><br><span class="line">  <span class="keyword">delete</span> context.fn(...args);</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>, a, b);</span><br><span class="line">&#125;</span><br><span class="line">bar.myCall(foo, <span class="number">1</span>, <span class="number">2</span>); <span class="comment">// &#123;name: &quot;lilei&quot;, fn: ƒ&#125; 1 2</span></span><br><span class="line">bar.myCall(foo); <span class="comment">// &#123;name: &quot;lilei&quot;, fn: ƒ&#125; undefined undefined</span></span><br><span class="line">bar.myCall(); <span class="comment">// Window undefined undefined</span></span><br><span class="line">bar.myCall(<span class="literal">null</span>); <span class="comment">// Window undefined undefined</span></span><br><span class="line">bar.myCall(<span class="literal">undefined</span>); <span class="comment">// Window undefined undefined</span></span><br><span class="line">bar.myCall(<span class="number">23</span>, <span class="number">24</span>); <span class="comment">// Number &#123;23, fn: ƒ&#125; undefined undefined</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h2><p>apply 的使用与 apply 基本一致，两者之间的区别：apply 的第二个参数是数组[arg1,arg2,arg3,…]，call 的第二个参数是列表(arg1,arg2,arg3,…)；<br>使用示例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>, a, b);</span><br><span class="line">&#125;</span><br><span class="line">bar.apply(foo, [<span class="number">1</span>, <span class="number">2</span>]); <span class="comment">// &#123;name: &quot;lilei&quot;&#125; 1 2</span></span><br><span class="line">bar.apply(foo); <span class="comment">// &#123;name: &quot;lilei&quot;&#125; undefined undefined</span></span><br><span class="line">bar.apply(); <span class="comment">// window undefined undefined</span></span><br><span class="line">bar.apply(<span class="literal">null</span>); <span class="comment">// window undefined undefined</span></span><br><span class="line">bar.apply(<span class="literal">undefined</span>); <span class="comment">// window undefined undefined</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="模拟实现-1"><a href="#模拟实现-1" class="headerlink" title="模拟实现"></a>模拟实现</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myApply = <span class="function"><span class="keyword">function</span> (<span class="params">context, args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (context === <span class="literal">null</span> || context === <span class="literal">undefined</span>) &#123;</span><br><span class="line">    context = <span class="built_in">window</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    context = <span class="built_in">Object</span>(context);</span><br><span class="line">  &#125;</span><br><span class="line">  context.fn = <span class="built_in">this</span>;</span><br><span class="line">  <span class="keyword">delete</span> context.fn(args);</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h2><p>引用 MDN 中的介绍</p>
-<blockquote>
-<p>bind() 方法创建一个新的函数，在 bind() 被调用时，这个新函数的 this 被指定为 bind() 的第一个参数，而其余参数将作为新函数的参数，供调用时使用。</p>
-</blockquote>
-<p>由此看出 bind 的特点：</p>
-<ul>
-<li>bind 返回一个新的函数。</li>
-<li>这个新的函数可以预置参数。</li>
-</ul>
-<p>举个例子</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>, a, b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> fn = bar.bind(foo, <span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">fn(); <span class="comment">//// &#123;name: &quot;lilei&quot;&#125; 1 2</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="模拟实现-2"><a href="#模拟实现-2" class="headerlink" title="模拟实现"></a>模拟实现</h3><p>1.实现返回一个函数，并可以传递参数</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myBind = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 保存要绑定的this</span></span><br><span class="line">  <span class="keyword">var</span> _this = <span class="built_in">arguments</span>[<span class="number">0</span>];</span><br><span class="line">  <span class="comment">// 获取预置参数</span></span><br><span class="line">  <span class="keyword">var</span> args = [].slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>);</span><br><span class="line">  <span class="keyword">var</span> self = <span class="built_in">this</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 获取执行时传入的参数</span></span><br><span class="line">    <span class="keyword">var</span> restArgs = [].slice.call(<span class="built_in">arguments</span>);</span><br><span class="line">    <span class="comment">// 合并参数</span></span><br><span class="line">    <span class="keyword">var</span> allArgs = args.concat(restArgs);</span><br><span class="line">    <span class="keyword">return</span> self.apply(_this, allArgs);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>接下来最重要的一点，bind 返回的函数支持 new 调用：</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myBind = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> self = <span class="built_in">this</span>;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> self !== <span class="string">&quot;function&quot;</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;绑定的目标必须是函数&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 保存要绑定的this</span></span><br><span class="line">  <span class="keyword">var</span> _this = <span class="built_in">arguments</span>[<span class="number">0</span>];</span><br><span class="line">  <span class="comment">// 获取预置参数</span></span><br><span class="line">  <span class="keyword">var</span> args = [].slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>);</span><br><span class="line">  <span class="keyword">var</span> fNOP = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line">  <span class="keyword">var</span> fBound = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 获取执行时传入的参数</span></span><br><span class="line">    <span class="keyword">var</span> restArgs = [].slice.call(<span class="built_in">arguments</span>);</span><br><span class="line">    <span class="comment">// 合并参数</span></span><br><span class="line">    <span class="keyword">var</span> allArgs = args.concat(restArgs);</span><br><span class="line">    <span class="comment">// instanceof 运算符用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上。</span></span><br><span class="line">    <span class="comment">// 当作为构造函数时，this 指向实例，此时结果为 true，将绑定函数的 this 指向该实例，可以让实例获得来自绑定函数的值</span></span><br><span class="line">    <span class="comment">// 当作为普通函数时，this 指向 window，此时结果为 false，将绑定函数的 this 指向 context </span></span><br><span class="line">    <span class="keyword">return</span> self.apply(<span class="built_in">this</span> <span class="keyword">instanceof</span> fBound ? <span class="built_in">this</span> : _this, allArgs);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">// 原型链关系处理</span></span><br><span class="line">  <span class="comment">// fBound.prototype = Object.create(self.prototype || Function.prototype);</span></span><br><span class="line">  fNOP.prototype = <span class="built_in">this</span>.prototype;</span><br><span class="line">  fBound.prototype = <span class="keyword">new</span> fNOP();</span><br><span class="line">  <span class="keyword">return</span> fBound;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://github.com/mqyqingfeng/Blog/issues/11">https://github.com/mqyqingfeng/Blog/issues/11</a></p>
-]]></content>
-      <categories>
-        <category>深入理解JavaScript系列笔记</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>content换行符与打点loading效果实例页面</title>
-    <url>/2020/06/19/content%E6%8D%A2%E8%A1%8C%E7%AC%A6%E4%B8%8E%E6%89%93%E7%82%B9loading%E6%95%88%E6%9E%9C%E5%AE%9E%E4%BE%8B%E9%A1%B5%E9%9D%A2/</url>
-    <content><![CDATA[<p>代码如下：</p>
-<h3 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h3><span id="more"></span>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">dot &#123;</span><br><span class="line">    <span class="attribute">display</span>: inline-block; </span><br><span class="line">    <span class="attribute">height</span>: <span class="number">1em</span>;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">1</span>;</span><br><span class="line">    <span class="attribute">text-align</span>: left;</span><br><span class="line">    <span class="attribute">vertical-align</span>: -.<span class="number">25em</span>;</span><br><span class="line">    <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br><span class="line">dot<span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">&#x27;...\A..\A.&#x27;</span>;</span><br><span class="line">    <span class="attribute">white-space</span>: pre-wrap;</span><br><span class="line">    <span class="attribute">animation</span>: dot <span class="number">3s</span> infinite step-start both;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@keyframes</span> dot &#123;</span><br><span class="line">    <span class="number">33%</span> &#123; <span class="attribute">transform</span>: <span class="built_in">translateY</span>(-<span class="number">2em</span>); &#125;</span><br><span class="line">    <span class="number">66%</span> &#123; <span class="attribute">transform</span>: <span class="built_in">translateY</span>(-<span class="number">1em</span>); &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wrap&quot;</span>&gt;</span>正在加载中<span class="tag">&lt;<span class="name">dot</span>&gt;</span>...<span class="tag">&lt;/<span class="name">dot</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>JS</category>
-      </categories>
-      <tags>
-        <tag>JS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>面试题</title>
     <url>/2016/06/23/count%E6%96%B9%E6%B3%95/</url>
     <content><![CDATA[<h3 id="count方法"><a href="#count方法" class="headerlink" title="count方法"></a>count方法</h3><p>封装一个count方法，能实现如此调用：count(a)(b)(c)(d)(e)… 并且返回的值为参数连乘的结果，即abcde*…。如count(1)(3)(7) 得到21</p>
@@ -734,6 +734,54 @@ count; // 3
       <tags>
         <tag>JS</tag>
         <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2015/07/11/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>hexo 常用命令</title>
+    <url>/2016/06/28/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<h2 id="常用部署步骤"><a href="#常用部署步骤" class="headerlink" title="常用部署步骤"></a>常用部署步骤</h2><blockquote>
+<p>每次部署的步骤，可按以下三步来进行。</p>
+</blockquote>
+<pre><code>hexo clean
+hexo generate
+hexo deploy
+</code></pre>
+<span id="more"></span>
+<h6 id="一些常用命令："><a href="#一些常用命令：" class="headerlink" title="一些常用命令："></a>一些常用命令：</h6><pre><code>hexo new ”postName” #新建文章
+
+hexo new page ”pageName” #新建页面
+
+hexo generate #生成静态页面至public目录
+
+hexo server #开启预览访问端口（默认端口4000，’ctrl + c’关闭server）
+
+hexo deploy #将.deploy目录部署到GitHub
+
+hexo help # 查看帮助
+
+hexo version #查看Hexo的版本
+</code></pre>
+]]></content>
+      <tags>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -808,107 +856,6 @@ count; // 3
       </categories>
       <tags>
         <tag>CSS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2015/07/11/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>hexo 常用命令</title>
-    <url>/2016/06/28/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
-    <content><![CDATA[<h2 id="常用部署步骤"><a href="#常用部署步骤" class="headerlink" title="常用部署步骤"></a>常用部署步骤</h2><blockquote>
-<p>每次部署的步骤，可按以下三步来进行。</p>
-</blockquote>
-<pre><code>hexo clean
-hexo generate
-hexo deploy
-</code></pre>
-<span id="more"></span>
-<h6 id="一些常用命令："><a href="#一些常用命令：" class="headerlink" title="一些常用命令："></a>一些常用命令：</h6><pre><code>hexo new ”postName” #新建文章
-
-hexo new page ”pageName” #新建页面
-
-hexo generate #生成静态页面至public目录
-
-hexo server #开启预览访问端口（默认端口4000，’ctrl + c’关闭server）
-
-hexo deploy #将.deploy目录部署到GitHub
-
-hexo help # 查看帮助
-
-hexo version #查看Hexo的版本
-</code></pre>
-]]></content>
-      <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于Markdown的基本用法</title>
-    <url>/2018/07/11/markerdown%E8%AF%AD%E6%B3%95/</url>
-    <content><![CDATA[<p>Markdown 是一种文本格式。你可以用它来控制文档的显示。使用 markdown，你可以创建粗体的文字，斜体的文字，添加图片，并且创建列表 等等。基本上来讲，Markdown 就是普通的文字加上 # 或者 * 等符号。</p>
-<span id="more"></span>
-
-<h3 id="语法说明"><a href="#语法说明" class="headerlink" title="语法说明"></a>语法说明</h3><h4 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"># 这是 <span class="tag">&lt;<span class="name">h1</span>&gt;</span> 一级标题</span><br><span class="line">## 这是 <span class="tag">&lt;<span class="name">h2</span>&gt;</span> 二级标题</span><br><span class="line">### 这是 <span class="tag">&lt;<span class="name">h3</span>&gt;</span> 三级标题</span><br><span class="line">#### 这是 <span class="tag">&lt;<span class="name">h4</span>&gt;</span> 四级标题</span><br><span class="line">##### 这是 <span class="tag">&lt;<span class="name">h5</span>&gt;</span> 五级标题</span><br><span class="line">###### 这是 <span class="tag">&lt;<span class="name">h6</span>&gt;</span> 六级标题</span><br></pre></td></tr></table></figure>
-<h4 id="强调"><a href="#强调" class="headerlink" title="强调"></a>强调</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">*这会是 斜体 的文字*</span><br><span class="line">_这会是 斜体 的文字_</span><br><span class="line"></span><br><span class="line">**这会是 粗体 的文字**</span><br><span class="line">__这会是 粗体 的文字__</span><br><span class="line"></span><br><span class="line">_你也 **组合** 这些符号_</span><br><span class="line"></span><br><span class="line">~~这个文字将会被横线删除~~</span><br></pre></td></tr></table></figure>
-<hr>
-<h4 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h4><h5 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h5><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">- Item 1</span><br><span class="line">- Item 2</span><br><span class="line">  - Item 2a</span><br><span class="line">  - Item 2b</span><br></pre></td></tr></table></figure>
-<h5 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h5><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">1. Item 1</span><br><span class="line">1. Item 2</span><br><span class="line">1. Item 3</span><br><span class="line">   1. Item 3a</span><br><span class="line">   1. Item 3b</span><br></pre></td></tr></table></figure>
-<h4 id="添加图片"><a href="#添加图片" class="headerlink" title="添加图片"></a>添加图片</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">![GitHub Logo](/images/logo.png)</span><br><span class="line">Format: ![Alt Text](url)</span><br></pre></td></tr></table></figure>
-<p>测试图片：<br><img src="/uploads/author.jpg" alt="GitHub Logo"></p>
-<h4 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">https://github.com - 自动生成！</span><br><span class="line">[GitHub](https://github.com)</span><br></pre></td></tr></table></figure>
-<h4 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">正如 Kanye West 所说：</span><br><span class="line"></span><br><span class="line">&gt; We&#x27;re living the future so</span><br><span class="line">&gt; the present is our past.</span><br></pre></td></tr></table></figure>
-<h4 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">如下，三个或者更多的:</span><br><span class="line"></span><br><span class="line">连字符: ---</span><br><span class="line"></span><br><span class="line">星号: ***</span><br><span class="line"></span><br><span class="line">下划线: ___</span><br></pre></td></tr></table></figure>
-<h4 id="行内代码"><a href="#行内代码" class="headerlink" title="行内代码"></a>行内代码</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">我觉得你应该在这里使用</span><br><span class="line">`function()&#123;console.log(&#x27;行内代码&#x27;)&#125;` </span><br><span class="line">才对。</span><br></pre></td></tr></table></figure>
-<h4 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h4><p>你可以在你的代码上面和下面添加 ``` 来表示代码块</p>
-<h5 id="语法高亮"><a href="#语法高亮" class="headerlink" title="语法高亮"></a>语法高亮</h5><p>代码块可以添加任何一种语言的语法高亮，如：</p>
-<figure class="highlight javascript"><figcaption><span>&#123;.class1 .class&#125;</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="代码行数"><a href="#代码行数" class="headerlink" title="代码行数"></a>代码行数</h5><p>如果你想要你的代码块显示代码行数，只要添加 line-numbers class 就可以了。例如：</p>
-<figure class="highlight javascript"><figcaption><span>&#123;.line-numbers&#125;</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>你可以通过添加 highlight 属性的方式来高亮代码行数，例如：</p>
-<figure class="highlight javascript"><figcaption><span>&#123;.line-numbers, highlight</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> number = add(<span class="number">10</span>,<span class="number">20</span>);</span><br></pre></td></tr></table></figure>
-<h4 id="任务列表"><a href="#任务列表" class="headerlink" title="任务列表"></a>任务列表</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">- [x] @mentions, #refs, [links](), **formatting**, and <span class="tag">&lt;<span class="name">del</span>&gt;</span>tags<span class="tag">&lt;/<span class="name">del</span>&gt;</span> supported</span><br><span class="line">- [x] list syntax required (any unordered or ordered list supported)</span><br><span class="line">- [x] this is a complete item</span><br><span class="line">- [ ] this is an incomplete item</span><br></pre></td></tr></table></figure>
-<ul>
-<li><input checked="" disabled="" type="checkbox"> @mentions, #refs, <a href="">links</a>, <strong>formatting</strong>, and <del>tags</del> supported</li>
-<li><input checked="" disabled="" type="checkbox"> list syntax required (any unordered or ordered list supported)</li>
-<li><input checked="" disabled="" type="checkbox"> this is a complete item</li>
-<li><input disabled="" type="checkbox"> this is an incomplete item<h4 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">First Header | Second Header</span><br><span class="line">------------ | -------------</span><br><span class="line">Content from cell 1 | Content from cell 2</span><br><span class="line">Content in the first column | Content in the second column</span><br></pre></td></tr></table></figure>
-First Header | Second Header</li>
-<li>———– | ————-<br>Content from cell 1 | Content from cell 2<br>Content in the first column | Content in the second column</li>
-</ul>
-<h3 id="扩展的语法"><a href="#扩展的语法" class="headerlink" title="扩展的语法"></a>扩展的语法</h3><h4 id="Emoji-amp-Font-Awesome"><a href="#Emoji-amp-Font-Awesome" class="headerlink" title="Emoji &amp; Font-Awesome"></a>Emoji &amp; Font-Awesome</h4><p>只适用于 markdown-it parser 而不适用于 pandoc parser。 缺省下是启用的。你可以在插件设置里禁用此功能。</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">:smile:</span><br><span class="line">:fa-car:</span><br></pre></td></tr></table></figure>
-<p>:smile:<br>:fa-car:</p>
-<h4 id="上标"><a href="#上标" class="headerlink" title="上标"></a>上标</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">30^th^</span><br></pre></td></tr></table></figure>
-<p>30^th^</p>
-<h4 id="下标"><a href="#下标" class="headerlink" title="下标"></a>下标</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">H~2~O</span><br></pre></td></tr></table></figure>
-<p>H<del>2</del>O</p>
-<h4 id="脚注"><a href="#脚注" class="headerlink" title="脚注"></a>脚注</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">Content [^1]</span><br><span class="line">[^1]: Hi! This is a footnote</span><br></pre></td></tr></table></figure>
-<p>Content [^1]<br>[^1]: Hi! This is a footnote</p>
-<h4 id="标记"><a href="#标记" class="headerlink" title="标记"></a>标记</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">==marked==</span><br></pre></td></tr></table></figure>
-<p>==marked==</p>
-<p><span>213123</span></p>
-]]></content>
-      <categories>
-        <category>Markdown</category>
-      </categories>
-      <tags>
-        <tag>Markdown</tag>
       </tags>
   </entry>
   <entry>
@@ -1179,7 +1126,7 @@ Markdown 使用一种和链接很相似的语法来标记图片，同样也允�
 &amp;#109;&quot;&gt;&amp;#x61;&amp;#x64;&amp;#x64;&amp;#x72;&amp;#x65;&amp;#115;&amp;#115;&amp;#64;&amp;#101;&amp;#120;&amp;#x61;
 &amp;#109;&amp;#x70;&amp;#x6C;e&amp;#x2E;&amp;#99;&amp;#111;&amp;#109;&lt;/a&gt;
 </code></pre>
-<p>在浏览器里面，这段字串（其实是 <a href="mailto:address@example.com">address@example.com</a>）会变成一个可以点击的「<a href="mailto:&#97;&#100;&#x64;&#x72;&#101;&#115;&#x73;&#64;&#101;&#120;&#x61;&#x6d;&#112;&#x6c;&#x65;&#46;&#99;&#x6f;&#109;">&#97;&#100;&#x64;&#x72;&#101;&#115;&#x73;&#64;&#101;&#120;&#x61;&#x6d;&#112;&#x6c;&#x65;&#46;&#99;&#x6f;&#109;</a>」链接。</p>
+<p>在浏览器里面，这段字串（其实是 <a href="mailto:address@example.com">address@example.com</a>）会变成一个可以点击的「<a href="mailto:&#x61;&#100;&#100;&#114;&#x65;&#x73;&#x73;&#x40;&#101;&#x78;&#97;&#109;&#x70;&#x6c;&#101;&#46;&#99;&#111;&#x6d;">&#x61;&#100;&#100;&#114;&#x65;&#x73;&#x73;&#x40;&#101;&#x78;&#97;&#109;&#x70;&#x6c;&#101;&#46;&#99;&#111;&#x6d;</a>」链接。</p>
 </blockquote>
 <p>（这种作法虽然可以糊弄不少的机器人，但并不能全部挡下来，不过总比什么都不做好些。不管怎样，公开你的信箱终究会引来广告信件的。）</p>
 <blockquote>
@@ -1204,6 +1151,59 @@ _   底线
 ]]></content>
       <tags>
         <tag>study</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于Markdown的基本用法</title>
+    <url>/2018/07/11/markerdown%E8%AF%AD%E6%B3%95/</url>
+    <content><![CDATA[<p>Markdown 是一种文本格式。你可以用它来控制文档的显示。使用 markdown，你可以创建粗体的文字，斜体的文字，添加图片，并且创建列表 等等。基本上来讲，Markdown 就是普通的文字加上 # 或者 * 等符号。</p>
+<span id="more"></span>
+
+<h3 id="语法说明"><a href="#语法说明" class="headerlink" title="语法说明"></a>语法说明</h3><h4 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"># 这是 <span class="tag">&lt;<span class="name">h1</span>&gt;</span> 一级标题</span><br><span class="line">## 这是 <span class="tag">&lt;<span class="name">h2</span>&gt;</span> 二级标题</span><br><span class="line">### 这是 <span class="tag">&lt;<span class="name">h3</span>&gt;</span> 三级标题</span><br><span class="line">#### 这是 <span class="tag">&lt;<span class="name">h4</span>&gt;</span> 四级标题</span><br><span class="line">##### 这是 <span class="tag">&lt;<span class="name">h5</span>&gt;</span> 五级标题</span><br><span class="line">###### 这是 <span class="tag">&lt;<span class="name">h6</span>&gt;</span> 六级标题</span><br></pre></td></tr></table></figure>
+<h4 id="强调"><a href="#强调" class="headerlink" title="强调"></a>强调</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">*这会是 斜体 的文字*</span><br><span class="line">_这会是 斜体 的文字_</span><br><span class="line"></span><br><span class="line">**这会是 粗体 的文字**</span><br><span class="line">__这会是 粗体 的文字__</span><br><span class="line"></span><br><span class="line">_你也 **组合** 这些符号_</span><br><span class="line"></span><br><span class="line">~~这个文字将会被横线删除~~</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h4><h5 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h5><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">- Item 1</span><br><span class="line">- Item 2</span><br><span class="line">  - Item 2a</span><br><span class="line">  - Item 2b</span><br></pre></td></tr></table></figure>
+<h5 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h5><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">1. Item 1</span><br><span class="line">1. Item 2</span><br><span class="line">1. Item 3</span><br><span class="line">   1. Item 3a</span><br><span class="line">   1. Item 3b</span><br></pre></td></tr></table></figure>
+<h4 id="添加图片"><a href="#添加图片" class="headerlink" title="添加图片"></a>添加图片</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">![GitHub Logo](/images/logo.png)</span><br><span class="line">Format: ![Alt Text](url)</span><br></pre></td></tr></table></figure>
+<p>测试图片：<br><img src="/uploads/author.jpg" alt="GitHub Logo"></p>
+<h4 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">https://github.com - 自动生成！</span><br><span class="line">[GitHub](https://github.com)</span><br></pre></td></tr></table></figure>
+<h4 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">正如 Kanye West 所说：</span><br><span class="line"></span><br><span class="line">&gt; We&#x27;re living the future so</span><br><span class="line">&gt; the present is our past.</span><br></pre></td></tr></table></figure>
+<h4 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">如下，三个或者更多的:</span><br><span class="line"></span><br><span class="line">连字符: ---</span><br><span class="line"></span><br><span class="line">星号: ***</span><br><span class="line"></span><br><span class="line">下划线: ___</span><br></pre></td></tr></table></figure>
+<h4 id="行内代码"><a href="#行内代码" class="headerlink" title="行内代码"></a>行内代码</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">我觉得你应该在这里使用</span><br><span class="line">`function()&#123;console.log(&#x27;行内代码&#x27;)&#125;` </span><br><span class="line">才对。</span><br></pre></td></tr></table></figure>
+<h4 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h4><p>你可以在你的代码上面和下面添加 ``` 来表示代码块</p>
+<h5 id="语法高亮"><a href="#语法高亮" class="headerlink" title="语法高亮"></a>语法高亮</h5><p>代码块可以添加任何一种语言的语法高亮，如：</p>
+<figure class="highlight javascript"><figcaption><span>&#123;.class1 .class&#125;</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="代码行数"><a href="#代码行数" class="headerlink" title="代码行数"></a>代码行数</h5><p>如果你想要你的代码块显示代码行数，只要添加 line-numbers class 就可以了。例如：</p>
+<figure class="highlight javascript"><figcaption><span>&#123;.line-numbers&#125;</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>你可以通过添加 highlight 属性的方式来高亮代码行数，例如：</p>
+<figure class="highlight javascript"><figcaption><span>&#123;.line-numbers, highlight</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> number = add(<span class="number">10</span>,<span class="number">20</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="任务列表"><a href="#任务列表" class="headerlink" title="任务列表"></a>任务列表</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">- [x] @mentions, #refs, [links](), **formatting**, and <span class="tag">&lt;<span class="name">del</span>&gt;</span>tags<span class="tag">&lt;/<span class="name">del</span>&gt;</span> supported</span><br><span class="line">- [x] list syntax required (any unordered or ordered list supported)</span><br><span class="line">- [x] this is a complete item</span><br><span class="line">- [ ] this is an incomplete item</span><br></pre></td></tr></table></figure>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> @mentions, #refs, <a href="">links</a>, <strong>formatting</strong>, and <del>tags</del> supported</li>
+<li><input checked="" disabled="" type="checkbox"> list syntax required (any unordered or ordered list supported)</li>
+<li><input checked="" disabled="" type="checkbox"> this is a complete item</li>
+<li><input disabled="" type="checkbox"> this is an incomplete item<h4 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">First Header | Second Header</span><br><span class="line">------------ | -------------</span><br><span class="line">Content from cell 1 | Content from cell 2</span><br><span class="line">Content in the first column | Content in the second column</span><br></pre></td></tr></table></figure>
+First Header | Second Header</li>
+<li>———– | ————-<br>Content from cell 1 | Content from cell 2<br>Content in the first column | Content in the second column</li>
+</ul>
+<h3 id="扩展的语法"><a href="#扩展的语法" class="headerlink" title="扩展的语法"></a>扩展的语法</h3><h4 id="Emoji-amp-Font-Awesome"><a href="#Emoji-amp-Font-Awesome" class="headerlink" title="Emoji &amp; Font-Awesome"></a>Emoji &amp; Font-Awesome</h4><p>只适用于 markdown-it parser 而不适用于 pandoc parser。 缺省下是启用的。你可以在插件设置里禁用此功能。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">:smile:</span><br><span class="line">:fa-car:</span><br></pre></td></tr></table></figure>
+<p>:smile:<br>:fa-car:</p>
+<h4 id="上标"><a href="#上标" class="headerlink" title="上标"></a>上标</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">30^th^</span><br></pre></td></tr></table></figure>
+<p>30^th^</p>
+<h4 id="下标"><a href="#下标" class="headerlink" title="下标"></a>下标</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">H~2~O</span><br></pre></td></tr></table></figure>
+<p>H<del>2</del>O</p>
+<h4 id="脚注"><a href="#脚注" class="headerlink" title="脚注"></a>脚注</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">Content [^1]</span><br><span class="line">[^1]: Hi! This is a footnote</span><br></pre></td></tr></table></figure>
+<p>Content [^1]<br>[^1]: Hi! This is a footnote</p>
+<h4 id="标记"><a href="#标记" class="headerlink" title="标记"></a>标记</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">==marked==</span><br></pre></td></tr></table></figure>
+<p>==marked==</p>
+<p><span>213123</span></p>
+]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
       </tags>
   </entry>
   <entry>
@@ -1259,6 +1259,45 @@ npm -v
       <tags>
         <tag>vue</tag>
         <tag>css</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>二、JavaScript之作用域</title>
+    <url>/2019/06/15/%E4%BD%9C%E7%94%A8%E5%9F%9F/</url>
+    <content><![CDATA[<h2 id="什么是作用域"><a href="#什么是作用域" class="headerlink" title="什么是作用域"></a>什么是作用域</h2><p>作用域是指程序源代码中定义变量的区域。</p>
+<p>作用域规定了如何查找变量，也就是确定当前执行代码对变量的访问权限。</p>
+<p>JavaScript 采用词法作用域(lexical scoping)，也就是静态作用域。</p>
+<span id="more"></span>
+<h2 id="词法作用域"><a href="#词法作用域" class="headerlink" title="词法作用域"></a>词法作用域</h2><p>在你不知道的javascript上卷中是这样定义的：</p>
+<blockquote>
+<p>词法作用域就是定义在词法阶段的作用域。换句话说，词法作用域是由你在写代码时将变量和块作用域写在哪里来决定的，因此当词法分析器处理代码时会保持作用域不变(大部分情况下是这样的)。</p>
+</blockquote>
+<p>在JS中词法作用域的规则：<a href="https://github.com/getify/You-Dont-Know-JS/blob/1ed-zh-CN/scope%20%26%20closures/ch1.md">点这里</a></p>
+<p>请看下面这段代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var value = 1;</span><br><span class="line"></span><br><span class="line">function foo() &#123;</span><br><span class="line">    console.log(value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function bar() &#123;</span><br><span class="line">    var value = 2;</span><br><span class="line">    foo();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar(); // ???</span><br></pre></td></tr></table></figure>
+<p>假设JavaScript采用静态作用域，让我们分析下执行过程：<br>执行 foo 函数，先从 foo 函数内部查找是否有局部变量 value，如果没有，就根据书写的位置，查找上面一层的代码，也就是 value 等于 1，所以结果会打印 1。</p>
+<p>假设JavaScript采用动态作用域，让我们分析下执行过程：<br>执行 foo 函数，依然是从 foo 函数内部查找是否有局部变量 value。如果没有，就从调用函数的作用域，也就是 bar 函数内部查找 value 变量，所以结果会打印 2。</p>
+<p>前面我们已经说了，JavaScript采用的是静态作用域，所以这个例子的结果是 1。<br>再看下面这段代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function foo(a) &#123;</span><br><span class="line"></span><br><span class="line">	var b = a * 2;</span><br><span class="line"></span><br><span class="line">	function bar(c) &#123;</span><br><span class="line">		console.log( a, b, c );</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	bar(b * 3);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo( 2 ); // 2 4 12</span><br></pre></td></tr></table></figure>
+<p>在这个代码示例中有三个固有的嵌套作用域：</p>
+<ul>
+<li>包围着全局作用域，只有一个标识符：foo。</li>
+<li>包围着作用域 foo，它含有三个标识符：a，bar 和 b。</li>
+<li>包围着作用域 bar，它里面只包含一个标识符：c。</li>
+</ul>
+<p>当我们执行console.log(…)语句的时候，开始查找三个被引用的变量 a，b 和 c。它首先从最内部的作用域气泡开始，也就是 bar(…) 函数的作用域。在这里它找不到 a，所以它向上走一层，到外面下一个最近的作用域气泡，foo(…) 的作用域。它在这里找到了 a，于是它就使用这个 a。同样的事情也发生在 b 身上。但是对于 c，它在 bar(..) 内部就找到了。</p>
+<p>如果在 foo(..) 内部定义一个变量 c，console.log(…) 语句也仍然会找到并使用 bar(…) 中的那一个，而不会使用 foo(…) 中的那一个。</p>
+<p><strong>一旦找到第一个匹配，作用域查询就停止了。</strong>相同的标识符名称可以在嵌套作用域的多个层中被指定，这称为“遮蔽（shadowing）”（内部的标识符“遮蔽”了外部的标识符）。无论如何遮蔽，作用域查询总是从当前被执行的最内侧的作用域开始，向外/向上不断查找，直到第一个匹配才停止。</p>
+<p><strong>注意：</strong>全局变量也自动地是全局对象（在浏览器中是 window，等等）的属性，所以不直接通过全局变量的词法名称，而通过将它作为全局对象的一个属性引用来间接地引用，是可能的。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var a = 5;</span><br><span class="line">function foo(a) &#123;</span><br><span class="line">  console.log(a);</span><br><span class="line">  console.log(window.a)</span><br><span class="line">&#125;</span><br><span class="line">foo(2) // 2,5</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://github.com/mqyqingfeng/Blog/issues/3">https://github.com/mqyqingfeng/Blog/issues/3</a></p>
+]]></content>
+      <categories>
+        <category>深入理解JavaScript系列笔记</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -1424,6 +1463,89 @@ IE8: e.returnValue=false;
       </tags>
   </entry>
   <entry>
+    <title>关于CSS hacks的使用</title>
+    <url>/2016/07/10/%E5%85%B3%E4%BA%8ECSS%20hack/</url>
+    <content><![CDATA[<h4 id="讨论CSS-hacks，条件引用或者其他。"><a href="#讨论CSS-hacks，条件引用或者其他。" class="headerlink" title="讨论CSS hacks，条件引用或者其他。"></a>讨论CSS hacks，条件引用或者其他。</h4><span id="more"></span>
+<pre><code>background-color:#f1ee18;/*所有识别*/
+
+background-color:#00deff\9; /*IE6、7、8识别*/
+
++background-color:#a200ff;/*IE6、7识别*/
+
+_background-color:#1e0bd1;/*IE6识别*/
+
+:root#test&#123;background-color:purple\9;&#125;:root是给ie9的，
+
+@media screen and (-webkit-min-device-pixel-ratio:0)&#123;
+    .bb&#123;background-color:#f1ee18&#125;/* Safari(Chrome) 有效 */
+&#125;&#123;&#125; 
+@media all and (min-width: 0px)&#123; 
+    .bb&#123;
+        background-color:#f1ee18;/*opera and Safari(Chrome) and firefox*/ 
+        background-color:#4cac70\0;/* 仅 Opera 有效 */ 
+    &#125;
+&#125;&#123;&#125; 
+
+.bb, x:-moz-any-link, x:default&#123;
+    background-color:#4eff00;/*IE7、Firefox3.5及以下 识别 */
+&#125; 
+@-moz-document url-prefix()&#123;
+    .bb&#123;
+        background-color:#4eff00;/*仅 Firefox 识别 */
+    &#125;
+&#125; 
+* +html .bb&#123;background-color:#a200ff;&#125;/* 仅IE7 识别 */&lt;!-- more --&gt;    
+</code></pre>
+<p><img src="/uploads/CSS_hack.png" alt="GitHub Logo"></p>
+]]></content>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>八、JavaScript之参数按值传递</title>
+    <url>/2019/09/11/%E5%80%BC%E4%BC%A0%E9%80%92/</url>
+    <content><![CDATA[<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>在《JavaScript 高级程序设计》中讲到传递参数：</p>
+<blockquote>
+<p>ECMAScript 中所有函数的参数都是按值传递的。这意味着函数外的值会被复制到函数内部的参数中，就像从一个变量复制到另一个变量一样。如果是原始值，那么就跟原始值变量的复制一样，如果是引用值，那么就跟引用值变量的复制一样。对很多开发者来说，这一块可能会不好理解，毕竟变量有按值和按引用访问，而传参则只有按值传递。</p>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="按值传递"><a href="#按值传递" class="headerlink" title="按值传递"></a>按值传递</h2><blockquote>
+<p>在按值传递参数时，值会被复制到一个局部变量（即一个命名参数，或者用 ECMAScript 的话说，就是 arguments 对象中的一个槽位）。<br>来看一个例子：</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">  num += <span class="number">10</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(num); <span class="comment">// 30</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> count = <span class="number">20</span>;</span><br><span class="line">foo(count);</span><br><span class="line"><span class="built_in">console</span>.log(count); <span class="comment">// 20，没有变化</span></span><br></pre></td></tr></table></figure>
+
+<p>这里，函数 foo()有一个参数 num，它其实是一个局部变量。在调用时，变量 count 作为参数传入。count 的值 20 被复制给参数 num 。在函数内部，参数 num 的值被加上了 10，但这不会影响函数外部的变量 count。参数 num 和变量 count 互不干扰，它们只不过碰巧保存了一样的值。</p>
+<h2 id="引用传递"><a href="#引用传递" class="headerlink" title="引用传递"></a>引用传递</h2><blockquote>
+<p>众所周知按引用传递接收的不是值拷贝，而是对象的隐式引用，如该对象在外部的直接引用地址。函数内部对参数的任何改变都是影响该对象在函数外部的值，因为两者引用的是同一个对象，也就是说：这时候参数就相当于外部对象的一个别名。<br>伪代码：</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">value</span>: <span class="number">1</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">o</span>) </span>&#123;</span><br><span class="line">  o.value = <span class="number">2</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(o.value); <span class="comment">//2</span></span><br><span class="line">&#125;</span><br><span class="line">foo(obj);</span><br><span class="line"><span class="built_in">console</span>.log(obj.value); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<p>哪ECMAScript 中函数传递引用数据类型参数是引用传递吗？然而并不是，除了上面两种策略以外，我们看看第三种策略。</p>
+<h2 id="共享传递"><a href="#共享传递" class="headerlink" title="共享传递"></a>共享传递</h2><p>共享传递策略还有一些代名词：“按对象传递”或“按对象共享传递”。该策略是1974年由Barbara Liskov为CLU编程语言提出的，策略的要点是：</p>
+<blockquote>
+<p>函数接收的是对象引用的拷贝（副本），该引用拷贝和形参以及其值相关联。<br>这里出现的引用，我们不能称之为“按引用传递”，因为函数接收的参数不是直接的对象别名，而是该引用地址的拷贝。</p>
+</blockquote>
+<p>最重要的区别就是：函数内部给参数重新赋新值不会影响到外部的对象（和上例按引用传递的case），但是因为该参数是一个地址拷贝，所以在外面访问和里面访问的都是同一个对象,改变该参数对象的属性值将会影响到外部的对象。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  <span class="attr">num</span>: <span class="number">1</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  obj.num = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo(person);</span><br><span class="line"><span class="built_in">console</span>.log(person.num); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+
+<p>这里，我们创建了一个对象 person 并这个对象被传给 foo 方法，并被复制到参数 obj 中。在函数内部，obj 和 person 都指向同一个对象。个人觉得引用数据类型传递的也是值, 不过这个值是一个地址指针，<br>我们再来看看下面这个修改后的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123; <span class="attr">num</span>: <span class="number">1</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  obj.num = <span class="number">2</span>;</span><br><span class="line">  <span class="comment">// 将obj引用指针指向了新的一个对象上</span></span><br><span class="line">  obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  obj.num = <span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(person.num); <span class="comment">// 1</span></span><br><span class="line">foo(person);</span><br><span class="line"><span class="comment">// 如果这里是按照引用传递，那么，下面的输出应该是3</span></span><br><span class="line"><span class="built_in">console</span>.log(person.num); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+
+<p>当 person 传入 foo()时，其 num 属性被设置为 2。然后变量 obj 被设置为一个新对象且 num 属性被设置为 3。如果 person 是按引用传递的，那么 person 应该自动将指针改为指向 num 为 3 的对象。可是，当我们再次访问 person.num 时，它的值是 2，这表明函数中参数的值改变之后，原始的引用仍然没变。当 obj 在函数内部被重写时，它变成了一个指向本地对象的指针。而那个本地对象在函数执行结束时就被销毁了。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li>如果参数是基本类型，那么是按值传递。</li>
+<li>如果参数是引用数据类型，传递的还是值，但是这个值是引用数据类型地址的拷贝。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>深入理解JavaScript系列笔记</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>五、JavaScript之作用域链</title>
     <url>/2019/07/18/%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE/</url>
     <content><![CDATA[<p>在上一篇的文章中，我们了解到执行上下文数据（变量、函数声明和函数的所有形参）是由这个变量对象的属性存储的，另外，我们知道每次进入上下文时都会创建变量对象并填充初始化值，并且在执行上下文代码时会发生它的修改。</p>
@@ -1519,128 +1641,6 @@ IE8: e.returnValue=false;
       </categories>
       <tags>
         <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>二、JavaScript之作用域</title>
-    <url>/2019/06/15/%E4%BD%9C%E7%94%A8%E5%9F%9F/</url>
-    <content><![CDATA[<h2 id="什么是作用域"><a href="#什么是作用域" class="headerlink" title="什么是作用域"></a>什么是作用域</h2><p>作用域是指程序源代码中定义变量的区域。</p>
-<p>作用域规定了如何查找变量，也就是确定当前执行代码对变量的访问权限。</p>
-<p>JavaScript 采用词法作用域(lexical scoping)，也就是静态作用域。</p>
-<span id="more"></span>
-<h2 id="词法作用域"><a href="#词法作用域" class="headerlink" title="词法作用域"></a>词法作用域</h2><p>在你不知道的javascript上卷中是这样定义的：</p>
-<blockquote>
-<p>词法作用域就是定义在词法阶段的作用域。换句话说，词法作用域是由你在写代码时将变量和块作用域写在哪里来决定的，因此当词法分析器处理代码时会保持作用域不变(大部分情况下是这样的)。</p>
-</blockquote>
-<p>在JS中词法作用域的规则：<a href="https://github.com/getify/You-Dont-Know-JS/blob/1ed-zh-CN/scope%20%26%20closures/ch1.md">点这里</a></p>
-<p>请看下面这段代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var value = 1;</span><br><span class="line"></span><br><span class="line">function foo() &#123;</span><br><span class="line">    console.log(value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function bar() &#123;</span><br><span class="line">    var value = 2;</span><br><span class="line">    foo();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar(); // ???</span><br></pre></td></tr></table></figure>
-<p>假设JavaScript采用静态作用域，让我们分析下执行过程：<br>执行 foo 函数，先从 foo 函数内部查找是否有局部变量 value，如果没有，就根据书写的位置，查找上面一层的代码，也就是 value 等于 1，所以结果会打印 1。</p>
-<p>假设JavaScript采用动态作用域，让我们分析下执行过程：<br>执行 foo 函数，依然是从 foo 函数内部查找是否有局部变量 value。如果没有，就从调用函数的作用域，也就是 bar 函数内部查找 value 变量，所以结果会打印 2。</p>
-<p>前面我们已经说了，JavaScript采用的是静态作用域，所以这个例子的结果是 1。<br>再看下面这段代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function foo(a) &#123;</span><br><span class="line"></span><br><span class="line">	var b = a * 2;</span><br><span class="line"></span><br><span class="line">	function bar(c) &#123;</span><br><span class="line">		console.log( a, b, c );</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	bar(b * 3);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo( 2 ); // 2 4 12</span><br></pre></td></tr></table></figure>
-<p>在这个代码示例中有三个固有的嵌套作用域：</p>
-<ul>
-<li>包围着全局作用域，只有一个标识符：foo。</li>
-<li>包围着作用域 foo，它含有三个标识符：a，bar 和 b。</li>
-<li>包围着作用域 bar，它里面只包含一个标识符：c。</li>
-</ul>
-<p>当我们执行console.log(…)语句的时候，开始查找三个被引用的变量 a，b 和 c。它首先从最内部的作用域气泡开始，也就是 bar(…) 函数的作用域。在这里它找不到 a，所以它向上走一层，到外面下一个最近的作用域气泡，foo(…) 的作用域。它在这里找到了 a，于是它就使用这个 a。同样的事情也发生在 b 身上。但是对于 c，它在 bar(..) 内部就找到了。</p>
-<p>如果在 foo(..) 内部定义一个变量 c，console.log(…) 语句也仍然会找到并使用 bar(…) 中的那一个，而不会使用 foo(…) 中的那一个。</p>
-<p><strong>一旦找到第一个匹配，作用域查询就停止了。</strong>相同的标识符名称可以在嵌套作用域的多个层中被指定，这称为“遮蔽（shadowing）”（内部的标识符“遮蔽”了外部的标识符）。无论如何遮蔽，作用域查询总是从当前被执行的最内侧的作用域开始，向外/向上不断查找，直到第一个匹配才停止。</p>
-<p><strong>注意：</strong>全局变量也自动地是全局对象（在浏览器中是 window，等等）的属性，所以不直接通过全局变量的词法名称，而通过将它作为全局对象的一个属性引用来间接地引用，是可能的。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var a = 5;</span><br><span class="line">function foo(a) &#123;</span><br><span class="line">  console.log(a);</span><br><span class="line">  console.log(window.a)</span><br><span class="line">&#125;</span><br><span class="line">foo(2) // 2,5</span><br></pre></td></tr></table></figure>
-
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://github.com/mqyqingfeng/Blog/issues/3">https://github.com/mqyqingfeng/Blog/issues/3</a></p>
-]]></content>
-      <categories>
-        <category>深入理解JavaScript系列笔记</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>八、JavaScript之参数按值传递</title>
-    <url>/2019/09/11/%E5%80%BC%E4%BC%A0%E9%80%92/</url>
-    <content><![CDATA[<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>在《JavaScript 高级程序设计》中讲到传递参数：</p>
-<blockquote>
-<p>ECMAScript 中所有函数的参数都是按值传递的。这意味着函数外的值会被复制到函数内部的参数中，就像从一个变量复制到另一个变量一样。如果是原始值，那么就跟原始值变量的复制一样，如果是引用值，那么就跟引用值变量的复制一样。对很多开发者来说，这一块可能会不好理解，毕竟变量有按值和按引用访问，而传参则只有按值传递。</p>
-</blockquote>
-<span id="more"></span>
-
-<h2 id="按值传递"><a href="#按值传递" class="headerlink" title="按值传递"></a>按值传递</h2><blockquote>
-<p>在按值传递参数时，值会被复制到一个局部变量（即一个命名参数，或者用 ECMAScript 的话说，就是 arguments 对象中的一个槽位）。<br>来看一个例子：</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">  num += <span class="number">10</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(num); <span class="comment">// 30</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> count = <span class="number">20</span>;</span><br><span class="line">foo(count);</span><br><span class="line"><span class="built_in">console</span>.log(count); <span class="comment">// 20，没有变化</span></span><br></pre></td></tr></table></figure>
-
-<p>这里，函数 foo()有一个参数 num，它其实是一个局部变量。在调用时，变量 count 作为参数传入。count 的值 20 被复制给参数 num 。在函数内部，参数 num 的值被加上了 10，但这不会影响函数外部的变量 count。参数 num 和变量 count 互不干扰，它们只不过碰巧保存了一样的值。</p>
-<h2 id="引用传递"><a href="#引用传递" class="headerlink" title="引用传递"></a>引用传递</h2><blockquote>
-<p>众所周知按引用传递接收的不是值拷贝，而是对象的隐式引用，如该对象在外部的直接引用地址。函数内部对参数的任何改变都是影响该对象在函数外部的值，因为两者引用的是同一个对象，也就是说：这时候参数就相当于外部对象的一个别名。<br>伪代码：</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">value</span>: <span class="number">1</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">o</span>) </span>&#123;</span><br><span class="line">  o.value = <span class="number">2</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(o.value); <span class="comment">//2</span></span><br><span class="line">&#125;</span><br><span class="line">foo(obj);</span><br><span class="line"><span class="built_in">console</span>.log(obj.value); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
-<p>哪ECMAScript 中函数传递引用数据类型参数是引用传递吗？然而并不是，除了上面两种策略以外，我们看看第三种策略。</p>
-<h2 id="共享传递"><a href="#共享传递" class="headerlink" title="共享传递"></a>共享传递</h2><p>共享传递策略还有一些代名词：“按对象传递”或“按对象共享传递”。该策略是1974年由Barbara Liskov为CLU编程语言提出的，策略的要点是：</p>
-<blockquote>
-<p>函数接收的是对象引用的拷贝（副本），该引用拷贝和形参以及其值相关联。<br>这里出现的引用，我们不能称之为“按引用传递”，因为函数接收的参数不是直接的对象别名，而是该引用地址的拷贝。</p>
-</blockquote>
-<p>最重要的区别就是：函数内部给参数重新赋新值不会影响到外部的对象（和上例按引用传递的case），但是因为该参数是一个地址拷贝，所以在外面访问和里面访问的都是同一个对象,改变该参数对象的属性值将会影响到外部的对象。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  <span class="attr">num</span>: <span class="number">1</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  obj.num = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo(person);</span><br><span class="line"><span class="built_in">console</span>.log(person.num); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
-
-<p>这里，我们创建了一个对象 person 并这个对象被传给 foo 方法，并被复制到参数 obj 中。在函数内部，obj 和 person 都指向同一个对象。个人觉得引用数据类型传递的也是值, 不过这个值是一个地址指针，<br>我们再来看看下面这个修改后的例子：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123; <span class="attr">num</span>: <span class="number">1</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  obj.num = <span class="number">2</span>;</span><br><span class="line">  <span class="comment">// 将obj引用指针指向了新的一个对象上</span></span><br><span class="line">  obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  obj.num = <span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(person.num); <span class="comment">// 1</span></span><br><span class="line">foo(person);</span><br><span class="line"><span class="comment">// 如果这里是按照引用传递，那么，下面的输出应该是3</span></span><br><span class="line"><span class="built_in">console</span>.log(person.num); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
-
-<p>当 person 传入 foo()时，其 num 属性被设置为 2。然后变量 obj 被设置为一个新对象且 num 属性被设置为 3。如果 person 是按引用传递的，那么 person 应该自动将指针改为指向 num 为 3 的对象。可是，当我们再次访问 person.num 时，它的值是 2，这表明函数中参数的值改变之后，原始的引用仍然没变。当 obj 在函数内部被重写时，它变成了一个指向本地对象的指针。而那个本地对象在函数执行结束时就被销毁了。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
-<li>如果参数是基本类型，那么是按值传递。</li>
-<li>如果参数是引用数据类型，传递的还是值，但是这个值是引用数据类型地址的拷贝。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>深入理解JavaScript系列笔记</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于CSS hacks的使用</title>
-    <url>/2016/07/10/%E5%85%B3%E4%BA%8ECSS%20hack/</url>
-    <content><![CDATA[<h4 id="讨论CSS-hacks，条件引用或者其他。"><a href="#讨论CSS-hacks，条件引用或者其他。" class="headerlink" title="讨论CSS hacks，条件引用或者其他。"></a>讨论CSS hacks，条件引用或者其他。</h4><span id="more"></span>
-<pre><code>background-color:#f1ee18;/*所有识别*/
-
-background-color:#00deff\9; /*IE6、7、8识别*/
-
-+background-color:#a200ff;/*IE6、7识别*/
-
-_background-color:#1e0bd1;/*IE6识别*/
-
-:root#test&#123;background-color:purple\9;&#125;:root是给ie9的，
-
-@media screen and (-webkit-min-device-pixel-ratio:0)&#123;
-    .bb&#123;background-color:#f1ee18&#125;/* Safari(Chrome) 有效 */
-&#125;&#123;&#125; 
-@media all and (min-width: 0px)&#123; 
-    .bb&#123;
-        background-color:#f1ee18;/*opera and Safari(Chrome) and firefox*/ 
-        background-color:#4cac70\0;/* 仅 Opera 有效 */ 
-    &#125;
-&#125;&#123;&#125; 
-
-.bb, x:-moz-any-link, x:default&#123;
-    background-color:#4eff00;/*IE7、Firefox3.5及以下 识别 */
-&#125; 
-@-moz-document url-prefix()&#123;
-    .bb&#123;
-        background-color:#4eff00;/*仅 Firefox 识别 */
-    &#125;
-&#125; 
-* +html .bb&#123;background-color:#a200ff;&#125;/* 仅IE7 识别 */&lt;!-- more --&gt;    
-</code></pre>
-<p><img src="/uploads/CSS_hack.png" alt="GitHub Logo"></p>
-]]></content>
-      <tags>
-        <tag>CSS</tag>
       </tags>
   </entry>
   <entry>
@@ -1775,96 +1775,6 @@ _background-color:#1e0bd1;/*IE6识别*/
       <tags>
         <tag>CSS</tag>
         <tag>HTML</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基于Vue项目开发中遇到的坑及总结</title>
-    <url>/2017/08/10/%E5%9F%BA%E4%BA%8EVue%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91%E5%8F%8A%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<p>项目在5月底启动，属于创业公司的业务扩展吧，IOS和安卓都有成型的版本，所以要做一个对应的移动端H5版的达人、KTV、派对预订，入口是微信公众号，当然少不了jssdk的使用，以及balabala的授权处理等。</p>
-<span id="more"></span>
-<h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><hr>最初是考虑用React+Redux+Webpack，前后端完全分离，但考虑到人手不足，前后端暂时做不了完全分离，然后还有对React也不熟悉，项目时间等问题，然后就被Boss否了。
-最终用了更熟悉的Vue+Vuex+Webpack。主要还是因为更轻，API更加友好，上手速度更快，可以马上开工。
-比较遗憾的是因为各种原因前后端分离还不是很彻底，前端用的是smarty模板加js渲染页面。好处是首屏数据可以放到script标签里面直出，在进度条读完的时候页面就能够渲染出来了，提高首屏渲染时间。但是调试的时候十分麻烦，因为没有Node做中间层，每次都要在本地完整地跑个服务器，不然拿不到数据。
-Vue，Vuex，Vue-router，Webpack这些不了解的同学就去看看<a href="https://cn.vuejs.org/v2/guide/installation.html" target="_blank" rel="external">文档</a>。MV*框架用好了真的是极大地解放生产力，特别是页面的交互十分复杂的时候。
-
-<h2 id="项目过程中遇到的坑"><a href="#项目过程中遇到的坑" class="headerlink" title="项目过程中遇到的坑"></a>项目过程中遇到的坑</h2><hr>
-1. 遇到的第一个的坑就是transition。首页有一个滑动的banner，我是直接用css3的transition配合js定时改变transform实现的。滑动在chrome中模拟没问题，ios中没问题，但是安卓中就没有滑动，百思不得其解。起初还以为是兼容性问题，搞了好久才发现需要在css中先增加一个transform: translateX(0)，像下面一样，不然之后再通过js更改transform是没法在安卓中触发transition的。
-<pre>
-.slide-wp{
-    transform:  translateX(0);
-    -webkit-transform:  translateX(0);
-    transition: transform  1.5s ease;
-    -webkit-transition: transform 1.5s ease;
-}
-</pre>大家知道，transition的作用是令CSS的属性值在一定的时间区间内平滑地过渡。
-所以个人猜测，在安卓中，当没有初始值时，translateX的改动没有被平滑地过渡，就是说transition并不知道translateX是从什么地方开始过渡的，所以也就没有平滑之说，也就没有动画了。
-<hr>2. 第二个就是ES6。既然用了Webpack，当然就要配合Bebel用上ES6啦。写的时候还是很爽的。let，const，模块，箭头函数，字符串模版，对象属性简写，解构等等…但帅不过3秒，在chrome上模拟地跑一点问题都没有，一到移动端就直接白屏，页面都没有渲染出来。
-排查了好久，才发现是某些扩展运算符...，某些解构和for...of...循环的问题。因为这些ES6的特性（其实不指这些）在Bebel中转换是要用到[Symbol.iterator]接口的。如下面这样。
-转码前:
-<pre>1.const [a, b, c, d, e] = 'hello';
-2.console.log(a, b, c, d, e);//'h','e','l','l','o'</pre>
-转码后:
-<pre>1.'use strict';
-2.var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i['return']) _i['return'](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError('Invalid attempt to destructure non-iterable instance'); } }; })();
-3.
-4.var _hello = 'hello';
-5.
-6.var _hello2 = _slicedToArray(_hello, 5);
-7.
-8.var a = _hello2[0];
-9.var b = _hello2[1];
-10.var c = _hello2[2];
-11.var d = _hello2[3];
-12.var e = _hello2[4];
-13.
-14.console.log(a, b, c, d, e);//'h','e','l','l','o'</pre>
-第一行先声明的_slicedToArray函数用到了[Symbol.iterator]接口，然而浏览器对这个接口的支持还很有限，特别是移动端，只有Firefox Mobile36版本以上才支持，其它清一色挂掉。
-所以说ES6虽好，但真要用到实际项目中的话，还不能太激进，有些特性经过Bebel转码后性能上可能还会有所下降，所以还是应该合理地使用ES6。如果是自己折腾倒无所谓，Symbol，Class，Generator，Promise这些就随便炫技吧
-<hr>3. 第三个坑就是Vue使用的问题。如其说是坑，还是不如说是我自身还不够熟悉Vue。先看一下官方说明：
-<br><code>受 ES5 的限制，Vue.js 不能检测到对象属性的添加或删除。因为 Vue.js 在初始化实例时将属性转为 getter/setter，所以属性必须在 data 对象上才能让 Vue.js 转换它，才能让它是响应的。</code>
-<br>当时需要在props传来的某些对象数据中增加一个是否可视属性，用来控制一个与其关联的弹出框。增加后点击视图上一点反应都没有，但是用console.log打印出来发现值的确的有变化的。
-也就是说，<b>数据的变化不能触发视图更新。</b>原因就是如上面所说，因为这个属性是我后来添加的，不能被Vuejs检测到。这时候需要使用$set(key, value)这个API。
-话说里面的语法需要注意下，第一个参数key是一个字符串，是一个keypath，如果假如你的数据是这样:<pre>data(){
-            visitors : [{
-                    "id": 1,
-                    ...
-                }, {
-                    "id": 2,
-                    ...
-                }, {
-                    "id": 3,
-                    ...
-                }],
-        }
-    </pre>
-你需要在某次操作后为visitiors里面的每个对象增加一个show属性,则需要这样写：<pre>let str;
-         for (let i = 0 , len = this.visitors.length ; i < len; i++) {
-             str = "visitors[" + i + "].show";
-             this.$set(str,true);
-         }
-    </pre>
-之前真的被这东西搞了很久，明明数据变化了，视图却不更新。个人感觉新手刚使用Vue时很难发现这个问题。也怪自己对Vue，对ES5<code>getter/setter</code>的理解还不够吧。
-<hr>4. IOS上CSS3动画的问题。在对img或者设置了background-image的DOM元素设置CSS动画时，动画在刚进入页面的时候有可能不被触发，需要滑动一下屏幕动画才动，安卓下则没有问题。
-刚开始还以为是没有设置初始值的问题，但感觉不应该会是这样的。后来在stackoverflow上找到了解决办法(<a href="http://stackoverflow.com/questions/29219534/css-animation-not-always-starting-in-ios-8-safari" target="_blank" rel="external">戳这里</a>)。
-给动画加个0.1s秒的延时<pre>animation: slide 1.5s 0.1s linear infinite;
-    webkit-animation: slide 1.5s 0.1s linear infinite;
-</pre>
-
-<h2 id="关于Vuex"><a href="#关于Vuex" class="headerlink" title="关于Vuex"></a>关于Vuex</h2><hr>
-Vuex 之于 vue，就相当于 Redux 之于 React。它是一套数据管理架构实现，用于解决在大型前端应用时数据流动，数据管理等问题。
-
-<p>因为组件一旦多起来，不同组件之间的通信和数据流动会变得十分繁琐及难以追踪，特别是在子组件向同级子组件通信时，你可能需要先$dispatch到父组件，再$broadcast给子组件，整个事件流十分繁杂，也很难调试。<br>Vuex就是用来解决这些问题的。更具体的说明可以看文档，我就不过多叙述了。我就说一下我对Vuex的一些理解。</p>
-<p>Vuex里面的数据流是单向的,就像官方说的那样：</p>
-<ol>
-<li>用户在组件中的输入操作触发 action 调用；</li>
-<li>Actions 通过分发 mutations 来修改 store 实例的状态；</li>
-<li>Store 实例的状态变化反过来又通过 getters 被组件获知。</li>
-</ol>
-<p>而且为了保证数据是单向流动，并且是可监控和可预测的，除了在mutation handlers 外，其它地方不允许直接修改 store 里面的 state。</p>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-        <tag>Vue</tag>
       </tags>
   </entry>
   <entry>
@@ -2074,6 +1984,96 @@ PrimaryStudent.prototype.getGrade = function () &#123;
       </tags>
   </entry>
   <entry>
+    <title>基于Vue项目开发中遇到的坑及总结</title>
+    <url>/2017/08/10/%E5%9F%BA%E4%BA%8EVue%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91%E5%8F%8A%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<p>项目在5月底启动，属于创业公司的业务扩展吧，IOS和安卓都有成型的版本，所以要做一个对应的移动端H5版的达人、KTV、派对预订，入口是微信公众号，当然少不了jssdk的使用，以及balabala的授权处理等。</p>
+<span id="more"></span>
+<h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><hr>最初是考虑用React+Redux+Webpack，前后端完全分离，但考虑到人手不足，前后端暂时做不了完全分离，然后还有对React也不熟悉，项目时间等问题，然后就被Boss否了。
+最终用了更熟悉的Vue+Vuex+Webpack。主要还是因为更轻，API更加友好，上手速度更快，可以马上开工。
+比较遗憾的是因为各种原因前后端分离还不是很彻底，前端用的是smarty模板加js渲染页面。好处是首屏数据可以放到script标签里面直出，在进度条读完的时候页面就能够渲染出来了，提高首屏渲染时间。但是调试的时候十分麻烦，因为没有Node做中间层，每次都要在本地完整地跑个服务器，不然拿不到数据。
+Vue，Vuex，Vue-router，Webpack这些不了解的同学就去看看<a href="https://cn.vuejs.org/v2/guide/installation.html" target="_blank" rel="external">文档</a>。MV*框架用好了真的是极大地解放生产力，特别是页面的交互十分复杂的时候。
+
+<h2 id="项目过程中遇到的坑"><a href="#项目过程中遇到的坑" class="headerlink" title="项目过程中遇到的坑"></a>项目过程中遇到的坑</h2><hr>
+1. 遇到的第一个的坑就是transition。首页有一个滑动的banner，我是直接用css3的transition配合js定时改变transform实现的。滑动在chrome中模拟没问题，ios中没问题，但是安卓中就没有滑动，百思不得其解。起初还以为是兼容性问题，搞了好久才发现需要在css中先增加一个transform: translateX(0)，像下面一样，不然之后再通过js更改transform是没法在安卓中触发transition的。
+<pre>
+.slide-wp{
+    transform:  translateX(0);
+    -webkit-transform:  translateX(0);
+    transition: transform  1.5s ease;
+    -webkit-transition: transform 1.5s ease;
+}
+</pre>大家知道，transition的作用是令CSS的属性值在一定的时间区间内平滑地过渡。
+所以个人猜测，在安卓中，当没有初始值时，translateX的改动没有被平滑地过渡，就是说transition并不知道translateX是从什么地方开始过渡的，所以也就没有平滑之说，也就没有动画了。
+<hr>2. 第二个就是ES6。既然用了Webpack，当然就要配合Bebel用上ES6啦。写的时候还是很爽的。let，const，模块，箭头函数，字符串模版，对象属性简写，解构等等…但帅不过3秒，在chrome上模拟地跑一点问题都没有，一到移动端就直接白屏，页面都没有渲染出来。
+排查了好久，才发现是某些扩展运算符...，某些解构和for...of...循环的问题。因为这些ES6的特性（其实不指这些）在Bebel中转换是要用到[Symbol.iterator]接口的。如下面这样。
+转码前:
+<pre>1.const [a, b, c, d, e] = 'hello';
+2.console.log(a, b, c, d, e);//'h','e','l','l','o'</pre>
+转码后:
+<pre>1.'use strict';
+2.var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i['return']) _i['return'](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError('Invalid attempt to destructure non-iterable instance'); } }; })();
+3.
+4.var _hello = 'hello';
+5.
+6.var _hello2 = _slicedToArray(_hello, 5);
+7.
+8.var a = _hello2[0];
+9.var b = _hello2[1];
+10.var c = _hello2[2];
+11.var d = _hello2[3];
+12.var e = _hello2[4];
+13.
+14.console.log(a, b, c, d, e);//'h','e','l','l','o'</pre>
+第一行先声明的_slicedToArray函数用到了[Symbol.iterator]接口，然而浏览器对这个接口的支持还很有限，特别是移动端，只有Firefox Mobile36版本以上才支持，其它清一色挂掉。
+所以说ES6虽好，但真要用到实际项目中的话，还不能太激进，有些特性经过Bebel转码后性能上可能还会有所下降，所以还是应该合理地使用ES6。如果是自己折腾倒无所谓，Symbol，Class，Generator，Promise这些就随便炫技吧
+<hr>3. 第三个坑就是Vue使用的问题。如其说是坑，还是不如说是我自身还不够熟悉Vue。先看一下官方说明：
+<br><code>受 ES5 的限制，Vue.js 不能检测到对象属性的添加或删除。因为 Vue.js 在初始化实例时将属性转为 getter/setter，所以属性必须在 data 对象上才能让 Vue.js 转换它，才能让它是响应的。</code>
+<br>当时需要在props传来的某些对象数据中增加一个是否可视属性，用来控制一个与其关联的弹出框。增加后点击视图上一点反应都没有，但是用console.log打印出来发现值的确的有变化的。
+也就是说，<b>数据的变化不能触发视图更新。</b>原因就是如上面所说，因为这个属性是我后来添加的，不能被Vuejs检测到。这时候需要使用$set(key, value)这个API。
+话说里面的语法需要注意下，第一个参数key是一个字符串，是一个keypath，如果假如你的数据是这样:<pre>data(){
+            visitors : [{
+                    "id": 1,
+                    ...
+                }, {
+                    "id": 2,
+                    ...
+                }, {
+                    "id": 3,
+                    ...
+                }],
+        }
+    </pre>
+你需要在某次操作后为visitiors里面的每个对象增加一个show属性,则需要这样写：<pre>let str;
+         for (let i = 0 , len = this.visitors.length ; i < len; i++) {
+             str = "visitors[" + i + "].show";
+             this.$set(str,true);
+         }
+    </pre>
+之前真的被这东西搞了很久，明明数据变化了，视图却不更新。个人感觉新手刚使用Vue时很难发现这个问题。也怪自己对Vue，对ES5<code>getter/setter</code>的理解还不够吧。
+<hr>4. IOS上CSS3动画的问题。在对img或者设置了background-image的DOM元素设置CSS动画时，动画在刚进入页面的时候有可能不被触发，需要滑动一下屏幕动画才动，安卓下则没有问题。
+刚开始还以为是没有设置初始值的问题，但感觉不应该会是这样的。后来在stackoverflow上找到了解决办法(<a href="http://stackoverflow.com/questions/29219534/css-animation-not-always-starting-in-ios-8-safari" target="_blank" rel="external">戳这里</a>)。
+给动画加个0.1s秒的延时<pre>animation: slide 1.5s 0.1s linear infinite;
+    webkit-animation: slide 1.5s 0.1s linear infinite;
+</pre>
+
+<h2 id="关于Vuex"><a href="#关于Vuex" class="headerlink" title="关于Vuex"></a>关于Vuex</h2><hr>
+Vuex 之于 vue，就相当于 Redux 之于 React。它是一套数据管理架构实现，用于解决在大型前端应用时数据流动，数据管理等问题。
+
+<p>因为组件一旦多起来，不同组件之间的通信和数据流动会变得十分繁琐及难以追踪，特别是在子组件向同级子组件通信时，你可能需要先$dispatch到父组件，再$broadcast给子组件，整个事件流十分繁杂，也很难调试。<br>Vuex就是用来解决这些问题的。更具体的说明可以看文档，我就不过多叙述了。我就说一下我对Vuex的一些理解。</p>
+<p>Vuex里面的数据流是单向的,就像官方说的那样：</p>
+<ol>
+<li>用户在组件中的输入操作触发 action 调用；</li>
+<li>Actions 通过分发 mutations 来修改 store 实例的状态；</li>
+<li>Store 实例的状态变化反过来又通过 getters 被组件获知。</li>
+</ol>
+<p>而且为了保证数据是单向流动，并且是可监控和可预测的，除了在mutation handlers 外，其它地方不允许直接修改 store 里面的 state。</p>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>Vue</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>如何处理信息过载</title>
     <url>/2016/05/04/%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E4%BF%A1%E6%81%AF%E8%BF%87%E8%BD%BD/</url>
     <content><![CDATA[<h3 id="一、俯瞰全景"><a href="#一、俯瞰全景" class="headerlink" title="一、俯瞰全景"></a>一、俯瞰全景</h3><blockquote>
@@ -2120,61 +2120,6 @@ PrimaryStudent.prototype.getGrade = function () &#123;
         <tag>JS</tag>
         <tag>IOS</tag>
         <tag>Android</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>七、JavaScript之执行上下文</title>
-    <url>/2019/08/26/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/</url>
-    <content><![CDATA[<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>每次当控制器转到 ECMAScript 可执行代码的时候，即会进入到一个执行上下文。执行上下文(简称-EC)是 ECMA-262 标准里的一个抽象概念，用于同可执行代码(executable code)概念进行区分。</p>
-<p>标准规范没有从技术实现的角度定义 EC 的准确类型和结构，这应该是具体实现 ECMAScript 引擎时要考虑的问题。</p>
-<p>活动的执行上下文组在逻辑上组成一个堆栈。堆栈底部永远都是全局上下文(global context)，而顶部就是当前(活动的)执行上下文。堆栈在 EC 类型进入和退出上下文的时候被修改（推入或弹出）。</p>
-<span id="more"></span>
-
-<h2 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h2><p>这里我们结合前面几篇文章来看看执行上下文的具体处理过程：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> scope = <span class="string">&quot;global scope&quot;</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">checkscope</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> scope = <span class="string">&quot;local scope&quot;</span>;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> scope;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> f();</span><br><span class="line">&#125;</span><br><span class="line">checkscope();</span><br></pre></td></tr></table></figure>
-
-<p>执行过程如下： 1.执行全局代码，创建全局执行上下文，全局上下文被压入执行上下文栈；全局上下文初始化；创建 checkscope 函数，并保存作用域链到函数的内部属性[[scope]]。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">ECStack = [globalContext];</span><br><span class="line"></span><br><span class="line">globalContext = &#123;</span><br><span class="line">  <span class="attr">VO</span>: [<span class="built_in">global</span>],</span><br><span class="line">  <span class="attr">Scope</span>: [globalContext.VO],</span><br><span class="line">  <span class="attr">this</span>: globalContext.VO,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">checkscope[[scope]] = [globalContext.VO];</span><br></pre></td></tr></table></figure>
-
-<p>2.执行 checkscope 函数，创建 checkscope 函数执行上下文，checkscope 函数执行上下文被压入执行上下文栈；</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">ECStack = [checkscopeContext, globalContext];</span><br></pre></td></tr></table></figure>
-
-<p>4.checkscope 函数执行上下文初始化：</p>
-<ul>
-<li>复制函数 [[scope]] 属性创建作用域链，</li>
-<li>用 arguments 创建活动对象，</li>
-<li>初始化活动对象，即加入形参、函数声明、变量声明，</li>
-<li>将活动对象压入 checkscope 作用域链顶端。</li>
-<li>同时 f 函数被创建，保存作用域链到 f 函数的内部属性[[scope]]</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">checkscopeContext = &#123;</span><br><span class="line">  <span class="attr">AO</span>: &#123;</span><br><span class="line">    <span class="attr">arguments</span>: &#123;</span><br><span class="line">      <span class="attr">length</span>: <span class="number">0</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">scope</span>: <span class="literal">undefined</span>,</span><br><span class="line">    <span class="attr">f</span>: reference to <span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">Scope</span>: [AO, globalContext.VO],</span><br><span class="line">  <span class="attr">this</span>: <span class="literal">undefined</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>5.执行 f 函数，创建 f 函数执行上下文，f 函数执行上下文被压入执行上下文栈</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">ECStack = [fContext, checkscopeContext, globalContext];</span><br></pre></td></tr></table></figure>
-
-<p>6.f 函数执行上下文初始化, 以下跟第 4 步相同：</p>
-<ul>
-<li>复制函数 [[scope]] 属性创建作用域链</li>
-<li>用 arguments 创建活动对象</li>
-<li>初始化活动对象，即加入形参、函数声明、变量声明</li>
-<li>将活动对象压入 f 作用域链顶端</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">fContext = &#123;</span><br><span class="line">  <span class="attr">AO</span>: &#123;</span><br><span class="line">    <span class="attr">arguments</span>: &#123;</span><br><span class="line">      <span class="attr">length</span>: <span class="number">0</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">Scope</span>: [AO, checkscopeContext.AO, globalContext.VO],</span><br><span class="line">  <span class="attr">this</span>: <span class="literal">undefined</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>7.f 函数执行，沿着作用域链查找 scope 值，返回 scope 值</p>
-<p>8.f 函数执行完毕，f 函数上下文从执行上下文栈中弹出</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">ECStack = [checkscopeContext, globalContext];</span><br></pre></td></tr></table></figure>
-
-<p>9.checkscope 函数执行完毕，checkscope 执行上下文从执行上下文栈中弹出</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">ECStack = [globalContext];</span><br></pre></td></tr></table></figure>
-
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://github.com/mqyqingfeng/Blog/issues/8">https://github.com/mqyqingfeng/Blog/issues/8</a></p>
-]]></content>
-      <categories>
-        <category>深入理解JavaScript系列笔记</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -2262,6 +2207,61 @@ if(r==null)alert(&#39;Date format error!&#39;);
       </tags>
   </entry>
   <entry>
+    <title>七、JavaScript之执行上下文</title>
+    <url>/2019/08/26/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/</url>
+    <content><![CDATA[<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>每次当控制器转到 ECMAScript 可执行代码的时候，即会进入到一个执行上下文。执行上下文(简称-EC)是 ECMA-262 标准里的一个抽象概念，用于同可执行代码(executable code)概念进行区分。</p>
+<p>标准规范没有从技术实现的角度定义 EC 的准确类型和结构，这应该是具体实现 ECMAScript 引擎时要考虑的问题。</p>
+<p>活动的执行上下文组在逻辑上组成一个堆栈。堆栈底部永远都是全局上下文(global context)，而顶部就是当前(活动的)执行上下文。堆栈在 EC 类型进入和退出上下文的时候被修改（推入或弹出）。</p>
+<span id="more"></span>
+
+<h2 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h2><p>这里我们结合前面几篇文章来看看执行上下文的具体处理过程：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> scope = <span class="string">&quot;global scope&quot;</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">checkscope</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> scope = <span class="string">&quot;local scope&quot;</span>;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> scope;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> f();</span><br><span class="line">&#125;</span><br><span class="line">checkscope();</span><br></pre></td></tr></table></figure>
+
+<p>执行过程如下： 1.执行全局代码，创建全局执行上下文，全局上下文被压入执行上下文栈；全局上下文初始化；创建 checkscope 函数，并保存作用域链到函数的内部属性[[scope]]。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">ECStack = [globalContext];</span><br><span class="line"></span><br><span class="line">globalContext = &#123;</span><br><span class="line">  <span class="attr">VO</span>: [<span class="built_in">global</span>],</span><br><span class="line">  <span class="attr">Scope</span>: [globalContext.VO],</span><br><span class="line">  <span class="attr">this</span>: globalContext.VO,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">checkscope[[scope]] = [globalContext.VO];</span><br></pre></td></tr></table></figure>
+
+<p>2.执行 checkscope 函数，创建 checkscope 函数执行上下文，checkscope 函数执行上下文被压入执行上下文栈；</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">ECStack = [checkscopeContext, globalContext];</span><br></pre></td></tr></table></figure>
+
+<p>4.checkscope 函数执行上下文初始化：</p>
+<ul>
+<li>复制函数 [[scope]] 属性创建作用域链，</li>
+<li>用 arguments 创建活动对象，</li>
+<li>初始化活动对象，即加入形参、函数声明、变量声明，</li>
+<li>将活动对象压入 checkscope 作用域链顶端。</li>
+<li>同时 f 函数被创建，保存作用域链到 f 函数的内部属性[[scope]]</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">checkscopeContext = &#123;</span><br><span class="line">  <span class="attr">AO</span>: &#123;</span><br><span class="line">    <span class="attr">arguments</span>: &#123;</span><br><span class="line">      <span class="attr">length</span>: <span class="number">0</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">scope</span>: <span class="literal">undefined</span>,</span><br><span class="line">    <span class="attr">f</span>: reference to <span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">Scope</span>: [AO, globalContext.VO],</span><br><span class="line">  <span class="attr">this</span>: <span class="literal">undefined</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>5.执行 f 函数，创建 f 函数执行上下文，f 函数执行上下文被压入执行上下文栈</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">ECStack = [fContext, checkscopeContext, globalContext];</span><br></pre></td></tr></table></figure>
+
+<p>6.f 函数执行上下文初始化, 以下跟第 4 步相同：</p>
+<ul>
+<li>复制函数 [[scope]] 属性创建作用域链</li>
+<li>用 arguments 创建活动对象</li>
+<li>初始化活动对象，即加入形参、函数声明、变量声明</li>
+<li>将活动对象压入 f 作用域链顶端</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">fContext = &#123;</span><br><span class="line">  <span class="attr">AO</span>: &#123;</span><br><span class="line">    <span class="attr">arguments</span>: &#123;</span><br><span class="line">      <span class="attr">length</span>: <span class="number">0</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">Scope</span>: [AO, checkscopeContext.AO, globalContext.VO],</span><br><span class="line">  <span class="attr">this</span>: <span class="literal">undefined</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>7.f 函数执行，沿着作用域链查找 scope 值，返回 scope 值</p>
+<p>8.f 函数执行完毕，f 函数上下文从执行上下文栈中弹出</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">ECStack = [checkscopeContext, globalContext];</span><br></pre></td></tr></table></figure>
+
+<p>9.checkscope 函数执行完毕，checkscope 执行上下文从执行上下文栈中弹出</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">ECStack = [globalContext];</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://github.com/mqyqingfeng/Blog/issues/8">https://github.com/mqyqingfeng/Blog/issues/8</a></p>
+]]></content>
+      <categories>
+        <category>深入理解JavaScript系列笔记</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>三、JavaScript之执行上下文栈</title>
     <url>/2019/06/26/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E6%A0%88/</url>
     <content><![CDATA[<p>由于JS是单线程的，每次只能做一件事情，其他的事情会放在指定的上下文栈中排队等待执行，所以执行上下文栈的作用是用来跟踪代码的，。</p>
@@ -2315,6 +2315,44 @@ if(r==null)alert(&#39;Date format error!&#39;);
 <h2 id="利用-ES6-的-set"><a href="#利用-ES6-的-set" class="headerlink" title="利用 ES6 的 set"></a>利用 ES6 的 set</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 利用Array.from将Set结构转换成数组</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">uniq</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Array</span>.from(<span class="keyword">new</span> <span class="built_in">Set</span>(arr));</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 或者</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">unique</span>(<span class="params">array</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> [...new <span class="built_in">Set</span>(array)];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>去重的方式有很多，我们需要知道在合适的场景要选择合适的方法，这样才能达到最优。</p>
+]]></content>
+      <categories>
+        <category>JavaScript专题系列笔记</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>五、JavaScript专题之深浅拷贝</title>
+    <url>/2020/02/26/%E6%B5%85%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B7%B1%E6%8B%B7%E8%B4%9D/</url>
+    <content><![CDATA[<p>本文主要记录一下深拷贝和浅拷贝的一些常用实现方式。</p>
+<span id="more"></span>
+
+<p>浅拷贝和深拷贝都只针对于引用数据类型，浅拷贝只复制指向某个对象的指针，而不复制对象本身，新旧对象还是共享同一块内存；但深拷贝会另外创造一个一模一样的对象，新对象跟原对象不共享内存，修改新对象不会改到原对象；<br>区别：浅拷贝只复制对象的第一层属性、深拷贝可以对对象的属性进行递归复制；</p>
+<h2 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h2><p>常用方式：</p>
+<ol>
+<li>Object.assign 方法</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">2</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> obj1 = <span class="built_in">Object</span>.assign(&#123;&#125;, obj);</span><br><span class="line">obj1.a = <span class="number">3</span>;</span><br><span class="line"><span class="built_in">console</span>.log(obj.a); <span class="comment">//1</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>for in 方法</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 只复制第一层的浅拷贝</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">simpleCopy</span>(<span class="params">obj1</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> obj2 = <span class="built_in">Array</span>.isArray(obj1) ? [] : &#123;&#125;;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i <span class="keyword">in</span> obj1) &#123;</span><br><span class="line">    obj2[i] = obj1[i];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> obj2;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj1 = &#123;</span><br><span class="line">  <span class="attr">a</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="attr">b</span>: <span class="number">2</span>,</span><br><span class="line">  <span class="attr">c</span>: &#123;</span><br><span class="line">    <span class="attr">d</span>: <span class="number">3</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> obj2 = simpleCopy(obj1);</span><br><span class="line">obj2.a = <span class="number">3</span>;</span><br><span class="line">obj2.c.d = <span class="number">4</span>;</span><br><span class="line"><span class="built_in">console</span>.log(obj1); <span class="comment">// &#123;a:1, b:2, c:&#123;d:4&#125;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>除了以上方法外，数组还有 slice, concat, 以及 ES6 提供的“…”运算符。当然这不是重点，重点是下面要说的深拷贝。</p>
+<h2 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h2><ol>
+<li>通过 JSON 的序列化和反序列化来实现：parse、stringify:</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">name</span>: <span class="string">&quot;张三&quot;</span>, <span class="attr">dog</span>: &#123; <span class="attr">name</span>: <span class="string">&quot;小黑&quot;</span> &#125; &#125;;</span><br><span class="line"><span class="keyword">var</span> newObj = <span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(obj));</span><br><span class="line"><span class="built_in">console</span>.log(obj, newObj); <span class="comment">//&#123;name:&quot;张三&quot;,dog:&#123;name:&quot;小黑&quot;&#125;&#125; &#123;name:&quot;张三&quot;,dog:&#123;name:&quot;小黑&quot;&#125;&#125;;</span></span><br><span class="line"><span class="built_in">console</span>.log(obj == newObj); <span class="comment">//false</span></span><br><span class="line">newObj.dog.name = <span class="string">&quot;小花&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(obj, newObj); <span class="comment">//&#123;name:&quot;张三&quot;,dog:&#123;name:&quot;小黑&quot;&#125;&#125; &#123;name:&quot;张三&quot;,dog:&#123;name:&quot;小花&quot;&#125;&#125;;</span></span><br></pre></td></tr></table></figure>
+
+<p>上面这种方式能满足我们日常业务需要，但是他有一个缺点，就是会忽略 undefined、任意的函数、symbol 值，因为 JSON 不支持这些数据类型；</p>
+<ol start="2">
+<li>递归调用</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 是否是&quot;纯粹的对象&quot;：</span></span><br><span class="line"><span class="comment"> * 该对象是通过 &quot;&#123;&#125;&quot; 或 &quot;new Object&quot; 创建的，该对象含有零个或者多个键值对</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> class2type = &#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> toString = class2type.toString;</span><br><span class="line"><span class="keyword">var</span> hasOwn = class2type.hasOwnProperty;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isPlainObject</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> proto, Ctor;</span><br><span class="line">  <span class="keyword">if</span> (!obj || toString.call(obj) !== <span class="string">&quot;[object Object]&quot;</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  proto = <span class="built_in">Object</span>.getPrototypeOf(obj);</span><br><span class="line">  <span class="keyword">if</span> (!proto) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  Ctor = hasOwn.call(proto, <span class="string">&quot;constructor&quot;</span>) &amp;&amp; proto.constructor;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="keyword">typeof</span> Ctor === <span class="string">&quot;function&quot;</span> &amp;&amp;</span><br><span class="line">    hasOwn.toString.call(Ctor) === hasOwn.toString.call(<span class="built_in">Object</span>)</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * extend</span></span><br><span class="line"><span class="comment"> * 内部方法：用户合并一个或多个对象到第一个对象</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;object&#125;</span> </span>target 目标对象  对象都合并到target里</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;source&#125;</span> </span>source 合并对象</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;boolean&#125;</span> </span>deep 是否执行深度合并</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">extend</span>(<span class="params">target, source, deep</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> source) &#123;</span><br><span class="line">    <span class="keyword">if</span> (deep &amp;&amp; (isPlainObject(source[key]) || <span class="built_in">Array</span>.isArray(source[key]))) &#123;</span><br><span class="line">      <span class="comment">// source[key] 是对象，而 target[key] 不是对象， 则 target[key] = &#123;&#125; 初始化一下，否则递归会出错的</span></span><br><span class="line">      <span class="keyword">if</span> (isPlainObject(source[key]) &amp;&amp; !isPlainObject(target[key]))</span><br><span class="line">        target[key] = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// source[key] 是数组，而 target[key] 不是数组，则 target[key] = [] 初始化一下，否则递归会出错的</span></span><br><span class="line">      <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(source[key]) &amp;&amp; !<span class="built_in">Array</span>.isArray(target[key]))</span><br><span class="line">        target[key] = [];</span><br><span class="line">      <span class="comment">// 执行递归</span></span><br><span class="line">      extend(target[key], source[key], deep);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 不满足以上条件，说明 source[key] 是一般的值类型，直接赋值给 target 就是了</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (source[key] !== <span class="literal">undefined</span>) target[key] = source[key];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> deepClone = <span class="function"><span class="keyword">function</span> (<span class="params">target</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> deep,</span><br><span class="line">    args = <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//第一个参数为boolean值时，表示是否深度合并</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> target == <span class="string">&quot;boolean&quot;</span>) &#123;</span><br><span class="line">    deep = target;</span><br><span class="line">    <span class="comment">//target取第二个参数</span></span><br><span class="line">    target = args.shift();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 遍历后面的参数，都合并到target上</span></span><br><span class="line">  args.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">arg</span>) </span>&#123;</span><br><span class="line">    extend(target, arg, deep);</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> target;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">name</span>:<span class="number">123</span>,<span class="attr">age</span>:<span class="number">123</span>,<span class="attr">c</span>:&#123;<span class="attr">d</span>:<span class="number">3</span>&#125;,<span class="attr">e</span>:&#123;<span class="attr">f</span>:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;&#125;&#125;;</span><br><span class="line"><span class="keyword">var</span> obj2 = deepClone(<span class="literal">true</span>,&#123;&#125;, obj);</span><br><span class="line">obj2.c.d = <span class="number">12312</span>;</span><br><span class="line"><span class="built_in">console</span>.log(obj);</span><br><span class="line"><span class="built_in">console</span>.log(obj2);</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>JavaScript专题系列笔记</category>
@@ -2681,6 +2719,52 @@ var five = add(two, three);
       </tags>
   </entry>
   <entry>
+    <title>模板引擎、字节转换、map函数</title>
+    <url>/2016/06/23/%E9%9D%A2%E8%AF%95%E9%A2%98/</url>
+    <content><![CDATA[<h5 id="1-模板引擎"><a href="#1-模板引擎" class="headerlink" title="1. 模板引擎"></a>1. 模板引擎</h5><pre><code>var reg = /\$\&#123;[a-zA-Z]+\&#125;/g;
+var tpl = &quot;hello $&#123;who&#125;!&quot;;
+var obj = &#123;who:&quot;world&quot;&#125;;
+function template(tpl,obj)&#123;
+        var s = reg.exec(tpl);
+        var s1 = s[0].slice(2,-1);
+        document.write(tpl.replace(reg,obj[s1]));
+    &#125;
+    //template(tpl,obj);
+    template(&#39;Hello,$&#123;name&#125;&#39;,&#123;name:&quot;hedahang&quot;&#125;);
+</code></pre>
+<span id="more"></span>
+<h5 id="2-字节转换"><a href="#2-字节转换" class="headerlink" title="2. 字节转换"></a>2. 字节转换</h5><pre><code>&lt;pre&gt;function bytesToSize(bytes) &#123;
+    if (bytes === 0) return &#39;0 B&#39;;
+    var k = 1024,
+            sizes = [&#39;B&#39;, &#39;KB&#39;, &#39;MB&#39;, &#39;GB&#39;, &#39;TB&#39;, &#39;PB&#39;, &#39;EB&#39;, &#39;ZB&#39;, &#39;YB&#39;],
+            i = Math.floor(Math.log(bytes) / Math.log(k));
+    return (bytes / Math.pow(k, i)).toPrecision(3) + &#39; &#39; + sizes[i];
+&#125;
+console.log( bytesToSize(12345));&lt;/pre&gt;
+</code></pre>
+<h5 id="3-map函数"><a href="#3-map函数" class="headerlink" title="3. map函数"></a>3. map函数</h5><pre><code>&lt;pre&gt;function map(arr,fun)&#123;
+    var array = [];
+    for(var i = 0;i&lt;arr.length;i++)&#123;
+        if( i == 0)&#123;
+            array[i] = fun(0,arr[i]);
+        &#125;else&#123;
+            array[i] = fun(arr[i-1],arr[i])
+        &#125;
+    console.log(array);
+    &#125;
+&#125;
+map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
+</code></pre>
+]]></content>
+      <categories>
+        <category>Testing</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>一、JavaScript专题之防抖和节流</title>
     <url>/2020/01/12/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/</url>
     <content><![CDATA[<p>在项目中，我们经常会绑定一些持续触发的事件，比如 resize、scroll、mousemove 等等，如果事件调用无限制，会加重浏览器负担，导致用户体验差，我们可以使用 debounce(防抖)和 throttle(节流)的方式来减少频繁的调用，同时也不会影响实际的效果。</p>
@@ -2745,52 +2829,6 @@ var five = add(two, three);
       </categories>
       <tags>
         <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>模板引擎、字节转换、map函数</title>
-    <url>/2016/06/23/%E9%9D%A2%E8%AF%95%E9%A2%98/</url>
-    <content><![CDATA[<h5 id="1-模板引擎"><a href="#1-模板引擎" class="headerlink" title="1. 模板引擎"></a>1. 模板引擎</h5><pre><code>var reg = /\$\&#123;[a-zA-Z]+\&#125;/g;
-var tpl = &quot;hello $&#123;who&#125;!&quot;;
-var obj = &#123;who:&quot;world&quot;&#125;;
-function template(tpl,obj)&#123;
-        var s = reg.exec(tpl);
-        var s1 = s[0].slice(2,-1);
-        document.write(tpl.replace(reg,obj[s1]));
-    &#125;
-    //template(tpl,obj);
-    template(&#39;Hello,$&#123;name&#125;&#39;,&#123;name:&quot;hedahang&quot;&#125;);
-</code></pre>
-<span id="more"></span>
-<h5 id="2-字节转换"><a href="#2-字节转换" class="headerlink" title="2. 字节转换"></a>2. 字节转换</h5><pre><code>&lt;pre&gt;function bytesToSize(bytes) &#123;
-    if (bytes === 0) return &#39;0 B&#39;;
-    var k = 1024,
-            sizes = [&#39;B&#39;, &#39;KB&#39;, &#39;MB&#39;, &#39;GB&#39;, &#39;TB&#39;, &#39;PB&#39;, &#39;EB&#39;, &#39;ZB&#39;, &#39;YB&#39;],
-            i = Math.floor(Math.log(bytes) / Math.log(k));
-    return (bytes / Math.pow(k, i)).toPrecision(3) + &#39; &#39; + sizes[i];
-&#125;
-console.log( bytesToSize(12345));&lt;/pre&gt;
-</code></pre>
-<h5 id="3-map函数"><a href="#3-map函数" class="headerlink" title="3. map函数"></a>3. map函数</h5><pre><code>&lt;pre&gt;function map(arr,fun)&#123;
-    var array = [];
-    for(var i = 0;i&lt;arr.length;i++)&#123;
-        if( i == 0)&#123;
-            array[i] = fun(0,arr[i]);
-        &#125;else&#123;
-            array[i] = fun(arr[i-1],arr[i])
-        &#125;
-    console.log(array);
-    &#125;
-&#125;
-map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
-</code></pre>
-]]></content>
-      <categories>
-        <category>Testing</category>
-      </categories>
-      <tags>
-        <tag>JS</tag>
-        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -2874,7 +2912,7 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
 <h2 id="关于收费"><a href="#关于收费" class="headerlink" title="关于收费"></a>关于收费</h2><p><strong>马克飞象</strong>为新用户提供 10 天的试用期，试用期过后需要<a href="maxiang.info/vip.html">续费</a>才能继续使用。未购买或者未及时续费，将不能同步新的笔记。之前保存过的笔记依然可以编辑。</p>
 <h2 id="反馈与建议"><a href="#反馈与建议" class="headerlink" title="反馈与建议"></a>反馈与建议</h2><ul>
 <li>微博：<a href="http://weibo.com/u/2788354117">@马克飞象</a>，<a href="http://weibo.com/ggock" title="开发者个人账号">@GGock</a></li>
-<li>邮箱：<a href="mailto:&#x68;&#x75;&#115;&#x74;&#x67;&#x6f;&#x63;&#107;&#64;&#103;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;">&#x68;&#x75;&#115;&#x74;&#x67;&#x6f;&#x63;&#107;&#64;&#103;&#x6d;&#97;&#105;&#x6c;&#x2e;&#99;&#x6f;&#109;</a></li>
+<li>邮箱：<a href="mailto:&#x68;&#x75;&#x73;&#x74;&#x67;&#x6f;&#x63;&#107;&#x40;&#x67;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#111;&#109;">&#x68;&#x75;&#x73;&#x74;&#x67;&#x6f;&#x63;&#107;&#x40;&#x67;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#111;&#109;</a></li>
 </ul>
 <hr>
 <p>感谢阅读这份帮助文档。请点击右上角，绑定印象笔记账号，开启全新的记录与分享体验吧。</p>
