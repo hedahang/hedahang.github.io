@@ -40,6 +40,87 @@
       </tags>
   </entry>
   <entry>
+    <title>H5新特性</title>
+    <url>/2016/07/10/H5%E6%96%B0%E7%89%B9%E6%80%A7/</url>
+    <content><![CDATA[<h3 id="表单新特性————新的-input-type"><a href="#表单新特性————新的-input-type" class="headerlink" title="表单新特性————新的 input type"></a>表单新特性————新的 input type</h3><pre><code>&lt;input type=&quot;?&quot;&gt;
+</code></pre>
+<p>1.1 原有的 type:</p>
+<pre><code>text、password、radio、checkbox、hidden、file、image、button、submit、reset
+</code></pre>
+<span id="more"></span>
+<p>1.2 新增的 type:</p>
+<pre><code>email、search、url、tel、number、range、color、date、week、month
+
+1. email:  要求输入必需符合邮箱格式  xx@xx
+2. url:  要求输入必需符合URL格式  xx:yy
+3. tel:  无输入格式验证，在手机中弹出的数字键盘，而不是字母键盘
+4. number: 要求输入一个整型数字，可以配合max/min/step新属性使用
+5. search: Chrome中会显示一个x号
+6. range: 范围选择器、滑块，可以配合max/min/step新属性使用
+7. color：颜色选择器，Chrome/FF偷懒了，都直接使用操作系统自带的颜色选择器
+8. date：日期选择器，FF不支持
+9. month：月份选择器，FF不支持
+10. week：星期选择器，FF不支持
+</code></pre>
+<!-- more -->
+
+<blockquote>
+<p>提示：<br>(1) HTML5 新添的 input type 存在严重的兼容性问题！<br>(2) 新特性弹出的提示消息本质是“窗口”，不是 HTML 元素，无法使用 JS、CSS 进行控制！</p>
+</blockquote>
+<h3 id="表单新特性————新的表单元素"><a href="#表单新特性————新的表单元素" class="headerlink" title="表单新特性————新的表单元素"></a>表单新特性————新的表单元素</h3><p>2.1 原有的表单输入元素：<br>input、textarea、select/option<br>2.2 新增的表单元素</p>
+<pre><code>(1)&lt;datalist&gt;&lt;/datalist&gt;        数据列表，本身是不可见元素，为某个input提供可选输入的列表，使用方法：
+    &lt;datalist id=&quot;LISTID&quot;&gt;&lt;option&gt;选项名&lt;/option&gt;&lt;/datalist&gt;
+    &lt;input type=&quot;text&quot; list=&quot;LISTID&quot;&gt;
+
+(2)&lt;progress&gt;&lt;/progress&gt;    进度条，仅用于进度的提示，不能被用户操作，也不会被提交。
+    &lt;progress value=&quot;0.5&quot;&gt;&lt;/progress&gt;
+
+(3)&lt;meter&gt;&lt;/meter&gt;        刻度尺，仅用于水平/数量的提示，不能被用户操作，也不会被提交。需要指定如下属性：
+    &lt;meter min=&quot;最小值&quot; max=&quot;最大值&quot; low=&quot;下限值&quot; high=&quot;上限值&quot; optimum=&quot;最优值&quot;  value=&quot;当前实际值&quot;&gt;&lt;/meter&gt;
+    如果最优值小于下限值，刻度尺颜色分配：
+    min (绿色) low (黄色) high (红色) max
+    如果最优值大于下限值且小于上限值，刻度尺颜色分配：
+    min (黄色) low (绿色) high (黄色) max
+    如果最优值大于上限值，刻度尺颜色分配：
+    min (红色) low (黄色) high (绿色) max
+
+(4)&lt;output&gt;&lt;/output&gt;    语义标签，表示一个计算的输出值，仅用于计算结果的提示，不能被用户操作，也不会被提交。
+</code></pre>
+<p>提示：上述四个新元素存在兼容性问题。</p>
+<h3 id="表单新特性————input-的新属性"><a href="#表单新特性————input-的新属性" class="headerlink" title="表单新特性————input 的新属性"></a>表单新特性————input 的新属性</h3><p>3.1 原有的 input 属性</p>
+<pre><code>&lt;input id=&quot;&quot; class=&quot;&quot; style=&quot;&quot; title=&quot;&quot; name=&quot;&quot; value=&quot;&quot; type=&quot;&quot; readonly  checked  selected  diabled &gt;
+</code></pre>
+<p>3.2 新增的 input 属性</p>
+<pre><code>&lt;input type=&quot;number&quot; max=&quot;最大值&quot; min=&quot;最小值&quot; step=&quot;步长&quot;&gt;
+&lt;input type=&quot;text&quot; list=&quot;datalist元素的ID&quot;  autocomplete=&quot;on/off&quot;&gt;
+&lt;meter min=&quot;最小值&quot; max=&quot;最大值&quot; low=&quot;下限值&quot; high=&quot;上限值&quot; optimum=&quot;最优值&quot;  value=&quot;当前实际值&quot;&gt;&lt;/meter&gt;
+
+(1)placeholder：占位符，用于在input中显示提示性文字，注意：不是value
+(2)autocomplete：可赋值为on或off，是否记录之前提交的内容，以实现下次输入时的自动提示
+(3)autofocus：自动获得输入焦点
+(4)multiple：用于email/url/tel等，允许使用逗号指定多个输入
+(5)form：为input指定form属性，可以将input从form内部提到外部，且不影响输入域的提交
+  与表单输入验证有关的属性：
+(6)required：必填属性，若用户未填写内容，则无法提交
+(7)minlength：限制最少的字符个数，非标准，FF不支持
+(8)maxlength：限制最大的字符个数
+(9)max：一般用于number、range、&lt;meter&gt;、&lt;progress&gt;，表示允许的数字最大值
+(10)min：一般用于number、range、&lt;meter&gt;、&lt;progress&gt;，表示允许的数字最小值
+(11)step：一般用于number、range，表示步长
+(12)pattern：使用正则表达式进行验证
+&lt;input type=&quot;text&quot; name=&quot;cellphone&quot; placeholder=&quot;请输入手机号&quot; pattern=&quot;^1[358]\d&#123;9&#125;$&quot; required&gt;
+</code></pre>
+<h3 id="如何修改表单的提示消息"><a href="#如何修改表单的提示消息" class="headerlink" title="如何修改表单的提示消息"></a>如何修改表单的提示消息</h3><p>HTML5 表单可能在如下情形下弹出提示消息：<br>(1)特定的 input type 不被满足，如 email、url<br>(2)特定的验证属性不被满足，如 required、pattern、step、minlength<br>不同的浏览器会弹出不同的提示消息。如何自定义弹出的提示消息：<br>HTML5 为所有的表单输入域都添加了一个 validity 对象属性，该对象中包含如下的属性：</p>
+<blockquote>
+<p>1.badInput:false 无效的输入，如<br>2.customError:false 是否存在自定义错误<br>3.patternMismatch:false 正则表达式不匹配，违反 pattern 验证<br>4.rangeOverflow:false 数字范围过大，违反了 max 验证<br>5.rangeUnderflow:false 数字范围过小，违反了 min 验证<br>6.stepMismatch:false 步长不匹配，违反 step 验证<br>7.tooLong:false 字符个数太长，违反 maxlength 验证<br>8.tooShort:false 字符个数太短，违反 minlength 验证<br>9.typeMismatch:false 类型不匹配，如 email/url 格式错误<br>10.valid:true 当前输入值是否有效<br>11.valueMissing:false 缺少值，违反 required 验证</p>
+</blockquote>
+<p>上述属性会随着用户的输入即时的发生改变，只要有一项验证失败，对应的 boolean 值就会变成 true，导致 valid 属性变为 false；只有当所有其他属性都变为 false，valid 属性才会变为 true，该输入域是有效的，可以被提交了。<br>通过检查上述属性是否为 true，可以通过“设置自定义的有效性消息 setCustomValidity”设置自定义的错误消息——validity.customError 就会变为 true，自定义错误消息的优先级高于浏览器默认的消息优先级。<br>if( input.validity.xxx === true ){<br>input.setCustomValidity(“自定义消息”);<br>}else {<br>input.setCustomValidity(“”);<br>}</p>
+]]></content>
+      <tags>
+        <tag>HTML5</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>关于JS的模块化开发总结</title>
     <url>/2017/04/10/CommonJSAMDCMD%E5%8C%BA%E5%88%AB/</url>
     <content><![CDATA[<p>一直都在说JS的模块化开发，以前研究和使用过require之类的方法，但是一直不是很明确，今天还是在总结一下：</p>
@@ -195,84 +276,63 @@ var ctx = canvas.getContext( '2d' );
       </tags>
   </entry>
   <entry>
-    <title>H5新特性</title>
-    <url>/2016/07/10/H5%E6%96%B0%E7%89%B9%E6%80%A7/</url>
-    <content><![CDATA[<h3 id="表单新特性————新的-input-type"><a href="#表单新特性————新的-input-type" class="headerlink" title="表单新特性————新的 input type"></a>表单新特性————新的 input type</h3><pre><code>&lt;input type=&quot;?&quot;&gt;
-</code></pre>
-<p>1.1 原有的 type:</p>
-<pre><code>text、password、radio、checkbox、hidden、file、image、button、submit、reset
-</code></pre>
+    <title>HTML5离线存储和本地缓存</title>
+    <url>/2016/07/15/H5%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98%E5%92%8C%E7%A6%BB%E7%BA%BF%E7%BC%93%E5%AD%98/</url>
+    <content><![CDATA[<h1 id="一、离线缓存"><a href="#一、离线缓存" class="headerlink" title="一、离线缓存"></a>一、离线缓存</h1><p>有一个 web 应用有三个文件 index.html,a.js,b.css，现在需要把 js 和 css 文件缓存起来</p>
 <span id="more"></span>
-<p>1.2 新增的 type:</p>
-<pre><code>email、search、url、tel、number、range、color、date、week、month
-
-1. email:  要求输入必需符合邮箱格式  xx@xx
-2. url:  要求输入必需符合URL格式  xx:yy
-3. tel:  无输入格式验证，在手机中弹出的数字键盘，而不是字母键盘
-4. number: 要求输入一个整型数字，可以配合max/min/step新属性使用
-5. search: Chrome中会显示一个x号
-6. range: 范围选择器、滑块，可以配合max/min/step新属性使用
-7. color：颜色选择器，Chrome/FF偷懒了，都直接使用操作系统自带的颜色选择器
-8. date：日期选择器，FF不支持
-9. month：月份选择器，FF不支持
-10. week：星期选择器，FF不支持
+<p>1.在 index.html 里加上<html manifest="test.manifest"></p>
+<p>2.manifest 清单格式如下</p>
+<blockquote>
+<pre><code> CACHE MANIFEST
 </code></pre>
+</blockquote>
+<pre><code>#上面一句必须
+#v1.0.0
+#需要缓存的文件
+CACHE:
+a.js
+b.css
+#不需要缓存的文件
+NETWORK:
+*
+#无法访问页面
+FALLBACK:
+404.html
+复制代码
+</code></pre>
+<p>3.manifest 文件的 mime-type 必须是 text/cache-manifest 类型</p>
+<blockquote>
+<p>注意点：<br>a.对于每个 index.html?id=1 或 index.html?id=2 都会分别缓存 index.html 页面，可以通过 chrome 浏览器 Resources/Application Cache 观察<br>b.如果想更新缓存内容，只要修改下 manifest 文件即可，如改版本号 v1.0.1</p>
+</blockquote>
 <!-- more -->
 
+<p>4.离线存储如果资源有更新，可以通过如下代码来监听，但第一次加载还会是原来的版本</p>
 <blockquote>
-<p>提示：<br>(1) HTML5 新添的 input type 存在严重的兼容性问题！<br>(2) 新特性弹出的提示消息本质是“窗口”，不是 HTML 元素，无法使用 JS、CSS 进行控制！</p>
+<pre><code> window.applicationCache.addEventListener(&#39;updateready&#39;,function(e)&#123;
+</code></pre>
 </blockquote>
-<h3 id="表单新特性————新的表单元素"><a href="#表单新特性————新的表单元素" class="headerlink" title="表单新特性————新的表单元素"></a>表单新特性————新的表单元素</h3><p>2.1 原有的表单输入元素：<br>input、textarea、select/option<br>2.2 新增的表单元素</p>
-<pre><code>(1)&lt;datalist&gt;&lt;/datalist&gt;        数据列表，本身是不可见元素，为某个input提供可选输入的列表，使用方法：
-    &lt;datalist id=&quot;LISTID&quot;&gt;&lt;option&gt;选项名&lt;/option&gt;&lt;/datalist&gt;
-    &lt;input type=&quot;text&quot; list=&quot;LISTID&quot;&gt;
-
-(2)&lt;progress&gt;&lt;/progress&gt;    进度条，仅用于进度的提示，不能被用户操作，也不会被提交。
-    &lt;progress value=&quot;0.5&quot;&gt;&lt;/progress&gt;
-
-(3)&lt;meter&gt;&lt;/meter&gt;        刻度尺，仅用于水平/数量的提示，不能被用户操作，也不会被提交。需要指定如下属性：
-    &lt;meter min=&quot;最小值&quot; max=&quot;最大值&quot; low=&quot;下限值&quot; high=&quot;上限值&quot; optimum=&quot;最优值&quot;  value=&quot;当前实际值&quot;&gt;&lt;/meter&gt;
-    如果最优值小于下限值，刻度尺颜色分配：
-    min (绿色) low (黄色) high (红色) max
-    如果最优值大于下限值且小于上限值，刻度尺颜色分配：
-    min (黄色) low (绿色) high (黄色) max
-    如果最优值大于上限值，刻度尺颜色分配：
-    min (红色) low (黄色) high (绿色) max
-
-(4)&lt;output&gt;&lt;/output&gt;    语义标签，表示一个计算的输出值，仅用于计算结果的提示，不能被用户操作，也不会被提交。
+<pre><code>    if(window.applicationCache.status == window.applicationCache.UPDATEREADY)&#123;
+        window.applicationCache.swapCache();
+        if(confirm(&quot;loding new?&quot;))&#123;
+            window.location.reload()
+        &#125;
+    &#125;
+&#125;,false)
 </code></pre>
-<p>提示：上述四个新元素存在兼容性问题。</p>
-<h3 id="表单新特性————input-的新属性"><a href="#表单新特性————input-的新属性" class="headerlink" title="表单新特性————input 的新属性"></a>表单新特性————input 的新属性</h3><p>3.1 原有的 input 属性</p>
-<pre><code>&lt;input id=&quot;&quot; class=&quot;&quot; style=&quot;&quot; title=&quot;&quot; name=&quot;&quot; value=&quot;&quot; type=&quot;&quot; readonly  checked  selected  diabled &gt;
-</code></pre>
-<p>3.2 新增的 input 属性</p>
-<pre><code>&lt;input type=&quot;number&quot; max=&quot;最大值&quot; min=&quot;最小值&quot; step=&quot;步长&quot;&gt;
-&lt;input type=&quot;text&quot; list=&quot;datalist元素的ID&quot;  autocomplete=&quot;on/off&quot;&gt;
-&lt;meter min=&quot;最小值&quot; max=&quot;最大值&quot; low=&quot;下限值&quot; high=&quot;上限值&quot; optimum=&quot;最优值&quot;  value=&quot;当前实际值&quot;&gt;&lt;/meter&gt;
+<h1 id="二、本地缓存"><a href="#二、本地缓存" class="headerlink" title="二、本地缓存"></a>二、本地缓存</h1><pre><code>localStorage.setItem(&quot;key&quot;,&quot;value&quot;)
 
-(1)placeholder：占位符，用于在input中显示提示性文字，注意：不是value
-(2)autocomplete：可赋值为on或off，是否记录之前提交的内容，以实现下次输入时的自动提示
-(3)autofocus：自动获得输入焦点
-(4)multiple：用于email/url/tel等，允许使用逗号指定多个输入
-(5)form：为input指定form属性，可以将input从form内部提到外部，且不影响输入域的提交
-  与表单输入验证有关的属性：
-(6)required：必填属性，若用户未填写内容，则无法提交
-(7)minlength：限制最少的字符个数，非标准，FF不支持
-(8)maxlength：限制最大的字符个数
-(9)max：一般用于number、range、&lt;meter&gt;、&lt;progress&gt;，表示允许的数字最大值
-(10)min：一般用于number、range、&lt;meter&gt;、&lt;progress&gt;，表示允许的数字最小值
-(11)step：一般用于number、range，表示步长
-(12)pattern：使用正则表达式进行验证
-&lt;input type=&quot;text&quot; name=&quot;cellphone&quot; placeholder=&quot;请输入手机号&quot; pattern=&quot;^1[358]\d&#123;9&#125;$&quot; required&gt;
+localStorage.getItem(&quot;key&quot;,&quot;value&quot;)
+
+localStorage.removeItem(&quot;key&quot;)
+
+localStorage.clear()
 </code></pre>
-<h3 id="如何修改表单的提示消息"><a href="#如何修改表单的提示消息" class="headerlink" title="如何修改表单的提示消息"></a>如何修改表单的提示消息</h3><p>HTML5 表单可能在如下情形下弹出提示消息：<br>(1)特定的 input type 不被满足，如 email、url<br>(2)特定的验证属性不被满足，如 required、pattern、step、minlength<br>不同的浏览器会弹出不同的提示消息。如何自定义弹出的提示消息：<br>HTML5 为所有的表单输入域都添加了一个 validity 对象属性，该对象中包含如下的属性：</p>
-<blockquote>
-<p>1.badInput:false 无效的输入，如<br>2.customError:false 是否存在自定义错误<br>3.patternMismatch:false 正则表达式不匹配，违反 pattern 验证<br>4.rangeOverflow:false 数字范围过大，违反了 max 验证<br>5.rangeUnderflow:false 数字范围过小，违反了 min 验证<br>6.stepMismatch:false 步长不匹配，违反 step 验证<br>7.tooLong:false 字符个数太长，违反 maxlength 验证<br>8.tooShort:false 字符个数太短，违反 minlength 验证<br>9.typeMismatch:false 类型不匹配，如 email/url 格式错误<br>10.valid:true 当前输入值是否有效<br>11.valueMissing:false 缺少值，违反 required 验证</p>
-</blockquote>
-<p>上述属性会随着用户的输入即时的发生改变，只要有一项验证失败，对应的 boolean 值就会变成 true，导致 valid 属性变为 false；只有当所有其他属性都变为 false，valid 属性才会变为 true，该输入域是有效的，可以被提交了。<br>通过检查上述属性是否为 true，可以通过“设置自定义的有效性消息 setCustomValidity”设置自定义的错误消息——validity.customError 就会变为 true，自定义错误消息的优先级高于浏览器默认的消息优先级。<br>if( input.validity.xxx === true ){<br>input.setCustomValidity(“自定义消息”);<br>}else {<br>input.setCustomValidity(“”);<br>}</p>
+<p>1.本地存储永不过期，除非自己去清除</p>
+<p>2.可以通过 chrome 浏览器 Resources/Local Storage 来查看</p>
+<p>3.不同域下就算 key 相同取不到的值也不同，如 localhost 和 127.0.0.1</p>
 ]]></content>
       <tags>
-        <tag>HTML5</tag>
+        <tag>H5</tag>
       </tags>
   </entry>
   <entry>
@@ -333,66 +393,6 @@ var ctx = canvas.getContext( '2d' );
       <tags>
         <tag>HTML5</tag>
         <tag>video</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>HTML5离线存储和本地缓存</title>
-    <url>/2016/07/15/H5%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98%E5%92%8C%E7%A6%BB%E7%BA%BF%E7%BC%93%E5%AD%98/</url>
-    <content><![CDATA[<h1 id="一、离线缓存"><a href="#一、离线缓存" class="headerlink" title="一、离线缓存"></a>一、离线缓存</h1><p>有一个 web 应用有三个文件 index.html,a.js,b.css，现在需要把 js 和 css 文件缓存起来</p>
-<span id="more"></span>
-<p>1.在 index.html 里加上<html manifest="test.manifest"></p>
-<p>2.manifest 清单格式如下</p>
-<blockquote>
-<pre><code> CACHE MANIFEST
-</code></pre>
-</blockquote>
-<pre><code>#上面一句必须
-#v1.0.0
-#需要缓存的文件
-CACHE:
-a.js
-b.css
-#不需要缓存的文件
-NETWORK:
-*
-#无法访问页面
-FALLBACK:
-404.html
-复制代码
-</code></pre>
-<p>3.manifest 文件的 mime-type 必须是 text/cache-manifest 类型</p>
-<blockquote>
-<p>注意点：<br>a.对于每个 index.html?id=1 或 index.html?id=2 都会分别缓存 index.html 页面，可以通过 chrome 浏览器 Resources/Application Cache 观察<br>b.如果想更新缓存内容，只要修改下 manifest 文件即可，如改版本号 v1.0.1</p>
-</blockquote>
-<!-- more -->
-
-<p>4.离线存储如果资源有更新，可以通过如下代码来监听，但第一次加载还会是原来的版本</p>
-<blockquote>
-<pre><code> window.applicationCache.addEventListener(&#39;updateready&#39;,function(e)&#123;
-</code></pre>
-</blockquote>
-<pre><code>    if(window.applicationCache.status == window.applicationCache.UPDATEREADY)&#123;
-        window.applicationCache.swapCache();
-        if(confirm(&quot;loding new?&quot;))&#123;
-            window.location.reload()
-        &#125;
-    &#125;
-&#125;,false)
-</code></pre>
-<h1 id="二、本地缓存"><a href="#二、本地缓存" class="headerlink" title="二、本地缓存"></a>二、本地缓存</h1><pre><code>localStorage.setItem(&quot;key&quot;,&quot;value&quot;)
-
-localStorage.getItem(&quot;key&quot;,&quot;value&quot;)
-
-localStorage.removeItem(&quot;key&quot;)
-
-localStorage.clear()
-</code></pre>
-<p>1.本地存储永不过期，除非自己去清除</p>
-<p>2.可以通过 chrome 浏览器 Resources/Local Storage 来查看</p>
-<p>3.不同域下就算 key 相同取不到的值也不同，如 localhost 和 127.0.0.1</p>
-]]></content>
-      <tags>
-        <tag>H5</tag>
       </tags>
   </entry>
   <entry>
@@ -501,72 +501,6 @@ var ISWP = !!(navigator.userAgent.match(/Windows\sPhone/i));
 ]]></content>
       <tags>
         <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>九、JavaScript之call、apply和bind的模拟实现</title>
-    <url>/2019/09/21/call%E3%80%81apply%E3%80%81bind%E7%9A%84%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0/</url>
-    <content><![CDATA[<h2 id="call"><a href="#call" class="headerlink" title="call"></a>call</h2><p>简单来说</p>
-<blockquote>
-<p>call()方法在将函数的第一个参数值指定到 this 和剩余参数指定的情况下调用某个函数或方法。</p>
-</blockquote>
-<span id="more"></span>
-<p>使用示例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>, a, b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// this指向第一个参数foo;</span></span><br><span class="line">bar.call(foo, <span class="number">1</span>, <span class="number">2</span>); <span class="comment">// &#123;name: &quot;lilei&quot;&#125; 1 2</span></span><br><span class="line"><span class="comment">// a,b未传参数，默认是undefined</span></span><br><span class="line">bar.call(foo); <span class="comment">// &#123;name: &quot;lilei&quot;&#125; undefined undefined</span></span><br><span class="line"><span class="comment">// call方法不传参数或传递null/undefined，this都指向window(非严格模式)</span></span><br><span class="line">bar.call(); <span class="comment">// window undefined undefined</span></span><br><span class="line">bar.call(<span class="literal">null</span>); <span class="comment">// window undefined undefined</span></span><br><span class="line">bar.call(<span class="literal">undefined</span>); <span class="comment">// window undefined undefined</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="模拟实现"><a href="#模拟实现" class="headerlink" title="模拟实现"></a>模拟实现</h3><p>call 方法的模拟实现需要明白 call 的原理：</p>
-<ol>
-<li>this 指向的改变</li>
-<li>call 函数中执行调用的函数</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myCall = <span class="function"><span class="keyword">function</span> (<span class="params">context, ...args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (context === <span class="literal">null</span> || context === <span class="literal">undefined</span>) &#123;</span><br><span class="line">    context = <span class="built_in">window</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    context = <span class="built_in">Object</span>(context);</span><br><span class="line">  &#125;</span><br><span class="line">  context.fn = <span class="built_in">this</span>;</span><br><span class="line">  <span class="keyword">delete</span> context.fn(...args);</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>, a, b);</span><br><span class="line">&#125;</span><br><span class="line">bar.myCall(foo, <span class="number">1</span>, <span class="number">2</span>); <span class="comment">// &#123;name: &quot;lilei&quot;, fn: ƒ&#125; 1 2</span></span><br><span class="line">bar.myCall(foo); <span class="comment">// &#123;name: &quot;lilei&quot;, fn: ƒ&#125; undefined undefined</span></span><br><span class="line">bar.myCall(); <span class="comment">// Window undefined undefined</span></span><br><span class="line">bar.myCall(<span class="literal">null</span>); <span class="comment">// Window undefined undefined</span></span><br><span class="line">bar.myCall(<span class="literal">undefined</span>); <span class="comment">// Window undefined undefined</span></span><br><span class="line">bar.myCall(<span class="number">23</span>, <span class="number">24</span>); <span class="comment">// Number &#123;23, fn: ƒ&#125; undefined undefined</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h2><p>apply 的使用与 apply 基本一致，两者之间的区别：apply 的第二个参数是数组[arg1,arg2,arg3,…]，call 的第二个参数是列表(arg1,arg2,arg3,…)；<br>使用示例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>, a, b);</span><br><span class="line">&#125;</span><br><span class="line">bar.apply(foo, [<span class="number">1</span>, <span class="number">2</span>]); <span class="comment">// &#123;name: &quot;lilei&quot;&#125; 1 2</span></span><br><span class="line">bar.apply(foo); <span class="comment">// &#123;name: &quot;lilei&quot;&#125; undefined undefined</span></span><br><span class="line">bar.apply(); <span class="comment">// window undefined undefined</span></span><br><span class="line">bar.apply(<span class="literal">null</span>); <span class="comment">// window undefined undefined</span></span><br><span class="line">bar.apply(<span class="literal">undefined</span>); <span class="comment">// window undefined undefined</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="模拟实现-1"><a href="#模拟实现-1" class="headerlink" title="模拟实现"></a>模拟实现</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myApply = <span class="function"><span class="keyword">function</span> (<span class="params">context, args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (context === <span class="literal">null</span> || context === <span class="literal">undefined</span>) &#123;</span><br><span class="line">    context = <span class="built_in">window</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    context = <span class="built_in">Object</span>(context);</span><br><span class="line">  &#125;</span><br><span class="line">  context.fn = <span class="built_in">this</span>;</span><br><span class="line">  <span class="keyword">delete</span> context.fn(args);</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h2><p>引用 MDN 中的介绍</p>
-<blockquote>
-<p>bind() 方法创建一个新的函数，在 bind() 被调用时，这个新函数的 this 被指定为 bind() 的第一个参数，而其余参数将作为新函数的参数，供调用时使用。</p>
-</blockquote>
-<p>由此看出 bind 的特点：</p>
-<ul>
-<li>bind 返回一个新的函数。</li>
-<li>这个新的函数可以预置参数。</li>
-</ul>
-<p>举个例子</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>, a, b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> fn = bar.bind(foo, <span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">fn(); <span class="comment">//// &#123;name: &quot;lilei&quot;&#125; 1 2</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="模拟实现-2"><a href="#模拟实现-2" class="headerlink" title="模拟实现"></a>模拟实现</h3><p>1.实现返回一个函数，并可以传递参数</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myBind = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 保存要绑定的this</span></span><br><span class="line">  <span class="keyword">var</span> _this = <span class="built_in">arguments</span>[<span class="number">0</span>];</span><br><span class="line">  <span class="comment">// 获取预置参数</span></span><br><span class="line">  <span class="keyword">var</span> args = [].slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>);</span><br><span class="line">  <span class="keyword">var</span> self = <span class="built_in">this</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 获取执行时传入的参数</span></span><br><span class="line">    <span class="keyword">var</span> restArgs = [].slice.call(<span class="built_in">arguments</span>);</span><br><span class="line">    <span class="comment">// 合并参数</span></span><br><span class="line">    <span class="keyword">var</span> allArgs = args.concat(restArgs);</span><br><span class="line">    <span class="keyword">return</span> self.apply(_this, allArgs);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>接下来最重要的一点，bind 返回的函数支持 new 调用：</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myBind = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> self = <span class="built_in">this</span>;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> self !== <span class="string">&quot;function&quot;</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;绑定的目标必须是函数&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 保存要绑定的this</span></span><br><span class="line">  <span class="keyword">var</span> _this = <span class="built_in">arguments</span>[<span class="number">0</span>];</span><br><span class="line">  <span class="comment">// 获取预置参数</span></span><br><span class="line">  <span class="keyword">var</span> args = [].slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>);</span><br><span class="line">  <span class="keyword">var</span> fNOP = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line">  <span class="keyword">var</span> fBound = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 获取执行时传入的参数</span></span><br><span class="line">    <span class="keyword">var</span> restArgs = [].slice.call(<span class="built_in">arguments</span>);</span><br><span class="line">    <span class="comment">// 合并参数</span></span><br><span class="line">    <span class="keyword">var</span> allArgs = args.concat(restArgs);</span><br><span class="line">    <span class="comment">// instanceof 运算符用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上。</span></span><br><span class="line">    <span class="comment">// 当作为构造函数时，this 指向实例，此时结果为 true，将绑定函数的 this 指向该实例，可以让实例获得来自绑定函数的值</span></span><br><span class="line">    <span class="comment">// 当作为普通函数时，this 指向 window，此时结果为 false，将绑定函数的 this 指向 context </span></span><br><span class="line">    <span class="keyword">return</span> self.apply(<span class="built_in">this</span> <span class="keyword">instanceof</span> fBound ? <span class="built_in">this</span> : _this, allArgs);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">// 原型链关系处理</span></span><br><span class="line">  <span class="comment">// fBound.prototype = Object.create(self.prototype || Function.prototype);</span></span><br><span class="line">  fNOP.prototype = <span class="built_in">this</span>.prototype;</span><br><span class="line">  fBound.prototype = <span class="keyword">new</span> fNOP();</span><br><span class="line">  <span class="keyword">return</span> fBound;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://github.com/mqyqingfeng/Blog/issues/11">https://github.com/mqyqingfeng/Blog/issues/11</a></p>
-]]></content>
-      <categories>
-        <category>深入理解JavaScript系列笔记</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>content换行符与打点loading效果实例页面</title>
-    <url>/2020/06/19/content%E6%8D%A2%E8%A1%8C%E7%AC%A6%E4%B8%8E%E6%89%93%E7%82%B9loading%E6%95%88%E6%9E%9C%E5%AE%9E%E4%BE%8B%E9%A1%B5%E9%9D%A2/</url>
-    <content><![CDATA[<p>代码如下：</p>
-<h3 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h3><span id="more"></span>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">dot &#123;</span><br><span class="line">    <span class="attribute">display</span>: inline-block; </span><br><span class="line">    <span class="attribute">height</span>: <span class="number">1em</span>;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">1</span>;</span><br><span class="line">    <span class="attribute">text-align</span>: left;</span><br><span class="line">    <span class="attribute">vertical-align</span>: -.<span class="number">25em</span>;</span><br><span class="line">    <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br><span class="line">dot<span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">&#x27;...\A..\A.&#x27;</span>;</span><br><span class="line">    <span class="attribute">white-space</span>: pre-wrap;</span><br><span class="line">    <span class="attribute">animation</span>: dot <span class="number">3s</span> infinite step-start both;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@keyframes</span> dot &#123;</span><br><span class="line">    <span class="number">33%</span> &#123; <span class="attribute">transform</span>: <span class="built_in">translateY</span>(-<span class="number">2em</span>); &#125;</span><br><span class="line">    <span class="number">66%</span> &#123; <span class="attribute">transform</span>: <span class="built_in">translateY</span>(-<span class="number">1em</span>); &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wrap&quot;</span>&gt;</span>正在加载中<span class="tag">&lt;<span class="name">dot</span>&gt;</span>...<span class="tag">&lt;/<span class="name">dot</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>JS</category>
-      </categories>
-      <tags>
-        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -707,6 +641,72 @@ parseInt(‘30’);
 count; // 3
 </code></pre>
 ]]></content>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>九、JavaScript之call、apply和bind的模拟实现</title>
+    <url>/2019/09/21/call%E3%80%81apply%E3%80%81bind%E7%9A%84%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0/</url>
+    <content><![CDATA[<h2 id="call"><a href="#call" class="headerlink" title="call"></a>call</h2><p>简单来说</p>
+<blockquote>
+<p>call()方法在将函数的第一个参数值指定到 this 和剩余参数指定的情况下调用某个函数或方法。</p>
+</blockquote>
+<span id="more"></span>
+<p>使用示例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>, a, b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// this指向第一个参数foo;</span></span><br><span class="line">bar.call(foo, <span class="number">1</span>, <span class="number">2</span>); <span class="comment">// &#123;name: &quot;lilei&quot;&#125; 1 2</span></span><br><span class="line"><span class="comment">// a,b未传参数，默认是undefined</span></span><br><span class="line">bar.call(foo); <span class="comment">// &#123;name: &quot;lilei&quot;&#125; undefined undefined</span></span><br><span class="line"><span class="comment">// call方法不传参数或传递null/undefined，this都指向window(非严格模式)</span></span><br><span class="line">bar.call(); <span class="comment">// window undefined undefined</span></span><br><span class="line">bar.call(<span class="literal">null</span>); <span class="comment">// window undefined undefined</span></span><br><span class="line">bar.call(<span class="literal">undefined</span>); <span class="comment">// window undefined undefined</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="模拟实现"><a href="#模拟实现" class="headerlink" title="模拟实现"></a>模拟实现</h3><p>call 方法的模拟实现需要明白 call 的原理：</p>
+<ol>
+<li>this 指向的改变</li>
+<li>call 函数中执行调用的函数</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myCall = <span class="function"><span class="keyword">function</span> (<span class="params">context, ...args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (context === <span class="literal">null</span> || context === <span class="literal">undefined</span>) &#123;</span><br><span class="line">    context = <span class="built_in">window</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    context = <span class="built_in">Object</span>(context);</span><br><span class="line">  &#125;</span><br><span class="line">  context.fn = <span class="built_in">this</span>;</span><br><span class="line">  <span class="keyword">delete</span> context.fn(...args);</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>, a, b);</span><br><span class="line">&#125;</span><br><span class="line">bar.myCall(foo, <span class="number">1</span>, <span class="number">2</span>); <span class="comment">// &#123;name: &quot;lilei&quot;, fn: ƒ&#125; 1 2</span></span><br><span class="line">bar.myCall(foo); <span class="comment">// &#123;name: &quot;lilei&quot;, fn: ƒ&#125; undefined undefined</span></span><br><span class="line">bar.myCall(); <span class="comment">// Window undefined undefined</span></span><br><span class="line">bar.myCall(<span class="literal">null</span>); <span class="comment">// Window undefined undefined</span></span><br><span class="line">bar.myCall(<span class="literal">undefined</span>); <span class="comment">// Window undefined undefined</span></span><br><span class="line">bar.myCall(<span class="number">23</span>, <span class="number">24</span>); <span class="comment">// Number &#123;23, fn: ƒ&#125; undefined undefined</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h2><p>apply 的使用与 apply 基本一致，两者之间的区别：apply 的第二个参数是数组[arg1,arg2,arg3,…]，call 的第二个参数是列表(arg1,arg2,arg3,…)；<br>使用示例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>, a, b);</span><br><span class="line">&#125;</span><br><span class="line">bar.apply(foo, [<span class="number">1</span>, <span class="number">2</span>]); <span class="comment">// &#123;name: &quot;lilei&quot;&#125; 1 2</span></span><br><span class="line">bar.apply(foo); <span class="comment">// &#123;name: &quot;lilei&quot;&#125; undefined undefined</span></span><br><span class="line">bar.apply(); <span class="comment">// window undefined undefined</span></span><br><span class="line">bar.apply(<span class="literal">null</span>); <span class="comment">// window undefined undefined</span></span><br><span class="line">bar.apply(<span class="literal">undefined</span>); <span class="comment">// window undefined undefined</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="模拟实现-1"><a href="#模拟实现-1" class="headerlink" title="模拟实现"></a>模拟实现</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myApply = <span class="function"><span class="keyword">function</span> (<span class="params">context, args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (context === <span class="literal">null</span> || context === <span class="literal">undefined</span>) &#123;</span><br><span class="line">    context = <span class="built_in">window</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    context = <span class="built_in">Object</span>(context);</span><br><span class="line">  &#125;</span><br><span class="line">  context.fn = <span class="built_in">this</span>;</span><br><span class="line">  <span class="keyword">delete</span> context.fn(args);</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h2><p>引用 MDN 中的介绍</p>
+<blockquote>
+<p>bind() 方法创建一个新的函数，在 bind() 被调用时，这个新函数的 this 被指定为 bind() 的第一个参数，而其余参数将作为新函数的参数，供调用时使用。</p>
+</blockquote>
+<p>由此看出 bind 的特点：</p>
+<ul>
+<li>bind 返回一个新的函数。</li>
+<li>这个新的函数可以预置参数。</li>
+</ul>
+<p>举个例子</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>, a, b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> fn = bar.bind(foo, <span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">fn(); <span class="comment">//// &#123;name: &quot;lilei&quot;&#125; 1 2</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="模拟实现-2"><a href="#模拟实现-2" class="headerlink" title="模拟实现"></a>模拟实现</h3><p>1.实现返回一个函数，并可以传递参数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myBind = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 保存要绑定的this</span></span><br><span class="line">  <span class="keyword">var</span> _this = <span class="built_in">arguments</span>[<span class="number">0</span>];</span><br><span class="line">  <span class="comment">// 获取预置参数</span></span><br><span class="line">  <span class="keyword">var</span> args = [].slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>);</span><br><span class="line">  <span class="keyword">var</span> self = <span class="built_in">this</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 获取执行时传入的参数</span></span><br><span class="line">    <span class="keyword">var</span> restArgs = [].slice.call(<span class="built_in">arguments</span>);</span><br><span class="line">    <span class="comment">// 合并参数</span></span><br><span class="line">    <span class="keyword">var</span> allArgs = args.concat(restArgs);</span><br><span class="line">    <span class="keyword">return</span> self.apply(_this, allArgs);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>接下来最重要的一点，bind 返回的函数支持 new 调用：</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myBind = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> self = <span class="built_in">this</span>;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> self !== <span class="string">&quot;function&quot;</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;绑定的目标必须是函数&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 保存要绑定的this</span></span><br><span class="line">  <span class="keyword">var</span> _this = <span class="built_in">arguments</span>[<span class="number">0</span>];</span><br><span class="line">  <span class="comment">// 获取预置参数</span></span><br><span class="line">  <span class="keyword">var</span> args = [].slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>);</span><br><span class="line">  <span class="keyword">var</span> fNOP = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line">  <span class="keyword">var</span> fBound = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 获取执行时传入的参数</span></span><br><span class="line">    <span class="keyword">var</span> restArgs = [].slice.call(<span class="built_in">arguments</span>);</span><br><span class="line">    <span class="comment">// 合并参数</span></span><br><span class="line">    <span class="keyword">var</span> allArgs = args.concat(restArgs);</span><br><span class="line">    <span class="comment">// instanceof 运算符用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上。</span></span><br><span class="line">    <span class="comment">// 当作为构造函数时，this 指向实例，此时结果为 true，将绑定函数的 this 指向该实例，可以让实例获得来自绑定函数的值</span></span><br><span class="line">    <span class="comment">// 当作为普通函数时，this 指向 window，此时结果为 false，将绑定函数的 this 指向 context </span></span><br><span class="line">    <span class="keyword">return</span> self.apply(<span class="built_in">this</span> <span class="keyword">instanceof</span> fBound ? <span class="built_in">this</span> : _this, allArgs);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">// 原型链关系处理</span></span><br><span class="line">  <span class="comment">// fBound.prototype = Object.create(self.prototype || Function.prototype);</span></span><br><span class="line">  fNOP.prototype = <span class="built_in">this</span>.prototype;</span><br><span class="line">  fBound.prototype = <span class="keyword">new</span> fNOP();</span><br><span class="line">  <span class="keyword">return</span> fBound;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://github.com/mqyqingfeng/Blog/issues/11">https://github.com/mqyqingfeng/Blog/issues/11</a></p>
+]]></content>
+      <categories>
+        <category>深入理解JavaScript系列笔记</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>content换行符与打点loading效果实例页面</title>
+    <url>/2020/06/19/content%E6%8D%A2%E8%A1%8C%E7%AC%A6%E4%B8%8E%E6%89%93%E7%82%B9loading%E6%95%88%E6%9E%9C%E5%AE%9E%E4%BE%8B%E9%A1%B5%E9%9D%A2/</url>
+    <content><![CDATA[<p>代码如下：</p>
+<h3 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h3><span id="more"></span>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">dot &#123;</span><br><span class="line">    <span class="attribute">display</span>: inline-block; </span><br><span class="line">    <span class="attribute">height</span>: <span class="number">1em</span>;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">1</span>;</span><br><span class="line">    <span class="attribute">text-align</span>: left;</span><br><span class="line">    <span class="attribute">vertical-align</span>: -.<span class="number">25em</span>;</span><br><span class="line">    <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br><span class="line">dot<span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">&#x27;...\A..\A.&#x27;</span>;</span><br><span class="line">    <span class="attribute">white-space</span>: pre-wrap;</span><br><span class="line">    <span class="attribute">animation</span>: dot <span class="number">3s</span> infinite step-start both;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@keyframes</span> dot &#123;</span><br><span class="line">    <span class="number">33%</span> &#123; <span class="attribute">transform</span>: <span class="built_in">translateY</span>(-<span class="number">2em</span>); &#125;</span><br><span class="line">    <span class="number">66%</span> &#123; <span class="attribute">transform</span>: <span class="built_in">translateY</span>(-<span class="number">1em</span>); &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wrap&quot;</span>&gt;</span>正在加载中<span class="tag">&lt;<span class="name">dot</span>&gt;</span>...<span class="tag">&lt;/<span class="name">dot</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
       <tags>
         <tag>JS</tag>
       </tags>
@@ -1179,7 +1179,7 @@ Markdown 使用一种和链接很相似的语法来标记图片，同样也允�
 &amp;#109;&quot;&gt;&amp;#x61;&amp;#x64;&amp;#x64;&amp;#x72;&amp;#x65;&amp;#115;&amp;#115;&amp;#64;&amp;#101;&amp;#120;&amp;#x61;
 &amp;#109;&amp;#x70;&amp;#x6C;e&amp;#x2E;&amp;#99;&amp;#111;&amp;#109;&lt;/a&gt;
 </code></pre>
-<p>在浏览器里面，这段字串（其实是 <a href="mailto:address@example.com">address@example.com</a>）会变成一个可以点击的「<a href="mailto:&#x61;&#x64;&#100;&#114;&#x65;&#x73;&#x73;&#x40;&#101;&#x78;&#x61;&#109;&#x70;&#108;&#x65;&#x2e;&#99;&#x6f;&#x6d;">&#x61;&#x64;&#100;&#114;&#x65;&#x73;&#x73;&#x40;&#101;&#x78;&#x61;&#109;&#x70;&#108;&#x65;&#x2e;&#99;&#x6f;&#x6d;</a>」链接。</p>
+<p>在浏览器里面，这段字串（其实是 <a href="mailto:address@example.com">address@example.com</a>）会变成一个可以点击的「<a href="mailto:&#97;&#x64;&#100;&#114;&#x65;&#115;&#115;&#x40;&#101;&#x78;&#x61;&#x6d;&#112;&#108;&#101;&#46;&#x63;&#x6f;&#109;">&#97;&#x64;&#100;&#114;&#x65;&#115;&#115;&#x40;&#101;&#x78;&#x61;&#x6d;&#112;&#108;&#101;&#46;&#x63;&#x6f;&#109;</a>」链接。</p>
 </blockquote>
 <p>（这种作法虽然可以糊弄不少的机器人，但并不能全部挡下来，不过总比什么都不做好些。不管怎样，公开你的信箱终究会引来广告信件的。）</p>
 <blockquote>
@@ -1356,6 +1356,45 @@ npm -v
       </tags>
   </entry>
   <entry>
+    <title>二、JavaScript之作用域</title>
+    <url>/2019/06/15/%E4%BD%9C%E7%94%A8%E5%9F%9F/</url>
+    <content><![CDATA[<h2 id="什么是作用域"><a href="#什么是作用域" class="headerlink" title="什么是作用域"></a>什么是作用域</h2><p>作用域是指程序源代码中定义变量的区域。</p>
+<p>作用域规定了如何查找变量，也就是确定当前执行代码对变量的访问权限。</p>
+<p>JavaScript 采用词法作用域(lexical scoping)，也就是静态作用域。</p>
+<span id="more"></span>
+<h2 id="词法作用域"><a href="#词法作用域" class="headerlink" title="词法作用域"></a>词法作用域</h2><p>在你不知道的javascript上卷中是这样定义的：</p>
+<blockquote>
+<p>词法作用域就是定义在词法阶段的作用域。换句话说，词法作用域是由你在写代码时将变量和块作用域写在哪里来决定的，因此当词法分析器处理代码时会保持作用域不变(大部分情况下是这样的)。</p>
+</blockquote>
+<p>在JS中词法作用域的规则：<a href="https://github.com/getify/You-Dont-Know-JS/blob/1ed-zh-CN/scope%20%26%20closures/ch1.md">点这里</a></p>
+<p>请看下面这段代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var value = 1;</span><br><span class="line"></span><br><span class="line">function foo() &#123;</span><br><span class="line">    console.log(value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function bar() &#123;</span><br><span class="line">    var value = 2;</span><br><span class="line">    foo();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar(); // ???</span><br></pre></td></tr></table></figure>
+<p>假设JavaScript采用静态作用域，让我们分析下执行过程：<br>执行 foo 函数，先从 foo 函数内部查找是否有局部变量 value，如果没有，就根据书写的位置，查找上面一层的代码，也就是 value 等于 1，所以结果会打印 1。</p>
+<p>假设JavaScript采用动态作用域，让我们分析下执行过程：<br>执行 foo 函数，依然是从 foo 函数内部查找是否有局部变量 value。如果没有，就从调用函数的作用域，也就是 bar 函数内部查找 value 变量，所以结果会打印 2。</p>
+<p>前面我们已经说了，JavaScript采用的是静态作用域，所以这个例子的结果是 1。<br>再看下面这段代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function foo(a) &#123;</span><br><span class="line"></span><br><span class="line">	var b = a * 2;</span><br><span class="line"></span><br><span class="line">	function bar(c) &#123;</span><br><span class="line">		console.log( a, b, c );</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	bar(b * 3);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo( 2 ); // 2 4 12</span><br></pre></td></tr></table></figure>
+<p>在这个代码示例中有三个固有的嵌套作用域：</p>
+<ul>
+<li>包围着全局作用域，只有一个标识符：foo。</li>
+<li>包围着作用域 foo，它含有三个标识符：a，bar 和 b。</li>
+<li>包围着作用域 bar，它里面只包含一个标识符：c。</li>
+</ul>
+<p>当我们执行console.log(…)语句的时候，开始查找三个被引用的变量 a，b 和 c。它首先从最内部的作用域气泡开始，也就是 bar(…) 函数的作用域。在这里它找不到 a，所以它向上走一层，到外面下一个最近的作用域气泡，foo(…) 的作用域。它在这里找到了 a，于是它就使用这个 a。同样的事情也发生在 b 身上。但是对于 c，它在 bar(..) 内部就找到了。</p>
+<p>如果在 foo(..) 内部定义一个变量 c，console.log(…) 语句也仍然会找到并使用 bar(…) 中的那一个，而不会使用 foo(…) 中的那一个。</p>
+<p><strong>一旦找到第一个匹配，作用域查询就停止了。</strong>相同的标识符名称可以在嵌套作用域的多个层中被指定，这称为“遮蔽（shadowing）”（内部的标识符“遮蔽”了外部的标识符）。无论如何遮蔽，作用域查询总是从当前被执行的最内侧的作用域开始，向外/向上不断查找，直到第一个匹配才停止。</p>
+<p><strong>注意：</strong>全局变量也自动地是全局对象（在浏览器中是 window，等等）的属性，所以不直接通过全局变量的词法名称，而通过将它作为全局对象的一个属性引用来间接地引用，是可能的。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var a = 5;</span><br><span class="line">function foo(a) &#123;</span><br><span class="line">  console.log(a);</span><br><span class="line">  console.log(window.a)</span><br><span class="line">&#125;</span><br><span class="line">foo(2) // 2,5</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://github.com/mqyqingfeng/Blog/issues/3">https://github.com/mqyqingfeng/Blog/issues/3</a></p>
+]]></content>
+      <categories>
+        <category>深入理解JavaScript系列笔记</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>事件冒泡</title>
     <url>/2016/06/25/%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1/</url>
     <content><![CDATA[<h3 id="什么是JS事件冒泡？"><a href="#什么是JS事件冒泡？" class="headerlink" title="什么是JS事件冒泡？"></a>什么是JS事件冒泡？</h3><p>在一个对象上触发某类事件（比如单击onclick事件），如果此对象定义了此事件的处理程序，那么此事件就会调用这个处理程序，如果没有定义此事件处理程序或者事件返回true，那么这个事件会向这个对象的父级对象传播，从里到外，直至它被处理（父级对象所有同类事件都将被激活），或者它到达了对象层次的最顶层，即document对象（有些浏览器是window）。</p>
@@ -1419,88 +1458,6 @@ IE8: e.returnValue=false;
 </blockquote>
 <p>参考网址：<a href="http://www.jb51.net/article/32792.htm">事件冒泡</a></p>
 ]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>二、JavaScript之作用域</title>
-    <url>/2019/06/15/%E4%BD%9C%E7%94%A8%E5%9F%9F/</url>
-    <content><![CDATA[<h2 id="什么是作用域"><a href="#什么是作用域" class="headerlink" title="什么是作用域"></a>什么是作用域</h2><p>作用域是指程序源代码中定义变量的区域。</p>
-<p>作用域规定了如何查找变量，也就是确定当前执行代码对变量的访问权限。</p>
-<p>JavaScript 采用词法作用域(lexical scoping)，也就是静态作用域。</p>
-<span id="more"></span>
-<h2 id="词法作用域"><a href="#词法作用域" class="headerlink" title="词法作用域"></a>词法作用域</h2><p>在你不知道的javascript上卷中是这样定义的：</p>
-<blockquote>
-<p>词法作用域就是定义在词法阶段的作用域。换句话说，词法作用域是由你在写代码时将变量和块作用域写在哪里来决定的，因此当词法分析器处理代码时会保持作用域不变(大部分情况下是这样的)。</p>
-</blockquote>
-<p>在JS中词法作用域的规则：<a href="https://github.com/getify/You-Dont-Know-JS/blob/1ed-zh-CN/scope%20%26%20closures/ch1.md">点这里</a></p>
-<p>请看下面这段代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var value = 1;</span><br><span class="line"></span><br><span class="line">function foo() &#123;</span><br><span class="line">    console.log(value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function bar() &#123;</span><br><span class="line">    var value = 2;</span><br><span class="line">    foo();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar(); // ???</span><br></pre></td></tr></table></figure>
-<p>假设JavaScript采用静态作用域，让我们分析下执行过程：<br>执行 foo 函数，先从 foo 函数内部查找是否有局部变量 value，如果没有，就根据书写的位置，查找上面一层的代码，也就是 value 等于 1，所以结果会打印 1。</p>
-<p>假设JavaScript采用动态作用域，让我们分析下执行过程：<br>执行 foo 函数，依然是从 foo 函数内部查找是否有局部变量 value。如果没有，就从调用函数的作用域，也就是 bar 函数内部查找 value 变量，所以结果会打印 2。</p>
-<p>前面我们已经说了，JavaScript采用的是静态作用域，所以这个例子的结果是 1。<br>再看下面这段代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function foo(a) &#123;</span><br><span class="line"></span><br><span class="line">	var b = a * 2;</span><br><span class="line"></span><br><span class="line">	function bar(c) &#123;</span><br><span class="line">		console.log( a, b, c );</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	bar(b * 3);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo( 2 ); // 2 4 12</span><br></pre></td></tr></table></figure>
-<p>在这个代码示例中有三个固有的嵌套作用域：</p>
-<ul>
-<li>包围着全局作用域，只有一个标识符：foo。</li>
-<li>包围着作用域 foo，它含有三个标识符：a，bar 和 b。</li>
-<li>包围着作用域 bar，它里面只包含一个标识符：c。</li>
-</ul>
-<p>当我们执行console.log(…)语句的时候，开始查找三个被引用的变量 a，b 和 c。它首先从最内部的作用域气泡开始，也就是 bar(…) 函数的作用域。在这里它找不到 a，所以它向上走一层，到外面下一个最近的作用域气泡，foo(…) 的作用域。它在这里找到了 a，于是它就使用这个 a。同样的事情也发生在 b 身上。但是对于 c，它在 bar(..) 内部就找到了。</p>
-<p>如果在 foo(..) 内部定义一个变量 c，console.log(…) 语句也仍然会找到并使用 bar(…) 中的那一个，而不会使用 foo(…) 中的那一个。</p>
-<p><strong>一旦找到第一个匹配，作用域查询就停止了。</strong>相同的标识符名称可以在嵌套作用域的多个层中被指定，这称为“遮蔽（shadowing）”（内部的标识符“遮蔽”了外部的标识符）。无论如何遮蔽，作用域查询总是从当前被执行的最内侧的作用域开始，向外/向上不断查找，直到第一个匹配才停止。</p>
-<p><strong>注意：</strong>全局变量也自动地是全局对象（在浏览器中是 window，等等）的属性，所以不直接通过全局变量的词法名称，而通过将它作为全局对象的一个属性引用来间接地引用，是可能的。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var a = 5;</span><br><span class="line">function foo(a) &#123;</span><br><span class="line">  console.log(a);</span><br><span class="line">  console.log(window.a)</span><br><span class="line">&#125;</span><br><span class="line">foo(2) // 2,5</span><br></pre></td></tr></table></figure>
-
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://github.com/mqyqingfeng/Blog/issues/3">https://github.com/mqyqingfeng/Blog/issues/3</a></p>
-]]></content>
-      <categories>
-        <category>深入理解JavaScript系列笔记</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>八、JavaScript之参数按值传递</title>
-    <url>/2019/09/11/%E5%80%BC%E4%BC%A0%E9%80%92/</url>
-    <content><![CDATA[<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>在《JavaScript 高级程序设计》中讲到传递参数：</p>
-<blockquote>
-<p>ECMAScript 中所有函数的参数都是按值传递的。这意味着函数外的值会被复制到函数内部的参数中，就像从一个变量复制到另一个变量一样。如果是原始值，那么就跟原始值变量的复制一样，如果是引用值，那么就跟引用值变量的复制一样。对很多开发者来说，这一块可能会不好理解，毕竟变量有按值和按引用访问，而传参则只有按值传递。</p>
-</blockquote>
-<span id="more"></span>
-
-<h2 id="按值传递"><a href="#按值传递" class="headerlink" title="按值传递"></a>按值传递</h2><blockquote>
-<p>在按值传递参数时，值会被复制到一个局部变量（即一个命名参数，或者用 ECMAScript 的话说，就是 arguments 对象中的一个槽位）。<br>来看一个例子：</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">  num += <span class="number">10</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(num); <span class="comment">// 30</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> count = <span class="number">20</span>;</span><br><span class="line">foo(count);</span><br><span class="line"><span class="built_in">console</span>.log(count); <span class="comment">// 20，没有变化</span></span><br></pre></td></tr></table></figure>
-
-<p>这里，函数 foo()有一个参数 num，它其实是一个局部变量。在调用时，变量 count 作为参数传入。count 的值 20 被复制给参数 num 。在函数内部，参数 num 的值被加上了 10，但这不会影响函数外部的变量 count。参数 num 和变量 count 互不干扰，它们只不过碰巧保存了一样的值。</p>
-<h2 id="引用传递"><a href="#引用传递" class="headerlink" title="引用传递"></a>引用传递</h2><blockquote>
-<p>众所周知按引用传递接收的不是值拷贝，而是对象的隐式引用，如该对象在外部的直接引用地址。函数内部对参数的任何改变都是影响该对象在函数外部的值，因为两者引用的是同一个对象，也就是说：这时候参数就相当于外部对象的一个别名。<br>伪代码：</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">value</span>: <span class="number">1</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">o</span>) </span>&#123;</span><br><span class="line">  o.value = <span class="number">2</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(o.value); <span class="comment">//2</span></span><br><span class="line">&#125;</span><br><span class="line">foo(obj);</span><br><span class="line"><span class="built_in">console</span>.log(obj.value); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
-<p>哪ECMAScript 中函数传递引用数据类型参数是引用传递吗？然而并不是，除了上面两种策略以外，我们看看第三种策略。</p>
-<h2 id="共享传递"><a href="#共享传递" class="headerlink" title="共享传递"></a>共享传递</h2><p>共享传递策略还有一些代名词：“按对象传递”或“按对象共享传递”。该策略是1974年由Barbara Liskov为CLU编程语言提出的，策略的要点是：</p>
-<blockquote>
-<p>函数接收的是对象引用的拷贝（副本），该引用拷贝和形参以及其值相关联。<br>这里出现的引用，我们不能称之为“按引用传递”，因为函数接收的参数不是直接的对象别名，而是该引用地址的拷贝。</p>
-</blockquote>
-<p>最重要的区别就是：函数内部给参数重新赋新值不会影响到外部的对象（和上例按引用传递的case），但是因为该参数是一个地址拷贝，所以在外面访问和里面访问的都是同一个对象,改变该参数对象的属性值将会影响到外部的对象。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  <span class="attr">num</span>: <span class="number">1</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  obj.num = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo(person);</span><br><span class="line"><span class="built_in">console</span>.log(person.num); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
-
-<p>这里，我们创建了一个对象 person 并这个对象被传给 foo 方法，并被复制到参数 obj 中。在函数内部，obj 和 person 都指向同一个对象。个人觉得引用数据类型传递的也是值, 不过这个值是一个地址指针，<br>我们再来看看下面这个修改后的例子：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123; <span class="attr">num</span>: <span class="number">1</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  obj.num = <span class="number">2</span>;</span><br><span class="line">  <span class="comment">// 将obj引用指针指向了新的一个对象上</span></span><br><span class="line">  obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  obj.num = <span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(person.num); <span class="comment">// 1</span></span><br><span class="line">foo(person);</span><br><span class="line"><span class="comment">// 如果这里是按照引用传递，那么，下面的输出应该是3</span></span><br><span class="line"><span class="built_in">console</span>.log(person.num); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
-
-<p>当 person 传入 foo()时，其 num 属性被设置为 2。然后变量 obj 被设置为一个新对象且 num 属性被设置为 3。如果 person 是按引用传递的，那么 person 应该自动将指针改为指向 num 为 3 的对象。可是，当我们再次访问 person.num 时，它的值是 2，这表明函数中参数的值改变之后，原始的引用仍然没变。当 obj 在函数内部被重写时，它变成了一个指向本地对象的指针。而那个本地对象在函数执行结束时就被销毁了。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
-<li>如果参数是基本类型，那么是按值传递。</li>
-<li>如果参数是引用数据类型，传递的还是值，但是这个值是引用数据类型地址的拷贝。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>深入理解JavaScript系列笔记</category>
-      </categories>
       <tags>
         <tag>JavaScript</tag>
       </tags>
@@ -1604,6 +1561,49 @@ IE8: e.returnValue=false;
       </tags>
   </entry>
   <entry>
+    <title>八、JavaScript之参数按值传递</title>
+    <url>/2019/09/11/%E5%80%BC%E4%BC%A0%E9%80%92/</url>
+    <content><![CDATA[<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>在《JavaScript 高级程序设计》中讲到传递参数：</p>
+<blockquote>
+<p>ECMAScript 中所有函数的参数都是按值传递的。这意味着函数外的值会被复制到函数内部的参数中，就像从一个变量复制到另一个变量一样。如果是原始值，那么就跟原始值变量的复制一样，如果是引用值，那么就跟引用值变量的复制一样。对很多开发者来说，这一块可能会不好理解，毕竟变量有按值和按引用访问，而传参则只有按值传递。</p>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="按值传递"><a href="#按值传递" class="headerlink" title="按值传递"></a>按值传递</h2><blockquote>
+<p>在按值传递参数时，值会被复制到一个局部变量（即一个命名参数，或者用 ECMAScript 的话说，就是 arguments 对象中的一个槽位）。<br>来看一个例子：</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">  num += <span class="number">10</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(num); <span class="comment">// 30</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> count = <span class="number">20</span>;</span><br><span class="line">foo(count);</span><br><span class="line"><span class="built_in">console</span>.log(count); <span class="comment">// 20，没有变化</span></span><br></pre></td></tr></table></figure>
+
+<p>这里，函数 foo()有一个参数 num，它其实是一个局部变量。在调用时，变量 count 作为参数传入。count 的值 20 被复制给参数 num 。在函数内部，参数 num 的值被加上了 10，但这不会影响函数外部的变量 count。参数 num 和变量 count 互不干扰，它们只不过碰巧保存了一样的值。</p>
+<h2 id="引用传递"><a href="#引用传递" class="headerlink" title="引用传递"></a>引用传递</h2><blockquote>
+<p>众所周知按引用传递接收的不是值拷贝，而是对象的隐式引用，如该对象在外部的直接引用地址。函数内部对参数的任何改变都是影响该对象在函数外部的值，因为两者引用的是同一个对象，也就是说：这时候参数就相当于外部对象的一个别名。<br>伪代码：</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">value</span>: <span class="number">1</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">o</span>) </span>&#123;</span><br><span class="line">  o.value = <span class="number">2</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(o.value); <span class="comment">//2</span></span><br><span class="line">&#125;</span><br><span class="line">foo(obj);</span><br><span class="line"><span class="built_in">console</span>.log(obj.value); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<p>哪ECMAScript 中函数传递引用数据类型参数是引用传递吗？然而并不是，除了上面两种策略以外，我们看看第三种策略。</p>
+<h2 id="共享传递"><a href="#共享传递" class="headerlink" title="共享传递"></a>共享传递</h2><p>共享传递策略还有一些代名词：“按对象传递”或“按对象共享传递”。该策略是1974年由Barbara Liskov为CLU编程语言提出的，策略的要点是：</p>
+<blockquote>
+<p>函数接收的是对象引用的拷贝（副本），该引用拷贝和形参以及其值相关联。<br>这里出现的引用，我们不能称之为“按引用传递”，因为函数接收的参数不是直接的对象别名，而是该引用地址的拷贝。</p>
+</blockquote>
+<p>最重要的区别就是：函数内部给参数重新赋新值不会影响到外部的对象（和上例按引用传递的case），但是因为该参数是一个地址拷贝，所以在外面访问和里面访问的都是同一个对象,改变该参数对象的属性值将会影响到外部的对象。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  <span class="attr">num</span>: <span class="number">1</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  obj.num = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo(person);</span><br><span class="line"><span class="built_in">console</span>.log(person.num); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+
+<p>这里，我们创建了一个对象 person 并这个对象被传给 foo 方法，并被复制到参数 obj 中。在函数内部，obj 和 person 都指向同一个对象。个人觉得引用数据类型传递的也是值, 不过这个值是一个地址指针，<br>我们再来看看下面这个修改后的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123; <span class="attr">num</span>: <span class="number">1</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  obj.num = <span class="number">2</span>;</span><br><span class="line">  <span class="comment">// 将obj引用指针指向了新的一个对象上</span></span><br><span class="line">  obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  obj.num = <span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(person.num); <span class="comment">// 1</span></span><br><span class="line">foo(person);</span><br><span class="line"><span class="comment">// 如果这里是按照引用传递，那么，下面的输出应该是3</span></span><br><span class="line"><span class="built_in">console</span>.log(person.num); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+
+<p>当 person 传入 foo()时，其 num 属性被设置为 2。然后变量 obj 被设置为一个新对象且 num 属性被设置为 3。如果 person 是按引用传递的，那么 person 应该自动将指针改为指向 num 为 3 的对象。可是，当我们再次访问 person.num 时，它的值是 2，这表明函数中参数的值改变之后，原始的引用仍然没变。当 obj 在函数内部被重写时，它变成了一个指向本地对象的指针。而那个本地对象在函数执行结束时就被销毁了。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li>如果参数是基本类型，那么是按值传递。</li>
+<li>如果参数是引用数据类型，传递的还是值，但是这个值是引用数据类型地址的拷贝。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>深入理解JavaScript系列笔记</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>关于CSS hacks的使用</title>
     <url>/2016/07/10/%E5%85%B3%E4%BA%8ECSS%20hack/</url>
     <content><![CDATA[<h4 id="讨论CSS-hacks，条件引用或者其他。"><a href="#讨论CSS-hacks，条件引用或者其他。" class="headerlink" title="讨论CSS hacks，条件引用或者其他。"></a>讨论CSS hacks，条件引用或者其他。</h4><span id="more"></span>
@@ -1658,31 +1658,6 @@ _background-color:#1e0bd1;/*IE6识别*/
       <tags>
         <tag>JS</tag>
         <tag>VUE</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【加载更多】插件</title>
-    <url>/2017/08/15/%E5%8A%A0%E8%BD%BD%E6%9B%B4%E5%A4%9A%E6%8F%92%E4%BB%B6%E5%B0%81%E8%A3%85/</url>
-    <content><![CDATA[<p>关于如何实现『加载更多』功能，网上有插件可用，例如比较著名的使用iscroll.js实现的上拉加载更多、下拉刷新功能。</p>
-<p>但实际用起来却是很麻烦。由于是第三方插件，要按照对方定义的方法使用，用起来总感觉很不顺心。再加上iscroll.js本身并没有集成加载更多的功能，需要进行自行扩展。想继续使用iscroll.js实现加载更多功能的，上面给的链接可以看看。</p>
-<p>h5项目里需要实现简单的分页功能，由于是移动端，考虑用『加载更多』会更好，而不是PC端的翻页。</p>
-<hr>
-<span id="more"></span>
-<p><strong>JS代码：</strong></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * loadmore.js</span></span><br><span class="line"><span class="comment"> * 加载更多</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @time 2017-7-08 15:40:25</span></span><br><span class="line"><span class="comment"> * @author munachar</span></span><br><span class="line"><span class="comment"> * 可以传的参数默认有：size,scroll 可以自定义</span></span><br><span class="line"><span class="comment"> * */</span></span><br><span class="line"></span><br><span class="line">;(<span class="function"><span class="keyword">function</span>(<span class="params">w,$</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">var</span> loadmore = &#123;</span><br><span class="line">         <span class="comment">/*单页加载更多 通用方法</span></span><br><span class="line"><span class="comment">          *</span></span><br><span class="line"><span class="comment">          * @param callback 回调方法</span></span><br><span class="line"><span class="comment">          * @param config 自定义参数</span></span><br><span class="line"><span class="comment">          * */</span></span><br><span class="line">         <span class="attr">get</span> : <span class="function"><span class="keyword">function</span>(<span class="params">callback, config</span>)</span>&#123;</span><br><span class="line">             <span class="keyword">var</span> config = config ? config : &#123;&#125;; <span class="comment">/*防止未传参数报错*/</span></span><br><span class="line">             <span class="keyword">var</span> counter = <span class="number">1</span>; <span class="comment">/*计数器*/</span></span><br><span class="line">             <span class="keyword">var</span> pageStart = config.size ? config.size : <span class="number">10</span>;</span><br><span class="line">             <span class="keyword">var</span> pageSize = config.size ? config.size : <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">             <span class="comment">/*通过自动监听滚动事件加载更多,可选支持*/</span></span><br><span class="line">             config.isEnd = <span class="literal">false</span>; <span class="comment">/*结束标志*/</span></span><br><span class="line">             config.isAjax = <span class="literal">false</span>; <span class="comment">/*防止滚动过快，服务端没来得及响应造成多次请求*/</span></span><br><span class="line">             $(config.ele).scroll(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                 <span class="comment">/*是否开启滚动加载*/</span></span><br><span class="line">                 <span class="keyword">if</span>(!config.scroll)&#123;</span><br><span class="line">                     <span class="keyword">return</span>;</span><br><span class="line">                 &#125;</span><br><span class="line">                 <span class="comment">/*滚动加载时如果已经没有更多的数据了、正在发生请求时，不能继续进行*/</span></span><br><span class="line">                 <span class="keyword">if</span>(config.isEnd == <span class="literal">true</span> || config.isAjax == <span class="literal">true</span>)&#123;</span><br><span class="line">                     <span class="keyword">return</span>;</span><br><span class="line">                 &#125;</span><br><span class="line">                 <span class="comment">/*当滚动到最底部以上100像素时， 加载新内容*/</span></span><br><span class="line">                 <span class="keyword">if</span> ($(<span class="built_in">this</span>).find(<span class="string">&quot;ul&quot;</span>).height() - $(<span class="built_in">this</span>).scrollTop() - $(<span class="built_in">this</span>).height()&lt;<span class="number">100</span>)&#123;</span><br><span class="line">                     counter ++;</span><br><span class="line">                     pageStart = counter * pageSize;</span><br><span class="line">                     callback &amp;&amp; callback.call( $(config.ele),config, pageStart, pageSize);</span><br><span class="line">                 &#125;</span><br><span class="line">             &#125;);</span><br><span class="line">             <span class="comment">/*第一次自动加载*/</span></span><br><span class="line">             callback &amp;&amp; callback.call( $(config.ele),config, pageStart, pageSize);</span><br><span class="line">         &#125;,</span><br><span class="line">     &#125;</span><br><span class="line">     $.loadmore = loadmore;</span><br><span class="line"> &#125;)(<span class="built_in">window</span>, <span class="built_in">window</span>.jQuery || <span class="built_in">window</span>.Zepto);</span><br></pre></td></tr></table></figure>
-<p><strong>如何调用：</strong></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">$.loadmore.get(getData, &#123;</span><br><span class="line">                <span class="attr">ele</span>:<span class="built_in">window</span>,  <span class="comment">// 绑定滚动监听元素 默认是window</span></span><br><span class="line">                <span class="attr">scroll</span>: <span class="literal">true</span>,  <span class="comment">//默认是false,是否支持滚动加载</span></span><br><span class="line">                <span class="attr">size</span>:<span class="number">10</span>,  <span class="comment">//默认是10</span></span><br><span class="line">                <span class="attr">flag</span>: <span class="number">1</span>, <span class="comment">//自定义参数，可选，示例里没有用到</span></span><br><span class="line">            &#125;);</span><br></pre></td></tr></table></figure>
-<p>第一个参数是回调函数，即我们的业务逻辑。我把我的业务逻辑方法贴出来：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params">config, offset,size</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">    config.isAjax = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        <span class="attr">type</span>: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">        <span class="attr">url</span>: <span class="string">&#x27;json/blog.json&#x27;</span>,</span><br><span class="line">        <span class="attr">dataType</span>: <span class="string">&#x27;json&#x27;</span>,</span><br><span class="line">        <span class="attr">success</span>: <span class="function"><span class="keyword">function</span>(<span class="params">reponse</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">            config.isAjax = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">var</span> data = reponse.list;</span><br><span class="line">            <span class="keyword">var</span> sum = reponse.list.length;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">var</span> result = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/************业务逻辑块：实现拼接html内容并append到页面*****************/</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">//console.log(offset , size, sum);</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">/*如果剩下的记录数不够分页，就让分页数取剩下的记录数</span></span><br><span class="line"><span class="comment">            * 例如分页数是5，只剩2条，则只取2条</span></span><br><span class="line"><span class="comment">            *</span></span><br><span class="line"><span class="comment">            * 实际MySQL查询时不写这个</span></span><br><span class="line"><span class="comment">            */</span></span><br><span class="line">            <span class="keyword">if</span>(sum - offset &lt; size )&#123;</span><br><span class="line">                size = sum - offset;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="comment">/*使用for循环模拟SQL里的limit(offset,size)*/</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">var</span> i=offset; i&lt; (offset+size); i++)&#123;</span><br><span class="line">                result +=<span class="string">&#x27;&lt;div class=&quot;weui_media_box weui_media_text&quot;&gt;&#x27;</span>+</span><br><span class="line">                        <span class="string">&#x27;&lt;a href=&quot;&#x27;</span>+ data[i].url +<span class="string">&#x27;&quot; target=&quot;_blank&quot;&gt;&lt;h4 class=&quot;weui_media_title&quot;&gt;&#x27;</span>+ data[i].title +<span class="string">&#x27;&lt;/h4&gt;&lt;/a&gt;&#x27;</span>+</span><br><span class="line">                        <span class="string">&#x27;&lt;p class=&quot;weui_media_desc&quot;&gt;&#x27;</span>+ data[i].desc +<span class="string">&#x27;&lt;/p&gt;&#x27;</span>+</span><br><span class="line">                    <span class="string">&#x27;&lt;/div&gt;&#x27;</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            $(<span class="string">&#x27;.js-blog-list&#x27;</span>).append(result);</span><br><span class="line"></span><br><span class="line">            <span class="comment">/*******************************************/</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">/*隐藏more*/</span></span><br><span class="line">            <span class="keyword">if</span> ( (offset + size) &gt;= sum)&#123;</span><br><span class="line">                $(<span class="string">&quot;.js-load-more&quot;</span>).hide();</span><br><span class="line">                config.isEnd = <span class="literal">true</span>; <span class="comment">/*停止滚动加载请求*/</span></span><br><span class="line">                <span class="comment">//提示没有了</span></span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                $(<span class="string">&quot;.js-load-more&quot;</span>).show();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">error</span>: <span class="function"><span class="keyword">function</span>(<span class="params">xhr, type</span>)</span>&#123;</span><br><span class="line">            alert(<span class="string">&#x27;Ajax error!&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>以上仅贴出核心代码，详细案列：<a href="https://github.com/hedahang/loadingMoreUp">@Munachar</a></p>
-]]></content>
-      <categories>
-        <category>JS</category>
-      </categories>
-      <tags>
-        <tag>JS</tag>
-        <tag>jQuery</tag>
       </tags>
   </entry>
   <entry>
@@ -1782,6 +1757,31 @@ _background-color:#1e0bd1;/*IE6识别*/
 ]]></content>
       <tags>
         <tag>资源</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【加载更多】插件</title>
+    <url>/2017/08/15/%E5%8A%A0%E8%BD%BD%E6%9B%B4%E5%A4%9A%E6%8F%92%E4%BB%B6%E5%B0%81%E8%A3%85/</url>
+    <content><![CDATA[<p>关于如何实现『加载更多』功能，网上有插件可用，例如比较著名的使用iscroll.js实现的上拉加载更多、下拉刷新功能。</p>
+<p>但实际用起来却是很麻烦。由于是第三方插件，要按照对方定义的方法使用，用起来总感觉很不顺心。再加上iscroll.js本身并没有集成加载更多的功能，需要进行自行扩展。想继续使用iscroll.js实现加载更多功能的，上面给的链接可以看看。</p>
+<p>h5项目里需要实现简单的分页功能，由于是移动端，考虑用『加载更多』会更好，而不是PC端的翻页。</p>
+<hr>
+<span id="more"></span>
+<p><strong>JS代码：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * loadmore.js</span></span><br><span class="line"><span class="comment"> * 加载更多</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @time 2017-7-08 15:40:25</span></span><br><span class="line"><span class="comment"> * @author munachar</span></span><br><span class="line"><span class="comment"> * 可以传的参数默认有：size,scroll 可以自定义</span></span><br><span class="line"><span class="comment"> * */</span></span><br><span class="line"></span><br><span class="line">;(<span class="function"><span class="keyword">function</span>(<span class="params">w,$</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">var</span> loadmore = &#123;</span><br><span class="line">         <span class="comment">/*单页加载更多 通用方法</span></span><br><span class="line"><span class="comment">          *</span></span><br><span class="line"><span class="comment">          * @param callback 回调方法</span></span><br><span class="line"><span class="comment">          * @param config 自定义参数</span></span><br><span class="line"><span class="comment">          * */</span></span><br><span class="line">         <span class="attr">get</span> : <span class="function"><span class="keyword">function</span>(<span class="params">callback, config</span>)</span>&#123;</span><br><span class="line">             <span class="keyword">var</span> config = config ? config : &#123;&#125;; <span class="comment">/*防止未传参数报错*/</span></span><br><span class="line">             <span class="keyword">var</span> counter = <span class="number">1</span>; <span class="comment">/*计数器*/</span></span><br><span class="line">             <span class="keyword">var</span> pageStart = config.size ? config.size : <span class="number">10</span>;</span><br><span class="line">             <span class="keyword">var</span> pageSize = config.size ? config.size : <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">             <span class="comment">/*通过自动监听滚动事件加载更多,可选支持*/</span></span><br><span class="line">             config.isEnd = <span class="literal">false</span>; <span class="comment">/*结束标志*/</span></span><br><span class="line">             config.isAjax = <span class="literal">false</span>; <span class="comment">/*防止滚动过快，服务端没来得及响应造成多次请求*/</span></span><br><span class="line">             $(config.ele).scroll(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                 <span class="comment">/*是否开启滚动加载*/</span></span><br><span class="line">                 <span class="keyword">if</span>(!config.scroll)&#123;</span><br><span class="line">                     <span class="keyword">return</span>;</span><br><span class="line">                 &#125;</span><br><span class="line">                 <span class="comment">/*滚动加载时如果已经没有更多的数据了、正在发生请求时，不能继续进行*/</span></span><br><span class="line">                 <span class="keyword">if</span>(config.isEnd == <span class="literal">true</span> || config.isAjax == <span class="literal">true</span>)&#123;</span><br><span class="line">                     <span class="keyword">return</span>;</span><br><span class="line">                 &#125;</span><br><span class="line">                 <span class="comment">/*当滚动到最底部以上100像素时， 加载新内容*/</span></span><br><span class="line">                 <span class="keyword">if</span> ($(<span class="built_in">this</span>).find(<span class="string">&quot;ul&quot;</span>).height() - $(<span class="built_in">this</span>).scrollTop() - $(<span class="built_in">this</span>).height()&lt;<span class="number">100</span>)&#123;</span><br><span class="line">                     counter ++;</span><br><span class="line">                     pageStart = counter * pageSize;</span><br><span class="line">                     callback &amp;&amp; callback.call( $(config.ele),config, pageStart, pageSize);</span><br><span class="line">                 &#125;</span><br><span class="line">             &#125;);</span><br><span class="line">             <span class="comment">/*第一次自动加载*/</span></span><br><span class="line">             callback &amp;&amp; callback.call( $(config.ele),config, pageStart, pageSize);</span><br><span class="line">         &#125;,</span><br><span class="line">     &#125;</span><br><span class="line">     $.loadmore = loadmore;</span><br><span class="line"> &#125;)(<span class="built_in">window</span>, <span class="built_in">window</span>.jQuery || <span class="built_in">window</span>.Zepto);</span><br></pre></td></tr></table></figure>
+<p><strong>如何调用：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">$.loadmore.get(getData, &#123;</span><br><span class="line">                <span class="attr">ele</span>:<span class="built_in">window</span>,  <span class="comment">// 绑定滚动监听元素 默认是window</span></span><br><span class="line">                <span class="attr">scroll</span>: <span class="literal">true</span>,  <span class="comment">//默认是false,是否支持滚动加载</span></span><br><span class="line">                <span class="attr">size</span>:<span class="number">10</span>,  <span class="comment">//默认是10</span></span><br><span class="line">                <span class="attr">flag</span>: <span class="number">1</span>, <span class="comment">//自定义参数，可选，示例里没有用到</span></span><br><span class="line">            &#125;);</span><br></pre></td></tr></table></figure>
+<p>第一个参数是回调函数，即我们的业务逻辑。我把我的业务逻辑方法贴出来：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params">config, offset,size</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">    config.isAjax = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        <span class="attr">type</span>: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">        <span class="attr">url</span>: <span class="string">&#x27;json/blog.json&#x27;</span>,</span><br><span class="line">        <span class="attr">dataType</span>: <span class="string">&#x27;json&#x27;</span>,</span><br><span class="line">        <span class="attr">success</span>: <span class="function"><span class="keyword">function</span>(<span class="params">reponse</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">            config.isAjax = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">var</span> data = reponse.list;</span><br><span class="line">            <span class="keyword">var</span> sum = reponse.list.length;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">var</span> result = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/************业务逻辑块：实现拼接html内容并append到页面*****************/</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">//console.log(offset , size, sum);</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">/*如果剩下的记录数不够分页，就让分页数取剩下的记录数</span></span><br><span class="line"><span class="comment">            * 例如分页数是5，只剩2条，则只取2条</span></span><br><span class="line"><span class="comment">            *</span></span><br><span class="line"><span class="comment">            * 实际MySQL查询时不写这个</span></span><br><span class="line"><span class="comment">            */</span></span><br><span class="line">            <span class="keyword">if</span>(sum - offset &lt; size )&#123;</span><br><span class="line">                size = sum - offset;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="comment">/*使用for循环模拟SQL里的limit(offset,size)*/</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">var</span> i=offset; i&lt; (offset+size); i++)&#123;</span><br><span class="line">                result +=<span class="string">&#x27;&lt;div class=&quot;weui_media_box weui_media_text&quot;&gt;&#x27;</span>+</span><br><span class="line">                        <span class="string">&#x27;&lt;a href=&quot;&#x27;</span>+ data[i].url +<span class="string">&#x27;&quot; target=&quot;_blank&quot;&gt;&lt;h4 class=&quot;weui_media_title&quot;&gt;&#x27;</span>+ data[i].title +<span class="string">&#x27;&lt;/h4&gt;&lt;/a&gt;&#x27;</span>+</span><br><span class="line">                        <span class="string">&#x27;&lt;p class=&quot;weui_media_desc&quot;&gt;&#x27;</span>+ data[i].desc +<span class="string">&#x27;&lt;/p&gt;&#x27;</span>+</span><br><span class="line">                    <span class="string">&#x27;&lt;/div&gt;&#x27;</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            $(<span class="string">&#x27;.js-blog-list&#x27;</span>).append(result);</span><br><span class="line"></span><br><span class="line">            <span class="comment">/*******************************************/</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">/*隐藏more*/</span></span><br><span class="line">            <span class="keyword">if</span> ( (offset + size) &gt;= sum)&#123;</span><br><span class="line">                $(<span class="string">&quot;.js-load-more&quot;</span>).hide();</span><br><span class="line">                config.isEnd = <span class="literal">true</span>; <span class="comment">/*停止滚动加载请求*/</span></span><br><span class="line">                <span class="comment">//提示没有了</span></span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                $(<span class="string">&quot;.js-load-more&quot;</span>).show();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">error</span>: <span class="function"><span class="keyword">function</span>(<span class="params">xhr, type</span>)</span>&#123;</span><br><span class="line">            alert(<span class="string">&#x27;Ajax error!&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上仅贴出核心代码，详细案列：<a href="https://github.com/hedahang/loadingMoreUp">@Munachar</a></p>
+]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+        <tag>jQuery</tag>
       </tags>
   </entry>
   <entry>
@@ -2785,6 +2785,33 @@ var five = add(two, three);
       </tags>
   </entry>
   <entry>
+    <title>解决Github打不开问题</title>
+    <url>/2021/07/19/%E8%AE%B0%E5%BD%95GitHub%E7%BD%91%E9%A1%B5hosts%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<p>github 最近打不开，很久之前遇到过，但是忘记怎么解决了，查找相关资料后，今天记录在此，以备不时之需：</p>
+<span id="more"></span>
+
+<h2 id="确定-Github-网址-IP"><a href="#确定-Github-网址-IP" class="headerlink" title="确定 Github 网址 IP"></a>确定 Github 网址 IP</h2><p>打开网站：<a href="https://github.com.ipaddress.com/">https://github.com.ipaddress.com/</a><br>找到<strong>IP Address</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">IP Address	140.82.114.4</span><br></pre></td></tr></table></figure>
+
+<h2 id="确定-Github-域名-IP"><a href="#确定-Github-域名-IP" class="headerlink" title="确定 Github 域名 IP"></a>确定 Github 域名 IP</h2><p>打开网站：<a href="https://fastly.net.ipaddress.com/github.global.ssl.fastly.net">https://fastly.net.ipaddress.com/github.global.ssl.fastly.net</a><br>找到<strong>IP Address</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">IP Address	199.232.5.194</span><br></pre></td></tr></table></figure>
+
+<h2 id="确定静态资源-IP"><a href="#确定静态资源-IP" class="headerlink" title="确定静态资源 IP"></a>确定静态资源 IP</h2><p>打开网站：<a href="https://github.com.ipaddress.com/assets-cdn.github.com">https://github.com.ipaddress.com/assets-cdn.github.com</a><br>找到<strong>IPv4 addresses</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">IPv4 Addresses	185.199.108.153</span><br><span class="line">IPv4 Addresses	185.199.109.153</span><br><span class="line">IPv4 Addresses	185.199.110.153</span><br><span class="line">IPv4 Addresses	185.199.111.153</span><br></pre></td></tr></table></figure>
+
+<h2 id="修改-hosts-文件"><a href="#修改-hosts-文件" class="headerlink" title="修改 hosts 文件"></a>修改 hosts 文件</h2><p>找到 hosts 文件：C:\Windows\System32\drivers\etc<br>修改 host 文件，在最后附上下面的内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">140.82.114.4 github.com</span><br><span class="line">199.232.5.194 github.global.ssl.fastly.net</span><br><span class="line">185.199.108.153 assets-cdn.github.com</span><br><span class="line">185.199.109.153 assets-cdn.github.com</span><br><span class="line">185.199.110.153 assets-cdn.github.com</span><br><span class="line">185.199.111.153 assets-cdn.github.com</span><br></pre></td></tr></table></figure>
+
+<p>最后还需要刷新 dns 缓存：cmd:ipconfig /flushdns</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><a href="https://zhuanlan.zhihu.com/p/158938544">https://zhuanlan.zhihu.com/p/158938544</a></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>网络</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>七、JavaScript之闭包</title>
     <url>/2019/09/01/%E9%97%AD%E5%8C%85/</url>
     <content><![CDATA[<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>闭包在 MDN 中的定义：</p>
@@ -2836,119 +2863,6 @@ var five = add(two, three);
       </categories>
       <tags>
         <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>一、JavaScript专题之防抖和节流</title>
-    <url>/2020/01/12/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/</url>
-    <content><![CDATA[<p>在项目中，我们经常会绑定一些持续触发的事件，比如 resize、scroll、mousemove 等等，如果事件调用无限制，会加重浏览器负担，导致用户体验差，我们可以使用 debounce(防抖)和 throttle(节流)的方式来减少频繁的调用，同时也不会影响实际的效果。</p>
-<span id="more"></span>
-
-<h2 id="防抖-debounce"><a href="#防抖-debounce" class="headerlink" title="防抖(debounce)"></a>防抖(debounce)</h2><p>防抖，顾名思义，防止抖动，指在一段时间内，不论触发多少次，都已最后一次为准。<br>换句话说，在触发事件后 n 秒后才执行函数，如果在 n 秒内再次触发了事件，则会重新计算函数执行时间。<br>总而言之，就是不管触发多少次，都要最后一次事件后 n 秒内不再触发事件，才会执行。<br>那么防抖有哪些应用场景呢？</p>
-<ol>
-<li>登录、发短信等按钮避免用户点击太快，以致于发送了多次请求，需要防抖；</li>
-<li>调整浏览器窗口大小时，resize 次数过于频繁，造成计算过多，此时需要一次到位，就用到了防抖</li>
-<li>文本编辑器实时保存，当无任何更改操作一秒后进行保存</li>
-</ol>
-<p>下面我们实现了一个简单的示例</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">f, wait</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> timer;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">...args</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">clearTimeout</span>(timer);</span><br><span class="line">    timer = <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      f(...args);</span><br><span class="line">    &#125;, wait);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试代码</span></span><br><span class="line"><span class="keyword">var</span> count = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> actionFun = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(count++);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">&quot;resize&quot;</span>, debounce(actionFun, <span class="number">1000</span>));</span><br></pre></td></tr></table></figure>
-
-<p>从上面代码可以看出<strong>防抖重在清零 clearTimeout(timer)</strong><br>接下来处理 this 的指向和 event 对象。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">f, wait</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> timer;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">...args</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> context = <span class="built_in">this</span>;</span><br><span class="line">    <span class="built_in">clearTimeout</span>(timer);</span><br><span class="line">    timer = <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      f.call(context, ...args);</span><br><span class="line">    &#125;, wait);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试代码</span></span><br><span class="line"><span class="keyword">var</span> count = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> actionFun = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(count++); <span class="comment">// 1</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>); <span class="comment">// window</span></span><br><span class="line">  <span class="built_in">console</span>.log(e); <span class="comment">// Event</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">&quot;resize&quot;</span>, debounce(actionFun, <span class="number">1000</span>));</span><br></pre></td></tr></table></figure>
-
-<p>防抖函数可以分为立即执行和非立即执行版本：</p>
-<ul>
-<li>立即执行函数：立即执行就是触发事件后马上先执行一次，之后在设定 wait 时间内触犯的事件无效，不会执行，直到用户停止执行事件等待 wait 秒后才可以重新触发执行</li>
-<li>非立即执行函数： 多次触发事件，只会在最后一次触发事件后等待设定的 wait 时间结束时执行一次。<br>下面我们增加一个参数 immediate 来判断是否立即执行：</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@desc </span>函数防抖</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param </span>fn 函数</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param </span>wait 延迟执行毫秒数</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param </span>immediate true 表立即执行，false 表示非立即执行</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">f, wait, immediate = <span class="literal">false</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> timer;</span><br><span class="line">  <span class="keyword">var</span> dobounced = <span class="function">(<span class="params">...args</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> context = <span class="built_in">this</span>;</span><br><span class="line">    <span class="keyword">if</span> (timer) <span class="built_in">clearTimeout</span>(timer);</span><br><span class="line">    <span class="keyword">if</span> (immediate) &#123;</span><br><span class="line">      <span class="comment">// 如果已经执行过，则不再执行</span></span><br><span class="line">      <span class="keyword">var</span> callNow = !timer;</span><br><span class="line">      timer = <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        timer = <span class="literal">null</span>;</span><br><span class="line">      &#125;, wait);</span><br><span class="line">      <span class="keyword">if</span> (callNow) f.call(context, ...args);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      timer = <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        f.call(context, ...args);</span><br><span class="line">      &#125;, wait);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试代码</span></span><br><span class="line"><span class="keyword">var</span> count = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> actionFun = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(count++); <span class="comment">// 1</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>); <span class="comment">// window</span></span><br><span class="line">  <span class="built_in">console</span>.log(e); <span class="comment">// Event</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">&quot;resize&quot;</span>, debounce(actionFun, <span class="number">1000</span>, <span class="literal">true</span>));</span><br></pre></td></tr></table></figure>
-
-<p>如过希望能取消 debounce 函数，比如说我 debounce 的时间间隔是 10 秒钟，immediate 为 true，这样的话，我只有等 10 秒后才能重新触发事件，现在我希望有一个按钮，点击后，取消防抖，这样我再去触发，就可以又立刻执行啦。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">f, wait, immediate = <span class="literal">false</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> timer;</span><br><span class="line">  <span class="keyword">var</span> dobounced = <span class="function">(<span class="params">...args</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> context = <span class="built_in">this</span>;</span><br><span class="line">    <span class="keyword">if</span> (timer) <span class="built_in">clearTimeout</span>(timer);</span><br><span class="line">    <span class="keyword">if</span> (immediate) &#123;</span><br><span class="line">      <span class="comment">// 如果已经执行过，则不再执行</span></span><br><span class="line">      <span class="keyword">var</span> callNow = !timer;</span><br><span class="line">      timer = <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        timer = <span class="literal">null</span>;</span><br><span class="line">      &#125;, wait);</span><br><span class="line">      <span class="keyword">if</span> (callNow) f.call(context, ...args);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      timer = <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        f.call(context, ...args);</span><br><span class="line">      &#125;, wait);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  dobounced.cancel = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    clearTimout(timer);</span><br><span class="line">    timer = <span class="literal">null</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> dobounced;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="节流-throttle"><a href="#节流-throttle" class="headerlink" title="节流 (throttle)"></a>节流 (throttle)</h2><p>节流，顾名思义，控制水的流量。控制事件发生的频率，如控制为 1s 发生一次，甚至 1 分钟发生一次。与服务端(server)及网关(gateway)控制的限流 (Rate Limit) 类似。<br>换句话说，连续触发事件但在 n 秒内只执行一次函数。<br>那么节流又有哪些应用场景呢？</p>
-<ol>
-<li>scroll 事件，每隔一秒计算一次位置信息等</li>
-<li>浏览器播放事件，每个一秒计算一次进度信息等</li>
-<li>input 框实时搜索并发送请求展示下拉列表，没隔一秒发送一次请求 (也可做防抖)</li>
-</ol>
-<p>关于节流的实现，有两种主流的实现方式，一种是使用时间戳，一种是设置定时器。</p>
-<h3 id="使用时间戳"><a href="#使用时间戳" class="headerlink" title="使用时间戳"></a>使用时间戳</h3><p>让我们来看第一种方法：使用时间戳，当触发事件的时候，我们取出当前的时间戳，然后减去之前的时间戳(最一开始值设为 0 )，如果大于设置的时间周期，就执行函数，然后更新时间戳为当前的时间戳，如果小于，就不执行。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">fn, wait</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> prev = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">...args</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> now = <span class="built_in">Date</span>.now();</span><br><span class="line">    <span class="keyword">let</span> context = <span class="built_in">this</span>;</span><br><span class="line">    <span class="keyword">if</span> (now - prev &gt; wait) &#123;</span><br><span class="line">      fn.apply(context, args);</span><br><span class="line">      prev = now;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试代码</span></span><br><span class="line"><span class="keyword">var</span> count = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> actionFun = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(count++); <span class="comment">// 1</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>); <span class="comment">// window</span></span><br><span class="line">  <span class="built_in">console</span>.log(e); <span class="comment">// Event</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">&quot;resize&quot;</span>, throttle(actionFun, <span class="number">5000</span>));</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用定时器"><a href="#使用定时器" class="headerlink" title="使用定时器"></a>使用定时器</h3><p>接下来，我们讲讲第二种实现方式: 使用定时器,当触发事件的时候，我们设置一个定时器，再触发事件的时候，如果定时器存在，就不执行，直到定时器执行结束，然后执行函数，清空定时器，这样就可以设置下个定时器。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">fn, wait</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> timer;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">...args</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> context = <span class="built_in">this</span>;</span><br><span class="line">    <span class="keyword">if</span> (!timer) &#123;</span><br><span class="line">      timer = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        timer = <span class="literal">null</span>;</span><br><span class="line">        fn.apply(context, args);</span><br><span class="line">      &#125;, wait);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试代码</span></span><br><span class="line"><span class="keyword">var</span> count = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> actionFun = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(count++); <span class="comment">// 1</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>); <span class="comment">// window</span></span><br><span class="line">  <span class="built_in">console</span>.log(e); <span class="comment">// Event</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">&quot;resize&quot;</span>, throttle(actionFun, <span class="number">5000</span>));</span><br></pre></td></tr></table></figure>
-
-<p>所以比较两个方法：</p>
-<ul>
-<li>第一种事件会立刻执行，第二种事件会在 n 秒后第一次执行</li>
-<li>第一种事件停止触发后没有办法再执行事件，第二种事件停止触发后依然会再执行一次事件</li>
-</ul>
-<h3 id="节流优化"><a href="#节流优化" class="headerlink" title="节流优化"></a>节流优化</h3><p>现在我们将上面两种方法合并，既可以立刻执行，又可以停止触发的时候还能再执行一次。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">fn, wait</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> timer, context, args, result;</span><br><span class="line">  <span class="keyword">var</span> prev = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> later = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    prev = <span class="built_in">Date</span>.now();</span><br><span class="line">    timer = <span class="literal">null</span>;</span><br><span class="line">    fn.apply(context, args);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">var</span> throttled = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> now = <span class="built_in">Date</span>.now();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 下次触发剩余时间</span></span><br><span class="line">    <span class="keyword">var</span> remaining = wait - (now - prev);</span><br><span class="line"></span><br><span class="line">    context = <span class="built_in">this</span>;</span><br><span class="line">    args = <span class="built_in">arguments</span>;</span><br><span class="line">    <span class="comment">// 如果没有剩余的时间或者修改了系统时间</span></span><br><span class="line">    <span class="keyword">if</span> (remaining &lt;= <span class="number">0</span> || remaining &gt; wait) &#123;</span><br><span class="line">      <span class="keyword">if</span> (timer) &#123;</span><br><span class="line">        <span class="built_in">clearTimeout</span>(timer);</span><br><span class="line">        timer = <span class="literal">null</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      prev = now;</span><br><span class="line">      fn.apply(context, args);</span><br><span class="line">      <span class="keyword">if</span> (!timer) context = args = <span class="literal">null</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!timer) &#123;</span><br><span class="line">      timer = <span class="built_in">setTimeout</span>(later, remaining);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> throttled;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试代码</span></span><br><span class="line"><span class="keyword">var</span> count = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> actionFun = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(count++); <span class="comment">// 1</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>); <span class="comment">// window</span></span><br><span class="line">  <span class="built_in">console</span>.log(e); <span class="comment">// Event</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">&quot;resize&quot;</span>, throttle(actionFun, <span class="number">5000</span>));</span><br></pre></td></tr></table></figure>
-
-<p>现在，我需要能够自定义是否立刻执行、和是否可以停止触发的时候还能再执行一次，现在增加第三个参数 options，然后根据传值判断如何执行：</p>
-<ul>
-<li>leading: fasle，表示禁用立刻执行；</li>
-<li>trailing: false，表示禁用停止触发的回调</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">fn, wait, options</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> timer, context, args, result;</span><br><span class="line">  <span class="keyword">var</span> prev = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">if</span> (!options) options = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> later = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    prev = options.leading === <span class="literal">false</span> ? <span class="number">0</span> : <span class="built_in">Date</span>.now();</span><br><span class="line">    timer = <span class="literal">null</span>;</span><br><span class="line">    fn.apply(context, args);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">var</span> throttled = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> now = <span class="built_in">Date</span>.now();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!prev &amp;&amp; options.leading === <span class="literal">false</span>) prev = now;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 下次触发剩余时间</span></span><br><span class="line">    <span class="keyword">var</span> remaining = wait - (now - prev);</span><br><span class="line"></span><br><span class="line">    context = <span class="built_in">this</span>;</span><br><span class="line">    args = <span class="built_in">arguments</span>;</span><br><span class="line">    <span class="comment">// 如果没有剩余的时间或者修改了系统时间</span></span><br><span class="line">    <span class="keyword">if</span> (remaining &lt;= <span class="number">0</span> || remaining &gt; wait) &#123;</span><br><span class="line">      <span class="keyword">if</span> (timer) &#123;</span><br><span class="line">        <span class="built_in">clearTimeout</span>(timer);</span><br><span class="line">        timer = <span class="literal">null</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      prev = now;</span><br><span class="line">      fn.apply(context, args);</span><br><span class="line">      <span class="keyword">if</span> (!timer) context = args = <span class="literal">null</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!timer &amp;&amp; options.trailing !== <span class="literal">false</span>) &#123;</span><br><span class="line">      timer = <span class="built_in">setTimeout</span>(later, remaining);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> throttled;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试代码</span></span><br><span class="line"><span class="keyword">var</span> count = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> actionFun = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(count++); <span class="comment">// 1</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>); <span class="comment">// window</span></span><br><span class="line">  <span class="built_in">console</span>.log(e); <span class="comment">// Event</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">&quot;resize&quot;</span>, throttle(actionFun, <span class="number">5000</span>, &#123;</span><br><span class="line">  <span class="attr">leading</span>: <span class="literal">false</span> </span><br><span class="line">&#125;));</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">&quot;resize&quot;</span>, throttle(actionFun, <span class="number">5000</span>, &#123;</span><br><span class="line">  <span class="attr">trailing</span>: <span class="literal">false</span> </span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
-<p>注意，这里leading和trailing不能同时设为false。<br>同样取消也是增加一个cancel函数：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">throttled.cancel = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">clearTimeout</span>(timer);</span><br><span class="line">    prev = <span class="number">0</span>;</span><br><span class="line">    timer = <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://github.com/mqyqingfeng/Blog/issues/26">https://github.com/mqyqingfeng/Blog/issues/26</a></p>
-]]></content>
-      <categories>
-        <category>JavaScript专题系列笔记</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>模板引擎、字节转换、map函数</title>
-    <url>/2016/06/23/%E9%9D%A2%E8%AF%95%E9%A2%98/</url>
-    <content><![CDATA[<h5 id="1-模板引擎"><a href="#1-模板引擎" class="headerlink" title="1. 模板引擎"></a>1. 模板引擎</h5><pre><code>var reg = /\$\&#123;[a-zA-Z]+\&#125;/g;
-var tpl = &quot;hello $&#123;who&#125;!&quot;;
-var obj = &#123;who:&quot;world&quot;&#125;;
-function template(tpl,obj)&#123;
-        var s = reg.exec(tpl);
-        var s1 = s[0].slice(2,-1);
-        document.write(tpl.replace(reg,obj[s1]));
-    &#125;
-    //template(tpl,obj);
-    template(&#39;Hello,$&#123;name&#125;&#39;,&#123;name:&quot;hedahang&quot;&#125;);
-</code></pre>
-<span id="more"></span>
-<h5 id="2-字节转换"><a href="#2-字节转换" class="headerlink" title="2. 字节转换"></a>2. 字节转换</h5><pre><code>&lt;pre&gt;function bytesToSize(bytes) &#123;
-    if (bytes === 0) return &#39;0 B&#39;;
-    var k = 1024,
-            sizes = [&#39;B&#39;, &#39;KB&#39;, &#39;MB&#39;, &#39;GB&#39;, &#39;TB&#39;, &#39;PB&#39;, &#39;EB&#39;, &#39;ZB&#39;, &#39;YB&#39;],
-            i = Math.floor(Math.log(bytes) / Math.log(k));
-    return (bytes / Math.pow(k, i)).toPrecision(3) + &#39; &#39; + sizes[i];
-&#125;
-console.log( bytesToSize(12345));&lt;/pre&gt;
-</code></pre>
-<h5 id="3-map函数"><a href="#3-map函数" class="headerlink" title="3. map函数"></a>3. map函数</h5><pre><code>&lt;pre&gt;function map(arr,fun)&#123;
-    var array = [];
-    for(var i = 0;i&lt;arr.length;i++)&#123;
-        if( i == 0)&#123;
-            array[i] = fun(0,arr[i]);
-        &#125;else&#123;
-            array[i] = fun(arr[i-1],arr[i])
-        &#125;
-    console.log(array);
-    &#125;
-&#125;
-map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
-</code></pre>
-]]></content>
-      <categories>
-        <category>Testing</category>
-      </categories>
-      <tags>
-        <tag>JS</tag>
-        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -3032,7 +2946,7 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
 <h2 id="关于收费"><a href="#关于收费" class="headerlink" title="关于收费"></a>关于收费</h2><p><strong>马克飞象</strong>为新用户提供 10 天的试用期，试用期过后需要<a href="maxiang.info/vip.html">续费</a>才能继续使用。未购买或者未及时续费，将不能同步新的笔记。之前保存过的笔记依然可以编辑。</p>
 <h2 id="反馈与建议"><a href="#反馈与建议" class="headerlink" title="反馈与建议"></a>反馈与建议</h2><ul>
 <li>微博：<a href="http://weibo.com/u/2788354117">@马克飞象</a>，<a href="http://weibo.com/ggock" title="开发者个人账号">@GGock</a></li>
-<li>邮箱：<a href="mailto:&#x68;&#117;&#x73;&#x74;&#103;&#x6f;&#x63;&#x6b;&#64;&#x67;&#x6d;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#x6d;">&#x68;&#117;&#x73;&#x74;&#103;&#x6f;&#x63;&#x6b;&#64;&#x67;&#x6d;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#x6d;</a></li>
+<li>邮箱：<a href="mailto:&#x68;&#x75;&#115;&#x74;&#x67;&#111;&#x63;&#x6b;&#64;&#103;&#x6d;&#97;&#105;&#108;&#x2e;&#x63;&#111;&#109;">&#x68;&#x75;&#115;&#x74;&#x67;&#111;&#x63;&#x6b;&#64;&#103;&#x6d;&#97;&#105;&#108;&#x2e;&#x63;&#111;&#109;</a></li>
 </ul>
 <hr>
 <p>感谢阅读这份帮助文档。请点击右上角，绑定印象笔记账号，开启全新的记录与分享体验吧。</p>
@@ -3044,6 +2958,119 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
       <tags>
         <tag>Markdown</tag>
         <tag>编辑器</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>模板引擎、字节转换、map函数</title>
+    <url>/2016/06/23/%E9%9D%A2%E8%AF%95%E9%A2%98/</url>
+    <content><![CDATA[<h5 id="1-模板引擎"><a href="#1-模板引擎" class="headerlink" title="1. 模板引擎"></a>1. 模板引擎</h5><pre><code>var reg = /\$\&#123;[a-zA-Z]+\&#125;/g;
+var tpl = &quot;hello $&#123;who&#125;!&quot;;
+var obj = &#123;who:&quot;world&quot;&#125;;
+function template(tpl,obj)&#123;
+        var s = reg.exec(tpl);
+        var s1 = s[0].slice(2,-1);
+        document.write(tpl.replace(reg,obj[s1]));
+    &#125;
+    //template(tpl,obj);
+    template(&#39;Hello,$&#123;name&#125;&#39;,&#123;name:&quot;hedahang&quot;&#125;);
+</code></pre>
+<span id="more"></span>
+<h5 id="2-字节转换"><a href="#2-字节转换" class="headerlink" title="2. 字节转换"></a>2. 字节转换</h5><pre><code>&lt;pre&gt;function bytesToSize(bytes) &#123;
+    if (bytes === 0) return &#39;0 B&#39;;
+    var k = 1024,
+            sizes = [&#39;B&#39;, &#39;KB&#39;, &#39;MB&#39;, &#39;GB&#39;, &#39;TB&#39;, &#39;PB&#39;, &#39;EB&#39;, &#39;ZB&#39;, &#39;YB&#39;],
+            i = Math.floor(Math.log(bytes) / Math.log(k));
+    return (bytes / Math.pow(k, i)).toPrecision(3) + &#39; &#39; + sizes[i];
+&#125;
+console.log( bytesToSize(12345));&lt;/pre&gt;
+</code></pre>
+<h5 id="3-map函数"><a href="#3-map函数" class="headerlink" title="3. map函数"></a>3. map函数</h5><pre><code>&lt;pre&gt;function map(arr,fun)&#123;
+    var array = [];
+    for(var i = 0;i&lt;arr.length;i++)&#123;
+        if( i == 0)&#123;
+            array[i] = fun(0,arr[i]);
+        &#125;else&#123;
+            array[i] = fun(arr[i-1],arr[i])
+        &#125;
+    console.log(array);
+    &#125;
+&#125;
+map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
+</code></pre>
+]]></content>
+      <categories>
+        <category>Testing</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>一、JavaScript专题之防抖和节流</title>
+    <url>/2020/01/12/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/</url>
+    <content><![CDATA[<p>在项目中，我们经常会绑定一些持续触发的事件，比如 resize、scroll、mousemove 等等，如果事件调用无限制，会加重浏览器负担，导致用户体验差，我们可以使用 debounce(防抖)和 throttle(节流)的方式来减少频繁的调用，同时也不会影响实际的效果。</p>
+<span id="more"></span>
+
+<h2 id="防抖-debounce"><a href="#防抖-debounce" class="headerlink" title="防抖(debounce)"></a>防抖(debounce)</h2><p>防抖，顾名思义，防止抖动，指在一段时间内，不论触发多少次，都已最后一次为准。<br>换句话说，在触发事件后 n 秒后才执行函数，如果在 n 秒内再次触发了事件，则会重新计算函数执行时间。<br>总而言之，就是不管触发多少次，都要最后一次事件后 n 秒内不再触发事件，才会执行。<br>那么防抖有哪些应用场景呢？</p>
+<ol>
+<li>登录、发短信等按钮避免用户点击太快，以致于发送了多次请求，需要防抖；</li>
+<li>调整浏览器窗口大小时，resize 次数过于频繁，造成计算过多，此时需要一次到位，就用到了防抖</li>
+<li>文本编辑器实时保存，当无任何更改操作一秒后进行保存</li>
+</ol>
+<p>下面我们实现了一个简单的示例</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">f, wait</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> timer;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">...args</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">clearTimeout</span>(timer);</span><br><span class="line">    timer = <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      f(...args);</span><br><span class="line">    &#125;, wait);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试代码</span></span><br><span class="line"><span class="keyword">var</span> count = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> actionFun = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(count++);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">&quot;resize&quot;</span>, debounce(actionFun, <span class="number">1000</span>));</span><br></pre></td></tr></table></figure>
+
+<p>从上面代码可以看出<strong>防抖重在清零 clearTimeout(timer)</strong><br>接下来处理 this 的指向和 event 对象。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">f, wait</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> timer;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">...args</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> context = <span class="built_in">this</span>;</span><br><span class="line">    <span class="built_in">clearTimeout</span>(timer);</span><br><span class="line">    timer = <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      f.call(context, ...args);</span><br><span class="line">    &#125;, wait);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试代码</span></span><br><span class="line"><span class="keyword">var</span> count = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> actionFun = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(count++); <span class="comment">// 1</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>); <span class="comment">// window</span></span><br><span class="line">  <span class="built_in">console</span>.log(e); <span class="comment">// Event</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">&quot;resize&quot;</span>, debounce(actionFun, <span class="number">1000</span>));</span><br></pre></td></tr></table></figure>
+
+<p>防抖函数可以分为立即执行和非立即执行版本：</p>
+<ul>
+<li>立即执行函数：立即执行就是触发事件后马上先执行一次，之后在设定 wait 时间内触犯的事件无效，不会执行，直到用户停止执行事件等待 wait 秒后才可以重新触发执行</li>
+<li>非立即执行函数： 多次触发事件，只会在最后一次触发事件后等待设定的 wait 时间结束时执行一次。<br>下面我们增加一个参数 immediate 来判断是否立即执行：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@desc </span>函数防抖</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param </span>fn 函数</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param </span>wait 延迟执行毫秒数</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param </span>immediate true 表立即执行，false 表示非立即执行</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">f, wait, immediate = <span class="literal">false</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> timer;</span><br><span class="line">  <span class="keyword">var</span> dobounced = <span class="function">(<span class="params">...args</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> context = <span class="built_in">this</span>;</span><br><span class="line">    <span class="keyword">if</span> (timer) <span class="built_in">clearTimeout</span>(timer);</span><br><span class="line">    <span class="keyword">if</span> (immediate) &#123;</span><br><span class="line">      <span class="comment">// 如果已经执行过，则不再执行</span></span><br><span class="line">      <span class="keyword">var</span> callNow = !timer;</span><br><span class="line">      timer = <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        timer = <span class="literal">null</span>;</span><br><span class="line">      &#125;, wait);</span><br><span class="line">      <span class="keyword">if</span> (callNow) f.call(context, ...args);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      timer = <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        f.call(context, ...args);</span><br><span class="line">      &#125;, wait);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试代码</span></span><br><span class="line"><span class="keyword">var</span> count = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> actionFun = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(count++); <span class="comment">// 1</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>); <span class="comment">// window</span></span><br><span class="line">  <span class="built_in">console</span>.log(e); <span class="comment">// Event</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">&quot;resize&quot;</span>, debounce(actionFun, <span class="number">1000</span>, <span class="literal">true</span>));</span><br></pre></td></tr></table></figure>
+
+<p>如过希望能取消 debounce 函数，比如说我 debounce 的时间间隔是 10 秒钟，immediate 为 true，这样的话，我只有等 10 秒后才能重新触发事件，现在我希望有一个按钮，点击后，取消防抖，这样我再去触发，就可以又立刻执行啦。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">f, wait, immediate = <span class="literal">false</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> timer;</span><br><span class="line">  <span class="keyword">var</span> dobounced = <span class="function">(<span class="params">...args</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> context = <span class="built_in">this</span>;</span><br><span class="line">    <span class="keyword">if</span> (timer) <span class="built_in">clearTimeout</span>(timer);</span><br><span class="line">    <span class="keyword">if</span> (immediate) &#123;</span><br><span class="line">      <span class="comment">// 如果已经执行过，则不再执行</span></span><br><span class="line">      <span class="keyword">var</span> callNow = !timer;</span><br><span class="line">      timer = <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        timer = <span class="literal">null</span>;</span><br><span class="line">      &#125;, wait);</span><br><span class="line">      <span class="keyword">if</span> (callNow) f.call(context, ...args);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      timer = <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        f.call(context, ...args);</span><br><span class="line">      &#125;, wait);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  dobounced.cancel = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    clearTimout(timer);</span><br><span class="line">    timer = <span class="literal">null</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> dobounced;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="节流-throttle"><a href="#节流-throttle" class="headerlink" title="节流 (throttle)"></a>节流 (throttle)</h2><p>节流，顾名思义，控制水的流量。控制事件发生的频率，如控制为 1s 发生一次，甚至 1 分钟发生一次。与服务端(server)及网关(gateway)控制的限流 (Rate Limit) 类似。<br>换句话说，连续触发事件但在 n 秒内只执行一次函数。<br>那么节流又有哪些应用场景呢？</p>
+<ol>
+<li>scroll 事件，每隔一秒计算一次位置信息等</li>
+<li>浏览器播放事件，每个一秒计算一次进度信息等</li>
+<li>input 框实时搜索并发送请求展示下拉列表，没隔一秒发送一次请求 (也可做防抖)</li>
+</ol>
+<p>关于节流的实现，有两种主流的实现方式，一种是使用时间戳，一种是设置定时器。</p>
+<h3 id="使用时间戳"><a href="#使用时间戳" class="headerlink" title="使用时间戳"></a>使用时间戳</h3><p>让我们来看第一种方法：使用时间戳，当触发事件的时候，我们取出当前的时间戳，然后减去之前的时间戳(最一开始值设为 0 )，如果大于设置的时间周期，就执行函数，然后更新时间戳为当前的时间戳，如果小于，就不执行。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">fn, wait</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> prev = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">...args</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> now = <span class="built_in">Date</span>.now();</span><br><span class="line">    <span class="keyword">let</span> context = <span class="built_in">this</span>;</span><br><span class="line">    <span class="keyword">if</span> (now - prev &gt; wait) &#123;</span><br><span class="line">      fn.apply(context, args);</span><br><span class="line">      prev = now;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试代码</span></span><br><span class="line"><span class="keyword">var</span> count = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> actionFun = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(count++); <span class="comment">// 1</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>); <span class="comment">// window</span></span><br><span class="line">  <span class="built_in">console</span>.log(e); <span class="comment">// Event</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">&quot;resize&quot;</span>, throttle(actionFun, <span class="number">5000</span>));</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用定时器"><a href="#使用定时器" class="headerlink" title="使用定时器"></a>使用定时器</h3><p>接下来，我们讲讲第二种实现方式: 使用定时器,当触发事件的时候，我们设置一个定时器，再触发事件的时候，如果定时器存在，就不执行，直到定时器执行结束，然后执行函数，清空定时器，这样就可以设置下个定时器。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">fn, wait</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> timer;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">...args</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> context = <span class="built_in">this</span>;</span><br><span class="line">    <span class="keyword">if</span> (!timer) &#123;</span><br><span class="line">      timer = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        timer = <span class="literal">null</span>;</span><br><span class="line">        fn.apply(context, args);</span><br><span class="line">      &#125;, wait);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试代码</span></span><br><span class="line"><span class="keyword">var</span> count = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> actionFun = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(count++); <span class="comment">// 1</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>); <span class="comment">// window</span></span><br><span class="line">  <span class="built_in">console</span>.log(e); <span class="comment">// Event</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">&quot;resize&quot;</span>, throttle(actionFun, <span class="number">5000</span>));</span><br></pre></td></tr></table></figure>
+
+<p>所以比较两个方法：</p>
+<ul>
+<li>第一种事件会立刻执行，第二种事件会在 n 秒后第一次执行</li>
+<li>第一种事件停止触发后没有办法再执行事件，第二种事件停止触发后依然会再执行一次事件</li>
+</ul>
+<h3 id="节流优化"><a href="#节流优化" class="headerlink" title="节流优化"></a>节流优化</h3><p>现在我们将上面两种方法合并，既可以立刻执行，又可以停止触发的时候还能再执行一次。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">fn, wait</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> timer, context, args, result;</span><br><span class="line">  <span class="keyword">var</span> prev = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> later = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    prev = <span class="built_in">Date</span>.now();</span><br><span class="line">    timer = <span class="literal">null</span>;</span><br><span class="line">    fn.apply(context, args);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">var</span> throttled = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> now = <span class="built_in">Date</span>.now();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 下次触发剩余时间</span></span><br><span class="line">    <span class="keyword">var</span> remaining = wait - (now - prev);</span><br><span class="line"></span><br><span class="line">    context = <span class="built_in">this</span>;</span><br><span class="line">    args = <span class="built_in">arguments</span>;</span><br><span class="line">    <span class="comment">// 如果没有剩余的时间或者修改了系统时间</span></span><br><span class="line">    <span class="keyword">if</span> (remaining &lt;= <span class="number">0</span> || remaining &gt; wait) &#123;</span><br><span class="line">      <span class="keyword">if</span> (timer) &#123;</span><br><span class="line">        <span class="built_in">clearTimeout</span>(timer);</span><br><span class="line">        timer = <span class="literal">null</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      prev = now;</span><br><span class="line">      fn.apply(context, args);</span><br><span class="line">      <span class="keyword">if</span> (!timer) context = args = <span class="literal">null</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!timer) &#123;</span><br><span class="line">      timer = <span class="built_in">setTimeout</span>(later, remaining);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> throttled;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试代码</span></span><br><span class="line"><span class="keyword">var</span> count = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> actionFun = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(count++); <span class="comment">// 1</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>); <span class="comment">// window</span></span><br><span class="line">  <span class="built_in">console</span>.log(e); <span class="comment">// Event</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">&quot;resize&quot;</span>, throttle(actionFun, <span class="number">5000</span>));</span><br></pre></td></tr></table></figure>
+
+<p>现在，我需要能够自定义是否立刻执行、和是否可以停止触发的时候还能再执行一次，现在增加第三个参数 options，然后根据传值判断如何执行：</p>
+<ul>
+<li>leading: fasle，表示禁用立刻执行；</li>
+<li>trailing: false，表示禁用停止触发的回调</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">fn, wait, options</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> timer, context, args, result;</span><br><span class="line">  <span class="keyword">var</span> prev = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">if</span> (!options) options = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> later = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    prev = options.leading === <span class="literal">false</span> ? <span class="number">0</span> : <span class="built_in">Date</span>.now();</span><br><span class="line">    timer = <span class="literal">null</span>;</span><br><span class="line">    fn.apply(context, args);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">var</span> throttled = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> now = <span class="built_in">Date</span>.now();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!prev &amp;&amp; options.leading === <span class="literal">false</span>) prev = now;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 下次触发剩余时间</span></span><br><span class="line">    <span class="keyword">var</span> remaining = wait - (now - prev);</span><br><span class="line"></span><br><span class="line">    context = <span class="built_in">this</span>;</span><br><span class="line">    args = <span class="built_in">arguments</span>;</span><br><span class="line">    <span class="comment">// 如果没有剩余的时间或者修改了系统时间</span></span><br><span class="line">    <span class="keyword">if</span> (remaining &lt;= <span class="number">0</span> || remaining &gt; wait) &#123;</span><br><span class="line">      <span class="keyword">if</span> (timer) &#123;</span><br><span class="line">        <span class="built_in">clearTimeout</span>(timer);</span><br><span class="line">        timer = <span class="literal">null</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      prev = now;</span><br><span class="line">      fn.apply(context, args);</span><br><span class="line">      <span class="keyword">if</span> (!timer) context = args = <span class="literal">null</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!timer &amp;&amp; options.trailing !== <span class="literal">false</span>) &#123;</span><br><span class="line">      timer = <span class="built_in">setTimeout</span>(later, remaining);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> throttled;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试代码</span></span><br><span class="line"><span class="keyword">var</span> count = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> actionFun = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(count++); <span class="comment">// 1</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>); <span class="comment">// window</span></span><br><span class="line">  <span class="built_in">console</span>.log(e); <span class="comment">// Event</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">&quot;resize&quot;</span>, throttle(actionFun, <span class="number">5000</span>, &#123;</span><br><span class="line">  <span class="attr">leading</span>: <span class="literal">false</span> </span><br><span class="line">&#125;));</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">&quot;resize&quot;</span>, throttle(actionFun, <span class="number">5000</span>, &#123;</span><br><span class="line">  <span class="attr">trailing</span>: <span class="literal">false</span> </span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+<p>注意，这里leading和trailing不能同时设为false。<br>同样取消也是增加一个cancel函数：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">throttled.cancel = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">clearTimeout</span>(timer);</span><br><span class="line">    prev = <span class="number">0</span>;</span><br><span class="line">    timer = <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://github.com/mqyqingfeng/Blog/issues/26">https://github.com/mqyqingfeng/Blog/issues/26</a></p>
+]]></content>
+      <categories>
+        <category>JavaScript专题系列笔记</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
 </search>
