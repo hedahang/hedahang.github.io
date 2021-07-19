@@ -84,6 +84,117 @@
       </tags>
   </entry>
   <entry>
+    <title>Canvas绘图技术</title>
+    <url>/2016/07/12/H5%E6%96%B0%E7%89%B9%E6%80%A7%E2%80%94%E2%80%94Canvas/</url>
+    <content><![CDATA[<h2 id="HTML5-新特性——Canvas-绘图技术"><a href="#HTML5-新特性——Canvas-绘图技术" class="headerlink" title="HTML5 新特性——Canvas 绘图技术"></a>HTML5 新特性——Canvas 绘图技术</h2><p>提示：Canvas 绘图的难点在方法和属性的记忆上！<br>Canvas 技术用于在网页上实现绘图，主要应用领域：</p>
+<span id="more"></span>
+
+<blockquote>
+<ul>
+<li>绘制各种统计图表，柱状图、饼图、曲线图、分布图…</li>
+<li>动画和游戏</li>
+</ul>
+</blockquote>
+<p>使用 Canvas 的方法：<br><canvas width="500"  height="400"><br>您的浏览器不支持 Canvas 标签！<br></canvas><br>提示：</p>
+<ol>
+<li><p> Canvas 的宽和高只能用属性方式声明！若使用样式来声明则无效。</p>
+</li>
+<li><p> Canvas 的本意是“画布/画板”，可以盛放绘制的内容；真正执行绘图任务的是“画笔/绘图上下文对象”——Context</p>
+</li>
+<li><p> 每一个画布，有且只有一个画笔对象：</p>
+<pre>
+var ctx = canvas.getContext( '2d' );
+</pre></li>
+<li><p>画笔/绘图上下文对象的成员：</p>
+ <pre>
+     1.fillStyle:"#000000"            填充颜色
+     2.font:"10px sans-serif"            字体
+     3.globalAlpha:1                    全局透明度
+     4.lineCap:"butt"                    线的端点样式
+     5.lineJoin:"miter"                线的连接处样式
+     6.lineWidth:1                    线条的宽度
+     7.shadowBlur:0                    阴影部分模糊距离
+     8.shadowColor:"rgba(0, 0, 0, 0)"    阴影部分颜色
+     9.shadowOffsetX:0                阴影水平偏移量
+     10.shadowOffsetY:0                阴影竖直偏移量
+     11.strokeStyle:"#000000"            轮廓/描边颜色
+     12.arc:arc()                    绘制一个弧线
+     13.beginPath:beginPath()        开始绘制路径
+     14.clearRect:clearRect()        清除一个矩形范围
+     15.clip:clip()                裁切
+     16.closePath:closePath()        闭合一条路径
+     17.createLinearGradient:createLinearGradient() 创建一个线性渐变色
+     18.createRadialGradient:createRadialGradient() 创建一个径向渐变色
+     19.drawImage:drawImage()        绘制一幅图像
+     20.ellipse:ellipse()            绘制一个椭圆
+     21.fill:fill()                填充一条路径
+     22.fillRect:fillRect()        填充一个矩形区域
+     23.fillText:fillText()        填充一段文本
+     24.lineTo:lineTo()            绘制一条直线
+     25.measureText:measureText()    测量一段文本，得到宽度
+     26.moveTo:moveTo()            移动画笔到指定点
+     27.rect:rect()                绘制一个矩形路径
+     28.rotate:rotate()            旋转
+     29.scale:scale()                缩放
+     30.stroke:stroke()            对一条路径描边
+     31.strokeRect:strokeRect()    对一个矩形进行描边
+     32.strokeText:strokeText()    对一段文本进行描边
+     33.translate:translate()        进行位移
+ </pre>
+
+<p> 5.使用画笔在画布上绘制图形<br><br> 5.1 绘制矩形(长方形)——矩形以自己的左上角作定位点</p>
+<pre><code> &lt;pre&gt;ctx.lineWidth = 10;                修改描边的宽度
+ ctx.strokeStyle = &#39;颜色&#39;/渐变色;    修改描边的颜色
+ ctx.strokeRect(x, y, w, h)            描边一个矩形
+ ctx.fillStyle = &#39;颜色&#39;/渐变色对象;    填充样式
+ ctx.fillRect(x, y, w, h)            填充一个矩形
+ ctx.clearRect(x,y, w, h);            清除一个矩形范围内所有内容
+</code></pre>
+<p> </pre><br> 5.2  绘制文本——文字以自己的坐下角作定位点</p>
+<pre><code> &lt;pre&gt;ctx.font = &#39;20px SimHei&#39;;        设置字体大小和样式
+ var w = ctx.measureText(txt).width;    获取一段文本的宽度
+ ctx.strokeStyle = &quot;颜色&quot;/渐变;
+ ctx.strokeText(txt, x, y)            对文字进行描边
+ ctx.fillStyle = &quot;颜色&quot;/渐变;
+ ctx.fillText(txt, x, y)                对文字进行填充
+ &lt;/pre&gt;
+</code></pre>
+<p> 5.3 绘制路径</p>
+<pre><code>     ctx.beginPath( );        //开始一条新路径
+
+ ...在路径上添加定位点...
+
+     ctx.closePath( );        //闭合当前路径
+ 路径的两个用途：
+
+     (1)ctx.stroke();    //描边刚刚绘制的路径
+     (2)ctx.fill();        //填充刚刚绘制的路径
+ 常见的添加定位点的方法：
+
+     ctx.moveTo(x,y);    //把画笔移动到指定点
+     ctx.lineTo(x,y);        //从上一个点开始到当前点绘制一条直线
+     ctx.arc(x,y,r,sAngle,eAngle);        //绘制一条圆弧线
+     ctx.ellipse(x,y,rx,ry,sAngle,eAngle);    //绘制一条椭圆弧线
+</code></pre>
+<p> 5.4 绘制图像——以图像的左上角为定位点</p>
+<pre><code>     ctx.rotate( angle );    //旋转画笔，此后绘制的图像/图像都会旋转——旋转围绕着画布的坐标原点为轴
+     ctx.translate(x, y);    //平移坐标轴的原点
+     ctx.drawImage(img, x, y);        //原宽原高的绘制图像
+     ctx.drawImage(img, x, y, width, height);  //使用指定的宽和高绘制图像
+
+ 提示：
+     1)创建图片： var img =new Image();  img.src=&quot;xx.jpg&quot;;
+     2)使用图片必须等待加载完成！  img.onload = function()&#123; ... &#125;
+</code></pre>
+</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>HTML5</tag>
+        <tag>Canvas</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>H5新特性</title>
     <url>/2016/07/10/H5%E6%96%B0%E7%89%B9%E6%80%A7/</url>
     <content><![CDATA[<h3 id="表单新特性————新的-input-type"><a href="#表单新特性————新的-input-type" class="headerlink" title="表单新特性————新的 input type"></a>表单新特性————新的 input type</h3><pre><code>&lt;input type=&quot;?&quot;&gt;
@@ -222,117 +333,6 @@
       <tags>
         <tag>HTML5</tag>
         <tag>video</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Canvas绘图技术</title>
-    <url>/2016/07/12/H5%E6%96%B0%E7%89%B9%E6%80%A7%E2%80%94%E2%80%94Canvas/</url>
-    <content><![CDATA[<h2 id="HTML5-新特性——Canvas-绘图技术"><a href="#HTML5-新特性——Canvas-绘图技术" class="headerlink" title="HTML5 新特性——Canvas 绘图技术"></a>HTML5 新特性——Canvas 绘图技术</h2><p>提示：Canvas 绘图的难点在方法和属性的记忆上！<br>Canvas 技术用于在网页上实现绘图，主要应用领域：</p>
-<span id="more"></span>
-
-<blockquote>
-<ul>
-<li>绘制各种统计图表，柱状图、饼图、曲线图、分布图…</li>
-<li>动画和游戏</li>
-</ul>
-</blockquote>
-<p>使用 Canvas 的方法：<br><canvas width="500"  height="400"><br>您的浏览器不支持 Canvas 标签！<br></canvas><br>提示：</p>
-<ol>
-<li><p> Canvas 的宽和高只能用属性方式声明！若使用样式来声明则无效。</p>
-</li>
-<li><p> Canvas 的本意是“画布/画板”，可以盛放绘制的内容；真正执行绘图任务的是“画笔/绘图上下文对象”——Context</p>
-</li>
-<li><p> 每一个画布，有且只有一个画笔对象：</p>
-<pre>
-var ctx = canvas.getContext( '2d' );
-</pre></li>
-<li><p>画笔/绘图上下文对象的成员：</p>
- <pre>
-     1.fillStyle:"#000000"            填充颜色
-     2.font:"10px sans-serif"            字体
-     3.globalAlpha:1                    全局透明度
-     4.lineCap:"butt"                    线的端点样式
-     5.lineJoin:"miter"                线的连接处样式
-     6.lineWidth:1                    线条的宽度
-     7.shadowBlur:0                    阴影部分模糊距离
-     8.shadowColor:"rgba(0, 0, 0, 0)"    阴影部分颜色
-     9.shadowOffsetX:0                阴影水平偏移量
-     10.shadowOffsetY:0                阴影竖直偏移量
-     11.strokeStyle:"#000000"            轮廓/描边颜色
-     12.arc:arc()                    绘制一个弧线
-     13.beginPath:beginPath()        开始绘制路径
-     14.clearRect:clearRect()        清除一个矩形范围
-     15.clip:clip()                裁切
-     16.closePath:closePath()        闭合一条路径
-     17.createLinearGradient:createLinearGradient() 创建一个线性渐变色
-     18.createRadialGradient:createRadialGradient() 创建一个径向渐变色
-     19.drawImage:drawImage()        绘制一幅图像
-     20.ellipse:ellipse()            绘制一个椭圆
-     21.fill:fill()                填充一条路径
-     22.fillRect:fillRect()        填充一个矩形区域
-     23.fillText:fillText()        填充一段文本
-     24.lineTo:lineTo()            绘制一条直线
-     25.measureText:measureText()    测量一段文本，得到宽度
-     26.moveTo:moveTo()            移动画笔到指定点
-     27.rect:rect()                绘制一个矩形路径
-     28.rotate:rotate()            旋转
-     29.scale:scale()                缩放
-     30.stroke:stroke()            对一条路径描边
-     31.strokeRect:strokeRect()    对一个矩形进行描边
-     32.strokeText:strokeText()    对一段文本进行描边
-     33.translate:translate()        进行位移
- </pre>
-
-<p> 5.使用画笔在画布上绘制图形<br><br> 5.1 绘制矩形(长方形)——矩形以自己的左上角作定位点</p>
-<pre><code> &lt;pre&gt;ctx.lineWidth = 10;                修改描边的宽度
- ctx.strokeStyle = &#39;颜色&#39;/渐变色;    修改描边的颜色
- ctx.strokeRect(x, y, w, h)            描边一个矩形
- ctx.fillStyle = &#39;颜色&#39;/渐变色对象;    填充样式
- ctx.fillRect(x, y, w, h)            填充一个矩形
- ctx.clearRect(x,y, w, h);            清除一个矩形范围内所有内容
-</code></pre>
-<p> </pre><br> 5.2  绘制文本——文字以自己的坐下角作定位点</p>
-<pre><code> &lt;pre&gt;ctx.font = &#39;20px SimHei&#39;;        设置字体大小和样式
- var w = ctx.measureText(txt).width;    获取一段文本的宽度
- ctx.strokeStyle = &quot;颜色&quot;/渐变;
- ctx.strokeText(txt, x, y)            对文字进行描边
- ctx.fillStyle = &quot;颜色&quot;/渐变;
- ctx.fillText(txt, x, y)                对文字进行填充
- &lt;/pre&gt;
-</code></pre>
-<p> 5.3 绘制路径</p>
-<pre><code>     ctx.beginPath( );        //开始一条新路径
-
- ...在路径上添加定位点...
-
-     ctx.closePath( );        //闭合当前路径
- 路径的两个用途：
-
-     (1)ctx.stroke();    //描边刚刚绘制的路径
-     (2)ctx.fill();        //填充刚刚绘制的路径
- 常见的添加定位点的方法：
-
-     ctx.moveTo(x,y);    //把画笔移动到指定点
-     ctx.lineTo(x,y);        //从上一个点开始到当前点绘制一条直线
-     ctx.arc(x,y,r,sAngle,eAngle);        //绘制一条圆弧线
-     ctx.ellipse(x,y,rx,ry,sAngle,eAngle);    //绘制一条椭圆弧线
-</code></pre>
-<p> 5.4 绘制图像——以图像的左上角为定位点</p>
-<pre><code>     ctx.rotate( angle );    //旋转画笔，此后绘制的图像/图像都会旋转——旋转围绕着画布的坐标原点为轴
-     ctx.translate(x, y);    //平移坐标轴的原点
-     ctx.drawImage(img, x, y);        //原宽原高的绘制图像
-     ctx.drawImage(img, x, y, width, height);  //使用指定的宽和高绘制图像
-
- 提示：
-     1)创建图片： var img =new Image();  img.src=&quot;xx.jpg&quot;;
-     2)使用图片必须等待加载完成！  img.onload = function()&#123; ... &#125;
-</code></pre>
-</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>HTML5</tag>
-        <tag>Canvas</tag>
       </tags>
   </entry>
   <entry>
@@ -556,6 +556,20 @@ var ISWP = !!(navigator.userAgent.match(/Windows\sPhone/i));
       </tags>
   </entry>
   <entry>
+    <title>content换行符与打点loading效果实例页面</title>
+    <url>/2020/06/19/content%E6%8D%A2%E8%A1%8C%E7%AC%A6%E4%B8%8E%E6%89%93%E7%82%B9loading%E6%95%88%E6%9E%9C%E5%AE%9E%E4%BE%8B%E9%A1%B5%E9%9D%A2/</url>
+    <content><![CDATA[<p>代码如下：</p>
+<h3 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h3><span id="more"></span>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">dot &#123;</span><br><span class="line">    <span class="attribute">display</span>: inline-block; </span><br><span class="line">    <span class="attribute">height</span>: <span class="number">1em</span>;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">1</span>;</span><br><span class="line">    <span class="attribute">text-align</span>: left;</span><br><span class="line">    <span class="attribute">vertical-align</span>: -.<span class="number">25em</span>;</span><br><span class="line">    <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br><span class="line">dot<span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">&#x27;...\A..\A.&#x27;</span>;</span><br><span class="line">    <span class="attribute">white-space</span>: pre-wrap;</span><br><span class="line">    <span class="attribute">animation</span>: dot <span class="number">3s</span> infinite step-start both;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@keyframes</span> dot &#123;</span><br><span class="line">    <span class="number">33%</span> &#123; <span class="attribute">transform</span>: <span class="built_in">translateY</span>(-<span class="number">2em</span>); &#125;</span><br><span class="line">    <span class="number">66%</span> &#123; <span class="attribute">transform</span>: <span class="built_in">translateY</span>(-<span class="number">1em</span>); &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wrap&quot;</span>&gt;</span>正在加载中<span class="tag">&lt;<span class="name">dot</span>&gt;</span>...<span class="tag">&lt;/<span class="name">dot</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>aplly&amp;call方法的使用</title>
     <url>/2016/07/02/aplly&amp;call%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<h4 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h4><p>在一个对象中绑定函数，称为这个对象的方法。<br>在JavaScript中，对象的定义是这样的：</p>
@@ -698,20 +712,6 @@ count; // 3
       </tags>
   </entry>
   <entry>
-    <title>content换行符与打点loading效果实例页面</title>
-    <url>/2020/06/19/content%E6%8D%A2%E8%A1%8C%E7%AC%A6%E4%B8%8E%E6%89%93%E7%82%B9loading%E6%95%88%E6%9E%9C%E5%AE%9E%E4%BE%8B%E9%A1%B5%E9%9D%A2/</url>
-    <content><![CDATA[<p>代码如下：</p>
-<h3 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h3><span id="more"></span>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">dot &#123;</span><br><span class="line">    <span class="attribute">display</span>: inline-block; </span><br><span class="line">    <span class="attribute">height</span>: <span class="number">1em</span>;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">1</span>;</span><br><span class="line">    <span class="attribute">text-align</span>: left;</span><br><span class="line">    <span class="attribute">vertical-align</span>: -.<span class="number">25em</span>;</span><br><span class="line">    <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br><span class="line">dot<span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">&#x27;...\A..\A.&#x27;</span>;</span><br><span class="line">    <span class="attribute">white-space</span>: pre-wrap;</span><br><span class="line">    <span class="attribute">animation</span>: dot <span class="number">3s</span> infinite step-start both;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@keyframes</span> dot &#123;</span><br><span class="line">    <span class="number">33%</span> &#123; <span class="attribute">transform</span>: <span class="built_in">translateY</span>(-<span class="number">2em</span>); &#125;</span><br><span class="line">    <span class="number">66%</span> &#123; <span class="attribute">transform</span>: <span class="built_in">translateY</span>(-<span class="number">1em</span>); &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wrap&quot;</span>&gt;</span>正在加载中<span class="tag">&lt;<span class="name">dot</span>&gt;</span>...<span class="tag">&lt;/<span class="name">dot</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>JS</category>
-      </categories>
-      <tags>
-        <tag>JS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>面试题</title>
     <url>/2016/06/23/count%E6%96%B9%E6%B3%95/</url>
     <content><![CDATA[<h3 id="count方法"><a href="#count方法" class="headerlink" title="count方法"></a>count方法</h3><p>封装一个count方法，能实现如此调用：count(a)(b)(c)(d)(e)… 并且返回的值为参数连乘的结果，即abcde*…。如count(1)(3)(7) 得到21</p>
@@ -748,6 +748,24 @@ count; // 3
         <tag>CSS</tag>
         <tag>IOS</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2015/07/11/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/deployment.html">Deployment</a></p>
+]]></content>
   </entry>
   <entry>
     <title>Flex布局</title>
@@ -809,24 +827,6 @@ count; // 3
       <tags>
         <tag>CSS</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2015/07/11/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html">Deployment</a></p>
-]]></content>
   </entry>
   <entry>
     <title>hexo 常用命令</title>
@@ -1179,7 +1179,7 @@ Markdown 使用一种和链接很相似的语法来标记图片，同样也允�
 &amp;#109;&quot;&gt;&amp;#x61;&amp;#x64;&amp;#x64;&amp;#x72;&amp;#x65;&amp;#115;&amp;#115;&amp;#64;&amp;#101;&amp;#120;&amp;#x61;
 &amp;#109;&amp;#x70;&amp;#x6C;e&amp;#x2E;&amp;#99;&amp;#111;&amp;#109;&lt;/a&gt;
 </code></pre>
-<p>在浏览器里面，这段字串（其实是 <a href="mailto:address@example.com">address@example.com</a>）会变成一个可以点击的「<a href="mailto:&#97;&#x64;&#x64;&#114;&#101;&#115;&#x73;&#64;&#x65;&#x78;&#x61;&#109;&#x70;&#x6c;&#101;&#x2e;&#99;&#x6f;&#x6d;">&#97;&#x64;&#x64;&#114;&#101;&#115;&#x73;&#64;&#x65;&#x78;&#x61;&#109;&#x70;&#x6c;&#101;&#x2e;&#99;&#x6f;&#x6d;</a>」链接。</p>
+<p>在浏览器里面，这段字串（其实是 <a href="mailto:address@example.com">address@example.com</a>）会变成一个可以点击的「<a href="mailto:&#x61;&#x64;&#100;&#114;&#x65;&#x73;&#x73;&#x40;&#101;&#x78;&#x61;&#109;&#x70;&#108;&#x65;&#x2e;&#99;&#x6f;&#x6d;">&#x61;&#x64;&#100;&#114;&#x65;&#x73;&#x73;&#x40;&#101;&#x78;&#x61;&#109;&#x70;&#108;&#x65;&#x2e;&#99;&#x6f;&#x6d;</a>」链接。</p>
 </blockquote>
 <p>（这种作法虽然可以糊弄不少的机器人，但并不能全部挡下来，不过总比什么都不做好些。不管怎样，公开你的信箱终究会引来广告信件的。）</p>
 <blockquote>
@@ -1463,6 +1463,49 @@ IE8: e.returnValue=false;
       </tags>
   </entry>
   <entry>
+    <title>八、JavaScript之参数按值传递</title>
+    <url>/2019/09/11/%E5%80%BC%E4%BC%A0%E9%80%92/</url>
+    <content><![CDATA[<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>在《JavaScript 高级程序设计》中讲到传递参数：</p>
+<blockquote>
+<p>ECMAScript 中所有函数的参数都是按值传递的。这意味着函数外的值会被复制到函数内部的参数中，就像从一个变量复制到另一个变量一样。如果是原始值，那么就跟原始值变量的复制一样，如果是引用值，那么就跟引用值变量的复制一样。对很多开发者来说，这一块可能会不好理解，毕竟变量有按值和按引用访问，而传参则只有按值传递。</p>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="按值传递"><a href="#按值传递" class="headerlink" title="按值传递"></a>按值传递</h2><blockquote>
+<p>在按值传递参数时，值会被复制到一个局部变量（即一个命名参数，或者用 ECMAScript 的话说，就是 arguments 对象中的一个槽位）。<br>来看一个例子：</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">  num += <span class="number">10</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(num); <span class="comment">// 30</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> count = <span class="number">20</span>;</span><br><span class="line">foo(count);</span><br><span class="line"><span class="built_in">console</span>.log(count); <span class="comment">// 20，没有变化</span></span><br></pre></td></tr></table></figure>
+
+<p>这里，函数 foo()有一个参数 num，它其实是一个局部变量。在调用时，变量 count 作为参数传入。count 的值 20 被复制给参数 num 。在函数内部，参数 num 的值被加上了 10，但这不会影响函数外部的变量 count。参数 num 和变量 count 互不干扰，它们只不过碰巧保存了一样的值。</p>
+<h2 id="引用传递"><a href="#引用传递" class="headerlink" title="引用传递"></a>引用传递</h2><blockquote>
+<p>众所周知按引用传递接收的不是值拷贝，而是对象的隐式引用，如该对象在外部的直接引用地址。函数内部对参数的任何改变都是影响该对象在函数外部的值，因为两者引用的是同一个对象，也就是说：这时候参数就相当于外部对象的一个别名。<br>伪代码：</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">value</span>: <span class="number">1</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">o</span>) </span>&#123;</span><br><span class="line">  o.value = <span class="number">2</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(o.value); <span class="comment">//2</span></span><br><span class="line">&#125;</span><br><span class="line">foo(obj);</span><br><span class="line"><span class="built_in">console</span>.log(obj.value); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<p>哪ECMAScript 中函数传递引用数据类型参数是引用传递吗？然而并不是，除了上面两种策略以外，我们看看第三种策略。</p>
+<h2 id="共享传递"><a href="#共享传递" class="headerlink" title="共享传递"></a>共享传递</h2><p>共享传递策略还有一些代名词：“按对象传递”或“按对象共享传递”。该策略是1974年由Barbara Liskov为CLU编程语言提出的，策略的要点是：</p>
+<blockquote>
+<p>函数接收的是对象引用的拷贝（副本），该引用拷贝和形参以及其值相关联。<br>这里出现的引用，我们不能称之为“按引用传递”，因为函数接收的参数不是直接的对象别名，而是该引用地址的拷贝。</p>
+</blockquote>
+<p>最重要的区别就是：函数内部给参数重新赋新值不会影响到外部的对象（和上例按引用传递的case），但是因为该参数是一个地址拷贝，所以在外面访问和里面访问的都是同一个对象,改变该参数对象的属性值将会影响到外部的对象。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  <span class="attr">num</span>: <span class="number">1</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  obj.num = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo(person);</span><br><span class="line"><span class="built_in">console</span>.log(person.num); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+
+<p>这里，我们创建了一个对象 person 并这个对象被传给 foo 方法，并被复制到参数 obj 中。在函数内部，obj 和 person 都指向同一个对象。个人觉得引用数据类型传递的也是值, 不过这个值是一个地址指针，<br>我们再来看看下面这个修改后的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123; <span class="attr">num</span>: <span class="number">1</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  obj.num = <span class="number">2</span>;</span><br><span class="line">  <span class="comment">// 将obj引用指针指向了新的一个对象上</span></span><br><span class="line">  obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  obj.num = <span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(person.num); <span class="comment">// 1</span></span><br><span class="line">foo(person);</span><br><span class="line"><span class="comment">// 如果这里是按照引用传递，那么，下面的输出应该是3</span></span><br><span class="line"><span class="built_in">console</span>.log(person.num); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+
+<p>当 person 传入 foo()时，其 num 属性被设置为 2。然后变量 obj 被设置为一个新对象且 num 属性被设置为 3。如果 person 是按引用传递的，那么 person 应该自动将指针改为指向 num 为 3 的对象。可是，当我们再次访问 person.num 时，它的值是 2，这表明函数中参数的值改变之后，原始的引用仍然没变。当 obj 在函数内部被重写时，它变成了一个指向本地对象的指针。而那个本地对象在函数执行结束时就被销毁了。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li>如果参数是基本类型，那么是按值传递。</li>
+<li>如果参数是引用数据类型，传递的还是值，但是这个值是引用数据类型地址的拷贝。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>深入理解JavaScript系列笔记</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>五、JavaScript之作用域链</title>
     <url>/2019/07/18/%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE/</url>
     <content><![CDATA[<p>在上一篇的文章中，我们了解到执行上下文数据（变量、函数声明和函数的所有形参）是由这个变量对象的属性存储的，另外，我们知道每次进入上下文时都会创建变量对象并填充初始化值，并且在执行上下文代码时会发生它的修改。</p>
@@ -1561,49 +1604,6 @@ IE8: e.returnValue=false;
       </tags>
   </entry>
   <entry>
-    <title>八、JavaScript之参数按值传递</title>
-    <url>/2019/09/11/%E5%80%BC%E4%BC%A0%E9%80%92/</url>
-    <content><![CDATA[<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>在《JavaScript 高级程序设计》中讲到传递参数：</p>
-<blockquote>
-<p>ECMAScript 中所有函数的参数都是按值传递的。这意味着函数外的值会被复制到函数内部的参数中，就像从一个变量复制到另一个变量一样。如果是原始值，那么就跟原始值变量的复制一样，如果是引用值，那么就跟引用值变量的复制一样。对很多开发者来说，这一块可能会不好理解，毕竟变量有按值和按引用访问，而传参则只有按值传递。</p>
-</blockquote>
-<span id="more"></span>
-
-<h2 id="按值传递"><a href="#按值传递" class="headerlink" title="按值传递"></a>按值传递</h2><blockquote>
-<p>在按值传递参数时，值会被复制到一个局部变量（即一个命名参数，或者用 ECMAScript 的话说，就是 arguments 对象中的一个槽位）。<br>来看一个例子：</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">  num += <span class="number">10</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(num); <span class="comment">// 30</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> count = <span class="number">20</span>;</span><br><span class="line">foo(count);</span><br><span class="line"><span class="built_in">console</span>.log(count); <span class="comment">// 20，没有变化</span></span><br></pre></td></tr></table></figure>
-
-<p>这里，函数 foo()有一个参数 num，它其实是一个局部变量。在调用时，变量 count 作为参数传入。count 的值 20 被复制给参数 num 。在函数内部，参数 num 的值被加上了 10，但这不会影响函数外部的变量 count。参数 num 和变量 count 互不干扰，它们只不过碰巧保存了一样的值。</p>
-<h2 id="引用传递"><a href="#引用传递" class="headerlink" title="引用传递"></a>引用传递</h2><blockquote>
-<p>众所周知按引用传递接收的不是值拷贝，而是对象的隐式引用，如该对象在外部的直接引用地址。函数内部对参数的任何改变都是影响该对象在函数外部的值，因为两者引用的是同一个对象，也就是说：这时候参数就相当于外部对象的一个别名。<br>伪代码：</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">value</span>: <span class="number">1</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">o</span>) </span>&#123;</span><br><span class="line">  o.value = <span class="number">2</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(o.value); <span class="comment">//2</span></span><br><span class="line">&#125;</span><br><span class="line">foo(obj);</span><br><span class="line"><span class="built_in">console</span>.log(obj.value); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
-<p>哪ECMAScript 中函数传递引用数据类型参数是引用传递吗？然而并不是，除了上面两种策略以外，我们看看第三种策略。</p>
-<h2 id="共享传递"><a href="#共享传递" class="headerlink" title="共享传递"></a>共享传递</h2><p>共享传递策略还有一些代名词：“按对象传递”或“按对象共享传递”。该策略是1974年由Barbara Liskov为CLU编程语言提出的，策略的要点是：</p>
-<blockquote>
-<p>函数接收的是对象引用的拷贝（副本），该引用拷贝和形参以及其值相关联。<br>这里出现的引用，我们不能称之为“按引用传递”，因为函数接收的参数不是直接的对象别名，而是该引用地址的拷贝。</p>
-</blockquote>
-<p>最重要的区别就是：函数内部给参数重新赋新值不会影响到外部的对象（和上例按引用传递的case），但是因为该参数是一个地址拷贝，所以在外面访问和里面访问的都是同一个对象,改变该参数对象的属性值将会影响到外部的对象。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  <span class="attr">num</span>: <span class="number">1</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  obj.num = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo(person);</span><br><span class="line"><span class="built_in">console</span>.log(person.num); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
-
-<p>这里，我们创建了一个对象 person 并这个对象被传给 foo 方法，并被复制到参数 obj 中。在函数内部，obj 和 person 都指向同一个对象。个人觉得引用数据类型传递的也是值, 不过这个值是一个地址指针，<br>我们再来看看下面这个修改后的例子：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123; <span class="attr">num</span>: <span class="number">1</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  obj.num = <span class="number">2</span>;</span><br><span class="line">  <span class="comment">// 将obj引用指针指向了新的一个对象上</span></span><br><span class="line">  obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  obj.num = <span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(person.num); <span class="comment">// 1</span></span><br><span class="line">foo(person);</span><br><span class="line"><span class="comment">// 如果这里是按照引用传递，那么，下面的输出应该是3</span></span><br><span class="line"><span class="built_in">console</span>.log(person.num); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
-
-<p>当 person 传入 foo()时，其 num 属性被设置为 2。然后变量 obj 被设置为一个新对象且 num 属性被设置为 3。如果 person 是按引用传递的，那么 person 应该自动将指针改为指向 num 为 3 的对象。可是，当我们再次访问 person.num 时，它的值是 2，这表明函数中参数的值改变之后，原始的引用仍然没变。当 obj 在函数内部被重写时，它变成了一个指向本地对象的指针。而那个本地对象在函数执行结束时就被销毁了。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
-<li>如果参数是基本类型，那么是按值传递。</li>
-<li>如果参数是引用数据类型，传递的还是值，但是这个值是引用数据类型地址的拷贝。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>深入理解JavaScript系列笔记</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>关于CSS hacks的使用</title>
     <url>/2016/07/10/%E5%85%B3%E4%BA%8ECSS%20hack/</url>
     <content><![CDATA[<h4 id="讨论CSS-hacks，条件引用或者其他。"><a href="#讨论CSS-hacks，条件引用或者其他。" class="headerlink" title="讨论CSS hacks，条件引用或者其他。"></a>讨论CSS hacks，条件引用或者其他。</h4><span id="more"></span>
@@ -1658,6 +1658,88 @@ _background-color:#1e0bd1;/*IE6识别*/
       <tags>
         <tag>JS</tag>
         <tag>VUE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【加载更多】插件</title>
+    <url>/2017/08/15/%E5%8A%A0%E8%BD%BD%E6%9B%B4%E5%A4%9A%E6%8F%92%E4%BB%B6%E5%B0%81%E8%A3%85/</url>
+    <content><![CDATA[<p>关于如何实现『加载更多』功能，网上有插件可用，例如比较著名的使用iscroll.js实现的上拉加载更多、下拉刷新功能。</p>
+<p>但实际用起来却是很麻烦。由于是第三方插件，要按照对方定义的方法使用，用起来总感觉很不顺心。再加上iscroll.js本身并没有集成加载更多的功能，需要进行自行扩展。想继续使用iscroll.js实现加载更多功能的，上面给的链接可以看看。</p>
+<p>h5项目里需要实现简单的分页功能，由于是移动端，考虑用『加载更多』会更好，而不是PC端的翻页。</p>
+<hr>
+<span id="more"></span>
+<p><strong>JS代码：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * loadmore.js</span></span><br><span class="line"><span class="comment"> * 加载更多</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @time 2017-7-08 15:40:25</span></span><br><span class="line"><span class="comment"> * @author munachar</span></span><br><span class="line"><span class="comment"> * 可以传的参数默认有：size,scroll 可以自定义</span></span><br><span class="line"><span class="comment"> * */</span></span><br><span class="line"></span><br><span class="line">;(<span class="function"><span class="keyword">function</span>(<span class="params">w,$</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">var</span> loadmore = &#123;</span><br><span class="line">         <span class="comment">/*单页加载更多 通用方法</span></span><br><span class="line"><span class="comment">          *</span></span><br><span class="line"><span class="comment">          * @param callback 回调方法</span></span><br><span class="line"><span class="comment">          * @param config 自定义参数</span></span><br><span class="line"><span class="comment">          * */</span></span><br><span class="line">         <span class="attr">get</span> : <span class="function"><span class="keyword">function</span>(<span class="params">callback, config</span>)</span>&#123;</span><br><span class="line">             <span class="keyword">var</span> config = config ? config : &#123;&#125;; <span class="comment">/*防止未传参数报错*/</span></span><br><span class="line">             <span class="keyword">var</span> counter = <span class="number">1</span>; <span class="comment">/*计数器*/</span></span><br><span class="line">             <span class="keyword">var</span> pageStart = config.size ? config.size : <span class="number">10</span>;</span><br><span class="line">             <span class="keyword">var</span> pageSize = config.size ? config.size : <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">             <span class="comment">/*通过自动监听滚动事件加载更多,可选支持*/</span></span><br><span class="line">             config.isEnd = <span class="literal">false</span>; <span class="comment">/*结束标志*/</span></span><br><span class="line">             config.isAjax = <span class="literal">false</span>; <span class="comment">/*防止滚动过快，服务端没来得及响应造成多次请求*/</span></span><br><span class="line">             $(config.ele).scroll(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                 <span class="comment">/*是否开启滚动加载*/</span></span><br><span class="line">                 <span class="keyword">if</span>(!config.scroll)&#123;</span><br><span class="line">                     <span class="keyword">return</span>;</span><br><span class="line">                 &#125;</span><br><span class="line">                 <span class="comment">/*滚动加载时如果已经没有更多的数据了、正在发生请求时，不能继续进行*/</span></span><br><span class="line">                 <span class="keyword">if</span>(config.isEnd == <span class="literal">true</span> || config.isAjax == <span class="literal">true</span>)&#123;</span><br><span class="line">                     <span class="keyword">return</span>;</span><br><span class="line">                 &#125;</span><br><span class="line">                 <span class="comment">/*当滚动到最底部以上100像素时， 加载新内容*/</span></span><br><span class="line">                 <span class="keyword">if</span> ($(<span class="built_in">this</span>).find(<span class="string">&quot;ul&quot;</span>).height() - $(<span class="built_in">this</span>).scrollTop() - $(<span class="built_in">this</span>).height()&lt;<span class="number">100</span>)&#123;</span><br><span class="line">                     counter ++;</span><br><span class="line">                     pageStart = counter * pageSize;</span><br><span class="line">                     callback &amp;&amp; callback.call( $(config.ele),config, pageStart, pageSize);</span><br><span class="line">                 &#125;</span><br><span class="line">             &#125;);</span><br><span class="line">             <span class="comment">/*第一次自动加载*/</span></span><br><span class="line">             callback &amp;&amp; callback.call( $(config.ele),config, pageStart, pageSize);</span><br><span class="line">         &#125;,</span><br><span class="line">     &#125;</span><br><span class="line">     $.loadmore = loadmore;</span><br><span class="line"> &#125;)(<span class="built_in">window</span>, <span class="built_in">window</span>.jQuery || <span class="built_in">window</span>.Zepto);</span><br></pre></td></tr></table></figure>
+<p><strong>如何调用：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">$.loadmore.get(getData, &#123;</span><br><span class="line">                <span class="attr">ele</span>:<span class="built_in">window</span>,  <span class="comment">// 绑定滚动监听元素 默认是window</span></span><br><span class="line">                <span class="attr">scroll</span>: <span class="literal">true</span>,  <span class="comment">//默认是false,是否支持滚动加载</span></span><br><span class="line">                <span class="attr">size</span>:<span class="number">10</span>,  <span class="comment">//默认是10</span></span><br><span class="line">                <span class="attr">flag</span>: <span class="number">1</span>, <span class="comment">//自定义参数，可选，示例里没有用到</span></span><br><span class="line">            &#125;);</span><br></pre></td></tr></table></figure>
+<p>第一个参数是回调函数，即我们的业务逻辑。我把我的业务逻辑方法贴出来：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params">config, offset,size</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">    config.isAjax = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        <span class="attr">type</span>: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">        <span class="attr">url</span>: <span class="string">&#x27;json/blog.json&#x27;</span>,</span><br><span class="line">        <span class="attr">dataType</span>: <span class="string">&#x27;json&#x27;</span>,</span><br><span class="line">        <span class="attr">success</span>: <span class="function"><span class="keyword">function</span>(<span class="params">reponse</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">            config.isAjax = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">var</span> data = reponse.list;</span><br><span class="line">            <span class="keyword">var</span> sum = reponse.list.length;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">var</span> result = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/************业务逻辑块：实现拼接html内容并append到页面*****************/</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">//console.log(offset , size, sum);</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">/*如果剩下的记录数不够分页，就让分页数取剩下的记录数</span></span><br><span class="line"><span class="comment">            * 例如分页数是5，只剩2条，则只取2条</span></span><br><span class="line"><span class="comment">            *</span></span><br><span class="line"><span class="comment">            * 实际MySQL查询时不写这个</span></span><br><span class="line"><span class="comment">            */</span></span><br><span class="line">            <span class="keyword">if</span>(sum - offset &lt; size )&#123;</span><br><span class="line">                size = sum - offset;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="comment">/*使用for循环模拟SQL里的limit(offset,size)*/</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">var</span> i=offset; i&lt; (offset+size); i++)&#123;</span><br><span class="line">                result +=<span class="string">&#x27;&lt;div class=&quot;weui_media_box weui_media_text&quot;&gt;&#x27;</span>+</span><br><span class="line">                        <span class="string">&#x27;&lt;a href=&quot;&#x27;</span>+ data[i].url +<span class="string">&#x27;&quot; target=&quot;_blank&quot;&gt;&lt;h4 class=&quot;weui_media_title&quot;&gt;&#x27;</span>+ data[i].title +<span class="string">&#x27;&lt;/h4&gt;&lt;/a&gt;&#x27;</span>+</span><br><span class="line">                        <span class="string">&#x27;&lt;p class=&quot;weui_media_desc&quot;&gt;&#x27;</span>+ data[i].desc +<span class="string">&#x27;&lt;/p&gt;&#x27;</span>+</span><br><span class="line">                    <span class="string">&#x27;&lt;/div&gt;&#x27;</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            $(<span class="string">&#x27;.js-blog-list&#x27;</span>).append(result);</span><br><span class="line"></span><br><span class="line">            <span class="comment">/*******************************************/</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">/*隐藏more*/</span></span><br><span class="line">            <span class="keyword">if</span> ( (offset + size) &gt;= sum)&#123;</span><br><span class="line">                $(<span class="string">&quot;.js-load-more&quot;</span>).hide();</span><br><span class="line">                config.isEnd = <span class="literal">true</span>; <span class="comment">/*停止滚动加载请求*/</span></span><br><span class="line">                <span class="comment">//提示没有了</span></span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                $(<span class="string">&quot;.js-load-more&quot;</span>).show();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">error</span>: <span class="function"><span class="keyword">function</span>(<span class="params">xhr, type</span>)</span>&#123;</span><br><span class="line">            alert(<span class="string">&#x27;Ajax error!&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上仅贴出核心代码，详细案列：<a href="https://github.com/hedahang/loadingMoreUp">@Munachar</a></p>
+]]></content>
+      <categories>
+        <category>JS</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+        <tag>jQuery</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>八、JavaScript专题之函数柯里化</title>
+    <url>/2020/03/15/%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96/</url>
+    <content><![CDATA[<p>函数式编程是一种编程风格，它尝试将函数作为参数传递（回调）并返回没有副作用的函数。因此带来了一些其他东西，比如纯函数、柯里化、高阶函数。<br>这里我们主要讨论函数柯里化的实现与应用场景。</p>
+<span id="more"></span>
+
+<h2 id="什么是柯里化"><a href="#什么是柯里化" class="headerlink" title="什么是柯里化"></a>什么是柯里化</h2><p>柯里化是函数式编程中的一个过程，我们可以将具有多个参数的函数转换为一系列嵌套函数。它返回一个新函数，该函数能接受下一个参数。</p>
+<blockquote>
+<p>柯里化是将具有多元数的函数变成具有较少元数的函数的过程 - <a href="https://medium.com/@kbrainwave">Kristina Brainwave</a></p>
+</blockquote>
+<p>举个例子:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">multiply</span>(<span class="params">a, b, c</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a * b * c;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 执行multiply方法，传入三个参数</span></span><br><span class="line">multiply(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>); <span class="comment">// 6</span></span><br></pre></td></tr></table></figure>
+
+<p>现在我们创建一个柯里化函数版本：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">multiply</span>(<span class="params">a</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">b</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function">(<span class="params">c</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> a * b * c;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line">multiply(<span class="number">1</span>)(<span class="number">2</span>)(<span class="number">3</span>); <span class="comment">// 6</span></span><br></pre></td></tr></table></figure>
+
+<p>我们已经把 multiply(1,2,3) 函数调用变成了 multiply(1)(2)(3)多个函数的调用。</p>
+<p>而对于 Javascript 语言来说，我们通常说的柯里化函数的概念，与数学和计算机科学中的柯里化的概念并不完全一样。<br>在数学和计算机科学中的柯里化函数，一次只能传递一个参数；<br>而我们 Javascript 实际应用中的柯里化函数，可以传递一个或多个参数。<br>来看这个例子。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//普通函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">a, b, c, d, e</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(a, b, c, d, e);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//生成的柯里化函数</span></span><br><span class="line"><span class="keyword">let</span> _fn = curry(fn);</span><br><span class="line"></span><br><span class="line">_fn(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>); <span class="comment">// print: 1,2,3,4,5</span></span><br><span class="line">_fn(<span class="number">1</span>)(<span class="number">2</span>)(<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>); <span class="comment">// print: 1,2,3,4,5</span></span><br><span class="line">_fn(<span class="number">1</span>, <span class="number">2</span>)(<span class="number">3</span>, <span class="number">4</span>)(<span class="number">5</span>); <span class="comment">// print: 1,2,3,4,5</span></span><br><span class="line">_fn(<span class="number">1</span>)(<span class="number">2</span>)(<span class="number">3</span>)(<span class="number">4</span>)(<span class="number">5</span>); <span class="comment">// print: 1,2,3,4,5</span></span><br></pre></td></tr></table></figure>
+
+<p>对于已经柯里化后的 _fn 函数来说，当接收的参数数量与原函数的形参数量相同时，执行原函数；<br>当接收的参数数量小于原函数的形参数量时，返回一个函数用于接收剩余的参数，直至接收的参数数量与形参数量一致，执行原函数。<br>当我们知道柯里化是什么了的时候，我们来看看柯里化到底有什么用？</p>
+<h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><p>柯里化实际是把简答的问题复杂化了，但是复杂化的同时，我们在使用函数时拥有了更加多的自由度，而这里对于函数参数的自由处理，正是柯里化的核心所在。<br>柯里化本质上是降低通用性，提高适用性。来看一个例子：<br>我们工作中会遇到各种需要通过正则检验的需求，比如校验电话号码、校验邮箱、校验身份证号、校验密码等，<br>这时我们会封装一个通用函数 checkByRegExp ,接收两个参数，校验的正则对象和待校验的字符串：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">checkByRegExp</span>(<span class="params">regExp, string</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> regExp.test(string);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">checkByRegExp(<span class="regexp">/^1\d&#123;10&#125;$/</span>, <span class="string">&quot;18642838455&quot;</span>); <span class="comment">// 校验电话号码</span></span><br><span class="line">checkByRegExp(<span class="regexp">/^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/</span>, <span class="string">&quot;test@163.com&quot;</span>); <span class="comment">// 校验邮箱</span></span><br></pre></td></tr></table></figure>
+
+<p>我们每次进行校验的时候都需要输入一串正则，再校验同一类型的数据时，相同的正则我们需要写多次，<br>这就导致我们在使用的时候效率低下，并且由于 checkByRegExp 函数本身是一个工具函数并没有任何意义，<br>一段时间后我们重新来看这些代码时，如果没有注释，我们必须通过检查正则的内容，<br>我们才能知道我们校验的是电话号码还是邮箱，还是别的什么。<br>此时，我们可以借助柯里化对 checkByRegExp 函数进行封装，以简化代码书写，提高代码可读性。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//进行柯里化</span></span><br><span class="line"><span class="keyword">let</span> _check = curry(checkByRegExp);</span><br><span class="line"><span class="comment">//生成工具函数，验证电话号码</span></span><br><span class="line"><span class="keyword">let</span> checkCellPhone = _check(<span class="regexp">/^1\d&#123;10&#125;$/</span>);</span><br><span class="line"><span class="comment">//生成工具函数，验证邮箱</span></span><br><span class="line"><span class="keyword">let</span> checkEmail = _check(<span class="regexp">/^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/</span>);</span><br><span class="line"></span><br><span class="line">checkCellPhone(<span class="string">&quot;18642838455&quot;</span>); <span class="comment">// 校验电话号码</span></span><br><span class="line">checkCellPhone(<span class="string">&quot;13109840560&quot;</span>); <span class="comment">// 校验电话号码</span></span><br><span class="line">checkCellPhone(<span class="string">&quot;13204061212&quot;</span>); <span class="comment">// 校验电话号码</span></span><br><span class="line"></span><br><span class="line">checkEmail(<span class="string">&quot;test@163.com&quot;</span>); <span class="comment">// 校验邮箱</span></span><br><span class="line">checkEmail(<span class="string">&quot;test@qq.com&quot;</span>); <span class="comment">// 校验邮箱</span></span><br><span class="line">checkEmail(<span class="string">&quot;test@gmail.com&quot;</span>); <span class="comment">// 校验邮箱</span></span><br></pre></td></tr></table></figure>
+
+<p>经过柯里化后，我们生成了两个函数 checkCellPhone 和 checkEmail，<br>checkCellPhone 函数只能验证传入的字符串是否是电话号码，<br>checkEmail 函数只能验证传入的字符串是否是邮箱，<br>它们与 原函数 checkByRegExp 相比，从功能上通用性降低了，但适用性提升了。<br>柯里化的这种用途可以被理解为：参数复用。</p>
+<p>我们再来看一个例子，比如我们有这样一段数据：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> person = [&#123; <span class="attr">name</span>: <span class="string">&quot;lilei&quot;</span> &#125;, &#123; <span class="attr">name</span>: <span class="string">&quot;hanmeimei&quot;</span> &#125;];</span><br></pre></td></tr></table></figure>
+
+<p>如果我们要获取那么属性，我们可以这样：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> names = person.map(<span class="function">(<span class="params">item</span>) =&gt;</span> item.name);</span><br></pre></td></tr></table></figure>
+
+<p>如果我们有 curry 函数：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> prop = curry(<span class="function"><span class="keyword">function</span> (<span class="params">key, obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> obj[key];</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> name = person.map(prop(<span class="string">&quot;name&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<p>这里我们为了获取 name 属性编写一个 prop 函数，你可能会觉得太麻烦了。<br>但是要注意，prop 函数编写一次后，以后可以多次使用，我们在考虑代码复杂的的时候，是可以将 prop 函数的实现去掉的，实际上代码从原本的三行精简成了一行。</p>
+<h2 id="柯里化工具函数封装"><a href="#柯里化工具函数封装" class="headerlink" title="柯里化工具函数封装"></a>柯里化工具函数封装</h2><p>常见 curry 函数的实现为：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> curry = <span class="function"><span class="keyword">function</span> (<span class="params">fn</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> args = [].slice.call(<span class="built_in">arguments</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> newArgs = args.concat([].slice.call(<span class="built_in">arguments</span>));</span><br><span class="line">    <span class="keyword">return</span> fn.apply(<span class="built_in">this</span>, newArgs);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> addCurry = curry(add, <span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">addCurry(); <span class="comment">// 3</span></span><br><span class="line"><span class="comment">//或者</span></span><br><span class="line"><span class="keyword">var</span> addCurry = curry(add, <span class="number">1</span>);</span><br><span class="line">addCurry(<span class="number">2</span>); <span class="comment">// 3</span></span><br><span class="line"><span class="comment">//或者</span></span><br><span class="line"><span class="keyword">var</span> addCurry = curry(add);</span><br><span class="line">addCurry(<span class="number">1</span>, <span class="number">2</span>); <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+
+<p>已经有柯里化的感觉了，但是还没有达到要求，不过我们可以把这个函数用作辅助函数，帮助我们写真正的 curry 函数。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sub_curry</span>(<span class="params">fn</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> args = [].slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> fn.apply(<span class="built_in">this</span>, args.concat([].slice.call(<span class="built_in">arguments</span>)));</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">curry</span>(<span class="params">fn, length</span>) </span>&#123;</span><br><span class="line">  length = length || fn.length;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> slice = <span class="built_in">Array</span>.prototype.slice;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">arguments</span>.length &lt; length) &#123;</span><br><span class="line">      <span class="keyword">var</span> combined = [fn].concat(slice.call(<span class="built_in">arguments</span>));</span><br><span class="line">      <span class="keyword">var</span> sub_fn = sub_curry.apply(<span class="built_in">this</span>, combined);</span><br><span class="line">      <span class="keyword">return</span> curry(sub_fn, length - <span class="built_in">arguments</span>.length);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> fn.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line"><span class="keyword">var</span> fn = curry(<span class="function"><span class="keyword">function</span> (<span class="params">a, b, c</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> [a, b, c];</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">fn(<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>); <span class="comment">// [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</span></span><br><span class="line">fn(<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>)(<span class="string">&quot;c&quot;</span>); <span class="comment">// [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</span></span><br><span class="line">fn(<span class="string">&quot;a&quot;</span>)(<span class="string">&quot;b&quot;</span>)(<span class="string">&quot;c&quot;</span>); <span class="comment">// [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</span></span><br><span class="line">fn(<span class="string">&quot;a&quot;</span>)(<span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>); <span class="comment">// [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</span></span><br></pre></td></tr></table></figure>
+
+<p>如果上面的实现不好理解的话，我们换一种写法：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sun_curry</span>(<span class="params">fn, ...args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">...params</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> fn.apply(<span class="built_in">this</span>, [...args, ...params]);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">curry</span>(<span class="params">fn, length = fn.length</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">...params</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (params.length &lt; length) &#123;</span><br><span class="line">      <span class="keyword">var</span> sub_fn = sub_curry.apply(<span class="built_in">this</span>, [fn, ...params]);</span><br><span class="line">      <span class="keyword">return</span> curry(sub_fn, length - params.length);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      fn.apply(<span class="built_in">this</span>, params);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>sun_curry 方法的作用在与接收一个函数和若干参数，然后返回一个函数，该函数能接收后续若干参数。<br>curry 方法的作用就是递归调用辅助函数 sub_curry，实现函数柯里化。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://juejin.cn/post/6844903882208837645">https://juejin.cn/post/6844903882208837645</a></p>
+]]></content>
+      <categories>
+        <category>JavaScript专题系列笔记</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -1753,96 +1835,6 @@ _background-color:#1e0bd1;/*IE6识别*/
       </tags>
   </entry>
   <entry>
-    <title>基于Vue项目开发中遇到的坑及总结</title>
-    <url>/2017/08/10/%E5%9F%BA%E4%BA%8EVue%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91%E5%8F%8A%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<p>项目在5月底启动，属于创业公司的业务扩展吧，IOS和安卓都有成型的版本，所以要做一个对应的移动端H5版的达人、KTV、派对预订，入口是微信公众号，当然少不了jssdk的使用，以及balabala的授权处理等。</p>
-<span id="more"></span>
-<h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><hr>最初是考虑用React+Redux+Webpack，前后端完全分离，但考虑到人手不足，前后端暂时做不了完全分离，然后还有对React也不熟悉，项目时间等问题，然后就被Boss否了。
-最终用了更熟悉的Vue+Vuex+Webpack。主要还是因为更轻，API更加友好，上手速度更快，可以马上开工。
-比较遗憾的是因为各种原因前后端分离还不是很彻底，前端用的是smarty模板加js渲染页面。好处是首屏数据可以放到script标签里面直出，在进度条读完的时候页面就能够渲染出来了，提高首屏渲染时间。但是调试的时候十分麻烦，因为没有Node做中间层，每次都要在本地完整地跑个服务器，不然拿不到数据。
-Vue，Vuex，Vue-router，Webpack这些不了解的同学就去看看<a href="https://cn.vuejs.org/v2/guide/installation.html" target="_blank" rel="external">文档</a>。MV*框架用好了真的是极大地解放生产力，特别是页面的交互十分复杂的时候。
-
-<h2 id="项目过程中遇到的坑"><a href="#项目过程中遇到的坑" class="headerlink" title="项目过程中遇到的坑"></a>项目过程中遇到的坑</h2><hr>
-1. 遇到的第一个的坑就是transition。首页有一个滑动的banner，我是直接用css3的transition配合js定时改变transform实现的。滑动在chrome中模拟没问题，ios中没问题，但是安卓中就没有滑动，百思不得其解。起初还以为是兼容性问题，搞了好久才发现需要在css中先增加一个transform: translateX(0)，像下面一样，不然之后再通过js更改transform是没法在安卓中触发transition的。
-<pre>
-.slide-wp{
-    transform:  translateX(0);
-    -webkit-transform:  translateX(0);
-    transition: transform  1.5s ease;
-    -webkit-transition: transform 1.5s ease;
-}
-</pre>大家知道，transition的作用是令CSS的属性值在一定的时间区间内平滑地过渡。
-所以个人猜测，在安卓中，当没有初始值时，translateX的改动没有被平滑地过渡，就是说transition并不知道translateX是从什么地方开始过渡的，所以也就没有平滑之说，也就没有动画了。
-<hr>2. 第二个就是ES6。既然用了Webpack，当然就要配合Bebel用上ES6啦。写的时候还是很爽的。let，const，模块，箭头函数，字符串模版，对象属性简写，解构等等…但帅不过3秒，在chrome上模拟地跑一点问题都没有，一到移动端就直接白屏，页面都没有渲染出来。
-排查了好久，才发现是某些扩展运算符...，某些解构和for...of...循环的问题。因为这些ES6的特性（其实不指这些）在Bebel中转换是要用到[Symbol.iterator]接口的。如下面这样。
-转码前:
-<pre>1.const [a, b, c, d, e] = 'hello';
-2.console.log(a, b, c, d, e);//'h','e','l','l','o'</pre>
-转码后:
-<pre>1.'use strict';
-2.var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i['return']) _i['return'](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError('Invalid attempt to destructure non-iterable instance'); } }; })();
-3.
-4.var _hello = 'hello';
-5.
-6.var _hello2 = _slicedToArray(_hello, 5);
-7.
-8.var a = _hello2[0];
-9.var b = _hello2[1];
-10.var c = _hello2[2];
-11.var d = _hello2[3];
-12.var e = _hello2[4];
-13.
-14.console.log(a, b, c, d, e);//'h','e','l','l','o'</pre>
-第一行先声明的_slicedToArray函数用到了[Symbol.iterator]接口，然而浏览器对这个接口的支持还很有限，特别是移动端，只有Firefox Mobile36版本以上才支持，其它清一色挂掉。
-所以说ES6虽好，但真要用到实际项目中的话，还不能太激进，有些特性经过Bebel转码后性能上可能还会有所下降，所以还是应该合理地使用ES6。如果是自己折腾倒无所谓，Symbol，Class，Generator，Promise这些就随便炫技吧
-<hr>3. 第三个坑就是Vue使用的问题。如其说是坑，还是不如说是我自身还不够熟悉Vue。先看一下官方说明：
-<br><code>受 ES5 的限制，Vue.js 不能检测到对象属性的添加或删除。因为 Vue.js 在初始化实例时将属性转为 getter/setter，所以属性必须在 data 对象上才能让 Vue.js 转换它，才能让它是响应的。</code>
-<br>当时需要在props传来的某些对象数据中增加一个是否可视属性，用来控制一个与其关联的弹出框。增加后点击视图上一点反应都没有，但是用console.log打印出来发现值的确的有变化的。
-也就是说，<b>数据的变化不能触发视图更新。</b>原因就是如上面所说，因为这个属性是我后来添加的，不能被Vuejs检测到。这时候需要使用$set(key, value)这个API。
-话说里面的语法需要注意下，第一个参数key是一个字符串，是一个keypath，如果假如你的数据是这样:<pre>data(){
-            visitors : [{
-                    "id": 1,
-                    ...
-                }, {
-                    "id": 2,
-                    ...
-                }, {
-                    "id": 3,
-                    ...
-                }],
-        }
-    </pre>
-你需要在某次操作后为visitiors里面的每个对象增加一个show属性,则需要这样写：<pre>let str;
-         for (let i = 0 , len = this.visitors.length ; i < len; i++) {
-             str = "visitors[" + i + "].show";
-             this.$set(str,true);
-         }
-    </pre>
-之前真的被这东西搞了很久，明明数据变化了，视图却不更新。个人感觉新手刚使用Vue时很难发现这个问题。也怪自己对Vue，对ES5<code>getter/setter</code>的理解还不够吧。
-<hr>4. IOS上CSS3动画的问题。在对img或者设置了background-image的DOM元素设置CSS动画时，动画在刚进入页面的时候有可能不被触发，需要滑动一下屏幕动画才动，安卓下则没有问题。
-刚开始还以为是没有设置初始值的问题，但感觉不应该会是这样的。后来在stackoverflow上找到了解决办法(<a href="http://stackoverflow.com/questions/29219534/css-animation-not-always-starting-in-ios-8-safari" target="_blank" rel="external">戳这里</a>)。
-给动画加个0.1s秒的延时<pre>animation: slide 1.5s 0.1s linear infinite;
-    webkit-animation: slide 1.5s 0.1s linear infinite;
-</pre>
-
-<h2 id="关于Vuex"><a href="#关于Vuex" class="headerlink" title="关于Vuex"></a>关于Vuex</h2><hr>
-Vuex 之于 vue，就相当于 Redux 之于 React。它是一套数据管理架构实现，用于解决在大型前端应用时数据流动，数据管理等问题。
-
-<p>因为组件一旦多起来，不同组件之间的通信和数据流动会变得十分繁琐及难以追踪，特别是在子组件向同级子组件通信时，你可能需要先$dispatch到父组件，再$broadcast给子组件，整个事件流十分繁杂，也很难调试。<br>Vuex就是用来解决这些问题的。更具体的说明可以看文档，我就不过多叙述了。我就说一下我对Vuex的一些理解。</p>
-<p>Vuex里面的数据流是单向的,就像官方说的那样：</p>
-<ol>
-<li>用户在组件中的输入操作触发 action 调用；</li>
-<li>Actions 通过分发 mutations 来修改 store 实例的状态；</li>
-<li>Store 实例的状态变化反过来又通过 getters 被组件获知。</li>
-</ol>
-<p>而且为了保证数据是单向流动，并且是可监控和可预测的，除了在mutation handlers 外，其它地方不允许直接修改 store 里面的 state。</p>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-        <tag>Vue</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>四、JavaScript之变量对象</title>
     <url>/2019/07/12/%E5%8F%98%E9%87%8F%E5%AF%B9%E8%B1%A1/</url>
     <content><![CDATA[<p>在前面的文章<a href="https://hedahang.github.io/2019/06/26/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E6%A0%88/">《JavaScript之执行上下文栈》</a>中讲到，当 JavaScript 代码执行一段可执行代码(executable code)时，会创建对应的执行上下文(execution context)。</p>
@@ -1933,6 +1925,96 @@ Vuex 之于 vue，就相当于 Redux 之于 React。它是一套数据管理架�
       </categories>
       <tags>
         <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基于Vue项目开发中遇到的坑及总结</title>
+    <url>/2017/08/10/%E5%9F%BA%E4%BA%8EVue%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91%E5%8F%8A%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<p>项目在5月底启动，属于创业公司的业务扩展吧，IOS和安卓都有成型的版本，所以要做一个对应的移动端H5版的达人、KTV、派对预订，入口是微信公众号，当然少不了jssdk的使用，以及balabala的授权处理等。</p>
+<span id="more"></span>
+<h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><hr>最初是考虑用React+Redux+Webpack，前后端完全分离，但考虑到人手不足，前后端暂时做不了完全分离，然后还有对React也不熟悉，项目时间等问题，然后就被Boss否了。
+最终用了更熟悉的Vue+Vuex+Webpack。主要还是因为更轻，API更加友好，上手速度更快，可以马上开工。
+比较遗憾的是因为各种原因前后端分离还不是很彻底，前端用的是smarty模板加js渲染页面。好处是首屏数据可以放到script标签里面直出，在进度条读完的时候页面就能够渲染出来了，提高首屏渲染时间。但是调试的时候十分麻烦，因为没有Node做中间层，每次都要在本地完整地跑个服务器，不然拿不到数据。
+Vue，Vuex，Vue-router，Webpack这些不了解的同学就去看看<a href="https://cn.vuejs.org/v2/guide/installation.html" target="_blank" rel="external">文档</a>。MV*框架用好了真的是极大地解放生产力，特别是页面的交互十分复杂的时候。
+
+<h2 id="项目过程中遇到的坑"><a href="#项目过程中遇到的坑" class="headerlink" title="项目过程中遇到的坑"></a>项目过程中遇到的坑</h2><hr>
+1. 遇到的第一个的坑就是transition。首页有一个滑动的banner，我是直接用css3的transition配合js定时改变transform实现的。滑动在chrome中模拟没问题，ios中没问题，但是安卓中就没有滑动，百思不得其解。起初还以为是兼容性问题，搞了好久才发现需要在css中先增加一个transform: translateX(0)，像下面一样，不然之后再通过js更改transform是没法在安卓中触发transition的。
+<pre>
+.slide-wp{
+    transform:  translateX(0);
+    -webkit-transform:  translateX(0);
+    transition: transform  1.5s ease;
+    -webkit-transition: transform 1.5s ease;
+}
+</pre>大家知道，transition的作用是令CSS的属性值在一定的时间区间内平滑地过渡。
+所以个人猜测，在安卓中，当没有初始值时，translateX的改动没有被平滑地过渡，就是说transition并不知道translateX是从什么地方开始过渡的，所以也就没有平滑之说，也就没有动画了。
+<hr>2. 第二个就是ES6。既然用了Webpack，当然就要配合Bebel用上ES6啦。写的时候还是很爽的。let，const，模块，箭头函数，字符串模版，对象属性简写，解构等等…但帅不过3秒，在chrome上模拟地跑一点问题都没有，一到移动端就直接白屏，页面都没有渲染出来。
+排查了好久，才发现是某些扩展运算符...，某些解构和for...of...循环的问题。因为这些ES6的特性（其实不指这些）在Bebel中转换是要用到[Symbol.iterator]接口的。如下面这样。
+转码前:
+<pre>1.const [a, b, c, d, e] = 'hello';
+2.console.log(a, b, c, d, e);//'h','e','l','l','o'</pre>
+转码后:
+<pre>1.'use strict';
+2.var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i['return']) _i['return'](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError('Invalid attempt to destructure non-iterable instance'); } }; })();
+3.
+4.var _hello = 'hello';
+5.
+6.var _hello2 = _slicedToArray(_hello, 5);
+7.
+8.var a = _hello2[0];
+9.var b = _hello2[1];
+10.var c = _hello2[2];
+11.var d = _hello2[3];
+12.var e = _hello2[4];
+13.
+14.console.log(a, b, c, d, e);//'h','e','l','l','o'</pre>
+第一行先声明的_slicedToArray函数用到了[Symbol.iterator]接口，然而浏览器对这个接口的支持还很有限，特别是移动端，只有Firefox Mobile36版本以上才支持，其它清一色挂掉。
+所以说ES6虽好，但真要用到实际项目中的话，还不能太激进，有些特性经过Bebel转码后性能上可能还会有所下降，所以还是应该合理地使用ES6。如果是自己折腾倒无所谓，Symbol，Class，Generator，Promise这些就随便炫技吧
+<hr>3. 第三个坑就是Vue使用的问题。如其说是坑，还是不如说是我自身还不够熟悉Vue。先看一下官方说明：
+<br><code>受 ES5 的限制，Vue.js 不能检测到对象属性的添加或删除。因为 Vue.js 在初始化实例时将属性转为 getter/setter，所以属性必须在 data 对象上才能让 Vue.js 转换它，才能让它是响应的。</code>
+<br>当时需要在props传来的某些对象数据中增加一个是否可视属性，用来控制一个与其关联的弹出框。增加后点击视图上一点反应都没有，但是用console.log打印出来发现值的确的有变化的。
+也就是说，<b>数据的变化不能触发视图更新。</b>原因就是如上面所说，因为这个属性是我后来添加的，不能被Vuejs检测到。这时候需要使用$set(key, value)这个API。
+话说里面的语法需要注意下，第一个参数key是一个字符串，是一个keypath，如果假如你的数据是这样:<pre>data(){
+            visitors : [{
+                    "id": 1,
+                    ...
+                }, {
+                    "id": 2,
+                    ...
+                }, {
+                    "id": 3,
+                    ...
+                }],
+        }
+    </pre>
+你需要在某次操作后为visitiors里面的每个对象增加一个show属性,则需要这样写：<pre>let str;
+         for (let i = 0 , len = this.visitors.length ; i < len; i++) {
+             str = "visitors[" + i + "].show";
+             this.$set(str,true);
+         }
+    </pre>
+之前真的被这东西搞了很久，明明数据变化了，视图却不更新。个人感觉新手刚使用Vue时很难发现这个问题。也怪自己对Vue，对ES5<code>getter/setter</code>的理解还不够吧。
+<hr>4. IOS上CSS3动画的问题。在对img或者设置了background-image的DOM元素设置CSS动画时，动画在刚进入页面的时候有可能不被触发，需要滑动一下屏幕动画才动，安卓下则没有问题。
+刚开始还以为是没有设置初始值的问题，但感觉不应该会是这样的。后来在stackoverflow上找到了解决办法(<a href="http://stackoverflow.com/questions/29219534/css-animation-not-always-starting-in-ios-8-safari" target="_blank" rel="external">戳这里</a>)。
+给动画加个0.1s秒的延时<pre>animation: slide 1.5s 0.1s linear infinite;
+    webkit-animation: slide 1.5s 0.1s linear infinite;
+</pre>
+
+<h2 id="关于Vuex"><a href="#关于Vuex" class="headerlink" title="关于Vuex"></a>关于Vuex</h2><hr>
+Vuex 之于 vue，就相当于 Redux 之于 React。它是一套数据管理架构实现，用于解决在大型前端应用时数据流动，数据管理等问题。
+
+<p>因为组件一旦多起来，不同组件之间的通信和数据流动会变得十分繁琐及难以追踪，特别是在子组件向同级子组件通信时，你可能需要先$dispatch到父组件，再$broadcast给子组件，整个事件流十分繁杂，也很难调试。<br>Vuex就是用来解决这些问题的。更具体的说明可以看文档，我就不过多叙述了。我就说一下我对Vuex的一些理解。</p>
+<p>Vuex里面的数据流是单向的,就像官方说的那样：</p>
+<ol>
+<li>用户在组件中的输入操作触发 action 调用；</li>
+<li>Actions 通过分发 mutations 来修改 store 实例的状态；</li>
+<li>Store 实例的状态变化反过来又通过 getters 被组件获知。</li>
+</ol>
+<p>而且为了保证数据是单向流动，并且是可监控和可预测的，除了在mutation handlers 外，其它地方不允许直接修改 store 里面的 state。</p>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>Vue</tag>
       </tags>
   </entry>
   <entry>
@@ -2182,34 +2264,6 @@ if(r==null)alert(&#39;Date format error!&#39;);
       </tags>
   </entry>
   <entry>
-    <title>三、JavaScript之执行上下文栈</title>
-    <url>/2019/06/26/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E6%A0%88/</url>
-    <content><![CDATA[<p>由于JS是单线程的，每次只能做一件事情，其他的事情会放在指定的上下文栈中排队等待执行，所以执行上下文栈的作用是用来跟踪代码的，。</p>
-<p>JS解释器在初始化代码的时候，首先会创建一个新的全局执行上下文到执行上下文栈顶中，然后随着每次函数的调用都会创建一个新的执行上下文放入到栈顶中，随着函数执行完毕后被执行上下文栈顶弹出，直到回到全局的执行上下文中。（栈：一种数据结构，遵循后进先出的原则）。下面我们说说执行上下文栈是如何工作的。</p>
-<span id="more"></span>
-<p>为了模拟执行上下文栈的行为，让我们定义执行上下文栈是一个数组：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ECStack = [];</span><br></pre></td></tr></table></figure>
-<p>当 JavaScript 开始要解释执行代码的时候，最先遇到的就是全局代码，所以初始化的时候首先就会向执行上下文栈压入一个全局执行上下文，我们用 globalContext 表示它，并且只有当整个应用程序结束的时候，ECStack 才会被清空，所以程序结束之前， ECStack 最底部永远有个 globalContext：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ECStack = [</span><br><span class="line">    globalContext</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
-<p>现在我们执行下面这段代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var color = &#x27;blue&#x27;;</span><br><span class="line">function changeColor() &#123;</span><br><span class="line">    var anotherColor = &#x27;red&#x27;;</span><br><span class="line">    function swapColors() &#123;</span><br><span class="line">        var tempColor = anotherColor;</span><br><span class="line">        anotherColor = color;</span><br><span class="line">        color = tempColor;</span><br><span class="line">    &#125;</span><br><span class="line">    swapColors();</span><br><span class="line">&#125;</span><br><span class="line">changeColor();</span><br></pre></td></tr></table></figure>
-<p>上述代码运行按照如下步骤：</p>
-<ul>
-<li>当上述代码在浏览器中加载时，JavaScript 引擎会创建一个全局执行上下文并且将它推入当前的执行栈</li>
-<li>调用 changeColor函数时，此时changeColor函数内部代码还未执行，js执行引擎立即创建一个changeColor的执行上下文（简称EC），然后把这执行上下文压入到执行栈（简称ECStack）中。</li>
-<li>执行changeColor函数过程中，调用swapColors函数，同样地，swapColors函数执行之前也创建了一个swapColors的执行上下文，并压入到执行栈中。</li>
-<li>swapColors函数执行完成，swapColors函数的执行上下文出栈，并且被销毁。</li>
-<li>changeColor函数执行完成，changeColor函数的执行上下文出栈，并且被销毁。<br><img src="/images/esstack.png" alt="(流程图)"></li>
-</ul>
-]]></content>
-      <categories>
-        <category>深入理解JavaScript系列笔记</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>七、JavaScript之执行上下文</title>
     <url>/2019/08/26/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/</url>
     <content><![CDATA[<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>每次当控制器转到 ECMAScript 可执行代码的时候，即会进入到一个执行上下文。执行上下文(简称-EC)是 ECMA-262 标准里的一个抽象概念，用于同可执行代码(executable code)概念进行区分。</p>
@@ -2265,27 +2319,28 @@ if(r==null)alert(&#39;Date format error!&#39;);
       </tags>
   </entry>
   <entry>
-    <title>六、JavaScript专题之数组取最大值和最小值</title>
-    <url>/2020/03/06/%E6%95%B0%E7%BB%84%E5%8F%96%E6%9C%80%E5%80%BC/</url>
-    <content><![CDATA[<p>数组取最大值、最小值的常用实现方式：</p>
+    <title>三、JavaScript之执行上下文栈</title>
+    <url>/2019/06/26/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E6%A0%88/</url>
+    <content><![CDATA[<p>由于JS是单线程的，每次只能做一件事情，其他的事情会放在指定的上下文栈中排队等待执行，所以执行上下文栈的作用是用来跟踪代码的，。</p>
+<p>JS解释器在初始化代码的时候，首先会创建一个新的全局执行上下文到执行上下文栈顶中，然后随着每次函数的调用都会创建一个新的执行上下文放入到栈顶中，随着函数执行完毕后被执行上下文栈顶弹出，直到回到全局的执行上下文中。（栈：一种数据结构，遵循后进先出的原则）。下面我们说说执行上下文栈是如何工作的。</p>
 <span id="more"></span>
-
-<h2 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">11</span>, <span class="number">22</span>, <span class="number">33</span>, <span class="number">44</span>, <span class="number">22</span>, <span class="number">15</span>, <span class="number">76</span>];</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.max.apply(<span class="literal">null</span>, arr));</span><br></pre></td></tr></table></figure>
-
-<h2 id="循环遍历"><a href="#循环遍历" class="headerlink" title="循环遍历"></a>循环遍历</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">11</span>, <span class="number">22</span>, <span class="number">33</span>, <span class="number">44</span>, <span class="number">22</span>, <span class="number">15</span>, <span class="number">76</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result = arr[<span class="number">0</span>];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">1</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">  result = <span class="built_in">Math</span>.max(result, arr[i]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(result);</span><br></pre></td></tr></table></figure>
-
-<h2 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">11</span>, <span class="number">22</span>, <span class="number">33</span>, <span class="number">44</span>, <span class="number">22</span>, <span class="number">15</span>, <span class="number">76</span>];</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.max(...arr));</span><br></pre></td></tr></table></figure>
-
-<h2 id="排序取值"><a href="#排序取值" class="headerlink" title="排序取值"></a>排序取值</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">11</span>, <span class="number">22</span>, <span class="number">33</span>, <span class="number">44</span>, <span class="number">22</span>, <span class="number">15</span>, <span class="number">76</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">max</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> arr</span><br><span class="line">    .sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a - b)</span><br><span class="line">    .slice()</span><br><span class="line">    .pop();</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(max(arr));</span><br></pre></td></tr></table></figure>
-
-<h2 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">11</span>, <span class="number">22</span>, <span class="number">33</span>, <span class="number">44</span>, <span class="number">22</span>, <span class="number">15</span>, <span class="number">76</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">max</span>(<span class="params">prev, next</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Math</span>.max(prev, next);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(arr.reduce(max));</span><br></pre></td></tr></table></figure>
-
-<h2 id="eval"><a href="#eval" class="headerlink" title="eval"></a>eval</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">11</span>, <span class="number">22</span>, <span class="number">33</span>, <span class="number">44</span>, <span class="number">22</span>, <span class="number">15</span>, <span class="number">76</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> max = <span class="built_in">eval</span>(<span class="string">&quot;Math.max(&quot;</span> + arr + <span class="string">&quot;)&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(max);</span><br></pre></td></tr></table></figure>
-
-<p>暂时总结到这里，后续再补充。</p>
+<p>为了模拟执行上下文栈的行为，让我们定义执行上下文栈是一个数组：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ECStack = [];</span><br></pre></td></tr></table></figure>
+<p>当 JavaScript 开始要解释执行代码的时候，最先遇到的就是全局代码，所以初始化的时候首先就会向执行上下文栈压入一个全局执行上下文，我们用 globalContext 表示它，并且只有当整个应用程序结束的时候，ECStack 才会被清空，所以程序结束之前， ECStack 最底部永远有个 globalContext：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ECStack = [</span><br><span class="line">    globalContext</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+<p>现在我们执行下面这段代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var color = &#x27;blue&#x27;;</span><br><span class="line">function changeColor() &#123;</span><br><span class="line">    var anotherColor = &#x27;red&#x27;;</span><br><span class="line">    function swapColors() &#123;</span><br><span class="line">        var tempColor = anotherColor;</span><br><span class="line">        anotherColor = color;</span><br><span class="line">        color = tempColor;</span><br><span class="line">    &#125;</span><br><span class="line">    swapColors();</span><br><span class="line">&#125;</span><br><span class="line">changeColor();</span><br></pre></td></tr></table></figure>
+<p>上述代码运行按照如下步骤：</p>
+<ul>
+<li>当上述代码在浏览器中加载时，JavaScript 引擎会创建一个全局执行上下文并且将它推入当前的执行栈</li>
+<li>调用 changeColor函数时，此时changeColor函数内部代码还未执行，js执行引擎立即创建一个changeColor的执行上下文（简称EC），然后把这执行上下文压入到执行栈（简称ECStack）中。</li>
+<li>执行changeColor函数过程中，调用swapColors函数，同样地，swapColors函数执行之前也创建了一个swapColors的执行上下文，并压入到执行栈中。</li>
+<li>swapColors函数执行完成，swapColors函数的执行上下文出栈，并且被销毁。</li>
+<li>changeColor函数执行完成，changeColor函数的执行上下文出栈，并且被销毁。<br><img src="/images/esstack.png" alt="(流程图)"></li>
+</ul>
 ]]></content>
       <categories>
-        <category>JavaScript专题系列笔记</category>
+        <category>深入理解JavaScript系列笔记</category>
       </categories>
       <tags>
         <tag>JavaScript</tag>
@@ -2317,6 +2372,33 @@ if(r==null)alert(&#39;Date format error!&#39;);
 <h2 id="利用-ES6-的-set"><a href="#利用-ES6-的-set" class="headerlink" title="利用 ES6 的 set"></a>利用 ES6 的 set</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 利用Array.from将Set结构转换成数组</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">uniq</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Array</span>.from(<span class="keyword">new</span> <span class="built_in">Set</span>(arr));</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 或者</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">unique</span>(<span class="params">array</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> [...new <span class="built_in">Set</span>(array)];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>去重的方式有很多，我们需要知道在合适的场景要选择合适的方法，这样才能达到最优。</p>
+]]></content>
+      <categories>
+        <category>JavaScript专题系列笔记</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>六、JavaScript专题之数组取最大值和最小值</title>
+    <url>/2020/03/06/%E6%95%B0%E7%BB%84%E5%8F%96%E6%9C%80%E5%80%BC/</url>
+    <content><![CDATA[<p>数组取最大值、最小值的常用实现方式：</p>
+<span id="more"></span>
+
+<h2 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">11</span>, <span class="number">22</span>, <span class="number">33</span>, <span class="number">44</span>, <span class="number">22</span>, <span class="number">15</span>, <span class="number">76</span>];</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.max.apply(<span class="literal">null</span>, arr));</span><br></pre></td></tr></table></figure>
+
+<h2 id="循环遍历"><a href="#循环遍历" class="headerlink" title="循环遍历"></a>循环遍历</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">11</span>, <span class="number">22</span>, <span class="number">33</span>, <span class="number">44</span>, <span class="number">22</span>, <span class="number">15</span>, <span class="number">76</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result = arr[<span class="number">0</span>];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">1</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">  result = <span class="built_in">Math</span>.max(result, arr[i]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(result);</span><br></pre></td></tr></table></figure>
+
+<h2 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">11</span>, <span class="number">22</span>, <span class="number">33</span>, <span class="number">44</span>, <span class="number">22</span>, <span class="number">15</span>, <span class="number">76</span>];</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.max(...arr));</span><br></pre></td></tr></table></figure>
+
+<h2 id="排序取值"><a href="#排序取值" class="headerlink" title="排序取值"></a>排序取值</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">11</span>, <span class="number">22</span>, <span class="number">33</span>, <span class="number">44</span>, <span class="number">22</span>, <span class="number">15</span>, <span class="number">76</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">max</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> arr</span><br><span class="line">    .sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a - b)</span><br><span class="line">    .slice()</span><br><span class="line">    .pop();</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(max(arr));</span><br></pre></td></tr></table></figure>
+
+<h2 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">11</span>, <span class="number">22</span>, <span class="number">33</span>, <span class="number">44</span>, <span class="number">22</span>, <span class="number">15</span>, <span class="number">76</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">max</span>(<span class="params">prev, next</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Math</span>.max(prev, next);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(arr.reduce(max));</span><br></pre></td></tr></table></figure>
+
+<h2 id="eval"><a href="#eval" class="headerlink" title="eval"></a>eval</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">11</span>, <span class="number">22</span>, <span class="number">33</span>, <span class="number">44</span>, <span class="number">22</span>, <span class="number">15</span>, <span class="number">76</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> max = <span class="built_in">eval</span>(<span class="string">&quot;Math.max(&quot;</span> + arr + <span class="string">&quot;)&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(max);</span><br></pre></td></tr></table></figure>
+
+<p>暂时总结到这里，后续再补充。</p>
 ]]></content>
       <categories>
         <category>JavaScript专题系列笔记</category>
@@ -2443,31 +2525,6 @@ if(r==null)alert(&#39;Date format error!&#39;);
       <tags>
         <tag>JS</tag>
         <tag>IOS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【加载更多】插件</title>
-    <url>/2017/08/15/%E5%8A%A0%E8%BD%BD%E6%9B%B4%E5%A4%9A%E6%8F%92%E4%BB%B6%E5%B0%81%E8%A3%85/</url>
-    <content><![CDATA[<p>关于如何实现『加载更多』功能，网上有插件可用，例如比较著名的使用iscroll.js实现的上拉加载更多、下拉刷新功能。</p>
-<p>但实际用起来却是很麻烦。由于是第三方插件，要按照对方定义的方法使用，用起来总感觉很不顺心。再加上iscroll.js本身并没有集成加载更多的功能，需要进行自行扩展。想继续使用iscroll.js实现加载更多功能的，上面给的链接可以看看。</p>
-<p>h5项目里需要实现简单的分页功能，由于是移动端，考虑用『加载更多』会更好，而不是PC端的翻页。</p>
-<hr>
-<span id="more"></span>
-<p><strong>JS代码：</strong></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * loadmore.js</span></span><br><span class="line"><span class="comment"> * 加载更多</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @time 2017-7-08 15:40:25</span></span><br><span class="line"><span class="comment"> * @author munachar</span></span><br><span class="line"><span class="comment"> * 可以传的参数默认有：size,scroll 可以自定义</span></span><br><span class="line"><span class="comment"> * */</span></span><br><span class="line"></span><br><span class="line">;(<span class="function"><span class="keyword">function</span>(<span class="params">w,$</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">var</span> loadmore = &#123;</span><br><span class="line">         <span class="comment">/*单页加载更多 通用方法</span></span><br><span class="line"><span class="comment">          *</span></span><br><span class="line"><span class="comment">          * @param callback 回调方法</span></span><br><span class="line"><span class="comment">          * @param config 自定义参数</span></span><br><span class="line"><span class="comment">          * */</span></span><br><span class="line">         <span class="attr">get</span> : <span class="function"><span class="keyword">function</span>(<span class="params">callback, config</span>)</span>&#123;</span><br><span class="line">             <span class="keyword">var</span> config = config ? config : &#123;&#125;; <span class="comment">/*防止未传参数报错*/</span></span><br><span class="line">             <span class="keyword">var</span> counter = <span class="number">1</span>; <span class="comment">/*计数器*/</span></span><br><span class="line">             <span class="keyword">var</span> pageStart = config.size ? config.size : <span class="number">10</span>;</span><br><span class="line">             <span class="keyword">var</span> pageSize = config.size ? config.size : <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">             <span class="comment">/*通过自动监听滚动事件加载更多,可选支持*/</span></span><br><span class="line">             config.isEnd = <span class="literal">false</span>; <span class="comment">/*结束标志*/</span></span><br><span class="line">             config.isAjax = <span class="literal">false</span>; <span class="comment">/*防止滚动过快，服务端没来得及响应造成多次请求*/</span></span><br><span class="line">             $(config.ele).scroll(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                 <span class="comment">/*是否开启滚动加载*/</span></span><br><span class="line">                 <span class="keyword">if</span>(!config.scroll)&#123;</span><br><span class="line">                     <span class="keyword">return</span>;</span><br><span class="line">                 &#125;</span><br><span class="line">                 <span class="comment">/*滚动加载时如果已经没有更多的数据了、正在发生请求时，不能继续进行*/</span></span><br><span class="line">                 <span class="keyword">if</span>(config.isEnd == <span class="literal">true</span> || config.isAjax == <span class="literal">true</span>)&#123;</span><br><span class="line">                     <span class="keyword">return</span>;</span><br><span class="line">                 &#125;</span><br><span class="line">                 <span class="comment">/*当滚动到最底部以上100像素时， 加载新内容*/</span></span><br><span class="line">                 <span class="keyword">if</span> ($(<span class="built_in">this</span>).find(<span class="string">&quot;ul&quot;</span>).height() - $(<span class="built_in">this</span>).scrollTop() - $(<span class="built_in">this</span>).height()&lt;<span class="number">100</span>)&#123;</span><br><span class="line">                     counter ++;</span><br><span class="line">                     pageStart = counter * pageSize;</span><br><span class="line">                     callback &amp;&amp; callback.call( $(config.ele),config, pageStart, pageSize);</span><br><span class="line">                 &#125;</span><br><span class="line">             &#125;);</span><br><span class="line">             <span class="comment">/*第一次自动加载*/</span></span><br><span class="line">             callback &amp;&amp; callback.call( $(config.ele),config, pageStart, pageSize);</span><br><span class="line">         &#125;,</span><br><span class="line">     &#125;</span><br><span class="line">     $.loadmore = loadmore;</span><br><span class="line"> &#125;)(<span class="built_in">window</span>, <span class="built_in">window</span>.jQuery || <span class="built_in">window</span>.Zepto);</span><br></pre></td></tr></table></figure>
-<p><strong>如何调用：</strong></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">$.loadmore.get(getData, &#123;</span><br><span class="line">                <span class="attr">ele</span>:<span class="built_in">window</span>,  <span class="comment">// 绑定滚动监听元素 默认是window</span></span><br><span class="line">                <span class="attr">scroll</span>: <span class="literal">true</span>,  <span class="comment">//默认是false,是否支持滚动加载</span></span><br><span class="line">                <span class="attr">size</span>:<span class="number">10</span>,  <span class="comment">//默认是10</span></span><br><span class="line">                <span class="attr">flag</span>: <span class="number">1</span>, <span class="comment">//自定义参数，可选，示例里没有用到</span></span><br><span class="line">            &#125;);</span><br></pre></td></tr></table></figure>
-<p>第一个参数是回调函数，即我们的业务逻辑。我把我的业务逻辑方法贴出来：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params">config, offset,size</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">    config.isAjax = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        <span class="attr">type</span>: <span class="string">&#x27;GET&#x27;</span>,</span><br><span class="line">        <span class="attr">url</span>: <span class="string">&#x27;json/blog.json&#x27;</span>,</span><br><span class="line">        <span class="attr">dataType</span>: <span class="string">&#x27;json&#x27;</span>,</span><br><span class="line">        <span class="attr">success</span>: <span class="function"><span class="keyword">function</span>(<span class="params">reponse</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">            config.isAjax = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">var</span> data = reponse.list;</span><br><span class="line">            <span class="keyword">var</span> sum = reponse.list.length;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">var</span> result = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/************业务逻辑块：实现拼接html内容并append到页面*****************/</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">//console.log(offset , size, sum);</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">/*如果剩下的记录数不够分页，就让分页数取剩下的记录数</span></span><br><span class="line"><span class="comment">            * 例如分页数是5，只剩2条，则只取2条</span></span><br><span class="line"><span class="comment">            *</span></span><br><span class="line"><span class="comment">            * 实际MySQL查询时不写这个</span></span><br><span class="line"><span class="comment">            */</span></span><br><span class="line">            <span class="keyword">if</span>(sum - offset &lt; size )&#123;</span><br><span class="line">                size = sum - offset;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="comment">/*使用for循环模拟SQL里的limit(offset,size)*/</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">var</span> i=offset; i&lt; (offset+size); i++)&#123;</span><br><span class="line">                result +=<span class="string">&#x27;&lt;div class=&quot;weui_media_box weui_media_text&quot;&gt;&#x27;</span>+</span><br><span class="line">                        <span class="string">&#x27;&lt;a href=&quot;&#x27;</span>+ data[i].url +<span class="string">&#x27;&quot; target=&quot;_blank&quot;&gt;&lt;h4 class=&quot;weui_media_title&quot;&gt;&#x27;</span>+ data[i].title +<span class="string">&#x27;&lt;/h4&gt;&lt;/a&gt;&#x27;</span>+</span><br><span class="line">                        <span class="string">&#x27;&lt;p class=&quot;weui_media_desc&quot;&gt;&#x27;</span>+ data[i].desc +<span class="string">&#x27;&lt;/p&gt;&#x27;</span>+</span><br><span class="line">                    <span class="string">&#x27;&lt;/div&gt;&#x27;</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            $(<span class="string">&#x27;.js-blog-list&#x27;</span>).append(result);</span><br><span class="line"></span><br><span class="line">            <span class="comment">/*******************************************/</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">/*隐藏more*/</span></span><br><span class="line">            <span class="keyword">if</span> ( (offset + size) &gt;= sum)&#123;</span><br><span class="line">                $(<span class="string">&quot;.js-load-more&quot;</span>).hide();</span><br><span class="line">                config.isEnd = <span class="literal">true</span>; <span class="comment">/*停止滚动加载请求*/</span></span><br><span class="line">                <span class="comment">//提示没有了</span></span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                $(<span class="string">&quot;.js-load-more&quot;</span>).show();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">error</span>: <span class="function"><span class="keyword">function</span>(<span class="params">xhr, type</span>)</span>&#123;</span><br><span class="line">            alert(<span class="string">&#x27;Ajax error!&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>以上仅贴出核心代码，详细案列：<a href="https://github.com/hedahang/loadingMoreUp">@Munachar</a></p>
-]]></content>
-      <categories>
-        <category>JS</category>
-      </categories>
-      <tags>
-        <tag>JS</tag>
-        <tag>jQuery</tag>
       </tags>
   </entry>
   <entry>
@@ -2728,52 +2785,6 @@ var five = add(two, three);
       </tags>
   </entry>
   <entry>
-    <title>模板引擎、字节转换、map函数</title>
-    <url>/2016/06/23/%E9%9D%A2%E8%AF%95%E9%A2%98/</url>
-    <content><![CDATA[<h5 id="1-模板引擎"><a href="#1-模板引擎" class="headerlink" title="1. 模板引擎"></a>1. 模板引擎</h5><pre><code>var reg = /\$\&#123;[a-zA-Z]+\&#125;/g;
-var tpl = &quot;hello $&#123;who&#125;!&quot;;
-var obj = &#123;who:&quot;world&quot;&#125;;
-function template(tpl,obj)&#123;
-        var s = reg.exec(tpl);
-        var s1 = s[0].slice(2,-1);
-        document.write(tpl.replace(reg,obj[s1]));
-    &#125;
-    //template(tpl,obj);
-    template(&#39;Hello,$&#123;name&#125;&#39;,&#123;name:&quot;hedahang&quot;&#125;);
-</code></pre>
-<span id="more"></span>
-<h5 id="2-字节转换"><a href="#2-字节转换" class="headerlink" title="2. 字节转换"></a>2. 字节转换</h5><pre><code>&lt;pre&gt;function bytesToSize(bytes) &#123;
-    if (bytes === 0) return &#39;0 B&#39;;
-    var k = 1024,
-            sizes = [&#39;B&#39;, &#39;KB&#39;, &#39;MB&#39;, &#39;GB&#39;, &#39;TB&#39;, &#39;PB&#39;, &#39;EB&#39;, &#39;ZB&#39;, &#39;YB&#39;],
-            i = Math.floor(Math.log(bytes) / Math.log(k));
-    return (bytes / Math.pow(k, i)).toPrecision(3) + &#39; &#39; + sizes[i];
-&#125;
-console.log( bytesToSize(12345));&lt;/pre&gt;
-</code></pre>
-<h5 id="3-map函数"><a href="#3-map函数" class="headerlink" title="3. map函数"></a>3. map函数</h5><pre><code>&lt;pre&gt;function map(arr,fun)&#123;
-    var array = [];
-    for(var i = 0;i&lt;arr.length;i++)&#123;
-        if( i == 0)&#123;
-            array[i] = fun(0,arr[i]);
-        &#125;else&#123;
-            array[i] = fun(arr[i-1],arr[i])
-        &#125;
-    console.log(array);
-    &#125;
-&#125;
-map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
-</code></pre>
-]]></content>
-      <categories>
-        <category>Testing</category>
-      </categories>
-      <tags>
-        <tag>JS</tag>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>七、JavaScript之闭包</title>
     <url>/2019/09/01/%E9%97%AD%E5%8C%85/</url>
     <content><![CDATA[<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>闭包在 MDN 中的定义：</p>
@@ -2895,6 +2906,52 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
       </tags>
   </entry>
   <entry>
+    <title>模板引擎、字节转换、map函数</title>
+    <url>/2016/06/23/%E9%9D%A2%E8%AF%95%E9%A2%98/</url>
+    <content><![CDATA[<h5 id="1-模板引擎"><a href="#1-模板引擎" class="headerlink" title="1. 模板引擎"></a>1. 模板引擎</h5><pre><code>var reg = /\$\&#123;[a-zA-Z]+\&#125;/g;
+var tpl = &quot;hello $&#123;who&#125;!&quot;;
+var obj = &#123;who:&quot;world&quot;&#125;;
+function template(tpl,obj)&#123;
+        var s = reg.exec(tpl);
+        var s1 = s[0].slice(2,-1);
+        document.write(tpl.replace(reg,obj[s1]));
+    &#125;
+    //template(tpl,obj);
+    template(&#39;Hello,$&#123;name&#125;&#39;,&#123;name:&quot;hedahang&quot;&#125;);
+</code></pre>
+<span id="more"></span>
+<h5 id="2-字节转换"><a href="#2-字节转换" class="headerlink" title="2. 字节转换"></a>2. 字节转换</h5><pre><code>&lt;pre&gt;function bytesToSize(bytes) &#123;
+    if (bytes === 0) return &#39;0 B&#39;;
+    var k = 1024,
+            sizes = [&#39;B&#39;, &#39;KB&#39;, &#39;MB&#39;, &#39;GB&#39;, &#39;TB&#39;, &#39;PB&#39;, &#39;EB&#39;, &#39;ZB&#39;, &#39;YB&#39;],
+            i = Math.floor(Math.log(bytes) / Math.log(k));
+    return (bytes / Math.pow(k, i)).toPrecision(3) + &#39; &#39; + sizes[i];
+&#125;
+console.log( bytesToSize(12345));&lt;/pre&gt;
+</code></pre>
+<h5 id="3-map函数"><a href="#3-map函数" class="headerlink" title="3. map函数"></a>3. map函数</h5><pre><code>&lt;pre&gt;function map(arr,fun)&#123;
+    var array = [];
+    for(var i = 0;i&lt;arr.length;i++)&#123;
+        if( i == 0)&#123;
+            array[i] = fun(0,arr[i]);
+        &#125;else&#123;
+            array[i] = fun(arr[i-1],arr[i])
+        &#125;
+    console.log(array);
+    &#125;
+&#125;
+map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
+</code></pre>
+]]></content>
+      <categories>
+        <category>Testing</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Markdown编辑器：马克飞象</title>
     <url>/2016/07/23/%E9%A9%AC%E5%85%8B%E9%A3%9E%E8%B1%A1/</url>
     <content><![CDATA[<h1 id="欢迎使用马克飞象"><a href="#欢迎使用马克飞象" class="headerlink" title="欢迎使用马克飞象"></a>欢迎使用马克飞象</h1><p>@(示例笔记本)[马克飞象|帮助|Markdown]</p>
@@ -2975,7 +3032,7 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
 <h2 id="关于收费"><a href="#关于收费" class="headerlink" title="关于收费"></a>关于收费</h2><p><strong>马克飞象</strong>为新用户提供 10 天的试用期，试用期过后需要<a href="maxiang.info/vip.html">续费</a>才能继续使用。未购买或者未及时续费，将不能同步新的笔记。之前保存过的笔记依然可以编辑。</p>
 <h2 id="反馈与建议"><a href="#反馈与建议" class="headerlink" title="反馈与建议"></a>反馈与建议</h2><ul>
 <li>微博：<a href="http://weibo.com/u/2788354117">@马克飞象</a>，<a href="http://weibo.com/ggock" title="开发者个人账号">@GGock</a></li>
-<li>邮箱：<a href="mailto:&#104;&#x75;&#x73;&#x74;&#103;&#x6f;&#99;&#107;&#64;&#x67;&#109;&#x61;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;">&#104;&#x75;&#x73;&#x74;&#103;&#x6f;&#99;&#107;&#64;&#x67;&#109;&#x61;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;</a></li>
+<li>邮箱：<a href="mailto:&#x68;&#117;&#x73;&#x74;&#103;&#x6f;&#x63;&#x6b;&#64;&#x67;&#x6d;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#x6d;">&#x68;&#117;&#x73;&#x74;&#103;&#x6f;&#x63;&#x6b;&#64;&#x67;&#x6d;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#x6d;</a></li>
 </ul>
 <hr>
 <p>感谢阅读这份帮助文档。请点击右上角，绑定印象笔记账号，开启全新的记录与分享体验吧。</p>
