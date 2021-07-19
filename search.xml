@@ -84,84 +84,63 @@
       </tags>
   </entry>
   <entry>
-    <title>H5新特性</title>
-    <url>/2016/07/10/H5%E6%96%B0%E7%89%B9%E6%80%A7/</url>
-    <content><![CDATA[<h3 id="表单新特性————新的-input-type"><a href="#表单新特性————新的-input-type" class="headerlink" title="表单新特性————新的 input type"></a>表单新特性————新的 input type</h3><pre><code>&lt;input type=&quot;?&quot;&gt;
+    <title>H5新特性——音视频</title>
+    <url>/2016/07/11/H5%E6%96%B0%E7%89%B9%E6%80%A7%E2%80%94%E2%80%94%E8%A7%86%E9%A2%91/</url>
+    <content><![CDATA[<p>HTML5 之前在页面播放需要使用 flash 播放器；HTML5 添加两个标签：</p>
+<pre><code>&lt;video&gt;&lt;/video&gt;
+&lt;audio&gt;&lt;/audio&gt;
 </code></pre>
-<p>1.1 原有的 type:</p>
-<pre><code>text、password、radio、checkbox、hidden、file、image、button、submit、reset
-</code></pre>
+<p>这两个标签有一些特殊属性、事件、方法。</p>
 <span id="more"></span>
-<p>1.2 新增的 type:</p>
-<pre><code>email、search、url、tel、number、range、color、date、week、month
-
-1. email:  要求输入必需符合邮箱格式  xx@xx
-2. url:  要求输入必需符合URL格式  xx:yy
-3. tel:  无输入格式验证，在手机中弹出的数字键盘，而不是字母键盘
-4. number: 要求输入一个整型数字，可以配合max/min/step新属性使用
-5. search: Chrome中会显示一个x号
-6. range: 范围选择器、滑块，可以配合max/min/step新属性使用
-7. color：颜色选择器，Chrome/FF偷懒了，都直接使用操作系统自带的颜色选择器
-8. date：日期选择器，FF不支持
-9. month：月份选择器，FF不支持
-10. week：星期选择器，FF不支持
+<h3 id="HTML5-新特性——视频"><a href="#HTML5-新特性——视频" class="headerlink" title="HTML5 新特性——视频"></a>HTML5 新特性——视频</h3><p>1.Video 标签可用的属性：</p>
+<pre><code>(1)src：待播放的资源的URL
+(2)width：播放区域的宽度
+(3)height：播放区域的高度
+(4)controls：是否显示播放控件，默认不显示
+(5)autoplay：是否自动播放，默认不自动播放
+(6)loop：是否循环播放，默认不循环
+(7)preload：如何预加载视频，可以赋值为
+    “none”：不预加载
+    “metadata”：只预加载元数据，如影片宽、高、大小、时长
+    “auto”：（默认值）自动预加载元数据以及部分影片数据
+(8)poster：影片播放之前显示的“电影海报”
 </code></pre>
-<!-- more -->
-
-<blockquote>
-<p>提示：<br>(1) HTML5 新添的 input type 存在严重的兼容性问题！<br>(2) 新特性弹出的提示消息本质是“窗口”，不是 HTML 元素，无法使用 JS、CSS 进行控制！</p>
-</blockquote>
-<h3 id="表单新特性————新的表单元素"><a href="#表单新特性————新的表单元素" class="headerlink" title="表单新特性————新的表单元素"></a>表单新特性————新的表单元素</h3><p>2.1 原有的表单输入元素：<br>input、textarea、select/option<br>2.2 新增的表单元素</p>
-<pre><code>(1)&lt;datalist&gt;&lt;/datalist&gt;        数据列表，本身是不可见元素，为某个input提供可选输入的列表，使用方法：
-    &lt;datalist id=&quot;LISTID&quot;&gt;&lt;option&gt;选项名&lt;/option&gt;&lt;/datalist&gt;
-    &lt;input type=&quot;text&quot; list=&quot;LISTID&quot;&gt;
-
-(2)&lt;progress&gt;&lt;/progress&gt;    进度条，仅用于进度的提示，不能被用户操作，也不会被提交。
-    &lt;progress value=&quot;0.5&quot;&gt;&lt;/progress&gt;
-
-(3)&lt;meter&gt;&lt;/meter&gt;        刻度尺，仅用于水平/数量的提示，不能被用户操作，也不会被提交。需要指定如下属性：
-    &lt;meter min=&quot;最小值&quot; max=&quot;最大值&quot; low=&quot;下限值&quot; high=&quot;上限值&quot; optimum=&quot;最优值&quot;  value=&quot;当前实际值&quot;&gt;&lt;/meter&gt;
-    如果最优值小于下限值，刻度尺颜色分配：
-    min (绿色) low (黄色) high (红色) max
-    如果最优值大于下限值且小于上限值，刻度尺颜色分配：
-    min (黄色) low (绿色) high (黄色) max
-    如果最优值大于上限值，刻度尺颜色分配：
-    min (红色) low (黄色) high (绿色) max
-
-(4)&lt;output&gt;&lt;/output&gt;    语义标签，表示一个计算的输出值，仅用于计算结果的提示，不能被用户操作，也不会被提交。
+<p>2.Video 对象的成员</p>
+<pre><code>1.autoplay:false
+2.controls:false
+3.currentTime:0             当前播放到哪一秒
+4.duration:NaN            总时长
+5.ended:false
+6.loop:false            是否循环
+7.muted:false            是否静音
+8.oncanplay:null            当能够播放时触发
+9.oncanplaythrough:null    当能够顺利播放一段时间
+10.onended:null            当播放的结尾时触发
+11.onerror:null            当播放错误时触发
+12.onloadeddata:null        当加载了影片数据时触发
+13.onloadedmetadata:null    当加载了影片元数据时触发
+14.onpause:null            当影片暂停时触发
+15.onplay:null            当影片开始播放时触发
+16.paused:true            当前是否处于暂停状态
+17.poster:&quot;&quot;                电影海报
+18.preload:&quot;auto&quot;            如何预加载
+19.src:&quot;http://127.0.0.1/html5_day02/resource/birds.mp4&quot;
+20.videoHeight:0
+21.videoWidth:0
+22.volume:1
+23.play(): function()&#123;&#125;    使用JS控制影片播放
+24.pause(): function()&#123;&#125;    使用JS控制影片暂停
 </code></pre>
-<p>提示：上述四个新元素存在兼容性问题。</p>
-<h3 id="表单新特性————input-的新属性"><a href="#表单新特性————input-的新属性" class="headerlink" title="表单新特性————input 的新属性"></a>表单新特性————input 的新属性</h3><p>3.1 原有的 input 属性</p>
-<pre><code>&lt;input id=&quot;&quot; class=&quot;&quot; style=&quot;&quot; title=&quot;&quot; name=&quot;&quot; value=&quot;&quot; type=&quot;&quot; readonly  checked  selected  diabled &gt;
+<h3 id="HTML5-新特性——音频"><a href="#HTML5-新特性——音频" class="headerlink" title="HTML5 新特性——音频"></a>HTML5 新特性——音频</h3><p>HTML5 之前，播放音频可以使用 flash 播放器，或者使用 bgsound（IE 专有，只能网页的背景音乐，不能使用 JS 控制播放、音量）。<br>HTML5 中，使用 audio 标签来播放音频。该标签的常用属性与 video 几乎一样，如：</p>
+<pre><code>(1)src
+(2)autoplay：是否自动播放，默认为false
+(3)controls：是否显示播放控制条，默认为false
+(4)loop：是否循环播放，默认为false
 </code></pre>
-<p>3.2 新增的 input 属性</p>
-<pre><code>&lt;input type=&quot;number&quot; max=&quot;最大值&quot; min=&quot;最小值&quot; step=&quot;步长&quot;&gt;
-&lt;input type=&quot;text&quot; list=&quot;datalist元素的ID&quot;  autocomplete=&quot;on/off&quot;&gt;
-&lt;meter min=&quot;最小值&quot; max=&quot;最大值&quot; low=&quot;下限值&quot; high=&quot;上限值&quot; optimum=&quot;最优值&quot;  value=&quot;当前实际值&quot;&gt;&lt;/meter&gt;
-
-(1)placeholder：占位符，用于在input中显示提示性文字，注意：不是value
-(2)autocomplete：可赋值为on或off，是否记录之前提交的内容，以实现下次输入时的自动提示
-(3)autofocus：自动获得输入焦点
-(4)multiple：用于email/url/tel等，允许使用逗号指定多个输入
-(5)form：为input指定form属性，可以将input从form内部提到外部，且不影响输入域的提交
-  与表单输入验证有关的属性：
-(6)required：必填属性，若用户未填写内容，则无法提交
-(7)minlength：限制最少的字符个数，非标准，FF不支持
-(8)maxlength：限制最大的字符个数
-(9)max：一般用于number、range、&lt;meter&gt;、&lt;progress&gt;，表示允许的数字最大值
-(10)min：一般用于number、range、&lt;meter&gt;、&lt;progress&gt;，表示允许的数字最小值
-(11)step：一般用于number、range，表示步长
-(12)pattern：使用正则表达式进行验证
-&lt;input type=&quot;text&quot; name=&quot;cellphone&quot; placeholder=&quot;请输入手机号&quot; pattern=&quot;^1[358]\d&#123;9&#125;$&quot; required&gt;
-</code></pre>
-<h3 id="如何修改表单的提示消息"><a href="#如何修改表单的提示消息" class="headerlink" title="如何修改表单的提示消息"></a>如何修改表单的提示消息</h3><p>HTML5 表单可能在如下情形下弹出提示消息：<br>(1)特定的 input type 不被满足，如 email、url<br>(2)特定的验证属性不被满足，如 required、pattern、step、minlength<br>不同的浏览器会弹出不同的提示消息。如何自定义弹出的提示消息：<br>HTML5 为所有的表单输入域都添加了一个 validity 对象属性，该对象中包含如下的属性：</p>
-<blockquote>
-<p>1.badInput:false 无效的输入，如<br>2.customError:false 是否存在自定义错误<br>3.patternMismatch:false 正则表达式不匹配，违反 pattern 验证<br>4.rangeOverflow:false 数字范围过大，违反了 max 验证<br>5.rangeUnderflow:false 数字范围过小，违反了 min 验证<br>6.stepMismatch:false 步长不匹配，违反 step 验证<br>7.tooLong:false 字符个数太长，违反 maxlength 验证<br>8.tooShort:false 字符个数太短，违反 minlength 验证<br>9.typeMismatch:false 类型不匹配，如 email/url 格式错误<br>10.valid:true 当前输入值是否有效<br>11.valueMissing:false 缺少值，违反 required 验证</p>
-</blockquote>
-<p>上述属性会随着用户的输入即时的发生改变，只要有一项验证失败，对应的 boolean 值就会变成 true，导致 valid 属性变为 false；只有当所有其他属性都变为 false，valid 属性才会变为 true，该输入域是有效的，可以被提交了。<br>通过检查上述属性是否为 true，可以通过“设置自定义的有效性消息 setCustomValidity”设置自定义的错误消息——validity.customError 就会变为 true，自定义错误消息的优先级高于浏览器默认的消息优先级。<br>if( input.validity.xxx === true ){<br>input.setCustomValidity(“自定义消息”);<br>}else {<br>input.setCustomValidity(“”);<br>}</p>
 ]]></content>
       <tags>
         <tag>HTML5</tag>
+        <tag>video</tag>
       </tags>
   </entry>
   <entry>
@@ -276,63 +255,84 @@ var ctx = canvas.getContext( '2d' );
       </tags>
   </entry>
   <entry>
-    <title>H5新特性——音视频</title>
-    <url>/2016/07/11/H5%E6%96%B0%E7%89%B9%E6%80%A7%E2%80%94%E2%80%94%E8%A7%86%E9%A2%91/</url>
-    <content><![CDATA[<p>HTML5 之前在页面播放需要使用 flash 播放器；HTML5 添加两个标签：</p>
-<pre><code>&lt;video&gt;&lt;/video&gt;
-&lt;audio&gt;&lt;/audio&gt;
+    <title>H5新特性</title>
+    <url>/2016/07/10/H5%E6%96%B0%E7%89%B9%E6%80%A7/</url>
+    <content><![CDATA[<h3 id="表单新特性————新的-input-type"><a href="#表单新特性————新的-input-type" class="headerlink" title="表单新特性————新的 input type"></a>表单新特性————新的 input type</h3><pre><code>&lt;input type=&quot;?&quot;&gt;
 </code></pre>
-<p>这两个标签有一些特殊属性、事件、方法。</p>
+<p>1.1 原有的 type:</p>
+<pre><code>text、password、radio、checkbox、hidden、file、image、button、submit、reset
+</code></pre>
 <span id="more"></span>
-<h3 id="HTML5-新特性——视频"><a href="#HTML5-新特性——视频" class="headerlink" title="HTML5 新特性——视频"></a>HTML5 新特性——视频</h3><p>1.Video 标签可用的属性：</p>
-<pre><code>(1)src：待播放的资源的URL
-(2)width：播放区域的宽度
-(3)height：播放区域的高度
-(4)controls：是否显示播放控件，默认不显示
-(5)autoplay：是否自动播放，默认不自动播放
-(6)loop：是否循环播放，默认不循环
-(7)preload：如何预加载视频，可以赋值为
-    “none”：不预加载
-    “metadata”：只预加载元数据，如影片宽、高、大小、时长
-    “auto”：（默认值）自动预加载元数据以及部分影片数据
-(8)poster：影片播放之前显示的“电影海报”
+<p>1.2 新增的 type:</p>
+<pre><code>email、search、url、tel、number、range、color、date、week、month
+
+1. email:  要求输入必需符合邮箱格式  xx@xx
+2. url:  要求输入必需符合URL格式  xx:yy
+3. tel:  无输入格式验证，在手机中弹出的数字键盘，而不是字母键盘
+4. number: 要求输入一个整型数字，可以配合max/min/step新属性使用
+5. search: Chrome中会显示一个x号
+6. range: 范围选择器、滑块，可以配合max/min/step新属性使用
+7. color：颜色选择器，Chrome/FF偷懒了，都直接使用操作系统自带的颜色选择器
+8. date：日期选择器，FF不支持
+9. month：月份选择器，FF不支持
+10. week：星期选择器，FF不支持
 </code></pre>
-<p>2.Video 对象的成员</p>
-<pre><code>1.autoplay:false
-2.controls:false
-3.currentTime:0             当前播放到哪一秒
-4.duration:NaN            总时长
-5.ended:false
-6.loop:false            是否循环
-7.muted:false            是否静音
-8.oncanplay:null            当能够播放时触发
-9.oncanplaythrough:null    当能够顺利播放一段时间
-10.onended:null            当播放的结尾时触发
-11.onerror:null            当播放错误时触发
-12.onloadeddata:null        当加载了影片数据时触发
-13.onloadedmetadata:null    当加载了影片元数据时触发
-14.onpause:null            当影片暂停时触发
-15.onplay:null            当影片开始播放时触发
-16.paused:true            当前是否处于暂停状态
-17.poster:&quot;&quot;                电影海报
-18.preload:&quot;auto&quot;            如何预加载
-19.src:&quot;http://127.0.0.1/html5_day02/resource/birds.mp4&quot;
-20.videoHeight:0
-21.videoWidth:0
-22.volume:1
-23.play(): function()&#123;&#125;    使用JS控制影片播放
-24.pause(): function()&#123;&#125;    使用JS控制影片暂停
+<!-- more -->
+
+<blockquote>
+<p>提示：<br>(1) HTML5 新添的 input type 存在严重的兼容性问题！<br>(2) 新特性弹出的提示消息本质是“窗口”，不是 HTML 元素，无法使用 JS、CSS 进行控制！</p>
+</blockquote>
+<h3 id="表单新特性————新的表单元素"><a href="#表单新特性————新的表单元素" class="headerlink" title="表单新特性————新的表单元素"></a>表单新特性————新的表单元素</h3><p>2.1 原有的表单输入元素：<br>input、textarea、select/option<br>2.2 新增的表单元素</p>
+<pre><code>(1)&lt;datalist&gt;&lt;/datalist&gt;        数据列表，本身是不可见元素，为某个input提供可选输入的列表，使用方法：
+    &lt;datalist id=&quot;LISTID&quot;&gt;&lt;option&gt;选项名&lt;/option&gt;&lt;/datalist&gt;
+    &lt;input type=&quot;text&quot; list=&quot;LISTID&quot;&gt;
+
+(2)&lt;progress&gt;&lt;/progress&gt;    进度条，仅用于进度的提示，不能被用户操作，也不会被提交。
+    &lt;progress value=&quot;0.5&quot;&gt;&lt;/progress&gt;
+
+(3)&lt;meter&gt;&lt;/meter&gt;        刻度尺，仅用于水平/数量的提示，不能被用户操作，也不会被提交。需要指定如下属性：
+    &lt;meter min=&quot;最小值&quot; max=&quot;最大值&quot; low=&quot;下限值&quot; high=&quot;上限值&quot; optimum=&quot;最优值&quot;  value=&quot;当前实际值&quot;&gt;&lt;/meter&gt;
+    如果最优值小于下限值，刻度尺颜色分配：
+    min (绿色) low (黄色) high (红色) max
+    如果最优值大于下限值且小于上限值，刻度尺颜色分配：
+    min (黄色) low (绿色) high (黄色) max
+    如果最优值大于上限值，刻度尺颜色分配：
+    min (红色) low (黄色) high (绿色) max
+
+(4)&lt;output&gt;&lt;/output&gt;    语义标签，表示一个计算的输出值，仅用于计算结果的提示，不能被用户操作，也不会被提交。
 </code></pre>
-<h3 id="HTML5-新特性——音频"><a href="#HTML5-新特性——音频" class="headerlink" title="HTML5 新特性——音频"></a>HTML5 新特性——音频</h3><p>HTML5 之前，播放音频可以使用 flash 播放器，或者使用 bgsound（IE 专有，只能网页的背景音乐，不能使用 JS 控制播放、音量）。<br>HTML5 中，使用 audio 标签来播放音频。该标签的常用属性与 video 几乎一样，如：</p>
-<pre><code>(1)src
-(2)autoplay：是否自动播放，默认为false
-(3)controls：是否显示播放控制条，默认为false
-(4)loop：是否循环播放，默认为false
+<p>提示：上述四个新元素存在兼容性问题。</p>
+<h3 id="表单新特性————input-的新属性"><a href="#表单新特性————input-的新属性" class="headerlink" title="表单新特性————input 的新属性"></a>表单新特性————input 的新属性</h3><p>3.1 原有的 input 属性</p>
+<pre><code>&lt;input id=&quot;&quot; class=&quot;&quot; style=&quot;&quot; title=&quot;&quot; name=&quot;&quot; value=&quot;&quot; type=&quot;&quot; readonly  checked  selected  diabled &gt;
 </code></pre>
+<p>3.2 新增的 input 属性</p>
+<pre><code>&lt;input type=&quot;number&quot; max=&quot;最大值&quot; min=&quot;最小值&quot; step=&quot;步长&quot;&gt;
+&lt;input type=&quot;text&quot; list=&quot;datalist元素的ID&quot;  autocomplete=&quot;on/off&quot;&gt;
+&lt;meter min=&quot;最小值&quot; max=&quot;最大值&quot; low=&quot;下限值&quot; high=&quot;上限值&quot; optimum=&quot;最优值&quot;  value=&quot;当前实际值&quot;&gt;&lt;/meter&gt;
+
+(1)placeholder：占位符，用于在input中显示提示性文字，注意：不是value
+(2)autocomplete：可赋值为on或off，是否记录之前提交的内容，以实现下次输入时的自动提示
+(3)autofocus：自动获得输入焦点
+(4)multiple：用于email/url/tel等，允许使用逗号指定多个输入
+(5)form：为input指定form属性，可以将input从form内部提到外部，且不影响输入域的提交
+  与表单输入验证有关的属性：
+(6)required：必填属性，若用户未填写内容，则无法提交
+(7)minlength：限制最少的字符个数，非标准，FF不支持
+(8)maxlength：限制最大的字符个数
+(9)max：一般用于number、range、&lt;meter&gt;、&lt;progress&gt;，表示允许的数字最大值
+(10)min：一般用于number、range、&lt;meter&gt;、&lt;progress&gt;，表示允许的数字最小值
+(11)step：一般用于number、range，表示步长
+(12)pattern：使用正则表达式进行验证
+&lt;input type=&quot;text&quot; name=&quot;cellphone&quot; placeholder=&quot;请输入手机号&quot; pattern=&quot;^1[358]\d&#123;9&#125;$&quot; required&gt;
+</code></pre>
+<h3 id="如何修改表单的提示消息"><a href="#如何修改表单的提示消息" class="headerlink" title="如何修改表单的提示消息"></a>如何修改表单的提示消息</h3><p>HTML5 表单可能在如下情形下弹出提示消息：<br>(1)特定的 input type 不被满足，如 email、url<br>(2)特定的验证属性不被满足，如 required、pattern、step、minlength<br>不同的浏览器会弹出不同的提示消息。如何自定义弹出的提示消息：<br>HTML5 为所有的表单输入域都添加了一个 validity 对象属性，该对象中包含如下的属性：</p>
+<blockquote>
+<p>1.badInput:false 无效的输入，如<br>2.customError:false 是否存在自定义错误<br>3.patternMismatch:false 正则表达式不匹配，违反 pattern 验证<br>4.rangeOverflow:false 数字范围过大，违反了 max 验证<br>5.rangeUnderflow:false 数字范围过小，违反了 min 验证<br>6.stepMismatch:false 步长不匹配，违反 step 验证<br>7.tooLong:false 字符个数太长，违反 maxlength 验证<br>8.tooShort:false 字符个数太短，违反 minlength 验证<br>9.typeMismatch:false 类型不匹配，如 email/url 格式错误<br>10.valid:true 当前输入值是否有效<br>11.valueMissing:false 缺少值，违反 required 验证</p>
+</blockquote>
+<p>上述属性会随着用户的输入即时的发生改变，只要有一项验证失败，对应的 boolean 值就会变成 true，导致 valid 属性变为 false；只有当所有其他属性都变为 false，valid 属性才会变为 true，该输入域是有效的，可以被提交了。<br>通过检查上述属性是否为 true，可以通过“设置自定义的有效性消息 setCustomValidity”设置自定义的错误消息——validity.customError 就会变为 true，自定义错误消息的优先级高于浏览器默认的消息优先级。<br>if( input.validity.xxx === true ){<br>input.setCustomValidity(“自定义消息”);<br>}else {<br>input.setCustomValidity(“”);<br>}</p>
 ]]></content>
       <tags>
         <tag>HTML5</tag>
-        <tag>video</tag>
       </tags>
   </entry>
   <entry>
@@ -712,19 +712,6 @@ count; // 3
       </tags>
   </entry>
   <entry>
-    <title>css中overflow滑动效果在IOS中不流畅</title>
-    <url>/2017/04/23/css%E4%B8%ADoverflow%E6%BB%91%E5%8A%A8%E6%95%88%E6%9E%9C%E5%9C%A8IOS%E4%B8%AD%E4%B8%8D%E6%B5%81%E7%95%85/</url>
-    <content><![CDATA[<p>最近新作的一个项目中遇到一个问题，有一段很长的表格，手机显示器展示不全，需要做滑动继续展示的效果；<br>OK，很简单，使用overflow-x:auto;谷歌模拟器一切正常，安卓正常，可是打完包在IOS上，滑动效果慢到完全跟随手指的移动而移动，这样是肯定不行的经过百度发现了解决之道；<br>-webkit-overflow-scrolling: touch;<br>度娘说这句话是启动了硬件加速的特性，所以滑动起来会非常流畅；不过会影响性能；经过测试，发现影响看不出，果断选择用它；<br>完美解决~~~~~~~</p>
-]]></content>
-      <categories>
-        <category>css</category>
-      </categories>
-      <tags>
-        <tag>CSS</tag>
-        <tag>IOS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>面试题</title>
     <url>/2016/06/23/count%E6%96%B9%E6%B3%95/</url>
     <content><![CDATA[<h3 id="count方法"><a href="#count方法" class="headerlink" title="count方法"></a>count方法</h3><p>封装一个count方法，能实现如此调用：count(a)(b)(c)(d)(e)… 并且返回的值为参数连乘的结果，即abcde*…。如count(1)(3)(7) 得到21</p>
@@ -747,6 +734,19 @@ count; // 3
       <tags>
         <tag>JS</tag>
         <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>css中overflow滑动效果在IOS中不流畅</title>
+    <url>/2017/04/23/css%E4%B8%ADoverflow%E6%BB%91%E5%8A%A8%E6%95%88%E6%9E%9C%E5%9C%A8IOS%E4%B8%AD%E4%B8%8D%E6%B5%81%E7%95%85/</url>
+    <content><![CDATA[<p>最近新作的一个项目中遇到一个问题，有一段很长的表格，手机显示器展示不全，需要做滑动继续展示的效果；<br>OK，很简单，使用overflow-x:auto;谷歌模拟器一切正常，安卓正常，可是打完包在IOS上，滑动效果慢到完全跟随手指的移动而移动，这样是肯定不行的经过百度发现了解决之道；<br>-webkit-overflow-scrolling: touch;<br>度娘说这句话是启动了硬件加速的特性，所以滑动起来会非常流畅；不过会影响性能；经过测试，发现影响看不出，果断选择用它；<br>完美解决~~~~~~~</p>
+]]></content>
+      <categories>
+        <category>css</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+        <tag>IOS</tag>
       </tags>
   </entry>
   <entry>
@@ -945,39 +945,6 @@ First Header | Second Header</li>
       </categories>
       <tags>
         <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>postName</title>
-    <url>/2015/08/12/postName/</url>
-    <content><![CDATA[<pre><code>1. Git安装和Github设置
-使用Mac电脑可以直brew安装,
-</code></pre>
-<span id="more"></span>
-
-<pre><code>brew install git         #Mac电脑使用brew安装
-sudo apt-get install git #Ubuntu系统使用这条命令安装
-git操作和github上SSH设置请看这篇博文
-
-使用Github Page搭建博客, 需要遵循一定的规则, 需要在github建立仓库,仓库名为Github用户.github.io, 更多详情请参考官方文档
-
-2. Node.js安装
-mac电脑可以直接通过brew安装
-
-#安装命令
-brew install node  #如果我没记错的话,最新版的node.js的包中已经集成了npm包管理工具
-
-使用以下命令验证是否安装成功
-node -v
-npm -v
-
-文／Andrew_liu（简书作者）
-原文链接：http://www.jianshu.com/p/858ecf233db9
-著作权归作者所有，转载请联系作者获得授权，并标注“简书作者”。
-</code></pre>
-]]></content>
-      <tags>
-        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -1212,7 +1179,7 @@ Markdown 使用一种和链接很相似的语法来标记图片，同样也允�
 &amp;#109;&quot;&gt;&amp;#x61;&amp;#x64;&amp;#x64;&amp;#x72;&amp;#x65;&amp;#115;&amp;#115;&amp;#64;&amp;#101;&amp;#120;&amp;#x61;
 &amp;#109;&amp;#x70;&amp;#x6C;e&amp;#x2E;&amp;#99;&amp;#111;&amp;#109;&lt;/a&gt;
 </code></pre>
-<p>在浏览器里面，这段字串（其实是 <a href="mailto:address@example.com">address@example.com</a>）会变成一个可以点击的「<a href="mailto:&#97;&#100;&#x64;&#114;&#101;&#x73;&#x73;&#x40;&#101;&#120;&#97;&#109;&#x70;&#108;&#101;&#46;&#99;&#x6f;&#109;">&#97;&#100;&#x64;&#114;&#101;&#x73;&#x73;&#x40;&#101;&#120;&#97;&#109;&#x70;&#108;&#101;&#46;&#99;&#x6f;&#109;</a>」链接。</p>
+<p>在浏览器里面，这段字串（其实是 <a href="mailto:address@example.com">address@example.com</a>）会变成一个可以点击的「<a href="mailto:&#x61;&#x64;&#100;&#x72;&#101;&#x73;&#x73;&#64;&#x65;&#x78;&#x61;&#109;&#112;&#x6c;&#x65;&#46;&#99;&#x6f;&#x6d;">&#x61;&#x64;&#100;&#x72;&#101;&#x73;&#x73;&#64;&#x65;&#x78;&#x61;&#109;&#112;&#x6c;&#x65;&#46;&#99;&#x6f;&#x6d;</a>」链接。</p>
 </blockquote>
 <p>（这种作法虽然可以糊弄不少的机器人，但并不能全部挡下来，不过总比什么都不做好些。不管怎样，公开你的信箱终究会引来广告信件的。）</p>
 <blockquote>
@@ -1237,6 +1204,39 @@ _   底线
 ]]></content>
       <tags>
         <tag>study</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>postName</title>
+    <url>/2015/08/12/postName/</url>
+    <content><![CDATA[<pre><code>1. Git安装和Github设置
+使用Mac电脑可以直brew安装,
+</code></pre>
+<span id="more"></span>
+
+<pre><code>brew install git         #Mac电脑使用brew安装
+sudo apt-get install git #Ubuntu系统使用这条命令安装
+git操作和github上SSH设置请看这篇博文
+
+使用Github Page搭建博客, 需要遵循一定的规则, 需要在github建立仓库,仓库名为Github用户.github.io, 更多详情请参考官方文档
+
+2. Node.js安装
+mac电脑可以直接通过brew安装
+
+#安装命令
+brew install node  #如果我没记错的话,最新版的node.js的包中已经集成了npm包管理工具
+
+使用以下命令验证是否安装成功
+node -v
+npm -v
+
+文／Andrew_liu（简书作者）
+原文链接：http://www.jianshu.com/p/858ecf233db9
+著作权归作者所有，转载请联系作者获得授权，并标注“简书作者”。
+</code></pre>
+]]></content>
+      <tags>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -1424,6 +1424,45 @@ IE8: e.returnValue=false;
       </tags>
   </entry>
   <entry>
+    <title>二、JavaScript之作用域</title>
+    <url>/2019/06/15/%E4%BD%9C%E7%94%A8%E5%9F%9F/</url>
+    <content><![CDATA[<h2 id="什么是作用域"><a href="#什么是作用域" class="headerlink" title="什么是作用域"></a>什么是作用域</h2><p>作用域是指程序源代码中定义变量的区域。</p>
+<p>作用域规定了如何查找变量，也就是确定当前执行代码对变量的访问权限。</p>
+<p>JavaScript 采用词法作用域(lexical scoping)，也就是静态作用域。</p>
+<span id="more"></span>
+<h2 id="词法作用域"><a href="#词法作用域" class="headerlink" title="词法作用域"></a>词法作用域</h2><p>在你不知道的javascript上卷中是这样定义的：</p>
+<blockquote>
+<p>词法作用域就是定义在词法阶段的作用域。换句话说，词法作用域是由你在写代码时将变量和块作用域写在哪里来决定的，因此当词法分析器处理代码时会保持作用域不变(大部分情况下是这样的)。</p>
+</blockquote>
+<p>在JS中词法作用域的规则：<a href="https://github.com/getify/You-Dont-Know-JS/blob/1ed-zh-CN/scope%20%26%20closures/ch1.md">点这里</a></p>
+<p>请看下面这段代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var value = 1;</span><br><span class="line"></span><br><span class="line">function foo() &#123;</span><br><span class="line">    console.log(value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function bar() &#123;</span><br><span class="line">    var value = 2;</span><br><span class="line">    foo();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar(); // ???</span><br></pre></td></tr></table></figure>
+<p>假设JavaScript采用静态作用域，让我们分析下执行过程：<br>执行 foo 函数，先从 foo 函数内部查找是否有局部变量 value，如果没有，就根据书写的位置，查找上面一层的代码，也就是 value 等于 1，所以结果会打印 1。</p>
+<p>假设JavaScript采用动态作用域，让我们分析下执行过程：<br>执行 foo 函数，依然是从 foo 函数内部查找是否有局部变量 value。如果没有，就从调用函数的作用域，也就是 bar 函数内部查找 value 变量，所以结果会打印 2。</p>
+<p>前面我们已经说了，JavaScript采用的是静态作用域，所以这个例子的结果是 1。<br>再看下面这段代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function foo(a) &#123;</span><br><span class="line"></span><br><span class="line">	var b = a * 2;</span><br><span class="line"></span><br><span class="line">	function bar(c) &#123;</span><br><span class="line">		console.log( a, b, c );</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	bar(b * 3);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo( 2 ); // 2 4 12</span><br></pre></td></tr></table></figure>
+<p>在这个代码示例中有三个固有的嵌套作用域：</p>
+<ul>
+<li>包围着全局作用域，只有一个标识符：foo。</li>
+<li>包围着作用域 foo，它含有三个标识符：a，bar 和 b。</li>
+<li>包围着作用域 bar，它里面只包含一个标识符：c。</li>
+</ul>
+<p>当我们执行console.log(…)语句的时候，开始查找三个被引用的变量 a，b 和 c。它首先从最内部的作用域气泡开始，也就是 bar(…) 函数的作用域。在这里它找不到 a，所以它向上走一层，到外面下一个最近的作用域气泡，foo(…) 的作用域。它在这里找到了 a，于是它就使用这个 a。同样的事情也发生在 b 身上。但是对于 c，它在 bar(..) 内部就找到了。</p>
+<p>如果在 foo(..) 内部定义一个变量 c，console.log(…) 语句也仍然会找到并使用 bar(…) 中的那一个，而不会使用 foo(…) 中的那一个。</p>
+<p><strong>一旦找到第一个匹配，作用域查询就停止了。</strong>相同的标识符名称可以在嵌套作用域的多个层中被指定，这称为“遮蔽（shadowing）”（内部的标识符“遮蔽”了外部的标识符）。无论如何遮蔽，作用域查询总是从当前被执行的最内侧的作用域开始，向外/向上不断查找，直到第一个匹配才停止。</p>
+<p><strong>注意：</strong>全局变量也自动地是全局对象（在浏览器中是 window，等等）的属性，所以不直接通过全局变量的词法名称，而通过将它作为全局对象的一个属性引用来间接地引用，是可能的。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var a = 5;</span><br><span class="line">function foo(a) &#123;</span><br><span class="line">  console.log(a);</span><br><span class="line">  console.log(window.a)</span><br><span class="line">&#125;</span><br><span class="line">foo(2) // 2,5</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://github.com/mqyqingfeng/Blog/issues/3">https://github.com/mqyqingfeng/Blog/issues/3</a></p>
+]]></content>
+      <categories>
+        <category>深入理解JavaScript系列笔记</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>五、JavaScript之作用域链</title>
     <url>/2019/07/18/%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE/</url>
     <content><![CDATA[<p>在上一篇的文章中，我们了解到执行上下文数据（变量、函数声明和函数的所有形参）是由这个变量对象的属性存储的，另外，我们知道每次进入上下文时都会创建变量对象并填充初始化值，并且在执行上下文代码时会发生它的修改。</p>
@@ -1522,36 +1561,40 @@ IE8: e.returnValue=false;
       </tags>
   </entry>
   <entry>
-    <title>二、JavaScript之作用域</title>
-    <url>/2019/06/15/%E4%BD%9C%E7%94%A8%E5%9F%9F/</url>
-    <content><![CDATA[<h2 id="什么是作用域"><a href="#什么是作用域" class="headerlink" title="什么是作用域"></a>什么是作用域</h2><p>作用域是指程序源代码中定义变量的区域。</p>
-<p>作用域规定了如何查找变量，也就是确定当前执行代码对变量的访问权限。</p>
-<p>JavaScript 采用词法作用域(lexical scoping)，也就是静态作用域。</p>
-<span id="more"></span>
-<h2 id="词法作用域"><a href="#词法作用域" class="headerlink" title="词法作用域"></a>词法作用域</h2><p>在你不知道的javascript上卷中是这样定义的：</p>
+    <title>八、JavaScript之参数按值传递</title>
+    <url>/2019/09/11/%E5%80%BC%E4%BC%A0%E9%80%92/</url>
+    <content><![CDATA[<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>在《JavaScript 高级程序设计》中讲到传递参数：</p>
 <blockquote>
-<p>词法作用域就是定义在词法阶段的作用域。换句话说，词法作用域是由你在写代码时将变量和块作用域写在哪里来决定的，因此当词法分析器处理代码时会保持作用域不变(大部分情况下是这样的)。</p>
+<p>ECMAScript 中所有函数的参数都是按值传递的。这意味着函数外的值会被复制到函数内部的参数中，就像从一个变量复制到另一个变量一样。如果是原始值，那么就跟原始值变量的复制一样，如果是引用值，那么就跟引用值变量的复制一样。对很多开发者来说，这一块可能会不好理解，毕竟变量有按值和按引用访问，而传参则只有按值传递。</p>
 </blockquote>
-<p>在JS中词法作用域的规则：<a href="https://github.com/getify/You-Dont-Know-JS/blob/1ed-zh-CN/scope%20%26%20closures/ch1.md">点这里</a></p>
-<p>请看下面这段代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var value = 1;</span><br><span class="line"></span><br><span class="line">function foo() &#123;</span><br><span class="line">    console.log(value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function bar() &#123;</span><br><span class="line">    var value = 2;</span><br><span class="line">    foo();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar(); // ???</span><br></pre></td></tr></table></figure>
-<p>假设JavaScript采用静态作用域，让我们分析下执行过程：<br>执行 foo 函数，先从 foo 函数内部查找是否有局部变量 value，如果没有，就根据书写的位置，查找上面一层的代码，也就是 value 等于 1，所以结果会打印 1。</p>
-<p>假设JavaScript采用动态作用域，让我们分析下执行过程：<br>执行 foo 函数，依然是从 foo 函数内部查找是否有局部变量 value。如果没有，就从调用函数的作用域，也就是 bar 函数内部查找 value 变量，所以结果会打印 2。</p>
-<p>前面我们已经说了，JavaScript采用的是静态作用域，所以这个例子的结果是 1。<br>再看下面这段代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function foo(a) &#123;</span><br><span class="line"></span><br><span class="line">	var b = a * 2;</span><br><span class="line"></span><br><span class="line">	function bar(c) &#123;</span><br><span class="line">		console.log( a, b, c );</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	bar(b * 3);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo( 2 ); // 2 4 12</span><br></pre></td></tr></table></figure>
-<p>在这个代码示例中有三个固有的嵌套作用域：</p>
-<ul>
-<li>包围着全局作用域，只有一个标识符：foo。</li>
-<li>包围着作用域 foo，它含有三个标识符：a，bar 和 b。</li>
-<li>包围着作用域 bar，它里面只包含一个标识符：c。</li>
-</ul>
-<p>当我们执行console.log(…)语句的时候，开始查找三个被引用的变量 a，b 和 c。它首先从最内部的作用域气泡开始，也就是 bar(…) 函数的作用域。在这里它找不到 a，所以它向上走一层，到外面下一个最近的作用域气泡，foo(…) 的作用域。它在这里找到了 a，于是它就使用这个 a。同样的事情也发生在 b 身上。但是对于 c，它在 bar(..) 内部就找到了。</p>
-<p>如果在 foo(..) 内部定义一个变量 c，console.log(…) 语句也仍然会找到并使用 bar(…) 中的那一个，而不会使用 foo(…) 中的那一个。</p>
-<p><strong>一旦找到第一个匹配，作用域查询就停止了。</strong>相同的标识符名称可以在嵌套作用域的多个层中被指定，这称为“遮蔽（shadowing）”（内部的标识符“遮蔽”了外部的标识符）。无论如何遮蔽，作用域查询总是从当前被执行的最内侧的作用域开始，向外/向上不断查找，直到第一个匹配才停止。</p>
-<p><strong>注意：</strong>全局变量也自动地是全局对象（在浏览器中是 window，等等）的属性，所以不直接通过全局变量的词法名称，而通过将它作为全局对象的一个属性引用来间接地引用，是可能的。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var a = 5;</span><br><span class="line">function foo(a) &#123;</span><br><span class="line">  console.log(a);</span><br><span class="line">  console.log(window.a)</span><br><span class="line">&#125;</span><br><span class="line">foo(2) // 2,5</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
 
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://github.com/mqyqingfeng/Blog/issues/3">https://github.com/mqyqingfeng/Blog/issues/3</a></p>
+<h2 id="按值传递"><a href="#按值传递" class="headerlink" title="按值传递"></a>按值传递</h2><blockquote>
+<p>在按值传递参数时，值会被复制到一个局部变量（即一个命名参数，或者用 ECMAScript 的话说，就是 arguments 对象中的一个槽位）。<br>来看一个例子：</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">  num += <span class="number">10</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(num); <span class="comment">// 30</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> count = <span class="number">20</span>;</span><br><span class="line">foo(count);</span><br><span class="line"><span class="built_in">console</span>.log(count); <span class="comment">// 20，没有变化</span></span><br></pre></td></tr></table></figure>
+
+<p>这里，函数 foo()有一个参数 num，它其实是一个局部变量。在调用时，变量 count 作为参数传入。count 的值 20 被复制给参数 num 。在函数内部，参数 num 的值被加上了 10，但这不会影响函数外部的变量 count。参数 num 和变量 count 互不干扰，它们只不过碰巧保存了一样的值。</p>
+<h2 id="引用传递"><a href="#引用传递" class="headerlink" title="引用传递"></a>引用传递</h2><blockquote>
+<p>众所周知按引用传递接收的不是值拷贝，而是对象的隐式引用，如该对象在外部的直接引用地址。函数内部对参数的任何改变都是影响该对象在函数外部的值，因为两者引用的是同一个对象，也就是说：这时候参数就相当于外部对象的一个别名。<br>伪代码：</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">value</span>: <span class="number">1</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">o</span>) </span>&#123;</span><br><span class="line">  o.value = <span class="number">2</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(o.value); <span class="comment">//2</span></span><br><span class="line">&#125;</span><br><span class="line">foo(obj);</span><br><span class="line"><span class="built_in">console</span>.log(obj.value); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<p>哪ECMAScript 中函数传递引用数据类型参数是引用传递吗？然而并不是，除了上面两种策略以外，我们看看第三种策略。</p>
+<h2 id="共享传递"><a href="#共享传递" class="headerlink" title="共享传递"></a>共享传递</h2><p>共享传递策略还有一些代名词：“按对象传递”或“按对象共享传递”。该策略是1974年由Barbara Liskov为CLU编程语言提出的，策略的要点是：</p>
+<blockquote>
+<p>函数接收的是对象引用的拷贝（副本），该引用拷贝和形参以及其值相关联。<br>这里出现的引用，我们不能称之为“按引用传递”，因为函数接收的参数不是直接的对象别名，而是该引用地址的拷贝。</p>
+</blockquote>
+<p>最重要的区别就是：函数内部给参数重新赋新值不会影响到外部的对象（和上例按引用传递的case），但是因为该参数是一个地址拷贝，所以在外面访问和里面访问的都是同一个对象,改变该参数对象的属性值将会影响到外部的对象。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  <span class="attr">num</span>: <span class="number">1</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  obj.num = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo(person);</span><br><span class="line"><span class="built_in">console</span>.log(person.num); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+
+<p>这里，我们创建了一个对象 person 并这个对象被传给 foo 方法，并被复制到参数 obj 中。在函数内部，obj 和 person 都指向同一个对象。个人觉得引用数据类型传递的也是值, 不过这个值是一个地址指针，<br>我们再来看看下面这个修改后的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123; <span class="attr">num</span>: <span class="number">1</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  obj.num = <span class="number">2</span>;</span><br><span class="line">  <span class="comment">// 将obj引用指针指向了新的一个对象上</span></span><br><span class="line">  obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  obj.num = <span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(person.num); <span class="comment">// 1</span></span><br><span class="line">foo(person);</span><br><span class="line"><span class="comment">// 如果这里是按照引用传递，那么，下面的输出应该是3</span></span><br><span class="line"><span class="built_in">console</span>.log(person.num); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+
+<p>当 person 传入 foo()时，其 num 属性被设置为 2。然后变量 obj 被设置为一个新对象且 num 属性被设置为 3。如果 person 是按引用传递的，那么 person 应该自动将指针改为指向 num 为 3 的对象。可是，当我们再次访问 person.num 时，它的值是 2，这表明函数中参数的值改变之后，原始的引用仍然没变。当 obj 在函数内部被重写时，它变成了一个指向本地对象的指针。而那个本地对象在函数执行结束时就被销毁了。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li>如果参数是基本类型，那么是按值传递。</li>
+<li>如果参数是引用数据类型，传递的还是值，但是这个值是引用数据类型地址的拷贝。</li>
+</ol>
 ]]></content>
       <categories>
         <category>深入理解JavaScript系列笔记</category>
@@ -1598,49 +1641,6 @@ _background-color:#1e0bd1;/*IE6识别*/
 ]]></content>
       <tags>
         <tag>CSS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>八、JavaScript之参数按值传递</title>
-    <url>/2019/09/11/%E5%80%BC%E4%BC%A0%E9%80%92/</url>
-    <content><![CDATA[<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>在《JavaScript 高级程序设计》中讲到传递参数：</p>
-<blockquote>
-<p>ECMAScript 中所有函数的参数都是按值传递的。这意味着函数外的值会被复制到函数内部的参数中，就像从一个变量复制到另一个变量一样。如果是原始值，那么就跟原始值变量的复制一样，如果是引用值，那么就跟引用值变量的复制一样。对很多开发者来说，这一块可能会不好理解，毕竟变量有按值和按引用访问，而传参则只有按值传递。</p>
-</blockquote>
-<span id="more"></span>
-
-<h2 id="按值传递"><a href="#按值传递" class="headerlink" title="按值传递"></a>按值传递</h2><blockquote>
-<p>在按值传递参数时，值会被复制到一个局部变量（即一个命名参数，或者用 ECMAScript 的话说，就是 arguments 对象中的一个槽位）。<br>来看一个例子：</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">  num += <span class="number">10</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(num); <span class="comment">// 30</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> count = <span class="number">20</span>;</span><br><span class="line">foo(count);</span><br><span class="line"><span class="built_in">console</span>.log(count); <span class="comment">// 20，没有变化</span></span><br></pre></td></tr></table></figure>
-
-<p>这里，函数 foo()有一个参数 num，它其实是一个局部变量。在调用时，变量 count 作为参数传入。count 的值 20 被复制给参数 num 。在函数内部，参数 num 的值被加上了 10，但这不会影响函数外部的变量 count。参数 num 和变量 count 互不干扰，它们只不过碰巧保存了一样的值。</p>
-<h2 id="引用传递"><a href="#引用传递" class="headerlink" title="引用传递"></a>引用传递</h2><blockquote>
-<p>众所周知按引用传递接收的不是值拷贝，而是对象的隐式引用，如该对象在外部的直接引用地址。函数内部对参数的任何改变都是影响该对象在函数外部的值，因为两者引用的是同一个对象，也就是说：这时候参数就相当于外部对象的一个别名。<br>伪代码：</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">value</span>: <span class="number">1</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">o</span>) </span>&#123;</span><br><span class="line">  o.value = <span class="number">2</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(o.value); <span class="comment">//2</span></span><br><span class="line">&#125;</span><br><span class="line">foo(obj);</span><br><span class="line"><span class="built_in">console</span>.log(obj.value); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
-<p>哪ECMAScript 中函数传递引用数据类型参数是引用传递吗？然而并不是，除了上面两种策略以外，我们看看第三种策略。</p>
-<h2 id="共享传递"><a href="#共享传递" class="headerlink" title="共享传递"></a>共享传递</h2><p>共享传递策略还有一些代名词：“按对象传递”或“按对象共享传递”。该策略是1974年由Barbara Liskov为CLU编程语言提出的，策略的要点是：</p>
-<blockquote>
-<p>函数接收的是对象引用的拷贝（副本），该引用拷贝和形参以及其值相关联。<br>这里出现的引用，我们不能称之为“按引用传递”，因为函数接收的参数不是直接的对象别名，而是该引用地址的拷贝。</p>
-</blockquote>
-<p>最重要的区别就是：函数内部给参数重新赋新值不会影响到外部的对象（和上例按引用传递的case），但是因为该参数是一个地址拷贝，所以在外面访问和里面访问的都是同一个对象,改变该参数对象的属性值将会影响到外部的对象。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  <span class="attr">num</span>: <span class="number">1</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  obj.num = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo(person);</span><br><span class="line"><span class="built_in">console</span>.log(person.num); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
-
-<p>这里，我们创建了一个对象 person 并这个对象被传给 foo 方法，并被复制到参数 obj 中。在函数内部，obj 和 person 都指向同一个对象。个人觉得引用数据类型传递的也是值, 不过这个值是一个地址指针，<br>我们再来看看下面这个修改后的例子：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123; <span class="attr">num</span>: <span class="number">1</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  obj.num = <span class="number">2</span>;</span><br><span class="line">  <span class="comment">// 将obj引用指针指向了新的一个对象上</span></span><br><span class="line">  obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">  obj.num = <span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(person.num); <span class="comment">// 1</span></span><br><span class="line">foo(person);</span><br><span class="line"><span class="comment">// 如果这里是按照引用传递，那么，下面的输出应该是3</span></span><br><span class="line"><span class="built_in">console</span>.log(person.num); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
-
-<p>当 person 传入 foo()时，其 num 属性被设置为 2。然后变量 obj 被设置为一个新对象且 num 属性被设置为 3。如果 person 是按引用传递的，那么 person 应该自动将指针改为指向 num 为 3 的对象。可是，当我们再次访问 person.num 时，它的值是 2，这表明函数中参数的值改变之后，原始的引用仍然没变。当 obj 在函数内部被重写时，它变成了一个指向本地对象的指针。而那个本地对象在函数执行结束时就被销毁了。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
-<li>如果参数是基本类型，那么是按值传递。</li>
-<li>如果参数是引用数据类型，传递的还是值，但是这个值是引用数据类型地址的拷贝。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>深入理解JavaScript系列笔记</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -2785,33 +2785,6 @@ var five = add(two, three);
       </tags>
   </entry>
   <entry>
-    <title>解决Github打不开问题</title>
-    <url>/2021/07/19/%E8%AE%B0%E5%BD%95GitHub%E7%BD%91%E9%A1%B5hosts%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<p>github 最近打不开，很久之前遇到过，但是忘记怎么解决了，查找相关资料后，今天记录在此，以备不时之需：</p>
-<span id="more"></span>
-
-<h2 id="确定-Github-网址-IP"><a href="#确定-Github-网址-IP" class="headerlink" title="确定 Github 网址 IP"></a>确定 Github 网址 IP</h2><p>打开网站：<a href="https://github.com.ipaddress.com/">https://github.com.ipaddress.com/</a><br>找到<strong>IP Address</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">IP Address	140.82.114.4</span><br></pre></td></tr></table></figure>
-
-<h2 id="确定-Github-域名-IP"><a href="#确定-Github-域名-IP" class="headerlink" title="确定 Github 域名 IP"></a>确定 Github 域名 IP</h2><p>打开网站：<a href="https://fastly.net.ipaddress.com/github.global.ssl.fastly.net">https://fastly.net.ipaddress.com/github.global.ssl.fastly.net</a><br>找到<strong>IP Address</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">IP Address	199.232.5.194</span><br></pre></td></tr></table></figure>
-
-<h2 id="确定静态资源-IP"><a href="#确定静态资源-IP" class="headerlink" title="确定静态资源 IP"></a>确定静态资源 IP</h2><p>打开网站：<a href="https://github.com.ipaddress.com/assets-cdn.github.com">https://github.com.ipaddress.com/assets-cdn.github.com</a><br>找到<strong>IPv4 addresses</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">IPv4 Addresses	185.199.108.153</span><br><span class="line">IPv4 Addresses	185.199.109.153</span><br><span class="line">IPv4 Addresses	185.199.110.153</span><br><span class="line">IPv4 Addresses	185.199.111.153</span><br></pre></td></tr></table></figure>
-
-<h2 id="修改-hosts-文件"><a href="#修改-hosts-文件" class="headerlink" title="修改 hosts 文件"></a>修改 hosts 文件</h2><p>找到 hosts 文件：C:\Windows\System32\drivers\etc<br>修改 host 文件，在最后附上下面的内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">140.82.114.4 github.com</span><br><span class="line">199.232.5.194 github.global.ssl.fastly.net</span><br><span class="line">185.199.108.153 assets-cdn.github.com</span><br><span class="line">185.199.109.153 assets-cdn.github.com</span><br><span class="line">185.199.110.153 assets-cdn.github.com</span><br><span class="line">185.199.111.153 assets-cdn.github.com</span><br></pre></td></tr></table></figure>
-
-<p>最后还需要刷新 dns 缓存：cmd:ipconfig /flushdns</p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
-<li><a href="https://zhuanlan.zhihu.com/p/158938544">https://zhuanlan.zhihu.com/p/158938544</a></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>网络</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>七、JavaScript之闭包</title>
     <url>/2019/09/01/%E9%97%AD%E5%8C%85/</url>
     <content><![CDATA[<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>闭包在 MDN 中的定义：</p>
@@ -2863,6 +2836,33 @@ var five = add(two, three);
       </categories>
       <tags>
         <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>解决Github打不开问题</title>
+    <url>/2021/07/19/%E8%AE%B0%E5%BD%95GitHub%E7%BD%91%E9%A1%B5hosts%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<p>github 最近打不开，很久之前遇到过，但是忘记怎么解决了，查找相关资料后，今天记录在此，以备不时之需：</p>
+<span id="more"></span>
+
+<h2 id="确定-Github-网址-IP"><a href="#确定-Github-网址-IP" class="headerlink" title="确定 Github 网址 IP"></a>确定 Github 网址 IP</h2><p>打开网站：<a href="https://github.com.ipaddress.com/">https://github.com.ipaddress.com/</a><br>找到<strong>IP Address</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">IP Address	140.82.114.4</span><br></pre></td></tr></table></figure>
+
+<h2 id="确定-Github-域名-IP"><a href="#确定-Github-域名-IP" class="headerlink" title="确定 Github 域名 IP"></a>确定 Github 域名 IP</h2><p>打开网站：<a href="https://fastly.net.ipaddress.com/github.global.ssl.fastly.net">https://fastly.net.ipaddress.com/github.global.ssl.fastly.net</a><br>找到<strong>IP Address</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">IP Address	199.232.5.194</span><br></pre></td></tr></table></figure>
+
+<h2 id="确定静态资源-IP"><a href="#确定静态资源-IP" class="headerlink" title="确定静态资源 IP"></a>确定静态资源 IP</h2><p>打开网站：<a href="https://github.com.ipaddress.com/assets-cdn.github.com">https://github.com.ipaddress.com/assets-cdn.github.com</a><br>找到<strong>IPv4 addresses</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">IPv4 Addresses	185.199.108.153</span><br><span class="line">IPv4 Addresses	185.199.109.153</span><br><span class="line">IPv4 Addresses	185.199.110.153</span><br><span class="line">IPv4 Addresses	185.199.111.153</span><br></pre></td></tr></table></figure>
+
+<h2 id="修改-hosts-文件"><a href="#修改-hosts-文件" class="headerlink" title="修改 hosts 文件"></a>修改 hosts 文件</h2><p>找到 hosts 文件：C:\Windows\System32\drivers\etc<br>修改 host 文件，在最后附上下面的内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">140.82.114.4 github.com</span><br><span class="line">199.232.5.194 github.global.ssl.fastly.net</span><br><span class="line">185.199.108.153 assets-cdn.github.com</span><br><span class="line">185.199.109.153 assets-cdn.github.com</span><br><span class="line">185.199.110.153 assets-cdn.github.com</span><br><span class="line">185.199.111.153 assets-cdn.github.com</span><br></pre></td></tr></table></figure>
+
+<p>最后还需要刷新 dns 缓存：cmd:ipconfig /flushdns</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><a href="https://zhuanlan.zhihu.com/p/158938544">https://zhuanlan.zhihu.com/p/158938544</a></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>网络</tag>
       </tags>
   </entry>
   <entry>
@@ -3059,7 +3059,7 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
 <h2 id="关于收费"><a href="#关于收费" class="headerlink" title="关于收费"></a>关于收费</h2><p><strong>马克飞象</strong>为新用户提供 10 天的试用期，试用期过后需要<a href="maxiang.info/vip.html">续费</a>才能继续使用。未购买或者未及时续费，将不能同步新的笔记。之前保存过的笔记依然可以编辑。</p>
 <h2 id="反馈与建议"><a href="#反馈与建议" class="headerlink" title="反馈与建议"></a>反馈与建议</h2><ul>
 <li>微博：<a href="http://weibo.com/u/2788354117">@马克飞象</a>，<a href="http://weibo.com/ggock" title="开发者个人账号">@GGock</a></li>
-<li>邮箱：<a href="mailto:&#104;&#117;&#x73;&#116;&#x67;&#111;&#99;&#107;&#64;&#x67;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#109;">&#104;&#117;&#x73;&#116;&#x67;&#111;&#99;&#107;&#64;&#x67;&#x6d;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#109;</a></li>
+<li>邮箱：<a href="mailto:&#x68;&#117;&#115;&#116;&#103;&#x6f;&#99;&#x6b;&#64;&#x67;&#109;&#x61;&#105;&#108;&#x2e;&#99;&#x6f;&#109;">&#x68;&#117;&#115;&#116;&#103;&#x6f;&#99;&#x6b;&#64;&#x67;&#109;&#x61;&#105;&#108;&#x2e;&#99;&#x6f;&#109;</a></li>
 </ul>
 <hr>
 <p>感谢阅读这份帮助文档。请点击右上角，绑定印象笔记账号，开启全新的记录与分享体验吧。</p>
