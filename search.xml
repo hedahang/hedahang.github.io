@@ -276,66 +276,6 @@ var ctx = canvas.getContext( '2d' );
       </tags>
   </entry>
   <entry>
-    <title>HTML5离线存储和本地缓存</title>
-    <url>/2016/07/15/H5%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98%E5%92%8C%E7%A6%BB%E7%BA%BF%E7%BC%93%E5%AD%98/</url>
-    <content><![CDATA[<h1 id="一、离线缓存"><a href="#一、离线缓存" class="headerlink" title="一、离线缓存"></a>一、离线缓存</h1><p>有一个 web 应用有三个文件 index.html,a.js,b.css，现在需要把 js 和 css 文件缓存起来</p>
-<span id="more"></span>
-<p>1.在 index.html 里加上<html manifest="test.manifest"></p>
-<p>2.manifest 清单格式如下</p>
-<blockquote>
-<pre><code> CACHE MANIFEST
-</code></pre>
-</blockquote>
-<pre><code>#上面一句必须
-#v1.0.0
-#需要缓存的文件
-CACHE:
-a.js
-b.css
-#不需要缓存的文件
-NETWORK:
-*
-#无法访问页面
-FALLBACK:
-404.html
-复制代码
-</code></pre>
-<p>3.manifest 文件的 mime-type 必须是 text/cache-manifest 类型</p>
-<blockquote>
-<p>注意点：<br>a.对于每个 index.html?id=1 或 index.html?id=2 都会分别缓存 index.html 页面，可以通过 chrome 浏览器 Resources/Application Cache 观察<br>b.如果想更新缓存内容，只要修改下 manifest 文件即可，如改版本号 v1.0.1</p>
-</blockquote>
-<!-- more -->
-
-<p>4.离线存储如果资源有更新，可以通过如下代码来监听，但第一次加载还会是原来的版本</p>
-<blockquote>
-<pre><code> window.applicationCache.addEventListener(&#39;updateready&#39;,function(e)&#123;
-</code></pre>
-</blockquote>
-<pre><code>    if(window.applicationCache.status == window.applicationCache.UPDATEREADY)&#123;
-        window.applicationCache.swapCache();
-        if(confirm(&quot;loding new?&quot;))&#123;
-            window.location.reload()
-        &#125;
-    &#125;
-&#125;,false)
-</code></pre>
-<h1 id="二、本地缓存"><a href="#二、本地缓存" class="headerlink" title="二、本地缓存"></a>二、本地缓存</h1><pre><code>localStorage.setItem(&quot;key&quot;,&quot;value&quot;)
-
-localStorage.getItem(&quot;key&quot;,&quot;value&quot;)
-
-localStorage.removeItem(&quot;key&quot;)
-
-localStorage.clear()
-</code></pre>
-<p>1.本地存储永不过期，除非自己去清除</p>
-<p>2.可以通过 chrome 浏览器 Resources/Local Storage 来查看</p>
-<p>3.不同域下就算 key 相同取不到的值也不同，如 localhost 和 127.0.0.1</p>
-]]></content>
-      <tags>
-        <tag>H5</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>H5新特性——音视频</title>
     <url>/2016/07/11/H5%E6%96%B0%E7%89%B9%E6%80%A7%E2%80%94%E2%80%94%E8%A7%86%E9%A2%91/</url>
     <content><![CDATA[<p>HTML5 之前在页面播放需要使用 flash 播放器；HTML5 添加两个标签：</p>
@@ -393,6 +333,66 @@ localStorage.clear()
       <tags>
         <tag>HTML5</tag>
         <tag>video</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HTML5离线存储和本地缓存</title>
+    <url>/2016/07/15/H5%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98%E5%92%8C%E7%A6%BB%E7%BA%BF%E7%BC%93%E5%AD%98/</url>
+    <content><![CDATA[<h1 id="一、离线缓存"><a href="#一、离线缓存" class="headerlink" title="一、离线缓存"></a>一、离线缓存</h1><p>有一个 web 应用有三个文件 index.html,a.js,b.css，现在需要把 js 和 css 文件缓存起来</p>
+<span id="more"></span>
+<p>1.在 index.html 里加上<html manifest="test.manifest"></p>
+<p>2.manifest 清单格式如下</p>
+<blockquote>
+<pre><code> CACHE MANIFEST
+</code></pre>
+</blockquote>
+<pre><code>#上面一句必须
+#v1.0.0
+#需要缓存的文件
+CACHE:
+a.js
+b.css
+#不需要缓存的文件
+NETWORK:
+*
+#无法访问页面
+FALLBACK:
+404.html
+复制代码
+</code></pre>
+<p>3.manifest 文件的 mime-type 必须是 text/cache-manifest 类型</p>
+<blockquote>
+<p>注意点：<br>a.对于每个 index.html?id=1 或 index.html?id=2 都会分别缓存 index.html 页面，可以通过 chrome 浏览器 Resources/Application Cache 观察<br>b.如果想更新缓存内容，只要修改下 manifest 文件即可，如改版本号 v1.0.1</p>
+</blockquote>
+<!-- more -->
+
+<p>4.离线存储如果资源有更新，可以通过如下代码来监听，但第一次加载还会是原来的版本</p>
+<blockquote>
+<pre><code> window.applicationCache.addEventListener(&#39;updateready&#39;,function(e)&#123;
+</code></pre>
+</blockquote>
+<pre><code>    if(window.applicationCache.status == window.applicationCache.UPDATEREADY)&#123;
+        window.applicationCache.swapCache();
+        if(confirm(&quot;loding new?&quot;))&#123;
+            window.location.reload()
+        &#125;
+    &#125;
+&#125;,false)
+</code></pre>
+<h1 id="二、本地缓存"><a href="#二、本地缓存" class="headerlink" title="二、本地缓存"></a>二、本地缓存</h1><pre><code>localStorage.setItem(&quot;key&quot;,&quot;value&quot;)
+
+localStorage.getItem(&quot;key&quot;,&quot;value&quot;)
+
+localStorage.removeItem(&quot;key&quot;)
+
+localStorage.clear()
+</code></pre>
+<p>1.本地存储永不过期，除非自己去清除</p>
+<p>2.可以通过 chrome 浏览器 Resources/Local Storage 来查看</p>
+<p>3.不同域下就算 key 相同取不到的值也不同，如 localhost 和 127.0.0.1</p>
+]]></content>
+      <tags>
+        <tag>H5</tag>
       </tags>
   </entry>
   <entry>
@@ -499,58 +499,6 @@ var ISWP = !!(navigator.userAgent.match(/Windows\sPhone/i));
     
 </code></pre>
 ]]></content>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>九、JavaScript之call、apply和bind的模拟实现</title>
-    <url>/2019/09/21/call%E3%80%81apply%E3%80%81bind%E7%9A%84%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0/</url>
-    <content><![CDATA[<h2 id="call"><a href="#call" class="headerlink" title="call"></a>call</h2><p>简单来说</p>
-<blockquote>
-<p>call()方法在将函数的第一个参数值指定到 this 和剩余参数指定的情况下调用某个函数或方法。</p>
-</blockquote>
-<span id="more"></span>
-<p>使用示例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>, a, b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// this指向第一个参数foo;</span></span><br><span class="line">bar.call(foo, <span class="number">1</span>, <span class="number">2</span>); <span class="comment">// &#123;name: &quot;lilei&quot;&#125; 1 2</span></span><br><span class="line"><span class="comment">// a,b未传参数，默认是undefined</span></span><br><span class="line">bar.call(foo); <span class="comment">// &#123;name: &quot;lilei&quot;&#125; undefined undefined</span></span><br><span class="line"><span class="comment">// call方法不传参数或传递null/undefined，this都指向window(非严格模式)</span></span><br><span class="line">bar.call(); <span class="comment">// window undefined undefined</span></span><br><span class="line">bar.call(<span class="literal">null</span>); <span class="comment">// window undefined undefined</span></span><br><span class="line">bar.call(<span class="literal">undefined</span>); <span class="comment">// window undefined undefined</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="模拟实现"><a href="#模拟实现" class="headerlink" title="模拟实现"></a>模拟实现</h3><p>call 方法的模拟实现需要明白 call 的原理：</p>
-<ol>
-<li>this 指向的改变</li>
-<li>call 函数中执行调用的函数</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myCall = <span class="function"><span class="keyword">function</span> (<span class="params">context, ...args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (context === <span class="literal">null</span> || context === <span class="literal">undefined</span>) &#123;</span><br><span class="line">    context = <span class="built_in">window</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    context = <span class="built_in">Object</span>(context);</span><br><span class="line">  &#125;</span><br><span class="line">  context.fn = <span class="built_in">this</span>;</span><br><span class="line">  <span class="keyword">delete</span> context.fn(...args);</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>, a, b);</span><br><span class="line">&#125;</span><br><span class="line">bar.myCall(foo, <span class="number">1</span>, <span class="number">2</span>); <span class="comment">// &#123;name: &quot;lilei&quot;, fn: ƒ&#125; 1 2</span></span><br><span class="line">bar.myCall(foo); <span class="comment">// &#123;name: &quot;lilei&quot;, fn: ƒ&#125; undefined undefined</span></span><br><span class="line">bar.myCall(); <span class="comment">// Window undefined undefined</span></span><br><span class="line">bar.myCall(<span class="literal">null</span>); <span class="comment">// Window undefined undefined</span></span><br><span class="line">bar.myCall(<span class="literal">undefined</span>); <span class="comment">// Window undefined undefined</span></span><br><span class="line">bar.myCall(<span class="number">23</span>, <span class="number">24</span>); <span class="comment">// Number &#123;23, fn: ƒ&#125; undefined undefined</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h2><p>apply 的使用与 apply 基本一致，两者之间的区别：apply 的第二个参数是数组[arg1,arg2,arg3,…]，call 的第二个参数是列表(arg1,arg2,arg3,…)；<br>使用示例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>, a, b);</span><br><span class="line">&#125;</span><br><span class="line">bar.apply(foo, [<span class="number">1</span>, <span class="number">2</span>]); <span class="comment">// &#123;name: &quot;lilei&quot;&#125; 1 2</span></span><br><span class="line">bar.apply(foo); <span class="comment">// &#123;name: &quot;lilei&quot;&#125; undefined undefined</span></span><br><span class="line">bar.apply(); <span class="comment">// window undefined undefined</span></span><br><span class="line">bar.apply(<span class="literal">null</span>); <span class="comment">// window undefined undefined</span></span><br><span class="line">bar.apply(<span class="literal">undefined</span>); <span class="comment">// window undefined undefined</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="模拟实现-1"><a href="#模拟实现-1" class="headerlink" title="模拟实现"></a>模拟实现</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myApply = <span class="function"><span class="keyword">function</span> (<span class="params">context, args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (context === <span class="literal">null</span> || context === <span class="literal">undefined</span>) &#123;</span><br><span class="line">    context = <span class="built_in">window</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    context = <span class="built_in">Object</span>(context);</span><br><span class="line">  &#125;</span><br><span class="line">  context.fn = <span class="built_in">this</span>;</span><br><span class="line">  <span class="keyword">delete</span> context.fn(args);</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h2><p>引用 MDN 中的介绍</p>
-<blockquote>
-<p>bind() 方法创建一个新的函数，在 bind() 被调用时，这个新函数的 this 被指定为 bind() 的第一个参数，而其余参数将作为新函数的参数，供调用时使用。</p>
-</blockquote>
-<p>由此看出 bind 的特点：</p>
-<ul>
-<li>bind 返回一个新的函数。</li>
-<li>这个新的函数可以预置参数。</li>
-</ul>
-<p>举个例子</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>, a, b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> fn = bar.bind(foo, <span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">fn(); <span class="comment">//// &#123;name: &quot;lilei&quot;&#125; 1 2</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="模拟实现-2"><a href="#模拟实现-2" class="headerlink" title="模拟实现"></a>模拟实现</h3><p>1.实现返回一个函数，并可以传递参数</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myBind = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 保存要绑定的this</span></span><br><span class="line">  <span class="keyword">var</span> _this = <span class="built_in">arguments</span>[<span class="number">0</span>];</span><br><span class="line">  <span class="comment">// 获取预置参数</span></span><br><span class="line">  <span class="keyword">var</span> args = [].slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>);</span><br><span class="line">  <span class="keyword">var</span> self = <span class="built_in">this</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 获取执行时传入的参数</span></span><br><span class="line">    <span class="keyword">var</span> restArgs = [].slice.call(<span class="built_in">arguments</span>);</span><br><span class="line">    <span class="comment">// 合并参数</span></span><br><span class="line">    <span class="keyword">var</span> allArgs = args.concat(restArgs);</span><br><span class="line">    <span class="keyword">return</span> self.apply(_this, allArgs);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>接下来最重要的一点，bind 返回的函数支持 new 调用：</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myBind = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> self = <span class="built_in">this</span>;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> self !== <span class="string">&quot;function&quot;</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;绑定的目标必须是函数&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 保存要绑定的this</span></span><br><span class="line">  <span class="keyword">var</span> _this = <span class="built_in">arguments</span>[<span class="number">0</span>];</span><br><span class="line">  <span class="comment">// 获取预置参数</span></span><br><span class="line">  <span class="keyword">var</span> args = [].slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>);</span><br><span class="line">  <span class="keyword">var</span> fNOP = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line">  <span class="keyword">var</span> fBound = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 获取执行时传入的参数</span></span><br><span class="line">    <span class="keyword">var</span> restArgs = [].slice.call(<span class="built_in">arguments</span>);</span><br><span class="line">    <span class="comment">// 合并参数</span></span><br><span class="line">    <span class="keyword">var</span> allArgs = args.concat(restArgs);</span><br><span class="line">    <span class="comment">// instanceof 运算符用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上。</span></span><br><span class="line">    <span class="comment">// 当作为构造函数时，this 指向实例，此时结果为 true，将绑定函数的 this 指向该实例，可以让实例获得来自绑定函数的值</span></span><br><span class="line">    <span class="comment">// 当作为普通函数时，this 指向 window，此时结果为 false，将绑定函数的 this 指向 context </span></span><br><span class="line">    <span class="keyword">return</span> self.apply(<span class="built_in">this</span> <span class="keyword">instanceof</span> fBound ? <span class="built_in">this</span> : _this, allArgs);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">// 原型链关系处理</span></span><br><span class="line">  <span class="comment">// fBound.prototype = Object.create(self.prototype || Function.prototype);</span></span><br><span class="line">  fNOP.prototype = <span class="built_in">this</span>.prototype;</span><br><span class="line">  fBound.prototype = <span class="keyword">new</span> fNOP();</span><br><span class="line">  <span class="keyword">return</span> fBound;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://github.com/mqyqingfeng/Blog/issues/11">https://github.com/mqyqingfeng/Blog/issues/11</a></p>
-]]></content>
-      <categories>
-        <category>深入理解JavaScript系列笔记</category>
-      </categories>
       <tags>
         <tag>JavaScript</tag>
       </tags>
@@ -695,6 +643,58 @@ count; // 3
 ]]></content>
       <tags>
         <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>九、JavaScript之call、apply和bind的模拟实现</title>
+    <url>/2019/09/21/call%E3%80%81apply%E3%80%81bind%E7%9A%84%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0/</url>
+    <content><![CDATA[<h2 id="call"><a href="#call" class="headerlink" title="call"></a>call</h2><p>简单来说</p>
+<blockquote>
+<p>call()方法在将函数的第一个参数值指定到 this 和剩余参数指定的情况下调用某个函数或方法。</p>
+</blockquote>
+<span id="more"></span>
+<p>使用示例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>, a, b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// this指向第一个参数foo;</span></span><br><span class="line">bar.call(foo, <span class="number">1</span>, <span class="number">2</span>); <span class="comment">// &#123;name: &quot;lilei&quot;&#125; 1 2</span></span><br><span class="line"><span class="comment">// a,b未传参数，默认是undefined</span></span><br><span class="line">bar.call(foo); <span class="comment">// &#123;name: &quot;lilei&quot;&#125; undefined undefined</span></span><br><span class="line"><span class="comment">// call方法不传参数或传递null/undefined，this都指向window(非严格模式)</span></span><br><span class="line">bar.call(); <span class="comment">// window undefined undefined</span></span><br><span class="line">bar.call(<span class="literal">null</span>); <span class="comment">// window undefined undefined</span></span><br><span class="line">bar.call(<span class="literal">undefined</span>); <span class="comment">// window undefined undefined</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="模拟实现"><a href="#模拟实现" class="headerlink" title="模拟实现"></a>模拟实现</h3><p>call 方法的模拟实现需要明白 call 的原理：</p>
+<ol>
+<li>this 指向的改变</li>
+<li>call 函数中执行调用的函数</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myCall = <span class="function"><span class="keyword">function</span> (<span class="params">context, ...args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (context === <span class="literal">null</span> || context === <span class="literal">undefined</span>) &#123;</span><br><span class="line">    context = <span class="built_in">window</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    context = <span class="built_in">Object</span>(context);</span><br><span class="line">  &#125;</span><br><span class="line">  context.fn = <span class="built_in">this</span>;</span><br><span class="line">  <span class="keyword">delete</span> context.fn(...args);</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>, a, b);</span><br><span class="line">&#125;</span><br><span class="line">bar.myCall(foo, <span class="number">1</span>, <span class="number">2</span>); <span class="comment">// &#123;name: &quot;lilei&quot;, fn: ƒ&#125; 1 2</span></span><br><span class="line">bar.myCall(foo); <span class="comment">// &#123;name: &quot;lilei&quot;, fn: ƒ&#125; undefined undefined</span></span><br><span class="line">bar.myCall(); <span class="comment">// Window undefined undefined</span></span><br><span class="line">bar.myCall(<span class="literal">null</span>); <span class="comment">// Window undefined undefined</span></span><br><span class="line">bar.myCall(<span class="literal">undefined</span>); <span class="comment">// Window undefined undefined</span></span><br><span class="line">bar.myCall(<span class="number">23</span>, <span class="number">24</span>); <span class="comment">// Number &#123;23, fn: ƒ&#125; undefined undefined</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h2><p>apply 的使用与 apply 基本一致，两者之间的区别：apply 的第二个参数是数组[arg1,arg2,arg3,…]，call 的第二个参数是列表(arg1,arg2,arg3,…)；<br>使用示例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>, a, b);</span><br><span class="line">&#125;</span><br><span class="line">bar.apply(foo, [<span class="number">1</span>, <span class="number">2</span>]); <span class="comment">// &#123;name: &quot;lilei&quot;&#125; 1 2</span></span><br><span class="line">bar.apply(foo); <span class="comment">// &#123;name: &quot;lilei&quot;&#125; undefined undefined</span></span><br><span class="line">bar.apply(); <span class="comment">// window undefined undefined</span></span><br><span class="line">bar.apply(<span class="literal">null</span>); <span class="comment">// window undefined undefined</span></span><br><span class="line">bar.apply(<span class="literal">undefined</span>); <span class="comment">// window undefined undefined</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="模拟实现-1"><a href="#模拟实现-1" class="headerlink" title="模拟实现"></a>模拟实现</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myApply = <span class="function"><span class="keyword">function</span> (<span class="params">context, args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (context === <span class="literal">null</span> || context === <span class="literal">undefined</span>) &#123;</span><br><span class="line">    context = <span class="built_in">window</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    context = <span class="built_in">Object</span>(context);</span><br><span class="line">  &#125;</span><br><span class="line">  context.fn = <span class="built_in">this</span>;</span><br><span class="line">  <span class="keyword">delete</span> context.fn(args);</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h2><p>引用 MDN 中的介绍</p>
+<blockquote>
+<p>bind() 方法创建一个新的函数，在 bind() 被调用时，这个新函数的 this 被指定为 bind() 的第一个参数，而其余参数将作为新函数的参数，供调用时使用。</p>
+</blockquote>
+<p>由此看出 bind 的特点：</p>
+<ul>
+<li>bind 返回一个新的函数。</li>
+<li>这个新的函数可以预置参数。</li>
+</ul>
+<p>举个例子</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>, a, b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> fn = bar.bind(foo, <span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">fn(); <span class="comment">//// &#123;name: &quot;lilei&quot;&#125; 1 2</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="模拟实现-2"><a href="#模拟实现-2" class="headerlink" title="模拟实现"></a>模拟实现</h3><p>1.实现返回一个函数，并可以传递参数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myBind = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 保存要绑定的this</span></span><br><span class="line">  <span class="keyword">var</span> _this = <span class="built_in">arguments</span>[<span class="number">0</span>];</span><br><span class="line">  <span class="comment">// 获取预置参数</span></span><br><span class="line">  <span class="keyword">var</span> args = [].slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>);</span><br><span class="line">  <span class="keyword">var</span> self = <span class="built_in">this</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 获取执行时传入的参数</span></span><br><span class="line">    <span class="keyword">var</span> restArgs = [].slice.call(<span class="built_in">arguments</span>);</span><br><span class="line">    <span class="comment">// 合并参数</span></span><br><span class="line">    <span class="keyword">var</span> allArgs = args.concat(restArgs);</span><br><span class="line">    <span class="keyword">return</span> self.apply(_this, allArgs);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>接下来最重要的一点，bind 返回的函数支持 new 调用：</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.myBind = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> self = <span class="built_in">this</span>;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> self !== <span class="string">&quot;function&quot;</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;绑定的目标必须是函数&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 保存要绑定的this</span></span><br><span class="line">  <span class="keyword">var</span> _this = <span class="built_in">arguments</span>[<span class="number">0</span>];</span><br><span class="line">  <span class="comment">// 获取预置参数</span></span><br><span class="line">  <span class="keyword">var</span> args = [].slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>);</span><br><span class="line">  <span class="keyword">var</span> fNOP = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line">  <span class="keyword">var</span> fBound = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 获取执行时传入的参数</span></span><br><span class="line">    <span class="keyword">var</span> restArgs = [].slice.call(<span class="built_in">arguments</span>);</span><br><span class="line">    <span class="comment">// 合并参数</span></span><br><span class="line">    <span class="keyword">var</span> allArgs = args.concat(restArgs);</span><br><span class="line">    <span class="comment">// instanceof 运算符用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上。</span></span><br><span class="line">    <span class="comment">// 当作为构造函数时，this 指向实例，此时结果为 true，将绑定函数的 this 指向该实例，可以让实例获得来自绑定函数的值</span></span><br><span class="line">    <span class="comment">// 当作为普通函数时，this 指向 window，此时结果为 false，将绑定函数的 this 指向 context </span></span><br><span class="line">    <span class="keyword">return</span> self.apply(<span class="built_in">this</span> <span class="keyword">instanceof</span> fBound ? <span class="built_in">this</span> : _this, allArgs);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">// 原型链关系处理</span></span><br><span class="line">  <span class="comment">// fBound.prototype = Object.create(self.prototype || Function.prototype);</span></span><br><span class="line">  fNOP.prototype = <span class="built_in">this</span>.prototype;</span><br><span class="line">  fBound.prototype = <span class="keyword">new</span> fNOP();</span><br><span class="line">  <span class="keyword">return</span> fBound;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://github.com/mqyqingfeng/Blog/issues/11">https://github.com/mqyqingfeng/Blog/issues/11</a></p>
+]]></content>
+      <categories>
+        <category>深入理解JavaScript系列笔记</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -859,42 +859,6 @@ hexo version #查看Hexo的版本
       </tags>
   </entry>
   <entry>
-    <title>九、JavaScript之new的模拟实现</title>
-    <url>/2019/09/28/new%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0/</url>
-    <content><![CDATA[<h2 id="call"><a href="#call" class="headerlink" title="call"></a>call</h2><p>在MDN中对new运算符的解释是：</p>
-<blockquote>
-<p>new 运算符创建一个用户定义的对象类型的实例或具有构造函数的内置对象的实例。</p>
-</blockquote>
-<span id="more"></span>
-<p>为了更清楚理解，举个例子：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Car</span>(<span class="params">make, model, year</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(<span class="built_in">this</span>)); <span class="comment">// &#123;&#125;</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>.__proto__ === Car.prototype); <span class="comment">// true</span></span><br><span class="line">  <span class="built_in">this</span>.make = make;</span><br><span class="line">  <span class="built_in">this</span>.model = model;</span><br><span class="line">  <span class="built_in">this</span>.year = year;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(<span class="built_in">this</span>)); <span class="comment">//&#123;&quot;make&quot;:&quot;Eagle&quot;,&quot;model&quot;:&quot;Talon TSi&quot;,&quot;year&quot;:1993&#125;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> car1 = <span class="keyword">new</span> Car(<span class="string">&#x27;Eagle&#x27;</span>, <span class="string">&#x27;Talon TSi&#x27;</span>, <span class="number">1993</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(car1.make); <span class="comment">// Eagle</span></span><br></pre></td></tr></table></figure>
-<p>在上面的例子中，new运算符会进行如下操作：</p>
-<ol>
-<li>创建一个空的简单JavaScript对象（即{}）；</li>
-<li>新对象的__proto__属性指向构造函数的prototype属性 ；</li>
-<li>将步骤1新创建的对象作为this的上下文 ；</li>
-<li>如果该函数没有返回对象，则返回this。</li>
-</ol>
-<h3 id="模拟实现"><a href="#模拟实现" class="headerlink" title="模拟实现"></a>模拟实现</h3><p>实现一个new也就意味着不能用new关键字，那么要完成这么一系列步骤，我们通过一个函数newFactory来实现。</p>
-<p>请看下面示例：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">newFactory</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 取出第一个参数，就是我们要传入的构造函数</span></span><br><span class="line">  <span class="keyword">var</span> func = [].shift.call(<span class="built_in">arguments</span>);</span><br><span class="line">  <span class="comment">// 创建一个空对象，并且指定原型为func.prototype</span></span><br><span class="line">  <span class="keyword">var</span> obj = <span class="built_in">Object</span>.create(func.prototype);</span><br><span class="line">  <span class="comment">// 使用 apply，改变构造函数 this 的指向到新建的对象，这样 obj 就可以访问到构造函数中的属性</span></span><br><span class="line">  <span class="keyword">var</span> ret = func.apply(obj, <span class="built_in">arguments</span>);</span><br><span class="line">  <span class="comment">// 判断构造函数是否返回对象，有则return该对象，没有则返回this;(特殊情况返回null处理)</span></span><br><span class="line">  <span class="keyword">return</span> (<span class="keyword">typeof</span> ret === <span class="string">&quot;object&quot;</span> &amp;&amp; ret !== <span class="literal">null</span>) ? ret : obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>测试一(构造函数无返回对象)：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Otaku</span> (<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.age = age;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">this</span>.habit = <span class="string">&#x27;Games&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Otaku.prototype.strength = <span class="number">60</span>;</span><br><span class="line"></span><br><span class="line">Otaku.prototype.sayYourName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;I am &#x27;</span> + <span class="built_in">this</span>.name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person = newFactory(Otaku, <span class="string">&#x27;Kevin&#x27;</span>, <span class="string">&#x27;18&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(person.name) <span class="comment">// Kevin</span></span><br><span class="line"><span class="built_in">console</span>.log(person.habit) <span class="comment">// Games</span></span><br><span class="line"><span class="built_in">console</span>.log(person.strength) <span class="comment">// 60</span></span><br><span class="line"></span><br><span class="line">person.sayYourName(); <span class="comment">// I am Kevin</span></span><br></pre></td></tr></table></figure>
-
-<p>测试二(构造函数有返回对象)：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Otaku</span> (<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.age = age;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">this</span>.habit = <span class="string">&#x27;Games&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Otaku.prototype.strength = <span class="number">60</span>;</span><br><span class="line"></span><br><span class="line">Otaku.prototype.sayYourName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;I am &#x27;</span> + <span class="built_in">this</span>.name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person = newFactory(Otaku, <span class="string">&#x27;Kevin&#x27;</span>, <span class="string">&#x27;18&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(person.name) <span class="comment">// Kevin</span></span><br><span class="line"><span class="built_in">console</span>.log(person.habit) <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(person.strength) <span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line">person.sayYourName(); <span class="comment">// person.sayYourName is not a function</span></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://github.com/mqyqingfeng/Blog/issues/11">https://github.com/mqyqingfeng/Blog/issues/11</a></p>
-]]></content>
-      <categories>
-        <category>深入理解JavaScript系列笔记</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>关于Markdown的基本用法</title>
     <url>/2018/07/11/markerdown%E8%AF%AD%E6%B3%95/</url>
     <content><![CDATA[<p>Markdown 是一种文本格式。你可以用它来控制文档的显示。使用 markdown，你可以创建粗体的文字，斜体的文字，添加图片，并且创建列表 等等。基本上来讲，Markdown 就是普通的文字加上 # 或者 * 等符号。</p>
@@ -945,6 +909,42 @@ First Header | Second Header</li>
       </categories>
       <tags>
         <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>九、JavaScript之new的模拟实现</title>
+    <url>/2019/09/28/new%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0/</url>
+    <content><![CDATA[<h2 id="call"><a href="#call" class="headerlink" title="call"></a>call</h2><p>在MDN中对new运算符的解释是：</p>
+<blockquote>
+<p>new 运算符创建一个用户定义的对象类型的实例或具有构造函数的内置对象的实例。</p>
+</blockquote>
+<span id="more"></span>
+<p>为了更清楚理解，举个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Car</span>(<span class="params">make, model, year</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(<span class="built_in">this</span>)); <span class="comment">// &#123;&#125;</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>.__proto__ === Car.prototype); <span class="comment">// true</span></span><br><span class="line">  <span class="built_in">this</span>.make = make;</span><br><span class="line">  <span class="built_in">this</span>.model = model;</span><br><span class="line">  <span class="built_in">this</span>.year = year;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(<span class="built_in">this</span>)); <span class="comment">//&#123;&quot;make&quot;:&quot;Eagle&quot;,&quot;model&quot;:&quot;Talon TSi&quot;,&quot;year&quot;:1993&#125;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> car1 = <span class="keyword">new</span> Car(<span class="string">&#x27;Eagle&#x27;</span>, <span class="string">&#x27;Talon TSi&#x27;</span>, <span class="number">1993</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(car1.make); <span class="comment">// Eagle</span></span><br></pre></td></tr></table></figure>
+<p>在上面的例子中，new运算符会进行如下操作：</p>
+<ol>
+<li>创建一个空的简单JavaScript对象（即{}）；</li>
+<li>新对象的__proto__属性指向构造函数的prototype属性 ；</li>
+<li>将步骤1新创建的对象作为this的上下文 ；</li>
+<li>如果该函数没有返回对象，则返回this。</li>
+</ol>
+<h3 id="模拟实现"><a href="#模拟实现" class="headerlink" title="模拟实现"></a>模拟实现</h3><p>实现一个new也就意味着不能用new关键字，那么要完成这么一系列步骤，我们通过一个函数newFactory来实现。</p>
+<p>请看下面示例：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">newFactory</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 取出第一个参数，就是我们要传入的构造函数</span></span><br><span class="line">  <span class="keyword">var</span> func = [].shift.call(<span class="built_in">arguments</span>);</span><br><span class="line">  <span class="comment">// 创建一个空对象，并且指定原型为func.prototype</span></span><br><span class="line">  <span class="keyword">var</span> obj = <span class="built_in">Object</span>.create(func.prototype);</span><br><span class="line">  <span class="comment">// 使用 apply，改变构造函数 this 的指向到新建的对象，这样 obj 就可以访问到构造函数中的属性</span></span><br><span class="line">  <span class="keyword">var</span> ret = func.apply(obj, <span class="built_in">arguments</span>);</span><br><span class="line">  <span class="comment">// 判断构造函数是否返回对象，有则return该对象，没有则返回this;(特殊情况返回null处理)</span></span><br><span class="line">  <span class="keyword">return</span> (<span class="keyword">typeof</span> ret === <span class="string">&quot;object&quot;</span> &amp;&amp; ret !== <span class="literal">null</span>) ? ret : obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试一(构造函数无返回对象)：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Otaku</span> (<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.age = age;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">this</span>.habit = <span class="string">&#x27;Games&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Otaku.prototype.strength = <span class="number">60</span>;</span><br><span class="line"></span><br><span class="line">Otaku.prototype.sayYourName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;I am &#x27;</span> + <span class="built_in">this</span>.name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person = newFactory(Otaku, <span class="string">&#x27;Kevin&#x27;</span>, <span class="string">&#x27;18&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(person.name) <span class="comment">// Kevin</span></span><br><span class="line"><span class="built_in">console</span>.log(person.habit) <span class="comment">// Games</span></span><br><span class="line"><span class="built_in">console</span>.log(person.strength) <span class="comment">// 60</span></span><br><span class="line"></span><br><span class="line">person.sayYourName(); <span class="comment">// I am Kevin</span></span><br></pre></td></tr></table></figure>
+
+<p>测试二(构造函数有返回对象)：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Otaku</span> (<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.age = age;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">this</span>.habit = <span class="string">&#x27;Games&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Otaku.prototype.strength = <span class="number">60</span>;</span><br><span class="line"></span><br><span class="line">Otaku.prototype.sayYourName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;I am &#x27;</span> + <span class="built_in">this</span>.name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person = newFactory(Otaku, <span class="string">&#x27;Kevin&#x27;</span>, <span class="string">&#x27;18&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(person.name) <span class="comment">// Kevin</span></span><br><span class="line"><span class="built_in">console</span>.log(person.habit) <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(person.strength) <span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line">person.sayYourName(); <span class="comment">// person.sayYourName is not a function</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://github.com/mqyqingfeng/Blog/issues/11">https://github.com/mqyqingfeng/Blog/issues/11</a></p>
+]]></content>
+      <categories>
+        <category>深入理解JavaScript系列笔记</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -1179,7 +1179,7 @@ Markdown 使用一种和链接很相似的语法来标记图片，同样也允�
 &amp;#109;&quot;&gt;&amp;#x61;&amp;#x64;&amp;#x64;&amp;#x72;&amp;#x65;&amp;#115;&amp;#115;&amp;#64;&amp;#101;&amp;#120;&amp;#x61;
 &amp;#109;&amp;#x70;&amp;#x6C;e&amp;#x2E;&amp;#99;&amp;#111;&amp;#109;&lt;/a&gt;
 </code></pre>
-<p>在浏览器里面，这段字串（其实是 <a href="mailto:address@example.com">address@example.com</a>）会变成一个可以点击的「<a href="mailto:&#97;&#x64;&#100;&#x72;&#101;&#x73;&#115;&#x40;&#x65;&#x78;&#97;&#x6d;&#x70;&#x6c;&#x65;&#46;&#x63;&#x6f;&#109;">&#97;&#x64;&#100;&#x72;&#101;&#x73;&#115;&#x40;&#x65;&#x78;&#97;&#x6d;&#x70;&#x6c;&#x65;&#46;&#x63;&#x6f;&#109;</a>」链接。</p>
+<p>在浏览器里面，这段字串（其实是 <a href="mailto:address@example.com">address@example.com</a>）会变成一个可以点击的「<a href="mailto:&#97;&#x64;&#x64;&#x72;&#101;&#x73;&#x73;&#64;&#x65;&#120;&#x61;&#109;&#x70;&#108;&#101;&#46;&#x63;&#x6f;&#109;">&#97;&#x64;&#x64;&#x72;&#101;&#x73;&#x73;&#64;&#x65;&#120;&#x61;&#109;&#x70;&#108;&#101;&#46;&#x63;&#x6f;&#109;</a>」链接。</p>
 </blockquote>
 <p>（这种作法虽然可以糊弄不少的机器人，但并不能全部挡下来，不过总比什么都不做好些。不管怎样，公开你的信箱终究会引来广告信件的。）</p>
 <blockquote>
@@ -1424,6 +1424,45 @@ IE8: e.returnValue=false;
       </tags>
   </entry>
   <entry>
+    <title>二、JavaScript之作用域</title>
+    <url>/2019/06/15/%E4%BD%9C%E7%94%A8%E5%9F%9F/</url>
+    <content><![CDATA[<h2 id="什么是作用域"><a href="#什么是作用域" class="headerlink" title="什么是作用域"></a>什么是作用域</h2><p>作用域是指程序源代码中定义变量的区域。</p>
+<p>作用域规定了如何查找变量，也就是确定当前执行代码对变量的访问权限。</p>
+<p>JavaScript 采用词法作用域(lexical scoping)，也就是静态作用域。</p>
+<span id="more"></span>
+<h2 id="词法作用域"><a href="#词法作用域" class="headerlink" title="词法作用域"></a>词法作用域</h2><p>在你不知道的javascript上卷中是这样定义的：</p>
+<blockquote>
+<p>词法作用域就是定义在词法阶段的作用域。换句话说，词法作用域是由你在写代码时将变量和块作用域写在哪里来决定的，因此当词法分析器处理代码时会保持作用域不变(大部分情况下是这样的)。</p>
+</blockquote>
+<p>在JS中词法作用域的规则：<a href="https://github.com/getify/You-Dont-Know-JS/blob/1ed-zh-CN/scope%20%26%20closures/ch1.md">点这里</a></p>
+<p>请看下面这段代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var value = 1;</span><br><span class="line"></span><br><span class="line">function foo() &#123;</span><br><span class="line">    console.log(value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function bar() &#123;</span><br><span class="line">    var value = 2;</span><br><span class="line">    foo();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar(); // ???</span><br></pre></td></tr></table></figure>
+<p>假设JavaScript采用静态作用域，让我们分析下执行过程：<br>执行 foo 函数，先从 foo 函数内部查找是否有局部变量 value，如果没有，就根据书写的位置，查找上面一层的代码，也就是 value 等于 1，所以结果会打印 1。</p>
+<p>假设JavaScript采用动态作用域，让我们分析下执行过程：<br>执行 foo 函数，依然是从 foo 函数内部查找是否有局部变量 value。如果没有，就从调用函数的作用域，也就是 bar 函数内部查找 value 变量，所以结果会打印 2。</p>
+<p>前面我们已经说了，JavaScript采用的是静态作用域，所以这个例子的结果是 1。<br>再看下面这段代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function foo(a) &#123;</span><br><span class="line"></span><br><span class="line">	var b = a * 2;</span><br><span class="line"></span><br><span class="line">	function bar(c) &#123;</span><br><span class="line">		console.log( a, b, c );</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	bar(b * 3);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo( 2 ); // 2 4 12</span><br></pre></td></tr></table></figure>
+<p>在这个代码示例中有三个固有的嵌套作用域：</p>
+<ul>
+<li>包围着全局作用域，只有一个标识符：foo。</li>
+<li>包围着作用域 foo，它含有三个标识符：a，bar 和 b。</li>
+<li>包围着作用域 bar，它里面只包含一个标识符：c。</li>
+</ul>
+<p>当我们执行console.log(…)语句的时候，开始查找三个被引用的变量 a，b 和 c。它首先从最内部的作用域气泡开始，也就是 bar(…) 函数的作用域。在这里它找不到 a，所以它向上走一层，到外面下一个最近的作用域气泡，foo(…) 的作用域。它在这里找到了 a，于是它就使用这个 a。同样的事情也发生在 b 身上。但是对于 c，它在 bar(..) 内部就找到了。</p>
+<p>如果在 foo(..) 内部定义一个变量 c，console.log(…) 语句也仍然会找到并使用 bar(…) 中的那一个，而不会使用 foo(…) 中的那一个。</p>
+<p><strong>一旦找到第一个匹配，作用域查询就停止了。</strong>相同的标识符名称可以在嵌套作用域的多个层中被指定，这称为“遮蔽（shadowing）”（内部的标识符“遮蔽”了外部的标识符）。无论如何遮蔽，作用域查询总是从当前被执行的最内侧的作用域开始，向外/向上不断查找，直到第一个匹配才停止。</p>
+<p><strong>注意：</strong>全局变量也自动地是全局对象（在浏览器中是 window，等等）的属性，所以不直接通过全局变量的词法名称，而通过将它作为全局对象的一个属性引用来间接地引用，是可能的。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var a = 5;</span><br><span class="line">function foo(a) &#123;</span><br><span class="line">  console.log(a);</span><br><span class="line">  console.log(window.a)</span><br><span class="line">&#125;</span><br><span class="line">foo(2) // 2,5</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://github.com/mqyqingfeng/Blog/issues/3">https://github.com/mqyqingfeng/Blog/issues/3</a></p>
+]]></content>
+      <categories>
+        <category>深入理解JavaScript系列笔记</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>五、JavaScript之作用域链</title>
     <url>/2019/07/18/%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE/</url>
     <content><![CDATA[<p>在上一篇的文章中，我们了解到执行上下文数据（变量、函数声明和函数的所有形参）是由这个变量对象的属性存储的，另外，我们知道每次进入上下文时都会创建变量对象并填充初始化值，并且在执行上下文代码时会发生它的修改。</p>
@@ -1513,45 +1552,6 @@ IE8: e.returnValue=false;
 </ol>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// bar函数出栈</span></span><br><span class="line">ECStack = [fooContext, globalContext];</span><br><span class="line"></span><br><span class="line"><span class="comment">// foo函数出栈</span></span><br><span class="line">ECStack = [globalContext];</span><br></pre></td></tr></table></figure>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="http://dmitrysoshnikov.com/ecmascript/ru-chapter-4-scope-chain/">http://dmitrysoshnikov.com/ecmascript/ru-chapter-4-scope-chain/</a></p>
-]]></content>
-      <categories>
-        <category>深入理解JavaScript系列笔记</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>二、JavaScript之作用域</title>
-    <url>/2019/06/15/%E4%BD%9C%E7%94%A8%E5%9F%9F/</url>
-    <content><![CDATA[<h2 id="什么是作用域"><a href="#什么是作用域" class="headerlink" title="什么是作用域"></a>什么是作用域</h2><p>作用域是指程序源代码中定义变量的区域。</p>
-<p>作用域规定了如何查找变量，也就是确定当前执行代码对变量的访问权限。</p>
-<p>JavaScript 采用词法作用域(lexical scoping)，也就是静态作用域。</p>
-<span id="more"></span>
-<h2 id="词法作用域"><a href="#词法作用域" class="headerlink" title="词法作用域"></a>词法作用域</h2><p>在你不知道的javascript上卷中是这样定义的：</p>
-<blockquote>
-<p>词法作用域就是定义在词法阶段的作用域。换句话说，词法作用域是由你在写代码时将变量和块作用域写在哪里来决定的，因此当词法分析器处理代码时会保持作用域不变(大部分情况下是这样的)。</p>
-</blockquote>
-<p>在JS中词法作用域的规则：<a href="https://github.com/getify/You-Dont-Know-JS/blob/1ed-zh-CN/scope%20%26%20closures/ch1.md">点这里</a></p>
-<p>请看下面这段代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var value = 1;</span><br><span class="line"></span><br><span class="line">function foo() &#123;</span><br><span class="line">    console.log(value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function bar() &#123;</span><br><span class="line">    var value = 2;</span><br><span class="line">    foo();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar(); // ???</span><br></pre></td></tr></table></figure>
-<p>假设JavaScript采用静态作用域，让我们分析下执行过程：<br>执行 foo 函数，先从 foo 函数内部查找是否有局部变量 value，如果没有，就根据书写的位置，查找上面一层的代码，也就是 value 等于 1，所以结果会打印 1。</p>
-<p>假设JavaScript采用动态作用域，让我们分析下执行过程：<br>执行 foo 函数，依然是从 foo 函数内部查找是否有局部变量 value。如果没有，就从调用函数的作用域，也就是 bar 函数内部查找 value 变量，所以结果会打印 2。</p>
-<p>前面我们已经说了，JavaScript采用的是静态作用域，所以这个例子的结果是 1。<br>再看下面这段代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function foo(a) &#123;</span><br><span class="line"></span><br><span class="line">	var b = a * 2;</span><br><span class="line"></span><br><span class="line">	function bar(c) &#123;</span><br><span class="line">		console.log( a, b, c );</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	bar(b * 3);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo( 2 ); // 2 4 12</span><br></pre></td></tr></table></figure>
-<p>在这个代码示例中有三个固有的嵌套作用域：</p>
-<ul>
-<li>包围着全局作用域，只有一个标识符：foo。</li>
-<li>包围着作用域 foo，它含有三个标识符：a，bar 和 b。</li>
-<li>包围着作用域 bar，它里面只包含一个标识符：c。</li>
-</ul>
-<p>当我们执行console.log(…)语句的时候，开始查找三个被引用的变量 a，b 和 c。它首先从最内部的作用域气泡开始，也就是 bar(…) 函数的作用域。在这里它找不到 a，所以它向上走一层，到外面下一个最近的作用域气泡，foo(…) 的作用域。它在这里找到了 a，于是它就使用这个 a。同样的事情也发生在 b 身上。但是对于 c，它在 bar(..) 内部就找到了。</p>
-<p>如果在 foo(..) 内部定义一个变量 c，console.log(…) 语句也仍然会找到并使用 bar(…) 中的那一个，而不会使用 foo(…) 中的那一个。</p>
-<p><strong>一旦找到第一个匹配，作用域查询就停止了。</strong>相同的标识符名称可以在嵌套作用域的多个层中被指定，这称为“遮蔽（shadowing）”（内部的标识符“遮蔽”了外部的标识符）。无论如何遮蔽，作用域查询总是从当前被执行的最内侧的作用域开始，向外/向上不断查找，直到第一个匹配才停止。</p>
-<p><strong>注意：</strong>全局变量也自动地是全局对象（在浏览器中是 window，等等）的属性，所以不直接通过全局变量的词法名称，而通过将它作为全局对象的一个属性引用来间接地引用，是可能的。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var a = 5;</span><br><span class="line">function foo(a) &#123;</span><br><span class="line">  console.log(a);</span><br><span class="line">  console.log(window.a)</span><br><span class="line">&#125;</span><br><span class="line">foo(2) // 2,5</span><br></pre></td></tr></table></figure>
-
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://github.com/mqyqingfeng/Blog/issues/3">https://github.com/mqyqingfeng/Blog/issues/3</a></p>
 ]]></content>
       <categories>
         <category>深入理解JavaScript系列笔记</category>
@@ -2418,6 +2418,96 @@ if(r==null)alert(&#39;Date format error!&#39;);
       </tags>
   </entry>
   <entry>
+    <title>十、JavaScript专题之数组乱序</title>
+    <url>/2020/04/05/%E6%95%B0%E7%BB%84%E4%B9%B1%E5%BA%8F/</url>
+    <content><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>数组乱序指的是：将数组元素的排列顺序随机打乱。<br>通常我们在做抽奖系统或者发牌等游戏时，会遇到数组乱序的问题。 举个例子：将 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] 乱序。</p>
+<span id="more"></span>
+
+<h2 id="sort-结合-Math-random"><a href="#sort-结合-Math-random" class="headerlink" title="sort 结合 Math.random"></a>sort 结合 Math.random</h2><p>先看代码实现：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>];</span><br><span class="line">arr.sort(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Math</span>.random() - <span class="number">0.5</span>;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(arr);</span><br></pre></td></tr></table></figure>
+
+<p>Math.random() - 0.5 随机得到一个正数、负数或是 0，如果是正数则升序序排列，如果是负数则降序排列，如果是 0 就不变，然后不断的升序或者降序，最终得到一个乱序的数组。<br>乍一看，这似乎是一个合理的解决方案。事实上这种方式并不是真正意思上的乱序，一些元素并没有机会相互比较， 最终数组元素停留位置的概率并不是完全随机的。</p>
+<p>来看一个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shuffle</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> arr.sort(<span class="function">() =&gt;</span> <span class="built_in">Math</span>.random() - <span class="number">0.5</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 用于验证 shuffle 方法是否完全随机</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test_shuffle</span>(<span class="params">shuffleFn</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 多次乱序数组的次数</span></span><br><span class="line">  <span class="keyword">let</span> n = <span class="number">100000</span>;</span><br><span class="line">  <span class="comment">// 保存每个元素在每个位置上出现的次数</span></span><br><span class="line">  <span class="keyword">let</span> countObj = &#123;</span><br><span class="line">    <span class="attr">a</span>: <span class="built_in">Array</span>.from(&#123; <span class="attr">length</span>: <span class="number">10</span> &#125;).fill(<span class="number">0</span>),</span><br><span class="line">    <span class="attr">b</span>: <span class="built_in">Array</span>.from(&#123; <span class="attr">length</span>: <span class="number">10</span> &#125;).fill(<span class="number">0</span>),</span><br><span class="line">    <span class="attr">c</span>: <span class="built_in">Array</span>.from(&#123; <span class="attr">length</span>: <span class="number">10</span> &#125;).fill(<span class="number">0</span>),</span><br><span class="line">    <span class="attr">d</span>: <span class="built_in">Array</span>.from(&#123; <span class="attr">length</span>: <span class="number">10</span> &#125;).fill(<span class="number">0</span>),</span><br><span class="line">    <span class="attr">e</span>: <span class="built_in">Array</span>.from(&#123; <span class="attr">length</span>: <span class="number">10</span> &#125;).fill(<span class="number">0</span>),</span><br><span class="line">    <span class="attr">f</span>: <span class="built_in">Array</span>.from(&#123; <span class="attr">length</span>: <span class="number">10</span> &#125;).fill(<span class="number">0</span>),</span><br><span class="line">    <span class="attr">g</span>: <span class="built_in">Array</span>.from(&#123; <span class="attr">length</span>: <span class="number">10</span> &#125;).fill(<span class="number">0</span>),</span><br><span class="line">    <span class="attr">h</span>: <span class="built_in">Array</span>.from(&#123; <span class="attr">length</span>: <span class="number">10</span> &#125;).fill(<span class="number">0</span>),</span><br><span class="line">    <span class="attr">i</span>: <span class="built_in">Array</span>.from(&#123; <span class="attr">length</span>: <span class="number">10</span> &#125;).fill(<span class="number">0</span>),</span><br><span class="line">    <span class="attr">j</span>: <span class="built_in">Array</span>.from(&#123; <span class="attr">length</span>: <span class="number">10</span> &#125;).fill(<span class="number">0</span>),</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">    <span class="keyword">let</span> arr = [<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>, <span class="string">&quot;d&quot;</span>, <span class="string">&quot;e&quot;</span>, <span class="string">&quot;f&quot;</span>, <span class="string">&quot;g&quot;</span>, <span class="string">&quot;h&quot;</span>, <span class="string">&quot;i&quot;</span>, <span class="string">&quot;j&quot;</span>];</span><br><span class="line">    shuffleFn(arr);</span><br><span class="line">    countObj.a[arr.indexOf(<span class="string">&quot;a&quot;</span>)]++;</span><br><span class="line">    countObj.b[arr.indexOf(<span class="string">&quot;b&quot;</span>)]++;</span><br><span class="line">    countObj.c[arr.indexOf(<span class="string">&quot;c&quot;</span>)]++;</span><br><span class="line">    countObj.d[arr.indexOf(<span class="string">&quot;d&quot;</span>)]++;</span><br><span class="line">    countObj.e[arr.indexOf(<span class="string">&quot;e&quot;</span>)]++;</span><br><span class="line">    countObj.f[arr.indexOf(<span class="string">&quot;f&quot;</span>)]++;</span><br><span class="line">    countObj.g[arr.indexOf(<span class="string">&quot;g&quot;</span>)]++;</span><br><span class="line">    countObj.h[arr.indexOf(<span class="string">&quot;h&quot;</span>)]++;</span><br><span class="line">    countObj.i[arr.indexOf(<span class="string">&quot;i&quot;</span>)]++;</span><br><span class="line">    countObj.j[arr.indexOf(<span class="string">&quot;j&quot;</span>)]++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.table(countObj);</span><br><span class="line">&#125;</span><br><span class="line">test_shuffle(shuffle);</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，我们定义了两个函数，shuffle 中使用 sort 和 Math.random() 进行数组乱序操作；<br>test_shuffle 函数定义了一个长度为 10 的数组 [‘a’, ‘b’, ‘c’, ‘d’, ‘e’, ‘f’, ‘g’, ‘h’, ‘i’, ‘j’]，并使用传入的乱序函数进行十万次操作，并将数组中每个元素在每个位置出现的次数存放到变量 countObj 中，最终将 countObj 打印出来。<br>结果如下：</p>
+<p><img src="/images/shuffle.png" alt="(运行结果)"></p>
+<p>从这个表格中我们能够看出，每个元素在每个位置出现的概率相差很大，比如元素 a ，<br>在索引 0 的位置上出现了 19408 次，在索引 4 的位置上只出现了 6733 次，<br>元素 a 在这两个位置出现的次数相差很大（相差一倍还多）。<br>如果排序真的是随机的，那么每个元素在每个位置出现的概率都应该一样，<br>实验结果各个位置的数字应该很接近，而不是像现在这样各个位置的数字相差很大。<br>那么问题出在哪里呢？</p>
+<h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><p>如果要追究这个问题所在，就必须了解 sort 函数的原理，然而 ECMAScript 只规定了效果，没有规定实现的方式，所以不同浏览器实现的方式还不一样。</p>
+<p>为了解决这个问题，我们以 v8 为例，v8 在处理 sort 方法时，使用了插入排序和快排两种方案。 当目标数组长度小于 10 时，使用插入排序；反之，使用快速排序。</p>
+<p>源码地址：<a href="https://github.com/v8/v8/blob/master/src/js/array.js">https://github.com/v8/v8/blob/master/src/js/array.js</a></p>
+<p>为了简化篇幅，我们对 [1, 2, 3] 这个数组进行分析，数组长度为 3，此时采用的是插入排序。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">insertSort</span>(<span class="params">list = []</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>, len = list.length; i &lt; len; i++) &#123;</span><br><span class="line">    <span class="keyword">let</span> j = i - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">let</span> temp = list[i];</span><br><span class="line">    <span class="keyword">while</span> (j &gt;= <span class="number">0</span> &amp;&amp; list[j] &gt; temp) &#123;</span><br><span class="line">      list[j + <span class="number">1</span>] = list[j];</span><br><span class="line">      j = j - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    list[j + <span class="number">1</span>] = temp;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其原理在于将第一个元素视为有序序列，遍历数组，将之后的元素依次插入这个构建的有序序列中。<br>我们来个简单的示意图：</p>
+<p><img src="/images/insertion.gif" alt="(排序效果图)"></p>
+<p>现在我们来具体分析[1, 2, 3]这个数组排序；</p>
+<p>因为插入排序视第一个元素为有序的，所以数组的外层循环从 i = 1 开始，a[i] 值为 2，此时内层循环遍历，比较 compare(1, 2)，因为 Math.random() - 0.5 的结果有 50% 的概率小于 0 ，有 50% 的概率大于 0，所以有 50% 的概率数组变成 [2, 1, 3]，50% 的结果不变，数组依然为 [1, 2, 3]。</p>
+<p>假设依然是 [1, 2, 3]，我们再进行一次分析，接着遍历，i = 2，a[i] 的值为 3，此时内层循环遍历，比较 compare(2, 3)：</p>
+<p>有 50% 的概率数组不变，依然是 [1, 2, 3]，然后遍历结束。</p>
+<p>有 50% 的概率变成 [1, 3, 2]，因为还没有找到 3 正确的位置，所以还会进行遍历，所以在这 50% 的概率中又会进行一次比较，compare(1, 3)，有 50% 的概率不变，数组为 [1, 3, 2]，此时遍历结束，有 50% 的概率发生变化，数组变成 [3, 1, 2]。</p>
+<p>综上，在 [1, 2, 3] 中，有 50% 的概率会变成 [1, 2, 3]，有 25% 的概率会变成 [1, 3, 2]，有 25% 的概率会变成 [3, 1, 2]。</p>
+<p>另外一种情况 [2, 1, 3] 与之分析类似，我们将最终的结果汇总成一个表格：</p>
+<table role="table">
+  <tbody>
+    <tr>
+      <th>数组</th>
+      <th>i = 1</th>
+      <th>i = 2</th>
+      <th>总计</th>
+    </tr>
+    <tr>
+      <td rowspan="6">[1, 2, 3]</td>
+      <td rowspan="3">50% [1, 2, 3]</td>
+      <td>50% [1, 2, 3]</td>
+      <td>25% [1, 2, 3]</td>
+    </tr>
+    <tr>
+      <td>25% [1, 3, 2]</td>
+      <td>12.5% [1, 3, 2]</td>
+    </tr>
+    <tr>
+      <td>25% [3, 1, 2]</td>
+      <td>12.5% [3, 1, 2]</td>
+    </tr>
+    <tr>
+      <td rowspan="3">50% [2, 1, 3]</td>
+      <td>50% [2, 1, 3]</td>
+      <td>25% [2, 1, 3]</td>
+    </tr>
+    <tr>
+      <td>25% [2, 3, 1]</td>
+      <td>12.5% [2, 3, 1]</td>
+    </tr>
+    <tr>
+      <td>25% [3, 2, 1]</td>
+      <td>12.5% [3, 2, 1]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>那么如何高性能的实现真正的乱序呢？而这就要提到经典的 Fisher–Yates 算法。</p>
+<h2 id="Fisher–Yates"><a href="#Fisher–Yates" class="headerlink" title="Fisher–Yates"></a>Fisher–Yates</h2><p>为什么叫 Fisher–Yates 呢？ 因为这个算法是由 Ronald Fisher 和 Frank Yates 首次提出的。<br>代码实现：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shuffle</span>(<span class="params">a</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = a.length; i; i--) &#123;</span><br><span class="line">    <span class="keyword">let</span> j = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * i);</span><br><span class="line">    [a[i - <span class="number">1</span>], a[j]] = [a[j], a[i - <span class="number">1</span>]];</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>原理很简单，就是遍历数组元素，然后将当前元素与以后随机位置的元素进行交换，从代码中也可以看出，这样乱序的就会更加彻底。</p>
+<p>测试代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> times = <span class="number">100000</span>;</span><br><span class="line"><span class="keyword">var</span> res = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; times; i++) &#123;</span><br><span class="line">  <span class="keyword">var</span> arr = shuffle([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> key = <span class="built_in">JSON</span>.stringify(arr);</span><br><span class="line">  res[key] ? res[key]++ : (res[key] = <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 为了方便展示，转换成百分比</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> res) &#123;</span><br><span class="line">  res[key] = (res[key] / times) * <span class="number">100</span> + <span class="string">&quot;%&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(res);</span><br><span class="line"><span class="comment">// 测试结果如下</span></span><br><span class="line">&#123;</span><br><span class="line">  [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]: <span class="string">&quot;16.667%&quot;</span>,</span><br><span class="line">  [<span class="number">1</span>,<span class="number">3</span>,<span class="number">2</span>]: <span class="string">&quot;16.761%&quot;</span>,</span><br><span class="line">  [<span class="number">2</span>,<span class="number">1</span>,<span class="number">3</span>]: <span class="string">&quot;16.636%&quot;</span>,</span><br><span class="line">  [<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>]: <span class="string">&quot;16.624%&quot;</span>,</span><br><span class="line">  [<span class="number">3</span>,<span class="number">1</span>,<span class="number">2</span>]: <span class="string">&quot;16.744%&quot;</span>,</span><br><span class="line">  [<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>]: <span class="string">&quot;16.567999999999998%&quot;</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从测试结果我们可以看出，每个元素在每个位置出现的次数相差不大，说明这种方式满足了随机性的要求。<br>而且 Fisher–Yates 算法只需要通过一次遍历即可将数组随机打乱顺序，性能极为优异~~<br>至此，我们找到了将数组乱序操作的最优办法：Fisher–Yates~</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><a href="https://juejin.cn/post/6844903863812620296">https://juejin.cn/post/6844903863812620296</a></li>
+<li><a href="https://github.com/mqyqingfeng/Blog/issues/51">https://github.com/mqyqingfeng/Blog/issues/51</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>JavaScript专题系列笔记</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>二、JavaScript专题之数组去重</title>
     <url>/2020/01/14/%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/</url>
     <content><![CDATA[<p>在面试中，我们常常会遇到数组去重的问题，这里整理一下。</p>
@@ -2791,6 +2881,39 @@ var five = add(two, three);
       </tags>
   </entry>
   <entry>
+    <title>四、JavaScript专题之类型判断(下)</title>
+    <url>/2020/02/18/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD%E4%B8%8B/</url>
+    <content><![CDATA[<p>上一篇文章中我们总结了类型判断的几种方式（typeof、Object.prototype.toString、Instanceof、isArray），这里我们写一个 type 函数来帮我们区分识别各种类型的值。</p>
+<span id="more"></span>
+
+<h2 id="基础函数-type"><a href="#基础函数-type" class="headerlink" title="基础函数 type"></a>基础函数 type</h2><p>首先，列出我们需要判断的常用类型（11 种）：Boolean Number String Function Array Date RegExp Object Error Null Undefined；<br>我们的目标是：type(123) // 得到：number;<br>这里我们通过 typeof 和 Object.prototype.toString 来分别处理基础类型和引用类型，由于 null 和 undefined 会被 Object.prototype.toString 识别成 [object Object]，所以它俩需要单独处理，代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> class2type = &#123;&#125;;</span><br><span class="line"><span class="string">&quot;Boolean Number String Function Array Date RegExp Object Error&quot;</span></span><br><span class="line">  .split(<span class="string">&quot; &quot;</span>)</span><br><span class="line">  .map(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">    class2type[<span class="string">&quot;[object &quot;</span> + item + <span class="string">&quot;]&quot;</span>] = item.toLowerCase();</span><br><span class="line">  &#125;);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">type</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (obj == <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> obj + <span class="string">&quot;&quot;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">typeof</span> obj === <span class="string">&quot;object&quot;</span> || <span class="keyword">typeof</span> obj === <span class="string">&quot;function&quot;</span></span><br><span class="line">    ? class2type[<span class="built_in">Object</span>.prototype.toString.call(obj)] || <span class="string">&quot;object&quot;</span> <span class="comment">// 这里主要处理新增的类型：Set Map等等</span></span><br><span class="line">    : <span class="keyword">typeof</span> obj;</span><br><span class="line">&#125;</span><br><span class="line">type(<span class="number">123</span>); <span class="comment">// &quot;number&quot;</span></span><br><span class="line">type(class2type); <span class="comment">// &quot;object&quot;</span></span><br><span class="line">type(type); <span class="comment">// &quot;function&quot;</span></span><br><span class="line">type(<span class="literal">null</span>); <span class="comment">// &quot;null&quot;</span></span><br><span class="line">type(<span class="regexp">/^\d+$/</span>); <span class="comment">// &quot;regexp&quot;</span></span><br><span class="line">type(<span class="keyword">new</span> <span class="built_in">Error</span>()); <span class="comment">// &quot;error&quot;</span></span><br><span class="line">type(<span class="keyword">new</span> <span class="built_in">Date</span>()); <span class="comment">// &quot;date&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="常用函数封装"><a href="#常用函数封装" class="headerlink" title="常用函数封装"></a>常用函数封装</h2><p>有了 type 函数后，我们就可以直接对常用函数进行封装</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isFunction</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> type(obj) === <span class="string">&quot;function&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isDate</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> type(obj) === <span class="string">&quot;date&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 数组</span></span><br><span class="line"><span class="keyword">var</span> isArray =</span><br><span class="line">  <span class="built_in">Array</span>.isArray ||</span><br><span class="line">  <span class="function"><span class="keyword">function</span> (<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> type(obj) === <span class="string">&quot;array&quot;</span>;</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="isEmptyObject"><a href="#isEmptyObject" class="headerlink" title="isEmptyObject"></a>isEmptyObject</h2><p>判断是否是空对象：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isEmptyObject</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> name <span class="keyword">in</span> obj) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(isEmptyObject(&#123;&#125;)); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(isEmptyObject([])); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(isEmptyObject(<span class="literal">null</span>)); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(isEmptyObject(<span class="literal">undefined</span>)); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(isEmptyObject(<span class="number">1</span>)); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(isEmptyObject(<span class="string">&quot;&quot;</span>)); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(isEmptyObject(<span class="literal">true</span>)); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="isWindow"><a href="#isWindow" class="headerlink" title="isWindow"></a>isWindow</h2><p>Window 对象作为客户端 JavaScript 的全局对象，它有一个 window 属性指向自身，基于这个特性来判断是否是 Window 对象。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isWindow</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> obj != <span class="literal">null</span> &amp;&amp; obj === obj.window;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="isElement"><a href="#isElement" class="headerlink" title="isElement"></a>isElement</h2><p>判断是否是 DOM 节点。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isElement</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> !!(obj &amp;&amp; obj.nodeType === <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><a href="https://github.com/mqyqingfeng/Blog/issues/30">https://github.com/mqyqingfeng/Blog/issues/30</a></li>
+<li><a href="https://github.com/jquery/jquery/blob/ac9e3016645078e1e42120822cfb2076151c8cbe/src/core.js#L269">https://github.com/jquery/jquery/blob/ac9e3016645078e1e42120822cfb2076151c8cbe/src/core.js#L269</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>JavaScript专题系列笔记</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>素数算法</title>
     <url>/2016/06/21/%E7%B4%A0%E6%95%B0%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<h3 id="找出数组中的素数"><a href="#找出数组中的素数" class="headerlink" title="找出数组中的素数"></a>找出数组中的素数</h3><p>例如    shu([1,2,5,9,7,8,6,13,56,48,46]) = [2, 5, 7, 13];</p>
@@ -2847,39 +2970,6 @@ var five = add(two, three);
 ]]></content>
       <tags>
         <tag>网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>四、JavaScript专题之类型判断(下)</title>
-    <url>/2020/02/18/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD%E4%B8%8B/</url>
-    <content><![CDATA[<p>上一篇文章中我们总结了类型判断的几种方式（typeof、Object.prototype.toString、Instanceof、isArray），这里我们写一个 type 函数来帮我们区分识别各种类型的值。</p>
-<span id="more"></span>
-
-<h2 id="基础函数-type"><a href="#基础函数-type" class="headerlink" title="基础函数 type"></a>基础函数 type</h2><p>首先，列出我们需要判断的常用类型（11 种）：Boolean Number String Function Array Date RegExp Object Error Null Undefined；<br>我们的目标是：type(123) // 得到：number;<br>这里我们通过 typeof 和 Object.prototype.toString 来分别处理基础类型和引用类型，由于 null 和 undefined 会被 Object.prototype.toString 识别成 [object Object]，所以它俩需要单独处理，代码如下：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> class2type = &#123;&#125;;</span><br><span class="line"><span class="string">&quot;Boolean Number String Function Array Date RegExp Object Error&quot;</span></span><br><span class="line">  .split(<span class="string">&quot; &quot;</span>)</span><br><span class="line">  .map(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">    class2type[<span class="string">&quot;[object &quot;</span> + item + <span class="string">&quot;]&quot;</span>] = item.toLowerCase();</span><br><span class="line">  &#125;);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">type</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (obj == <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> obj + <span class="string">&quot;&quot;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">typeof</span> obj === <span class="string">&quot;object&quot;</span> || <span class="keyword">typeof</span> obj === <span class="string">&quot;function&quot;</span></span><br><span class="line">    ? class2type[<span class="built_in">Object</span>.prototype.toString.call(obj)] || <span class="string">&quot;object&quot;</span> <span class="comment">// 这里主要处理新增的类型：Set Map等等</span></span><br><span class="line">    : <span class="keyword">typeof</span> obj;</span><br><span class="line">&#125;</span><br><span class="line">type(<span class="number">123</span>); <span class="comment">// &quot;number&quot;</span></span><br><span class="line">type(class2type); <span class="comment">// &quot;object&quot;</span></span><br><span class="line">type(type); <span class="comment">// &quot;function&quot;</span></span><br><span class="line">type(<span class="literal">null</span>); <span class="comment">// &quot;null&quot;</span></span><br><span class="line">type(<span class="regexp">/^\d+$/</span>); <span class="comment">// &quot;regexp&quot;</span></span><br><span class="line">type(<span class="keyword">new</span> <span class="built_in">Error</span>()); <span class="comment">// &quot;error&quot;</span></span><br><span class="line">type(<span class="keyword">new</span> <span class="built_in">Date</span>()); <span class="comment">// &quot;date&quot;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="常用函数封装"><a href="#常用函数封装" class="headerlink" title="常用函数封装"></a>常用函数封装</h2><p>有了 type 函数后，我们就可以直接对常用函数进行封装</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isFunction</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> type(obj) === <span class="string">&quot;function&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isDate</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> type(obj) === <span class="string">&quot;date&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 数组</span></span><br><span class="line"><span class="keyword">var</span> isArray =</span><br><span class="line">  <span class="built_in">Array</span>.isArray ||</span><br><span class="line">  <span class="function"><span class="keyword">function</span> (<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> type(obj) === <span class="string">&quot;array&quot;</span>;</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="isEmptyObject"><a href="#isEmptyObject" class="headerlink" title="isEmptyObject"></a>isEmptyObject</h2><p>判断是否是空对象：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isEmptyObject</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> name <span class="keyword">in</span> obj) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(isEmptyObject(&#123;&#125;)); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(isEmptyObject([])); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(isEmptyObject(<span class="literal">null</span>)); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(isEmptyObject(<span class="literal">undefined</span>)); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(isEmptyObject(<span class="number">1</span>)); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(isEmptyObject(<span class="string">&quot;&quot;</span>)); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(isEmptyObject(<span class="literal">true</span>)); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="isWindow"><a href="#isWindow" class="headerlink" title="isWindow"></a>isWindow</h2><p>Window 对象作为客户端 JavaScript 的全局对象，它有一个 window 属性指向自身，基于这个特性来判断是否是 Window 对象。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isWindow</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> obj != <span class="literal">null</span> &amp;&amp; obj === obj.window;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="isElement"><a href="#isElement" class="headerlink" title="isElement"></a>isElement</h2><p>判断是否是 DOM 节点。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isElement</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> !!(obj &amp;&amp; obj.nodeType === <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
-<li><a href="https://github.com/mqyqingfeng/Blog/issues/30">https://github.com/mqyqingfeng/Blog/issues/30</a></li>
-<li><a href="https://github.com/jquery/jquery/blob/ac9e3016645078e1e42120822cfb2076151c8cbe/src/core.js#L269">https://github.com/jquery/jquery/blob/ac9e3016645078e1e42120822cfb2076151c8cbe/src/core.js#L269</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>JavaScript专题系列笔记</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -3130,7 +3220,7 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
 <h2 id="关于收费"><a href="#关于收费" class="headerlink" title="关于收费"></a>关于收费</h2><p><strong>马克飞象</strong>为新用户提供 10 天的试用期，试用期过后需要<a href="maxiang.info/vip.html">续费</a>才能继续使用。未购买或者未及时续费，将不能同步新的笔记。之前保存过的笔记依然可以编辑。</p>
 <h2 id="反馈与建议"><a href="#反馈与建议" class="headerlink" title="反馈与建议"></a>反馈与建议</h2><ul>
 <li>微博：<a href="http://weibo.com/u/2788354117">@马克飞象</a>，<a href="http://weibo.com/ggock" title="开发者个人账号">@GGock</a></li>
-<li>邮箱：<a href="mailto:&#x68;&#x75;&#x73;&#x74;&#x67;&#111;&#x63;&#x6b;&#x40;&#x67;&#109;&#97;&#105;&#108;&#x2e;&#x63;&#x6f;&#x6d;">&#x68;&#x75;&#x73;&#x74;&#x67;&#111;&#x63;&#x6b;&#x40;&#x67;&#109;&#97;&#105;&#108;&#x2e;&#x63;&#x6f;&#x6d;</a></li>
+<li>邮箱：<a href="mailto:&#104;&#x75;&#115;&#x74;&#103;&#111;&#x63;&#x6b;&#64;&#103;&#109;&#97;&#x69;&#108;&#46;&#99;&#111;&#109;">&#104;&#x75;&#115;&#x74;&#103;&#111;&#x63;&#x6b;&#64;&#103;&#109;&#97;&#x69;&#108;&#46;&#99;&#111;&#109;</a></li>
 </ul>
 <hr>
 <p>感谢阅读这份帮助文档。请点击右上角，绑定印象笔记账号，开启全新的记录与分享体验吧。</p>
