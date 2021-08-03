@@ -165,66 +165,6 @@
       </tags>
   </entry>
   <entry>
-    <title>H5新特性——音视频</title>
-    <url>/2016/07/11/H5%E6%96%B0%E7%89%B9%E6%80%A7%E2%80%94%E2%80%94%E8%A7%86%E9%A2%91/</url>
-    <content><![CDATA[<p>HTML5 之前在页面播放需要使用 flash 播放器；HTML5 添加两个标签：</p>
-<pre><code>&lt;video&gt;&lt;/video&gt;
-&lt;audio&gt;&lt;/audio&gt;
-</code></pre>
-<p>这两个标签有一些特殊属性、事件、方法。</p>
-<span id="more"></span>
-<h3 id="HTML5-新特性——视频"><a href="#HTML5-新特性——视频" class="headerlink" title="HTML5 新特性——视频"></a>HTML5 新特性——视频</h3><p>1.Video 标签可用的属性：</p>
-<pre><code>(1)src：待播放的资源的URL
-(2)width：播放区域的宽度
-(3)height：播放区域的高度
-(4)controls：是否显示播放控件，默认不显示
-(5)autoplay：是否自动播放，默认不自动播放
-(6)loop：是否循环播放，默认不循环
-(7)preload：如何预加载视频，可以赋值为
-    “none”：不预加载
-    “metadata”：只预加载元数据，如影片宽、高、大小、时长
-    “auto”：（默认值）自动预加载元数据以及部分影片数据
-(8)poster：影片播放之前显示的“电影海报”
-</code></pre>
-<p>2.Video 对象的成员</p>
-<pre><code>1.autoplay:false
-2.controls:false
-3.currentTime:0             当前播放到哪一秒
-4.duration:NaN            总时长
-5.ended:false
-6.loop:false            是否循环
-7.muted:false            是否静音
-8.oncanplay:null            当能够播放时触发
-9.oncanplaythrough:null    当能够顺利播放一段时间
-10.onended:null            当播放的结尾时触发
-11.onerror:null            当播放错误时触发
-12.onloadeddata:null        当加载了影片数据时触发
-13.onloadedmetadata:null    当加载了影片元数据时触发
-14.onpause:null            当影片暂停时触发
-15.onplay:null            当影片开始播放时触发
-16.paused:true            当前是否处于暂停状态
-17.poster:&quot;&quot;                电影海报
-18.preload:&quot;auto&quot;            如何预加载
-19.src:&quot;http://127.0.0.1/html5_day02/resource/birds.mp4&quot;
-20.videoHeight:0
-21.videoWidth:0
-22.volume:1
-23.play(): function()&#123;&#125;    使用JS控制影片播放
-24.pause(): function()&#123;&#125;    使用JS控制影片暂停
-</code></pre>
-<h3 id="HTML5-新特性——音频"><a href="#HTML5-新特性——音频" class="headerlink" title="HTML5 新特性——音频"></a>HTML5 新特性——音频</h3><p>HTML5 之前，播放音频可以使用 flash 播放器，或者使用 bgsound（IE 专有，只能网页的背景音乐，不能使用 JS 控制播放、音量）。<br>HTML5 中，使用 audio 标签来播放音频。该标签的常用属性与 video 几乎一样，如：</p>
-<pre><code>(1)src
-(2)autoplay：是否自动播放，默认为false
-(3)controls：是否显示播放控制条，默认为false
-(4)loop：是否循环播放，默认为false
-</code></pre>
-]]></content>
-      <tags>
-        <tag>HTML5</tag>
-        <tag>video</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Canvas绘图技术</title>
     <url>/2016/07/12/H5%E6%96%B0%E7%89%B9%E6%80%A7%E2%80%94%E2%80%94Canvas/</url>
     <content><![CDATA[<h2 id="HTML5-新特性——Canvas-绘图技术"><a href="#HTML5-新特性——Canvas-绘图技术" class="headerlink" title="HTML5 新特性——Canvas 绘图技术"></a>HTML5 新特性——Canvas 绘图技术</h2><p>提示：Canvas 绘图的难点在方法和属性的记忆上！<br>Canvas 技术用于在网页上实现绘图，主要应用领域：</p>
@@ -333,6 +273,66 @@ var ctx = canvas.getContext( '2d' );
       <tags>
         <tag>HTML5</tag>
         <tag>Canvas</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>H5新特性——音视频</title>
+    <url>/2016/07/11/H5%E6%96%B0%E7%89%B9%E6%80%A7%E2%80%94%E2%80%94%E8%A7%86%E9%A2%91/</url>
+    <content><![CDATA[<p>HTML5 之前在页面播放需要使用 flash 播放器；HTML5 添加两个标签：</p>
+<pre><code>&lt;video&gt;&lt;/video&gt;
+&lt;audio&gt;&lt;/audio&gt;
+</code></pre>
+<p>这两个标签有一些特殊属性、事件、方法。</p>
+<span id="more"></span>
+<h3 id="HTML5-新特性——视频"><a href="#HTML5-新特性——视频" class="headerlink" title="HTML5 新特性——视频"></a>HTML5 新特性——视频</h3><p>1.Video 标签可用的属性：</p>
+<pre><code>(1)src：待播放的资源的URL
+(2)width：播放区域的宽度
+(3)height：播放区域的高度
+(4)controls：是否显示播放控件，默认不显示
+(5)autoplay：是否自动播放，默认不自动播放
+(6)loop：是否循环播放，默认不循环
+(7)preload：如何预加载视频，可以赋值为
+    “none”：不预加载
+    “metadata”：只预加载元数据，如影片宽、高、大小、时长
+    “auto”：（默认值）自动预加载元数据以及部分影片数据
+(8)poster：影片播放之前显示的“电影海报”
+</code></pre>
+<p>2.Video 对象的成员</p>
+<pre><code>1.autoplay:false
+2.controls:false
+3.currentTime:0             当前播放到哪一秒
+4.duration:NaN            总时长
+5.ended:false
+6.loop:false            是否循环
+7.muted:false            是否静音
+8.oncanplay:null            当能够播放时触发
+9.oncanplaythrough:null    当能够顺利播放一段时间
+10.onended:null            当播放的结尾时触发
+11.onerror:null            当播放错误时触发
+12.onloadeddata:null        当加载了影片数据时触发
+13.onloadedmetadata:null    当加载了影片元数据时触发
+14.onpause:null            当影片暂停时触发
+15.onplay:null            当影片开始播放时触发
+16.paused:true            当前是否处于暂停状态
+17.poster:&quot;&quot;                电影海报
+18.preload:&quot;auto&quot;            如何预加载
+19.src:&quot;http://127.0.0.1/html5_day02/resource/birds.mp4&quot;
+20.videoHeight:0
+21.videoWidth:0
+22.volume:1
+23.play(): function()&#123;&#125;    使用JS控制影片播放
+24.pause(): function()&#123;&#125;    使用JS控制影片暂停
+</code></pre>
+<h3 id="HTML5-新特性——音频"><a href="#HTML5-新特性——音频" class="headerlink" title="HTML5 新特性——音频"></a>HTML5 新特性——音频</h3><p>HTML5 之前，播放音频可以使用 flash 播放器，或者使用 bgsound（IE 专有，只能网页的背景音乐，不能使用 JS 控制播放、音量）。<br>HTML5 中，使用 audio 标签来播放音频。该标签的常用属性与 video 几乎一样，如：</p>
+<pre><code>(1)src
+(2)autoplay：是否自动播放，默认为false
+(3)controls：是否显示播放控制条，默认为false
+(4)loop：是否循环播放，默认为false
+</code></pre>
+]]></content>
+      <tags>
+        <tag>HTML5</tag>
+        <tag>video</tag>
       </tags>
   </entry>
   <entry>
@@ -698,6 +698,24 @@ count; // 3
       </tags>
   </entry>
   <entry>
+    <title>Hello World</title>
+    <url>/2015/07/11/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>Flex布局</title>
     <url>/2018/08/01/flex%E5%B8%83%E5%B1%80/</url>
     <content><![CDATA[<p>Flex 是 Flexible Box 的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。</p>
@@ -759,24 +777,6 @@ count; // 3
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2015/07/11/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>hexo 常用命令</title>
     <url>/2016/06/28/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
     <content><![CDATA[<h2 id="常用部署步骤"><a href="#常用部署步骤" class="headerlink" title="常用部署步骤"></a>常用部署步骤</h2><blockquote>
@@ -804,59 +804,6 @@ hexo version #查看Hexo的版本
 ]]></content>
       <tags>
         <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于Markdown的基本用法</title>
-    <url>/2018/07/11/markerdown%E8%AF%AD%E6%B3%95/</url>
-    <content><![CDATA[<p>Markdown 是一种文本格式。你可以用它来控制文档的显示。使用 markdown，你可以创建粗体的文字，斜体的文字，添加图片，并且创建列表 等等。基本上来讲，Markdown 就是普通的文字加上 # 或者 * 等符号。</p>
-<span id="more"></span>
-
-<h3 id="语法说明"><a href="#语法说明" class="headerlink" title="语法说明"></a>语法说明</h3><h4 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"># 这是 <span class="tag">&lt;<span class="name">h1</span>&gt;</span> 一级标题</span><br><span class="line">## 这是 <span class="tag">&lt;<span class="name">h2</span>&gt;</span> 二级标题</span><br><span class="line">### 这是 <span class="tag">&lt;<span class="name">h3</span>&gt;</span> 三级标题</span><br><span class="line">#### 这是 <span class="tag">&lt;<span class="name">h4</span>&gt;</span> 四级标题</span><br><span class="line">##### 这是 <span class="tag">&lt;<span class="name">h5</span>&gt;</span> 五级标题</span><br><span class="line">###### 这是 <span class="tag">&lt;<span class="name">h6</span>&gt;</span> 六级标题</span><br></pre></td></tr></table></figure>
-<h4 id="强调"><a href="#强调" class="headerlink" title="强调"></a>强调</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">*这会是 斜体 的文字*</span><br><span class="line">_这会是 斜体 的文字_</span><br><span class="line"></span><br><span class="line">**这会是 粗体 的文字**</span><br><span class="line">__这会是 粗体 的文字__</span><br><span class="line"></span><br><span class="line">_你也 **组合** 这些符号_</span><br><span class="line"></span><br><span class="line">~~这个文字将会被横线删除~~</span><br></pre></td></tr></table></figure>
-<hr>
-<h4 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h4><h5 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h5><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">- Item 1</span><br><span class="line">- Item 2</span><br><span class="line">  - Item 2a</span><br><span class="line">  - Item 2b</span><br></pre></td></tr></table></figure>
-<h5 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h5><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">1. Item 1</span><br><span class="line">1. Item 2</span><br><span class="line">1. Item 3</span><br><span class="line">   1. Item 3a</span><br><span class="line">   1. Item 3b</span><br></pre></td></tr></table></figure>
-<h4 id="添加图片"><a href="#添加图片" class="headerlink" title="添加图片"></a>添加图片</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">![GitHub Logo](/images/logo.png)</span><br><span class="line">Format: ![Alt Text](url)</span><br></pre></td></tr></table></figure>
-<p>测试图片：<br><img src="/uploads/author.jpg" alt="GitHub Logo"></p>
-<h4 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">https://github.com - 自动生成！</span><br><span class="line">[GitHub](https://github.com)</span><br></pre></td></tr></table></figure>
-<h4 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">正如 Kanye West 所说：</span><br><span class="line"></span><br><span class="line">&gt; We&#x27;re living the future so</span><br><span class="line">&gt; the present is our past.</span><br></pre></td></tr></table></figure>
-<h4 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">如下，三个或者更多的:</span><br><span class="line"></span><br><span class="line">连字符: ---</span><br><span class="line"></span><br><span class="line">星号: ***</span><br><span class="line"></span><br><span class="line">下划线: ___</span><br></pre></td></tr></table></figure>
-<h4 id="行内代码"><a href="#行内代码" class="headerlink" title="行内代码"></a>行内代码</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">我觉得你应该在这里使用</span><br><span class="line">`function()&#123;console.log(&#x27;行内代码&#x27;)&#125;` </span><br><span class="line">才对。</span><br></pre></td></tr></table></figure>
-<h4 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h4><p>你可以在你的代码上面和下面添加 ``` 来表示代码块</p>
-<h5 id="语法高亮"><a href="#语法高亮" class="headerlink" title="语法高亮"></a>语法高亮</h5><p>代码块可以添加任何一种语言的语法高亮，如：</p>
-<figure class="highlight javascript"><figcaption><span>&#123;.class1 .class&#125;</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="代码行数"><a href="#代码行数" class="headerlink" title="代码行数"></a>代码行数</h5><p>如果你想要你的代码块显示代码行数，只要添加 line-numbers class 就可以了。例如：</p>
-<figure class="highlight javascript"><figcaption><span>&#123;.line-numbers&#125;</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>你可以通过添加 highlight 属性的方式来高亮代码行数，例如：</p>
-<figure class="highlight javascript"><figcaption><span>&#123;.line-numbers, highlight</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> number = add(<span class="number">10</span>,<span class="number">20</span>);</span><br></pre></td></tr></table></figure>
-<h4 id="任务列表"><a href="#任务列表" class="headerlink" title="任务列表"></a>任务列表</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">- [x] @mentions, #refs, [links](), **formatting**, and <span class="tag">&lt;<span class="name">del</span>&gt;</span>tags<span class="tag">&lt;/<span class="name">del</span>&gt;</span> supported</span><br><span class="line">- [x] list syntax required (any unordered or ordered list supported)</span><br><span class="line">- [x] this is a complete item</span><br><span class="line">- [ ] this is an incomplete item</span><br></pre></td></tr></table></figure>
-<ul>
-<li><input checked="" disabled="" type="checkbox"> @mentions, #refs, <a href="">links</a>, <strong>formatting</strong>, and <del>tags</del> supported</li>
-<li><input checked="" disabled="" type="checkbox"> list syntax required (any unordered or ordered list supported)</li>
-<li><input checked="" disabled="" type="checkbox"> this is a complete item</li>
-<li><input disabled="" type="checkbox"> this is an incomplete item<h4 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">First Header | Second Header</span><br><span class="line">------------ | -------------</span><br><span class="line">Content from cell 1 | Content from cell 2</span><br><span class="line">Content in the first column | Content in the second column</span><br></pre></td></tr></table></figure>
-First Header | Second Header</li>
-<li>———– | ————-<br>Content from cell 1 | Content from cell 2<br>Content in the first column | Content in the second column</li>
-</ul>
-<h3 id="扩展的语法"><a href="#扩展的语法" class="headerlink" title="扩展的语法"></a>扩展的语法</h3><h4 id="Emoji-amp-Font-Awesome"><a href="#Emoji-amp-Font-Awesome" class="headerlink" title="Emoji &amp; Font-Awesome"></a>Emoji &amp; Font-Awesome</h4><p>只适用于 markdown-it parser 而不适用于 pandoc parser。 缺省下是启用的。你可以在插件设置里禁用此功能。</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">:smile:</span><br><span class="line">:fa-car:</span><br></pre></td></tr></table></figure>
-<p>:smile:<br>:fa-car:</p>
-<h4 id="上标"><a href="#上标" class="headerlink" title="上标"></a>上标</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">30^th^</span><br></pre></td></tr></table></figure>
-<p>30^th^</p>
-<h4 id="下标"><a href="#下标" class="headerlink" title="下标"></a>下标</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">H~2~O</span><br></pre></td></tr></table></figure>
-<p>H<del>2</del>O</p>
-<h4 id="脚注"><a href="#脚注" class="headerlink" title="脚注"></a>脚注</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">Content [^1]</span><br><span class="line">[^1]: Hi! This is a footnote</span><br></pre></td></tr></table></figure>
-<p>Content [^1]<br>[^1]: Hi! This is a footnote</p>
-<h4 id="标记"><a href="#标记" class="headerlink" title="标记"></a>标记</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">==marked==</span><br></pre></td></tr></table></figure>
-<p>==marked==</p>
-<p><span>213123</span></p>
-]]></content>
-      <categories>
-        <category>Markdown</category>
-      </categories>
-      <tags>
-        <tag>Markdown</tag>
       </tags>
   </entry>
   <entry>
@@ -1091,7 +1038,7 @@ Markdown 使用一种和链接很相似的语法来标记图片，同样也允�
 &amp;#109;&quot;&gt;&amp;#x61;&amp;#x64;&amp;#x64;&amp;#x72;&amp;#x65;&amp;#115;&amp;#115;&amp;#64;&amp;#101;&amp;#120;&amp;#x61;
 &amp;#109;&amp;#x70;&amp;#x6C;e&amp;#x2E;&amp;#99;&amp;#111;&amp;#109;&lt;/a&gt;
 </code></pre>
-<p>在浏览器里面，这段字串（其实是 <a href="mailto:address@example.com">address@example.com</a>）会变成一个可以点击的「<a href="mailto:&#97;&#100;&#100;&#x72;&#x65;&#x73;&#115;&#x40;&#101;&#120;&#97;&#x6d;&#112;&#x6c;&#x65;&#x2e;&#x63;&#111;&#109;">&#97;&#100;&#100;&#x72;&#x65;&#x73;&#115;&#x40;&#101;&#120;&#97;&#x6d;&#112;&#x6c;&#x65;&#x2e;&#x63;&#111;&#109;</a>」链接。</p>
+<p>在浏览器里面，这段字串（其实是 <a href="mailto:address@example.com">address@example.com</a>）会变成一个可以点击的「<a href="mailto:&#97;&#x64;&#x64;&#x72;&#x65;&#115;&#x73;&#64;&#x65;&#120;&#x61;&#x6d;&#112;&#108;&#101;&#46;&#99;&#x6f;&#109;">&#97;&#x64;&#x64;&#x72;&#x65;&#115;&#x73;&#64;&#x65;&#120;&#x61;&#x6d;&#112;&#108;&#101;&#46;&#99;&#x6f;&#109;</a>」链接。</p>
 </blockquote>
 <p>（这种作法虽然可以糊弄不少的机器人，但并不能全部挡下来，不过总比什么都不做好些。不管怎样，公开你的信箱终究会引来广告信件的。）</p>
 <blockquote>
@@ -1116,6 +1063,59 @@ _   底线
 ]]></content>
       <tags>
         <tag>study</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于Markdown的基本用法</title>
+    <url>/2018/07/11/markerdown%E8%AF%AD%E6%B3%95/</url>
+    <content><![CDATA[<p>Markdown 是一种文本格式。你可以用它来控制文档的显示。使用 markdown，你可以创建粗体的文字，斜体的文字，添加图片，并且创建列表 等等。基本上来讲，Markdown 就是普通的文字加上 # 或者 * 等符号。</p>
+<span id="more"></span>
+
+<h3 id="语法说明"><a href="#语法说明" class="headerlink" title="语法说明"></a>语法说明</h3><h4 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"># 这是 <span class="tag">&lt;<span class="name">h1</span>&gt;</span> 一级标题</span><br><span class="line">## 这是 <span class="tag">&lt;<span class="name">h2</span>&gt;</span> 二级标题</span><br><span class="line">### 这是 <span class="tag">&lt;<span class="name">h3</span>&gt;</span> 三级标题</span><br><span class="line">#### 这是 <span class="tag">&lt;<span class="name">h4</span>&gt;</span> 四级标题</span><br><span class="line">##### 这是 <span class="tag">&lt;<span class="name">h5</span>&gt;</span> 五级标题</span><br><span class="line">###### 这是 <span class="tag">&lt;<span class="name">h6</span>&gt;</span> 六级标题</span><br></pre></td></tr></table></figure>
+<h4 id="强调"><a href="#强调" class="headerlink" title="强调"></a>强调</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">*这会是 斜体 的文字*</span><br><span class="line">_这会是 斜体 的文字_</span><br><span class="line"></span><br><span class="line">**这会是 粗体 的文字**</span><br><span class="line">__这会是 粗体 的文字__</span><br><span class="line"></span><br><span class="line">_你也 **组合** 这些符号_</span><br><span class="line"></span><br><span class="line">~~这个文字将会被横线删除~~</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h4><h5 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h5><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">- Item 1</span><br><span class="line">- Item 2</span><br><span class="line">  - Item 2a</span><br><span class="line">  - Item 2b</span><br></pre></td></tr></table></figure>
+<h5 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h5><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">1. Item 1</span><br><span class="line">1. Item 2</span><br><span class="line">1. Item 3</span><br><span class="line">   1. Item 3a</span><br><span class="line">   1. Item 3b</span><br></pre></td></tr></table></figure>
+<h4 id="添加图片"><a href="#添加图片" class="headerlink" title="添加图片"></a>添加图片</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">![GitHub Logo](/images/logo.png)</span><br><span class="line">Format: ![Alt Text](url)</span><br></pre></td></tr></table></figure>
+<p>测试图片：<br><img src="/uploads/author.jpg" alt="GitHub Logo"></p>
+<h4 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">https://github.com - 自动生成！</span><br><span class="line">[GitHub](https://github.com)</span><br></pre></td></tr></table></figure>
+<h4 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">正如 Kanye West 所说：</span><br><span class="line"></span><br><span class="line">&gt; We&#x27;re living the future so</span><br><span class="line">&gt; the present is our past.</span><br></pre></td></tr></table></figure>
+<h4 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">如下，三个或者更多的:</span><br><span class="line"></span><br><span class="line">连字符: ---</span><br><span class="line"></span><br><span class="line">星号: ***</span><br><span class="line"></span><br><span class="line">下划线: ___</span><br></pre></td></tr></table></figure>
+<h4 id="行内代码"><a href="#行内代码" class="headerlink" title="行内代码"></a>行内代码</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">我觉得你应该在这里使用</span><br><span class="line">`function()&#123;console.log(&#x27;行内代码&#x27;)&#125;` </span><br><span class="line">才对。</span><br></pre></td></tr></table></figure>
+<h4 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h4><p>你可以在你的代码上面和下面添加 ``` 来表示代码块</p>
+<h5 id="语法高亮"><a href="#语法高亮" class="headerlink" title="语法高亮"></a>语法高亮</h5><p>代码块可以添加任何一种语言的语法高亮，如：</p>
+<figure class="highlight javascript"><figcaption><span>&#123;.class1 .class&#125;</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="代码行数"><a href="#代码行数" class="headerlink" title="代码行数"></a>代码行数</h5><p>如果你想要你的代码块显示代码行数，只要添加 line-numbers class 就可以了。例如：</p>
+<figure class="highlight javascript"><figcaption><span>&#123;.line-numbers&#125;</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>你可以通过添加 highlight 属性的方式来高亮代码行数，例如：</p>
+<figure class="highlight javascript"><figcaption><span>&#123;.line-numbers, highlight</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> number = add(<span class="number">10</span>,<span class="number">20</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="任务列表"><a href="#任务列表" class="headerlink" title="任务列表"></a>任务列表</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">- [x] @mentions, #refs, [links](), **formatting**, and <span class="tag">&lt;<span class="name">del</span>&gt;</span>tags<span class="tag">&lt;/<span class="name">del</span>&gt;</span> supported</span><br><span class="line">- [x] list syntax required (any unordered or ordered list supported)</span><br><span class="line">- [x] this is a complete item</span><br><span class="line">- [ ] this is an incomplete item</span><br></pre></td></tr></table></figure>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> @mentions, #refs, <a href="">links</a>, <strong>formatting</strong>, and <del>tags</del> supported</li>
+<li><input checked="" disabled="" type="checkbox"> list syntax required (any unordered or ordered list supported)</li>
+<li><input checked="" disabled="" type="checkbox"> this is a complete item</li>
+<li><input disabled="" type="checkbox"> this is an incomplete item<h4 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">First Header | Second Header</span><br><span class="line">------------ | -------------</span><br><span class="line">Content from cell 1 | Content from cell 2</span><br><span class="line">Content in the first column | Content in the second column</span><br></pre></td></tr></table></figure>
+First Header | Second Header</li>
+<li>———– | ————-<br>Content from cell 1 | Content from cell 2<br>Content in the first column | Content in the second column</li>
+</ul>
+<h3 id="扩展的语法"><a href="#扩展的语法" class="headerlink" title="扩展的语法"></a>扩展的语法</h3><h4 id="Emoji-amp-Font-Awesome"><a href="#Emoji-amp-Font-Awesome" class="headerlink" title="Emoji &amp; Font-Awesome"></a>Emoji &amp; Font-Awesome</h4><p>只适用于 markdown-it parser 而不适用于 pandoc parser。 缺省下是启用的。你可以在插件设置里禁用此功能。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">:smile:</span><br><span class="line">:fa-car:</span><br></pre></td></tr></table></figure>
+<p>:smile:<br>:fa-car:</p>
+<h4 id="上标"><a href="#上标" class="headerlink" title="上标"></a>上标</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">30^th^</span><br></pre></td></tr></table></figure>
+<p>30^th^</p>
+<h4 id="下标"><a href="#下标" class="headerlink" title="下标"></a>下标</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">H~2~O</span><br></pre></td></tr></table></figure>
+<p>H<del>2</del>O</p>
+<h4 id="脚注"><a href="#脚注" class="headerlink" title="脚注"></a>脚注</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">Content [^1]</span><br><span class="line">[^1]: Hi! This is a footnote</span><br></pre></td></tr></table></figure>
+<p>Content [^1]<br>[^1]: Hi! This is a footnote</p>
+<h4 id="标记"><a href="#标记" class="headerlink" title="标记"></a>标记</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">==marked==</span><br></pre></td></tr></table></figure>
+<p>==marked==</p>
+<p><span>213123</span></p>
+]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
       </tags>
   </entry>
   <entry>
@@ -2004,7 +2004,7 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
 <h2 id="关于收费"><a href="#关于收费" class="headerlink" title="关于收费"></a>关于收费</h2><p><strong>马克飞象</strong>为新用户提供 10 天的试用期，试用期过后需要<a href="maxiang.info/vip.html">续费</a>才能继续使用。未购买或者未及时续费，将不能同步新的笔记。之前保存过的笔记依然可以编辑。</p>
 <h2 id="反馈与建议"><a href="#反馈与建议" class="headerlink" title="反馈与建议"></a>反馈与建议</h2><ul>
 <li>微博：<a href="http://weibo.com/u/2788354117">@马克飞象</a>，<a href="http://weibo.com/ggock" title="开发者个人账号">@GGock</a></li>
-<li>邮箱：<a href="mailto:&#104;&#117;&#x73;&#x74;&#103;&#x6f;&#99;&#x6b;&#64;&#x67;&#109;&#x61;&#105;&#x6c;&#46;&#99;&#111;&#x6d;">&#104;&#117;&#x73;&#x74;&#103;&#x6f;&#99;&#x6b;&#64;&#x67;&#109;&#x61;&#105;&#x6c;&#46;&#99;&#111;&#x6d;</a></li>
+<li>邮箱：<a href="mailto:&#104;&#117;&#115;&#x74;&#x67;&#111;&#x63;&#107;&#64;&#103;&#109;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#109;">&#104;&#117;&#115;&#x74;&#x67;&#111;&#x63;&#107;&#64;&#103;&#109;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a></li>
 </ul>
 <hr>
 <p>感谢阅读这份帮助文档。请点击右上角，绑定印象笔记账号，开启全新的记录与分享体验吧。</p>
@@ -2206,45 +2206,6 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
       </tags>
   </entry>
   <entry>
-    <title>二、JavaScript之作用域</title>
-    <url>/2019/06/15/deepjs/%E4%BD%9C%E7%94%A8%E5%9F%9F/</url>
-    <content><![CDATA[<h2 id="什么是作用域"><a href="#什么是作用域" class="headerlink" title="什么是作用域"></a>什么是作用域</h2><p>作用域是指程序源代码中定义变量的区域。</p>
-<p>作用域规定了如何查找变量，也就是确定当前执行代码对变量的访问权限。</p>
-<p>JavaScript 采用词法作用域(lexical scoping)，也就是静态作用域。</p>
-<span id="more"></span>
-<h2 id="词法作用域"><a href="#词法作用域" class="headerlink" title="词法作用域"></a>词法作用域</h2><p>在你不知道的javascript上卷中是这样定义的：</p>
-<blockquote>
-<p>词法作用域就是定义在词法阶段的作用域。换句话说，词法作用域是由你在写代码时将变量和块作用域写在哪里来决定的，因此当词法分析器处理代码时会保持作用域不变(大部分情况下是这样的)。</p>
-</blockquote>
-<p>在JS中词法作用域的规则：<a href="https://github.com/getify/You-Dont-Know-JS/blob/1ed-zh-CN/scope%20%26%20closures/ch1.md">点这里</a></p>
-<p>请看下面这段代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var value = 1;</span><br><span class="line"></span><br><span class="line">function foo() &#123;</span><br><span class="line">    console.log(value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function bar() &#123;</span><br><span class="line">    var value = 2;</span><br><span class="line">    foo();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar(); // ???</span><br></pre></td></tr></table></figure>
-<p>假设JavaScript采用静态作用域，让我们分析下执行过程：<br>执行 foo 函数，先从 foo 函数内部查找是否有局部变量 value，如果没有，就根据书写的位置，查找上面一层的代码，也就是 value 等于 1，所以结果会打印 1。</p>
-<p>假设JavaScript采用动态作用域，让我们分析下执行过程：<br>执行 foo 函数，依然是从 foo 函数内部查找是否有局部变量 value。如果没有，就从调用函数的作用域，也就是 bar 函数内部查找 value 变量，所以结果会打印 2。</p>
-<p>前面我们已经说了，JavaScript采用的是静态作用域，所以这个例子的结果是 1。<br>再看下面这段代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function foo(a) &#123;</span><br><span class="line"></span><br><span class="line">	var b = a * 2;</span><br><span class="line"></span><br><span class="line">	function bar(c) &#123;</span><br><span class="line">		console.log( a, b, c );</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	bar(b * 3);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo( 2 ); // 2 4 12</span><br></pre></td></tr></table></figure>
-<p>在这个代码示例中有三个固有的嵌套作用域：</p>
-<ul>
-<li>包围着全局作用域，只有一个标识符：foo。</li>
-<li>包围着作用域 foo，它含有三个标识符：a，bar 和 b。</li>
-<li>包围着作用域 bar，它里面只包含一个标识符：c。</li>
-</ul>
-<p>当我们执行console.log(…)语句的时候，开始查找三个被引用的变量 a，b 和 c。它首先从最内部的作用域气泡开始，也就是 bar(…) 函数的作用域。在这里它找不到 a，所以它向上走一层，到外面下一个最近的作用域气泡，foo(…) 的作用域。它在这里找到了 a，于是它就使用这个 a。同样的事情也发生在 b 身上。但是对于 c，它在 bar(..) 内部就找到了。</p>
-<p>如果在 foo(..) 内部定义一个变量 c，console.log(…) 语句也仍然会找到并使用 bar(…) 中的那一个，而不会使用 foo(…) 中的那一个。</p>
-<p><strong>一旦找到第一个匹配，作用域查询就停止了。</strong>相同的标识符名称可以在嵌套作用域的多个层中被指定，这称为“遮蔽（shadowing）”（内部的标识符“遮蔽”了外部的标识符）。无论如何遮蔽，作用域查询总是从当前被执行的最内侧的作用域开始，向外/向上不断查找，直到第一个匹配才停止。</p>
-<p><strong>注意：</strong>全局变量也自动地是全局对象（在浏览器中是 window，等等）的属性，所以不直接通过全局变量的词法名称，而通过将它作为全局对象的一个属性引用来间接地引用，是可能的。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var a = 5;</span><br><span class="line">function foo(a) &#123;</span><br><span class="line">  console.log(a);</span><br><span class="line">  console.log(window.a)</span><br><span class="line">&#125;</span><br><span class="line">foo(2) // 2,5</span><br></pre></td></tr></table></figure>
-
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://github.com/mqyqingfeng/Blog/issues/3">https://github.com/mqyqingfeng/Blog/issues/3</a></p>
-]]></content>
-      <categories>
-        <category>深入理解JavaScript系列笔记</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>五、JavaScript之作用域链</title>
     <url>/2019/07/18/deepjs/%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE/</url>
     <content><![CDATA[<p>在上一篇的文章中，我们了解到执行上下文数据（变量、函数声明和函数的所有形参）是由这个变量对象的属性存储的，另外，我们知道每次进入上下文时都会创建变量对象并填充初始化值，并且在执行上下文代码时会发生它的修改。</p>
@@ -2334,6 +2295,45 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
 </ol>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// bar函数出栈</span></span><br><span class="line">ECStack = [fooContext, globalContext];</span><br><span class="line"></span><br><span class="line"><span class="comment">// foo函数出栈</span></span><br><span class="line">ECStack = [globalContext];</span><br></pre></td></tr></table></figure>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="http://dmitrysoshnikov.com/ecmascript/ru-chapter-4-scope-chain/">http://dmitrysoshnikov.com/ecmascript/ru-chapter-4-scope-chain/</a></p>
+]]></content>
+      <categories>
+        <category>深入理解JavaScript系列笔记</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>二、JavaScript之作用域</title>
+    <url>/2019/06/15/deepjs/%E4%BD%9C%E7%94%A8%E5%9F%9F/</url>
+    <content><![CDATA[<h2 id="什么是作用域"><a href="#什么是作用域" class="headerlink" title="什么是作用域"></a>什么是作用域</h2><p>作用域是指程序源代码中定义变量的区域。</p>
+<p>作用域规定了如何查找变量，也就是确定当前执行代码对变量的访问权限。</p>
+<p>JavaScript 采用词法作用域(lexical scoping)，也就是静态作用域。</p>
+<span id="more"></span>
+<h2 id="词法作用域"><a href="#词法作用域" class="headerlink" title="词法作用域"></a>词法作用域</h2><p>在你不知道的javascript上卷中是这样定义的：</p>
+<blockquote>
+<p>词法作用域就是定义在词法阶段的作用域。换句话说，词法作用域是由你在写代码时将变量和块作用域写在哪里来决定的，因此当词法分析器处理代码时会保持作用域不变(大部分情况下是这样的)。</p>
+</blockquote>
+<p>在JS中词法作用域的规则：<a href="https://github.com/getify/You-Dont-Know-JS/blob/1ed-zh-CN/scope%20%26%20closures/ch1.md">点这里</a></p>
+<p>请看下面这段代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var value = 1;</span><br><span class="line"></span><br><span class="line">function foo() &#123;</span><br><span class="line">    console.log(value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function bar() &#123;</span><br><span class="line">    var value = 2;</span><br><span class="line">    foo();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar(); // ???</span><br></pre></td></tr></table></figure>
+<p>假设JavaScript采用静态作用域，让我们分析下执行过程：<br>执行 foo 函数，先从 foo 函数内部查找是否有局部变量 value，如果没有，就根据书写的位置，查找上面一层的代码，也就是 value 等于 1，所以结果会打印 1。</p>
+<p>假设JavaScript采用动态作用域，让我们分析下执行过程：<br>执行 foo 函数，依然是从 foo 函数内部查找是否有局部变量 value。如果没有，就从调用函数的作用域，也就是 bar 函数内部查找 value 变量，所以结果会打印 2。</p>
+<p>前面我们已经说了，JavaScript采用的是静态作用域，所以这个例子的结果是 1。<br>再看下面这段代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function foo(a) &#123;</span><br><span class="line"></span><br><span class="line">	var b = a * 2;</span><br><span class="line"></span><br><span class="line">	function bar(c) &#123;</span><br><span class="line">		console.log( a, b, c );</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	bar(b * 3);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo( 2 ); // 2 4 12</span><br></pre></td></tr></table></figure>
+<p>在这个代码示例中有三个固有的嵌套作用域：</p>
+<ul>
+<li>包围着全局作用域，只有一个标识符：foo。</li>
+<li>包围着作用域 foo，它含有三个标识符：a，bar 和 b。</li>
+<li>包围着作用域 bar，它里面只包含一个标识符：c。</li>
+</ul>
+<p>当我们执行console.log(…)语句的时候，开始查找三个被引用的变量 a，b 和 c。它首先从最内部的作用域气泡开始，也就是 bar(…) 函数的作用域。在这里它找不到 a，所以它向上走一层，到外面下一个最近的作用域气泡，foo(…) 的作用域。它在这里找到了 a，于是它就使用这个 a。同样的事情也发生在 b 身上。但是对于 c，它在 bar(..) 内部就找到了。</p>
+<p>如果在 foo(..) 内部定义一个变量 c，console.log(…) 语句也仍然会找到并使用 bar(…) 中的那一个，而不会使用 foo(…) 中的那一个。</p>
+<p><strong>一旦找到第一个匹配，作用域查询就停止了。</strong>相同的标识符名称可以在嵌套作用域的多个层中被指定，这称为“遮蔽（shadowing）”（内部的标识符“遮蔽”了外部的标识符）。无论如何遮蔽，作用域查询总是从当前被执行的最内侧的作用域开始，向外/向上不断查找，直到第一个匹配才停止。</p>
+<p><strong>注意：</strong>全局变量也自动地是全局对象（在浏览器中是 window，等等）的属性，所以不直接通过全局变量的词法名称，而通过将它作为全局对象的一个属性引用来间接地引用，是可能的。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var a = 5;</span><br><span class="line">function foo(a) &#123;</span><br><span class="line">  console.log(a);</span><br><span class="line">  console.log(window.a)</span><br><span class="line">&#125;</span><br><span class="line">foo(2) // 2,5</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://github.com/mqyqingfeng/Blog/issues/3">https://github.com/mqyqingfeng/Blog/issues/3</a></p>
 ]]></content>
       <categories>
         <category>深入理解JavaScript系列笔记</category>
@@ -2746,70 +2746,6 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
       </tags>
   </entry>
   <entry>
-    <title>四、ES6系列之Symbol</title>
-    <url>/2020/04/16/es6/Symbol/</url>
-    <content><![CDATA[<p>Symbol 是一种基本数据类型，Symbol()函数会返回 是一种基本数据类型，Symbol 类型的值，该类型具有静态属性和静态方法。它的静态属性会暴露几个内建的成员对象；它的静态方法会暴露全局的 symbol 注册，且类似于内建对象类，但作为构造函数来说它并不完整，因为它不支持语法：”new Symbol()”。</p>
-<span id="more"></span>
-
-<p>每个从 Symbol()返回的 symbol 值都是唯一的。一个 symbol 值能作为对象属性的标识符；这是该数据类型仅有的目的。</p>
-<h2 id="基础语法"><a href="#基础语法" class="headerlink" title="基础语法"></a>基础语法</h2><ol>
-<li>Symbol 值通过 Symbol 函数生成，使用 typeof，结果为 “symbol”</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> s = <span class="built_in">Symbol</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">typeof</span> s;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>不能使用 new 命令</li>
-</ol>
-<p>因为生成的 Symbol 是一个原始类型的值，不是对象。也就是说，由于 Symbol 值不是对象，所以不能添加属性。基本上，它是一种类似于字符串的数据类型。</p>
-<ol start="3">
-<li>可以接受一个字符串作为参数，表示对 Symbol 实例的描述，主要是为了在控制台显示，或者转为字符串时，比较容易区分。</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> s1 = <span class="built_in">Symbol</span>(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(s1); <span class="comment">// Symbol(foo)</span></span><br><span class="line">s1.toString(); <span class="comment">// &quot;Symbol(foo)&quot;</span></span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>instanceof 的结果为 false</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> s = <span class="built_in">Symbol</span>(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line">s <span class="keyword">instanceof</span> <span class="built_in">Symbol</span>; <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>如果 Symbol 的参数是一个对象，就会调用该对象的 toString 方法，将其转为字符串，然后才生成一个 Symbol 值。</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">  <span class="function"><span class="title">toString</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.name;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> s = <span class="built_in">Symbol</span>(obj);</span><br><span class="line"><span class="built_in">console</span>.log(s); <span class="comment">// Symbol(lilei)</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Symbol-作为属性名"><a href="#Symbol-作为属性名" class="headerlink" title="Symbol 作为属性名"></a>Symbol 作为属性名</h2><p>由于每一个 Symbol 值都是不相等的，这意味着 Symbol 值可以作为标识符，用于对象的属性名，就能保证不会出现同名的属性。这对于一个对象由多个模块构成的情况非常有用，能防止某一个键被不小心改写或覆盖。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> mySymbol = <span class="built_in">Symbol</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第一种写法</span></span><br><span class="line"><span class="keyword">let</span> a = &#123;&#125;;</span><br><span class="line">a[mySymbol] = <span class="string">&quot;Hello!&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二种写法</span></span><br><span class="line"><span class="keyword">let</span> a = &#123;</span><br><span class="line">  [mySymbol]: <span class="string">&quot;Hello!&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第三种写法</span></span><br><span class="line"><span class="keyword">let</span> a = &#123;&#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(a, mySymbol, &#123; <span class="attr">value</span>: <span class="string">&quot;Hello!&quot;</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 以上写法都得到同样结果</span></span><br><span class="line">a[mySymbol]; <span class="comment">// &quot;Hello!&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>注意，Symbol 值作为对象属性名时，不能用点运算符。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> mySymbol = <span class="built_in">Symbol</span>();</span><br><span class="line"><span class="keyword">const</span> a = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">a.mySymbol = <span class="string">&quot;Hello!&quot;</span>;</span><br><span class="line">a[mySymbol]; <span class="comment">// undefined</span></span><br><span class="line">a[<span class="string">&quot;mySymbol&quot;</span>]; <span class="comment">// &quot;Hello!&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>同理，在对象的内部，使用 Symbol 值定义属性时，Symbol 值必须放在方括号之中。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> s = <span class="built_in">Symbol</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  [s]: <span class="function"><span class="keyword">function</span> (<span class="params">arg</span>) </span>&#123; ... &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">obj[s](<span class="number">123</span>);</span><br></pre></td></tr></table></figure>
-
-<h2 id="属性名的遍历"><a href="#属性名的遍历" class="headerlink" title="属性名的遍历"></a>属性名的遍历</h2><p>Symbol 作为属性名，该属性不会出现在 for…in、for…of 循环中，也不会被 Object.keys()、Object.getOwnPropertyNames()、JSON.stringify() 返回。<br>但是，它也不是私有属性，有一个 Object.getOwnPropertySymbols 方法，可以获取指定对象的所有 Symbol 属性名。该方法返回一个数组，成员是当前对象的所有用作属性名的 Symbol 值。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;&#125;;</span><br><span class="line"><span class="keyword">let</span> a = <span class="built_in">Symbol</span>(<span class="string">&quot;a&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> b = <span class="built_in">Symbol</span>(<span class="string">&quot;b&quot;</span>);</span><br><span class="line"></span><br><span class="line">obj[a] = <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line">obj[b] = <span class="string">&quot;World&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> objectSymbols = <span class="built_in">Object</span>.getOwnPropertySymbols(obj);</span><br><span class="line"></span><br><span class="line">objectSymbols;</span><br><span class="line"><span class="comment">// [Symbol(a), Symbol(b)]</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Symbol-for"><a href="#Symbol-for" class="headerlink" title="Symbol.for()"></a>Symbol.for()</h2><p>如果我们希望重新使用同一个 Symbol 值，Symbol.for()方法可以做到这一点。它接受一个字符串作为参数，然后搜索有没有以该参数作为名称的 Symbol 值。如果有，就返回这个 Symbol 值，否则就新建一个以该字符串为名称的 Symbol 值，并将其注册到全局。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> s1 = <span class="built_in">Symbol</span>.for(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> s2 = <span class="built_in">Symbol</span>.for(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(s1 === s2); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-
-<p>上面代码中，s1 和 s2 都是 Symbol 值，但是它们都是由同样参数的 Symbol.for 方法生成的，所以实际上是同一个值。<br>注意，Symbol.for()为 Symbol 值登记的名字，是全局环境的，不管有没有在全局环境运行。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="Symbol-keyFor"><a href="#Symbol-keyFor" class="headerlink" title="Symbol.keyFor()"></a>Symbol.keyFor()</h2><p>Symbol.keyFor()方法返回一个已登记的 Symbol 类型值的 key。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> s1 = <span class="built_in">Symbol</span>.for(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Symbol</span>.keyFor(s1)); <span class="comment">// &quot;foo&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> s2 = <span class="built_in">Symbol</span>(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Symbol</span>.keyFor(s2)); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
-<li><a href="https://es6.ruanyifeng.com/#docs/symbol">https://es6.ruanyifeng.com/#docs/symbol</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>ES6系列</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-        <tag>Es6</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>二、ES6系列之模板字符串</title>
     <url>/2020/04/10/es6/%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
     <content><![CDATA[<p>模板字面量 是允许嵌入表达式的字符串字面量。你可以使用多行字符串和字符串插值功能。它们在 ES2015 规范的先前版本中被称为“模板字符串”。</p>
@@ -3016,6 +2952,70 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
       </tags>
   </entry>
   <entry>
+    <title>四、ES6系列之Symbol</title>
+    <url>/2020/04/16/es6/Symbol/</url>
+    <content><![CDATA[<p>Symbol 是一种基本数据类型，Symbol()函数会返回 是一种基本数据类型，Symbol 类型的值，该类型具有静态属性和静态方法。它的静态属性会暴露几个内建的成员对象；它的静态方法会暴露全局的 symbol 注册，且类似于内建对象类，但作为构造函数来说它并不完整，因为它不支持语法：”new Symbol()”。</p>
+<span id="more"></span>
+
+<p>每个从 Symbol()返回的 symbol 值都是唯一的。一个 symbol 值能作为对象属性的标识符；这是该数据类型仅有的目的。</p>
+<h2 id="基础语法"><a href="#基础语法" class="headerlink" title="基础语法"></a>基础语法</h2><ol>
+<li>Symbol 值通过 Symbol 函数生成，使用 typeof，结果为 “symbol”</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> s = <span class="built_in">Symbol</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">typeof</span> s;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>不能使用 new 命令</li>
+</ol>
+<p>因为生成的 Symbol 是一个原始类型的值，不是对象。也就是说，由于 Symbol 值不是对象，所以不能添加属性。基本上，它是一种类似于字符串的数据类型。</p>
+<ol start="3">
+<li>可以接受一个字符串作为参数，表示对 Symbol 实例的描述，主要是为了在控制台显示，或者转为字符串时，比较容易区分。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> s1 = <span class="built_in">Symbol</span>(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(s1); <span class="comment">// Symbol(foo)</span></span><br><span class="line">s1.toString(); <span class="comment">// &quot;Symbol(foo)&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>instanceof 的结果为 false</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> s = <span class="built_in">Symbol</span>(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line">s <span class="keyword">instanceof</span> <span class="built_in">Symbol</span>; <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>如果 Symbol 的参数是一个对象，就会调用该对象的 toString 方法，将其转为字符串，然后才生成一个 Symbol 值。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">  <span class="function"><span class="title">toString</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.name;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> s = <span class="built_in">Symbol</span>(obj);</span><br><span class="line"><span class="built_in">console</span>.log(s); <span class="comment">// Symbol(lilei)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Symbol-作为属性名"><a href="#Symbol-作为属性名" class="headerlink" title="Symbol 作为属性名"></a>Symbol 作为属性名</h2><p>由于每一个 Symbol 值都是不相等的，这意味着 Symbol 值可以作为标识符，用于对象的属性名，就能保证不会出现同名的属性。这对于一个对象由多个模块构成的情况非常有用，能防止某一个键被不小心改写或覆盖。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> mySymbol = <span class="built_in">Symbol</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第一种写法</span></span><br><span class="line"><span class="keyword">let</span> a = &#123;&#125;;</span><br><span class="line">a[mySymbol] = <span class="string">&quot;Hello!&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二种写法</span></span><br><span class="line"><span class="keyword">let</span> a = &#123;</span><br><span class="line">  [mySymbol]: <span class="string">&quot;Hello!&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第三种写法</span></span><br><span class="line"><span class="keyword">let</span> a = &#123;&#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(a, mySymbol, &#123; <span class="attr">value</span>: <span class="string">&quot;Hello!&quot;</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 以上写法都得到同样结果</span></span><br><span class="line">a[mySymbol]; <span class="comment">// &quot;Hello!&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>注意，Symbol 值作为对象属性名时，不能用点运算符。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> mySymbol = <span class="built_in">Symbol</span>();</span><br><span class="line"><span class="keyword">const</span> a = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">a.mySymbol = <span class="string">&quot;Hello!&quot;</span>;</span><br><span class="line">a[mySymbol]; <span class="comment">// undefined</span></span><br><span class="line">a[<span class="string">&quot;mySymbol&quot;</span>]; <span class="comment">// &quot;Hello!&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>同理，在对象的内部，使用 Symbol 值定义属性时，Symbol 值必须放在方括号之中。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> s = <span class="built_in">Symbol</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  [s]: <span class="function"><span class="keyword">function</span> (<span class="params">arg</span>) </span>&#123; ... &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">obj[s](<span class="number">123</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="属性名的遍历"><a href="#属性名的遍历" class="headerlink" title="属性名的遍历"></a>属性名的遍历</h2><p>Symbol 作为属性名，该属性不会出现在 for…in、for…of 循环中，也不会被 Object.keys()、Object.getOwnPropertyNames()、JSON.stringify() 返回。<br>但是，它也不是私有属性，有一个 Object.getOwnPropertySymbols 方法，可以获取指定对象的所有 Symbol 属性名。该方法返回一个数组，成员是当前对象的所有用作属性名的 Symbol 值。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;&#125;;</span><br><span class="line"><span class="keyword">let</span> a = <span class="built_in">Symbol</span>(<span class="string">&quot;a&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> b = <span class="built_in">Symbol</span>(<span class="string">&quot;b&quot;</span>);</span><br><span class="line"></span><br><span class="line">obj[a] = <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line">obj[b] = <span class="string">&quot;World&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> objectSymbols = <span class="built_in">Object</span>.getOwnPropertySymbols(obj);</span><br><span class="line"></span><br><span class="line">objectSymbols;</span><br><span class="line"><span class="comment">// [Symbol(a), Symbol(b)]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Symbol-for"><a href="#Symbol-for" class="headerlink" title="Symbol.for()"></a>Symbol.for()</h2><p>如果我们希望重新使用同一个 Symbol 值，Symbol.for()方法可以做到这一点。它接受一个字符串作为参数，然后搜索有没有以该参数作为名称的 Symbol 值。如果有，就返回这个 Symbol 值，否则就新建一个以该字符串为名称的 Symbol 值，并将其注册到全局。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> s1 = <span class="built_in">Symbol</span>.for(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> s2 = <span class="built_in">Symbol</span>.for(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(s1 === s2); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>上面代码中，s1 和 s2 都是 Symbol 值，但是它们都是由同样参数的 Symbol.for 方法生成的，所以实际上是同一个值。<br>注意，Symbol.for()为 Symbol 值登记的名字，是全局环境的，不管有没有在全局环境运行。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Symbol-keyFor"><a href="#Symbol-keyFor" class="headerlink" title="Symbol.keyFor()"></a>Symbol.keyFor()</h2><p>Symbol.keyFor()方法返回一个已登记的 Symbol 类型值的 key。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> s1 = <span class="built_in">Symbol</span>.for(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Symbol</span>.keyFor(s1)); <span class="comment">// &quot;foo&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> s2 = <span class="built_in">Symbol</span>(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Symbol</span>.keyFor(s2)); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><a href="https://es6.ruanyifeng.com/#docs/symbol">https://es6.ruanyifeng.com/#docs/symbol</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>ES6系列</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>Es6</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>三、ES6系列之箭头函数</title>
     <url>/2020/04/14/es6/%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/</url>
     <content><![CDATA[<p>ES6 增加了箭头函数，箭头函数表达式的语法比函数表达式更简洁，并且没有自己的 <strong>this</strong>，<strong>arguments</strong>，<strong>super</strong> 或 <strong>new.target</strong>。箭头函数表达式更适用于那些本来需要匿名函数的地方，并且它不能用作构造函数。</p>
@@ -3182,41 +3182,6 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
       </tags>
   </entry>
   <entry>
-    <title>十、JavaScript专题之惰性函数</title>
-    <url>/2020/03/28/jsspecial/%E6%83%B0%E6%80%A7%E5%87%BD%E6%95%B0/</url>
-    <content><![CDATA[<h2 id="什么是惰性函数"><a href="#什么是惰性函数" class="headerlink" title="什么是惰性函数"></a>什么是惰性函数</h2><p>惰性函数表示函数执行的分支只会在函数第一次调用的时候执行，在第一次调用过程中，该函数会被覆盖为另一个按照合适方式执行的函数，这样任何对原函数的调用就不用再经过执行的分支了。本文将详细介绍惰性函数</p>
-<span id="more"></span>
-
-<h2 id="使用背景"><a href="#使用背景" class="headerlink" title="使用背景"></a>使用背景</h2><p>我们知道 javascript 最大的问题就是浏览器的兼容问题，一个 api 在不同的浏览器调用的结果是不一样的，有的时候我们需要通过 if 判断来实现不同的兼容问题：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addEvent</span>(<span class="params">type, element, fun</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (element.addEventListener) &#123;</span><br><span class="line">    element.addEventListener(type, fun, <span class="literal">false</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (element.attachEvent) &#123;</span><br><span class="line">    element.attachEvent(<span class="string">&quot;on&quot;</span> + type, fun);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    element[<span class="string">&quot;on&quot;</span> + type] = fun;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上面是一个兼容不同浏览器事件绑定的方法，但是，他有一个问题：</p>
-<p>每次调用 addEvent 函数的时候都要进行 if 判断，如果浏览器支持其中的一个方法，那么它就永远支持了，没有必要再进行其他分支的检测了。也就是说，if 语句不必每次都执行，代码可以运行的更快一些，解决方案就是惰性载入。</p>
-<h2 id="函数重写"><a href="#函数重写" class="headerlink" title="函数重写"></a>函数重写</h2><p>在介绍惰性函数之前，首先介绍函数重写技术。由于一个函数可以返回另一个函数，因此可以用新的函数来覆盖旧的函数。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">  a = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;b&quot;</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line">a(); <span class="comment">// a</span></span><br><span class="line">a(); <span class="comment">// b</span></span><br></pre></td></tr></table></figure>
-
-<p>第一次调用该函数时会 console.log(‘a’)会被执行；然后全局变量 a 被重定义，并被赋予新的函数。当该函数再次被调用时， console.log(‘b’)会被执行；</p>
-<h2 id="惰性函数"><a href="#惰性函数" class="headerlink" title="惰性函数"></a>惰性函数</h2><p>惰性函数的本质就是函数重写。所谓惰性载入，指函数执行的分支只会发生一次，有两种实现惰性载入的方式：</p>
-<p>1、第一种是在函数被调用时，再处理函数。函数在第一次调用时，该函数会被覆盖为另外一个按合适方式执行的函数，这样任何对原函数的调用都不用再经过执行的分支了。代码重写如下：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addEvent</span>(<span class="params">type, element, fun</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (element.addEventListener) &#123;</span><br><span class="line">    addEvent = <span class="function"><span class="keyword">function</span> (<span class="params">type, element, fun</span>) </span>&#123;</span><br><span class="line">      element.addEventListener(type, fun, <span class="literal">false</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (element.attachEvent) &#123;</span><br><span class="line">    addEvent = <span class="function"><span class="keyword">function</span> (<span class="params">type, element, fun</span>) </span>&#123;</span><br><span class="line">      element.attachEvent(<span class="string">&quot;on&quot;</span> + type, fun);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    addEvent = <span class="function"><span class="keyword">function</span> (<span class="params">type, element, fun</span>) </span>&#123;</span><br><span class="line">      element[<span class="string">&quot;on&quot;</span> + type] = fun;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> addEvent(type, element, fun);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在这个惰性载入的 addEvent()中，if 语句的每个分支都会为 addEvent 变量赋值，有效覆盖了原函数。最后一步便是调用了新赋函数。下一次调用 addEvent()时，便会直接调用新赋值的函数，这样就不用再执行 if 语句了。<br>但是，这种方法有个缺点，如果函数名称有所改变，修改起来比较麻烦。</p>
-<p>2、第二种是声明函数时就指定适当的函数。把嗅探浏览器的操作提前到代码加载的时候，在代码加载的时候就立刻进行一次判断，以便让 addEvent 返回一个包裹了正确逻辑的函数。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> addEvent = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">document</span>.addEventListener) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">type, element, fun</span>) </span>&#123;</span><br><span class="line">      element.addEventListener(type, fun, <span class="literal">false</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">document</span>.attachEvent) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">type, element, fun</span>) </span>&#123;</span><br><span class="line">      element.attachEvent(<span class="string">&quot;on&quot;</span> + type, fun);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">type, element, fun</span>) </span>&#123;</span><br><span class="line">      element[<span class="string">&quot;on&quot;</span> + type] = fun;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
-
-<p>综上，当我们每次都需要进行条件判断，其实只需要判断一次，接下来的使用方式都不会发生改变的时候，想想是否可以考虑使用惰性函数。</p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
-<li><a href="https://xiaohuochai.site/JS/ECMA/types/LazyFunction.html">https://xiaohuochai.site/JS/ECMA/types/LazyFunction.html</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>JavaScript专题系列笔记</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>八、JavaScript专题之函数柯里化</title>
     <url>/2020/03/15/jsspecial/%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96/</url>
     <content><![CDATA[<p>函数式编程是一种编程风格，它尝试将函数作为参数传递（回调）并返回没有副作用的函数。因此带来了一些其他东西，比如纯函数、柯里化、高阶函数。<br>这里我们主要讨论函数柯里化的实现与应用场景。</p>
@@ -3265,6 +3230,41 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
 
 <p>sun_curry 方法的作用在与接收一个函数和若干参数，然后返回一个函数，该函数能接收后续若干参数。<br>curry 方法的作用就是递归调用辅助函数 sub_curry，实现函数柯里化。</p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://juejin.cn/post/6844903882208837645">https://juejin.cn/post/6844903882208837645</a></p>
+]]></content>
+      <categories>
+        <category>JavaScript专题系列笔记</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>十、JavaScript专题之惰性函数</title>
+    <url>/2020/03/28/jsspecial/%E6%83%B0%E6%80%A7%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<h2 id="什么是惰性函数"><a href="#什么是惰性函数" class="headerlink" title="什么是惰性函数"></a>什么是惰性函数</h2><p>惰性函数表示函数执行的分支只会在函数第一次调用的时候执行，在第一次调用过程中，该函数会被覆盖为另一个按照合适方式执行的函数，这样任何对原函数的调用就不用再经过执行的分支了。本文将详细介绍惰性函数</p>
+<span id="more"></span>
+
+<h2 id="使用背景"><a href="#使用背景" class="headerlink" title="使用背景"></a>使用背景</h2><p>我们知道 javascript 最大的问题就是浏览器的兼容问题，一个 api 在不同的浏览器调用的结果是不一样的，有的时候我们需要通过 if 判断来实现不同的兼容问题：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addEvent</span>(<span class="params">type, element, fun</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (element.addEventListener) &#123;</span><br><span class="line">    element.addEventListener(type, fun, <span class="literal">false</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (element.attachEvent) &#123;</span><br><span class="line">    element.attachEvent(<span class="string">&quot;on&quot;</span> + type, fun);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    element[<span class="string">&quot;on&quot;</span> + type] = fun;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面是一个兼容不同浏览器事件绑定的方法，但是，他有一个问题：</p>
+<p>每次调用 addEvent 函数的时候都要进行 if 判断，如果浏览器支持其中的一个方法，那么它就永远支持了，没有必要再进行其他分支的检测了。也就是说，if 语句不必每次都执行，代码可以运行的更快一些，解决方案就是惰性载入。</p>
+<h2 id="函数重写"><a href="#函数重写" class="headerlink" title="函数重写"></a>函数重写</h2><p>在介绍惰性函数之前，首先介绍函数重写技术。由于一个函数可以返回另一个函数，因此可以用新的函数来覆盖旧的函数。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">  a = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;b&quot;</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line">a(); <span class="comment">// a</span></span><br><span class="line">a(); <span class="comment">// b</span></span><br></pre></td></tr></table></figure>
+
+<p>第一次调用该函数时会 console.log(‘a’)会被执行；然后全局变量 a 被重定义，并被赋予新的函数。当该函数再次被调用时， console.log(‘b’)会被执行；</p>
+<h2 id="惰性函数"><a href="#惰性函数" class="headerlink" title="惰性函数"></a>惰性函数</h2><p>惰性函数的本质就是函数重写。所谓惰性载入，指函数执行的分支只会发生一次，有两种实现惰性载入的方式：</p>
+<p>1、第一种是在函数被调用时，再处理函数。函数在第一次调用时，该函数会被覆盖为另外一个按合适方式执行的函数，这样任何对原函数的调用都不用再经过执行的分支了。代码重写如下：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addEvent</span>(<span class="params">type, element, fun</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (element.addEventListener) &#123;</span><br><span class="line">    addEvent = <span class="function"><span class="keyword">function</span> (<span class="params">type, element, fun</span>) </span>&#123;</span><br><span class="line">      element.addEventListener(type, fun, <span class="literal">false</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (element.attachEvent) &#123;</span><br><span class="line">    addEvent = <span class="function"><span class="keyword">function</span> (<span class="params">type, element, fun</span>) </span>&#123;</span><br><span class="line">      element.attachEvent(<span class="string">&quot;on&quot;</span> + type, fun);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    addEvent = <span class="function"><span class="keyword">function</span> (<span class="params">type, element, fun</span>) </span>&#123;</span><br><span class="line">      element[<span class="string">&quot;on&quot;</span> + type] = fun;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> addEvent(type, element, fun);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个惰性载入的 addEvent()中，if 语句的每个分支都会为 addEvent 变量赋值，有效覆盖了原函数。最后一步便是调用了新赋函数。下一次调用 addEvent()时，便会直接调用新赋值的函数，这样就不用再执行 if 语句了。<br>但是，这种方法有个缺点，如果函数名称有所改变，修改起来比较麻烦。</p>
+<p>2、第二种是声明函数时就指定适当的函数。把嗅探浏览器的操作提前到代码加载的时候，在代码加载的时候就立刻进行一次判断，以便让 addEvent 返回一个包裹了正确逻辑的函数。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> addEvent = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">document</span>.addEventListener) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">type, element, fun</span>) </span>&#123;</span><br><span class="line">      element.addEventListener(type, fun, <span class="literal">false</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">document</span>.attachEvent) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">type, element, fun</span>) </span>&#123;</span><br><span class="line">      element.attachEvent(<span class="string">&quot;on&quot;</span> + type, fun);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">type, element, fun</span>) </span>&#123;</span><br><span class="line">      element[<span class="string">&quot;on&quot;</span> + type] = fun;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<p>综上，当我们每次都需要进行条件判断，其实只需要判断一次，接下来的使用方式都不会发生改变的时候，想想是否可以考虑使用惰性函数。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><a href="https://xiaohuochai.site/JS/ECMA/types/LazyFunction.html">https://xiaohuochai.site/JS/ECMA/types/LazyFunction.html</a></li>
+</ul>
 ]]></content>
       <categories>
         <category>JavaScript专题系列笔记</category>
