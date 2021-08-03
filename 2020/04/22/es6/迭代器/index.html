@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;hedahang.github.io&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Pisces&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:false,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="介绍首先定义一个数组：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="六、ES6系列之Iterator 和 for...of 循环">
+<meta property="og:url" content="https://hedahang.github.io/2020/04/22/es6/%E8%BF%AD%E4%BB%A3%E5%99%A8/index.html">
+<meta property="og:site_name" content="个人笔记">
+<meta property="og:description" content="介绍首先定义一个数组：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hedahang.github.io/images/iterator.png">
+<meta property="article:published_time" content="2020-04-22T11:12:04.000Z">
+<meta property="article:modified_time" content="2020-04-22T11:12:04.000Z">
+<meta property="article:author" content="muna">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="Es6">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hedahang.github.io/images/iterator.png">
+
+
+<link rel="canonical" href="https://hedahang.github.io/2020/04/22/es6/%E8%BF%AD%E4%BB%A3%E5%99%A8/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;https:&#x2F;&#x2F;hedahang.github.io&#x2F;2020&#x2F;04&#x2F;22&#x2F;es6&#x2F;%E8%BF%AD%E4%BB%A3%E5%99%A8&#x2F;&quot;,&quot;path&quot;:&quot;2020&#x2F;04&#x2F;22&#x2F;es6&#x2F;迭代器&#x2F;&quot;,&quot;title&quot;:&quot;六、ES6系列之Iterator 和 for...of 循环&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>六、ES6系列之Iterator 和 for...of 循环 | 个人笔记</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?d9bdb6166b41cc3154f5904bfba322a3"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">个人笔记</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Quick notes</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section">首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives" rel="section">归档</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags" rel="section">标签</a></li>
+        <li class="menu-item menu-item-about"><a href="/about" rel="section">关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Iterator%EF%BC%88%E8%BF%AD%E4%BB%A3%E5%99%A8%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">Iterator（迭代器）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF-object-%E5%8F%AF%E8%BF%AD%E4%BB%A3"><span class="nav-number">3.</span> <span class="nav-text">使 object 可迭代</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#For-of"><span class="nav-number">4.</span> <span class="nav-text">For-of</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E5%8F%AF%E9%81%8D%E5%8E%86%E5%AF%B9%E8%B1%A1"><span class="nav-number">5.</span> <span class="nav-text">默认可遍历对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E5%92%8C%E7%B1%BB%E6%95%B0%E7%BB%84"><span class="nav-number">5.1.</span> <span class="nav-text">数组和类数组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">6.</span> <span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Maps"><span class="nav-number">7.</span> <span class="nav-text">Maps</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sets-%E5%85%83%E7%B4%A0"><span class="nav-number">8.</span> <span class="nav-text">Sets 元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF-person-%E5%8F%AF%E8%BF%AD%E4%BB%A3"><span class="nav-number">9.</span> <span class="nav-text">使 person 可迭代</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">10.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">muna</p>
+  <div class="site-description" itemprop="description">Everything is good in its season.</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+        
+          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags">
+          
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/hedahang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;hedahang" rel="noopener" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Munachar" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Munachar" rel="noopener" target="_blank">Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://weibo.com/p/1005051065718667/home?from=page_100505&mod=TAB&is_all=1#place" title="微博 → http:&#x2F;&#x2F;weibo.com&#x2F;p&#x2F;1005051065718667&#x2F;home?from&#x3D;page_100505&amp;mod&#x3D;TAB&amp;is_all&#x3D;1#place" rel="noopener" target="_blank">微博</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.csdn.net/" title="CSDN → http:&#x2F;&#x2F;www.csdn.net&#x2F;" rel="noopener" target="_blank">CSDN</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2020/04/22/es6/%E8%BF%AD%E4%BB%A3%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="muna">
+      <meta itemprop="description" content="Everything is good in its season.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          六、ES6系列之Iterator 和 for...of 循环
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-04-22 19:12:04" itemprop="dateCreated datePublished" datetime="2020-04-22T19:12:04+08:00">2020-04-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/ES6%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">ES6系列</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>首先定义一个数组：</p>
+<span id="more"></span>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> person = [</span><br><span class="line">  <span class="string">&quot;Li Lei&quot;</span>,</span><br><span class="line">  <span class="string">&quot;Han Meimei&quot;</span>,</span><br><span class="line">  <span class="string">&quot;Tom&quot;</span>,</span><br><span class="line">  <span class="string">&quot;Jery&quot;</span>,</span><br><span class="line">  <span class="string">&quot;Stephen&quot;</span>,</span><br><span class="line">  <span class="string">&quot;Li bai&quot;</span>,</span><br><span class="line">  <span class="string">&quot;Du fu&quot;</span>,</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+
+<p>在某些时候，您会想要取回数组中的所有单个值，以便将它们打印在屏幕上、操作它们或对它们执行某些操作。如果我问你，你会怎么做？你会说——这很容易。我就对他们循环中使用 for，while，for-of 或一个这些循环的方法。示例实现是:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// For loop</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; person.length; i++) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(person[i]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// while loop</span></span><br><span class="line"><span class="keyword">let</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (i &lt; person.length) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(person[i]);</span><br><span class="line">  i++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// For-of loop</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> value <span class="keyword">of</span> person) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在，假设有一个自定义数据结构来保存所有 person，而不是之前的数组。像这样:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123;</span><br><span class="line">  <span class="attr">subject</span>: &#123;</span><br><span class="line">    <span class="attr">english</span>: [<span class="string">&quot;Li Lei&quot;</span>, <span class="string">&quot;Han Meimei&quot;</span>],</span><br><span class="line">    <span class="attr">math</span>: [<span class="string">&quot;Tom&quot;</span>, <span class="string">&quot;Jery&quot;</span>, <span class="string">&quot;Stephen&quot;</span>],</span><br><span class="line">    <span class="attr">chinese</span>: [<span class="string">&quot;Li bai&quot;</span>, <span class="string">&quot;Du fu&quot;</span>],</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>现在，person 是一个包含另一个对象的对象 subject。subject 包含三个阵列，按键 english，math 和 chinese。现在，如果要获取 person 所有人员，我们尝试一些循环组合来获取所有数据。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> value <span class="keyword">of</span> person) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Uncaught TypeError: person is not iterable</span></span><br></pre></td></tr></table></figure>
+
+<p>得到一个 TypeError 说法，该对象不可迭代。那么这是为什么呢，下面我们看看什么是可迭代对象以及如何使对象可迭代。</p>
+<h2 id="Iterator（迭代器）"><a href="#Iterator（迭代器）" class="headerlink" title="Iterator（迭代器）"></a>Iterator（迭代器）</h2><p>所谓迭代器，其实就是一个具有 next() 方法的对象，每次调用 next() 都会返回一个结果对象，该结果对象有两个属性，value 表示当前的值，done 表示遍历是否结束。<br>来看我们上一节中的问题，我们想要某种方法，通过它我们可以拿到所有内部数据。<br>让我们在 person 对象中添加一个方法 getAllPerson，来返回返回所有作者。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123;</span><br><span class="line">  <span class="attr">subject</span>: &#123;</span><br><span class="line">    <span class="attr">english</span>: [<span class="string">&quot;Li Lei&quot;</span>, <span class="string">&quot;Han Meimei&quot;</span>],</span><br><span class="line">    <span class="attr">math</span>: [<span class="string">&quot;Tom&quot;</span>, <span class="string">&quot;Jery&quot;</span>, <span class="string">&quot;Stephen&quot;</span>],</span><br><span class="line">    <span class="attr">chinese</span>: [<span class="string">&quot;Li bai&quot;</span>, <span class="string">&quot;Du fu&quot;</span>],</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">getAllPerson</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> all = [];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> name <span class="keyword">of</span> <span class="built_in">this</span>.subject.english) &#123;</span><br><span class="line">      all.push(name);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> name <span class="keyword">of</span> <span class="built_in">this</span>.subject.math) &#123;</span><br><span class="line">      all.push(name);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> name <span class="keyword">of</span> <span class="built_in">this</span>.subject.math) &#123;</span><br><span class="line">      all.push(name);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> all;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>现在我们通过一个简单的方法拿到所用人员的名字；但是，这种实现可能会出现一些问题。比如：</p>
+<ul>
+<li>getAllPerson 是一个具体的名字，不同的开发者会有自己的命名习惯，比如 retrieveAllPerson;</li>
+<li>作为开发人员，我们总是需要知道返回所有数据的特定方法。 在本例中，它被命名为 getAllPerson。</li>
+<li>getAllPerson 返回类型是固定的字符串数组。</li>
+</ul>
+<p>开发人员必须知道返回所有数据的方法的<strong>确切名称</strong>和<strong>返回类型</strong>。<br>如果我们制定一个规则，即方法的名称及其返回类型 将是固定的且不可更改的。<br>我们将此方法命名为 <strong>iteratorMethod</strong>。</p>
+<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Ecma_International">ECMA</a>采取了类似的步骤 来标准化这个循环自定义对象的过程。但是，ECMA 没有使用 iteratorMethod 作为 方法的名称 ，而是使用 Symbol.iterator。Symbol 类型可以提供唯一且不会与其他属性名称冲突的名称。此外，Symbol.iterator 将返回一个迭代器对象。该迭代器将调用一个方法 <strong>next</strong> ，它将返回一个带有键 value 和 done 的对象。</p>
+<p>图表可能有助于理解可迭代对象、迭代器和下一个之间的关系。这种关系称为迭代协议。</p>
+<p><img src="/images/iterator.png" alt="(迭代协议)"></p>
+<p>在<a target="_blank" rel="noopener" href="https://exploringjs.com/es6/ch_iteration.html">Exploring JS</a>一书中有这样一段介绍：</p>
+<ul>
+<li>一个迭代是想让它的元素向公众开放的数据结构。它通过实现一个键为 的方法来实现 Symbol.iterator。该方法是迭代器的工厂。也就是说，它将创建迭代器。</li>
+<li>一个迭代器是用于遍历数据结构的元素的指针。</li>
+</ul>
+<h2 id="使-object-可迭代"><a href="#使-object-可迭代" class="headerlink" title="使 object 可迭代"></a>使 object 可迭代</h2><p>因此，正如我们在上一节中学到的，我们需要实现一个名为 Symbol.iterator 的方法 。来创建一个迭代器。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createIterator</span>(<span class="params">items</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> i = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">next</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> done = i &gt;= items.length;</span><br><span class="line">      <span class="keyword">var</span> value = !done ? items[i++] : <span class="literal">undefined</span>;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="attr">done</span>: done,</span><br><span class="line">        <span class="attr">value</span>: value,</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// iterator 就是一个迭代器对象</span></span><br><span class="line"><span class="keyword">var</span> iterator = createIterator([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()); <span class="comment">// &#123; done: false, value: 1 &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()); <span class="comment">// &#123; done: false, value: 2 &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()); <span class="comment">// &#123; done: false, value: 3 &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(iterator.next()); <span class="comment">// &#123; done: true, value: undefined &#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="For-of"><a href="#For-of" class="headerlink" title="For-of"></a>For-of</h2><p>除了迭代器之外，我们还需要一个可以遍历迭代器对象的方式，ES6 提供了 for of 语句，我们直接用 for of 遍历一下我们上节生成的遍历器对象试试：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> iterator = createIterator([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> value <span class="keyword">of</span> iterator) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结果报错 TypeError: iterator is not iterable，表明我们生成的 iterator 对象并不是 iterable(可遍历的)。<br>那什么才是可遍历的呢？</p>
+<p>其实一种数据结构只要部署了 Iterator 接口，我们就称这种数据结构是“可遍历的”（iterable）。</p>
+<p>ES6 规定，默认的 Iterator 接口部署在数据结构的 Symbol.iterator 属性，或者说，一个数据结构只要具有 Symbol.iterator 属性，就可以认为是”可遍历的”（iterable）。</p>
+<p>举个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  <span class="attr">value</span>: <span class="string">&quot;test&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">obj[<span class="built_in">Symbol</span>.iterator] = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> createIterator([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (value <span class="keyword">of</span> obj) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(value); <span class="comment">// 1 2 3</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由此，我们也可以发现 for of 遍历的其实是对象的 Symbol.iterator 属性。</p>
+<h2 id="默认可遍历对象"><a href="#默认可遍历对象" class="headerlink" title="默认可遍历对象"></a>默认可遍历对象</h2><p>很多东西在 JavaScript 中都是可迭代的。这是因为 ES6 默认部署了 Symbol.iterator 属性。</p>
+<h3 id="数组和类数组"><a href="#数组和类数组" class="headerlink" title="数组和类数组"></a>数组和类数组</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> x <span class="keyword">of</span> [<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>]) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(x);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// a b</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>遍历每个字符或 Unicode 编码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> x <span class="keyword">of</span> <span class="string">&quot;a\uD83D\uDC0A&quot;</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(x);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// &#x27;a&#x27;</span></span><br><span class="line"><span class="comment">// 🐊 (crocodile emoji)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Maps"><a href="#Maps" class="headerlink" title="Maps"></a>Maps</h2><p>遍历其键值对</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>().set(<span class="string">&quot;a&quot;</span>, <span class="number">1</span>).set(<span class="string">&quot;b&quot;</span>, <span class="number">2</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> pair <span class="keyword">of</span> map) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(pair);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// [&#x27;a&#x27;, 1]</span></span><br><span class="line"><span class="comment">// [&#x27;b&#x27;, 2]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Sets-元素"><a href="#Sets-元素" class="headerlink" title="Sets 元素"></a>Sets 元素</h2><p>遍历其键值对</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> set = <span class="keyword">new</span> <span class="built_in">Set</span>().add(<span class="string">&quot;a&quot;</span>).add(<span class="string">&quot;b&quot;</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> x <span class="keyword">of</span> set) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(x);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// &#x27;a&#x27;</span></span><br><span class="line"><span class="comment">// &#x27;b&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="使-person-可迭代"><a href="#使-person-可迭代" class="headerlink" title="使 person 可迭代"></a>使 person 可迭代</h2><p>最后我们来看文章开头的示例，使其实现可迭代。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123;</span><br><span class="line">  <span class="attr">subject</span>: &#123;</span><br><span class="line">    <span class="attr">english</span>: [<span class="string">&quot;Li Lei&quot;</span>, <span class="string">&quot;Han Meimei&quot;</span>],</span><br><span class="line">    <span class="attr">math</span>: [<span class="string">&quot;Tom&quot;</span>, <span class="string">&quot;Jery&quot;</span>, <span class="string">&quot;Stephen&quot;</span>],</span><br><span class="line">    <span class="attr">chinese</span>: [<span class="string">&quot;Li bai&quot;</span>, <span class="string">&quot;Du fu&quot;</span>],</span><br><span class="line">  &#125;,</span><br><span class="line">  [<span class="built_in">Symbol</span>.iterator]() &#123;</span><br><span class="line">    <span class="comment">// 获取所有名字</span></span><br><span class="line">    <span class="keyword">const</span> allName = <span class="built_in">Object</span>.values(<span class="built_in">this</span>.subject);</span><br><span class="line">    <span class="keyword">let</span> currentIndex = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 当前学科</span></span><br><span class="line">    <span class="keyword">let</span> currentSubjectIndex = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="function"><span class="title">next</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> authors = allName[currentSubjectIndex];</span><br><span class="line">        <span class="comment">// 判断是否还有更多人</span></span><br><span class="line">        <span class="keyword">const</span> doNothaveMorePerson = !(currentIndex &lt; authors.length);</span><br><span class="line">        <span class="keyword">if</span> (doNothaveMorePerson) &#123;</span><br><span class="line">          <span class="comment">// 当前数组没有更多人</span></span><br><span class="line">          currentSubjectIndex++;</span><br><span class="line">          <span class="comment">// 重置</span></span><br><span class="line">          currentIndex = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 是否还有更多学科</span></span><br><span class="line">        <span class="keyword">const</span> doNotHaveMoresubject = !(currentSubjectIndex &lt; allName.length);</span><br><span class="line">        <span class="keyword">if</span> (doNotHaveMoresubject) &#123;</span><br><span class="line">          <span class="comment">// 没有更多学科</span></span><br><span class="line">          <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="attr">value</span>: <span class="literal">undefined</span>,</span><br><span class="line">            <span class="attr">done</span>: <span class="literal">true</span>,</span><br><span class="line">          &#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">          <span class="attr">value</span>: allName[currentSubjectIndex][currentIndex++],</span><br><span class="line">          <span class="attr">done</span>: <span class="literal">false</span>,</span><br><span class="line">        &#125;;</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> author <span class="keyword">of</span> person) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(author);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://codeburst.io/a-simple-guide-to-es6-iterators-in-javascript-with-examples-189d052c3d8e">https://codeburst.io/a-simple-guide-to-es6-iterators-in-javascript-with-examples-189d052c3d8e</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/mqyqingfeng/Blog/issues/90">https://github.com/mqyqingfeng/Blog/issues/90</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+              <a href="/tags/Es6/" rel="tag"># Es6</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/04/18/es6/SetMap/" rel="prev" title="五、ES6系列之Set和Map">
+                  <i class="fa fa-chevron-left"></i> 五、ES6系列之Set和Map
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/06/19/content%E6%8D%A2%E8%A1%8C%E7%AC%A6%E4%B8%8E%E6%89%93%E7%82%B9loading%E6%95%88%E6%9E%9C%E5%AE%9E%E4%BE%8B%E9%A1%B5%E9%9D%A2/" rel="next" title="content换行符与打点loading效果实例页面">
+                  content换行符与打点loading效果实例页面 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">muna</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{&quot;enable&quot;:true,&quot;repo&quot;:&quot;hedahang&#x2F;hedahang.github.io&quot;,&quot;issue_term&quot;:&quot;pathname&quot;,&quot;theme&quot;:&quot;github-light&quot;}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
