@@ -1091,7 +1091,7 @@ Markdown 使用一种和链接很相似的语法来标记图片，同样也允�
 &amp;#109;&quot;&gt;&amp;#x61;&amp;#x64;&amp;#x64;&amp;#x72;&amp;#x65;&amp;#115;&amp;#115;&amp;#64;&amp;#101;&amp;#120;&amp;#x61;
 &amp;#109;&amp;#x70;&amp;#x6C;e&amp;#x2E;&amp;#99;&amp;#111;&amp;#109;&lt;/a&gt;
 </code></pre>
-<p>在浏览器里面，这段字串（其实是 <a href="mailto:address@example.com">address@example.com</a>）会变成一个可以点击的「<a href="mailto:&#x61;&#x64;&#100;&#114;&#x65;&#x73;&#x73;&#64;&#x65;&#x78;&#x61;&#109;&#x70;&#x6c;&#x65;&#x2e;&#99;&#111;&#109;">&#x61;&#x64;&#100;&#114;&#x65;&#x73;&#x73;&#64;&#x65;&#x78;&#x61;&#109;&#x70;&#x6c;&#x65;&#x2e;&#99;&#111;&#109;</a>」链接。</p>
+<p>在浏览器里面，这段字串（其实是 <a href="mailto:address@example.com">address@example.com</a>）会变成一个可以点击的「<a href="mailto:&#97;&#100;&#x64;&#x72;&#101;&#115;&#x73;&#x40;&#x65;&#120;&#x61;&#x6d;&#x70;&#x6c;&#101;&#x2e;&#99;&#x6f;&#x6d;">&#97;&#100;&#x64;&#x72;&#101;&#115;&#x73;&#x40;&#x65;&#120;&#x61;&#x6d;&#x70;&#x6c;&#101;&#x2e;&#99;&#x6f;&#x6d;</a>」链接。</p>
 </blockquote>
 <p>（这种作法虽然可以糊弄不少的机器人，但并不能全部挡下来，不过总比什么都不做好些。不管怎样，公开你的信箱终究会引来广告信件的。）</p>
 <blockquote>
@@ -2004,7 +2004,7 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
 <h2 id="关于收费"><a href="#关于收费" class="headerlink" title="关于收费"></a>关于收费</h2><p><strong>马克飞象</strong>为新用户提供 10 天的试用期，试用期过后需要<a href="maxiang.info/vip.html">续费</a>才能继续使用。未购买或者未及时续费，将不能同步新的笔记。之前保存过的笔记依然可以编辑。</p>
 <h2 id="反馈与建议"><a href="#反馈与建议" class="headerlink" title="反馈与建议"></a>反馈与建议</h2><ul>
 <li>微博：<a href="http://weibo.com/u/2788354117">@马克飞象</a>，<a href="http://weibo.com/ggock" title="开发者个人账号">@GGock</a></li>
-<li>邮箱：<a href="mailto:&#x68;&#117;&#115;&#x74;&#x67;&#111;&#99;&#107;&#x40;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;&#109;">&#x68;&#117;&#115;&#x74;&#x67;&#111;&#99;&#107;&#x40;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;&#109;</a></li>
+<li>邮箱：<a href="mailto:&#x68;&#x75;&#x73;&#x74;&#x67;&#111;&#99;&#x6b;&#x40;&#103;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#111;&#109;">&#x68;&#x75;&#x73;&#x74;&#x67;&#111;&#99;&#x6b;&#x40;&#103;&#x6d;&#x61;&#x69;&#x6c;&#46;&#x63;&#111;&#109;</a></li>
 </ul>
 <hr>
 <p>感谢阅读这份帮助文档。请点击右上角，绑定印象笔记账号，开启全新的记录与分享体验吧。</p>
@@ -2563,6 +2563,34 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
       </tags>
   </entry>
   <entry>
+    <title>三、JavaScript之执行上下文栈</title>
+    <url>/2019/06/26/deepjs/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E6%A0%88/</url>
+    <content><![CDATA[<p>由于JS是单线程的，每次只能做一件事情，其他的事情会放在指定的上下文栈中排队等待执行，所以执行上下文栈的作用是用来跟踪代码的，。</p>
+<p>JS解释器在初始化代码的时候，首先会创建一个新的全局执行上下文到执行上下文栈顶中，然后随着每次函数的调用都会创建一个新的执行上下文放入到栈顶中，随着函数执行完毕后被执行上下文栈顶弹出，直到回到全局的执行上下文中。（栈：一种数据结构，遵循后进先出的原则）。下面我们说说执行上下文栈是如何工作的。</p>
+<span id="more"></span>
+<p>为了模拟执行上下文栈的行为，让我们定义执行上下文栈是一个数组：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ECStack = [];</span><br></pre></td></tr></table></figure>
+<p>当 JavaScript 开始要解释执行代码的时候，最先遇到的就是全局代码，所以初始化的时候首先就会向执行上下文栈压入一个全局执行上下文，我们用 globalContext 表示它，并且只有当整个应用程序结束的时候，ECStack 才会被清空，所以程序结束之前， ECStack 最底部永远有个 globalContext：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ECStack = [</span><br><span class="line">    globalContext</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+<p>现在我们执行下面这段代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var color = &#x27;blue&#x27;;</span><br><span class="line">function changeColor() &#123;</span><br><span class="line">    var anotherColor = &#x27;red&#x27;;</span><br><span class="line">    function swapColors() &#123;</span><br><span class="line">        var tempColor = anotherColor;</span><br><span class="line">        anotherColor = color;</span><br><span class="line">        color = tempColor;</span><br><span class="line">    &#125;</span><br><span class="line">    swapColors();</span><br><span class="line">&#125;</span><br><span class="line">changeColor();</span><br></pre></td></tr></table></figure>
+<p>上述代码运行按照如下步骤：</p>
+<ul>
+<li>当上述代码在浏览器中加载时，JavaScript 引擎会创建一个全局执行上下文并且将它推入当前的执行栈</li>
+<li>调用 changeColor函数时，此时changeColor函数内部代码还未执行，js执行引擎立即创建一个changeColor的执行上下文（简称EC），然后把这执行上下文压入到执行栈（简称ECStack）中。</li>
+<li>执行changeColor函数过程中，调用swapColors函数，同样地，swapColors函数执行之前也创建了一个swapColors的执行上下文，并压入到执行栈中。</li>
+<li>swapColors函数执行完成，swapColors函数的执行上下文出栈，并且被销毁。</li>
+<li>changeColor函数执行完成，changeColor函数的执行上下文出栈，并且被销毁。<br><img src="/images/esstack.png" alt="(流程图)"></li>
+</ul>
+]]></content>
+      <categories>
+        <category>深入理解JavaScript系列笔记</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>八、JavaScript之闭包</title>
     <url>/2019/09/01/deepjs/%E9%97%AD%E5%8C%85/</url>
     <content><![CDATA[<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>闭包在 MDN 中的定义：</p>
@@ -2608,34 +2636,6 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 数组排序,它接受一个排序条件函数作为参数</span></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].sort(<span class="function"><span class="keyword">function</span> (<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  ... <span class="comment">// 排序条件</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 数组的map方法是根据函数中定义的条件将原数组映射到一个新的数组中：</span></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].map(<span class="function"><span class="keyword">function</span> (<span class="params">element</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> element * <span class="number">2</span>;</span><br><span class="line">&#125;); <span class="comment">// [2, 4, 6]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 数组的find方法实现一个搜索功能，并且可以支持无限制的搜索条件：</span></span><br><span class="line">someCollection.find(<span class="function"><span class="keyword">function</span> (<span class="params">element</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> element.someProperty == <span class="string">&#x27;searchCondition&#x27;</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 还有应用函数，比如常见的forEach方法，将函数应用到每个数组元素：</span></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].forEach(<span class="function"><span class="keyword">function</span> (<span class="params">element</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (element % <span class="number">2</span> != <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(element);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;); <span class="comment">// 1, 3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 顺便提下，函数对象的 apply 和 call方法，在函数式编程中也可以用作应用函数。 apply和call已经在讨论“this”的时候介绍过了；这里，我们将它们看作是应用函数 —— 应用到参数中的函数（在apply中是参数列表，在call中是独立的参数）：</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  alert([].join.call(<span class="built_in">arguments</span>, <span class="string">&#x27;;&#x27;</span>)); <span class="comment">// 1;2;3</span></span><br><span class="line">&#125;).apply(<span class="built_in">this</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 闭包还有另外一个非常重要的应用 —— 延迟调用：</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  alert(a); <span class="comment">// 10, after one second</span></span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 还有回调函数</span></span><br><span class="line"><span class="keyword">var</span> x = <span class="number">10</span>;</span><br><span class="line"><span class="comment">// only for example</span></span><br><span class="line">xmlHttpRequestObject.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 当数据就绪的时候，才会调用;</span></span><br><span class="line">  <span class="comment">// 这里，不论是在哪个上下文中创建</span></span><br><span class="line">  <span class="comment">// 此时变量“x”的值已经存在了</span></span><br><span class="line">  alert(x); <span class="comment">// 10</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 还可以创建封装的作用域来隐藏辅助对象：</span></span><br><span class="line"><span class="keyword">var</span> foo = &#123;&#125;;</span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">object</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> x = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">  object.getX = <span class="function"><span class="keyword">function</span> <span class="title">_getX</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">&#125;)(foo);</span><br><span class="line"></span><br><span class="line">alert(foo.getX()); <span class="comment">// 获得闭包 &quot;x&quot; – 10</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Closures</a><br><a href="https://juejin.cn/post/6844903475998900237">https://juejin.cn/post/6844903475998900237</a><br><a href="http://dmitrysoshnikov.com/ecmascript/chapter-6-closures/">http://dmitrysoshnikov.com/ecmascript/chapter-6-closures/</a></p>
-]]></content>
-      <categories>
-        <category>深入理解JavaScript系列笔记</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>三、JavaScript之执行上下文栈</title>
-    <url>/2019/06/26/deepjs/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E6%A0%88/</url>
-    <content><![CDATA[<p>由于JS是单线程的，每次只能做一件事情，其他的事情会放在指定的上下文栈中排队等待执行，所以执行上下文栈的作用是用来跟踪代码的，。</p>
-<p>JS解释器在初始化代码的时候，首先会创建一个新的全局执行上下文到执行上下文栈顶中，然后随着每次函数的调用都会创建一个新的执行上下文放入到栈顶中，随着函数执行完毕后被执行上下文栈顶弹出，直到回到全局的执行上下文中。（栈：一种数据结构，遵循后进先出的原则）。下面我们说说执行上下文栈是如何工作的。</p>
-<span id="more"></span>
-<p>为了模拟执行上下文栈的行为，让我们定义执行上下文栈是一个数组：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ECStack = [];</span><br></pre></td></tr></table></figure>
-<p>当 JavaScript 开始要解释执行代码的时候，最先遇到的就是全局代码，所以初始化的时候首先就会向执行上下文栈压入一个全局执行上下文，我们用 globalContext 表示它，并且只有当整个应用程序结束的时候，ECStack 才会被清空，所以程序结束之前， ECStack 最底部永远有个 globalContext：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ECStack = [</span><br><span class="line">    globalContext</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
-<p>现在我们执行下面这段代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var color = &#x27;blue&#x27;;</span><br><span class="line">function changeColor() &#123;</span><br><span class="line">    var anotherColor = &#x27;red&#x27;;</span><br><span class="line">    function swapColors() &#123;</span><br><span class="line">        var tempColor = anotherColor;</span><br><span class="line">        anotherColor = color;</span><br><span class="line">        color = tempColor;</span><br><span class="line">    &#125;</span><br><span class="line">    swapColors();</span><br><span class="line">&#125;</span><br><span class="line">changeColor();</span><br></pre></td></tr></table></figure>
-<p>上述代码运行按照如下步骤：</p>
-<ul>
-<li>当上述代码在浏览器中加载时，JavaScript 引擎会创建一个全局执行上下文并且将它推入当前的执行栈</li>
-<li>调用 changeColor函数时，此时changeColor函数内部代码还未执行，js执行引擎立即创建一个changeColor的执行上下文（简称EC），然后把这执行上下文压入到执行栈（简称ECStack）中。</li>
-<li>执行changeColor函数过程中，调用swapColors函数，同样地，swapColors函数执行之前也创建了一个swapColors的执行上下文，并压入到执行栈中。</li>
-<li>swapColors函数执行完成，swapColors函数的执行上下文出栈，并且被销毁。</li>
-<li>changeColor函数执行完成，changeColor函数的执行上下文出栈，并且被销毁。<br><img src="/images/esstack.png" alt="(流程图)"></li>
-</ul>
 ]]></content>
       <categories>
         <category>深入理解JavaScript系列笔记</category>
@@ -3162,59 +3162,50 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
       </tags>
   </entry>
   <entry>
-    <title>四、ES6系列之Symbol</title>
-    <url>/2020/04/16/es6/Symbol/</url>
-    <content><![CDATA[<p>Symbol 是一种基本数据类型，Symbol()函数会返回 是一种基本数据类型，Symbol 类型的值，该类型具有静态属性和静态方法。它的静态属性会暴露几个内建的成员对象；它的静态方法会暴露全局的 symbol 注册，且类似于内建对象类，但作为构造函数来说它并不完整，因为它不支持语法：”new Symbol()”。</p>
+    <title>二、ES6系列之模板字符串</title>
+    <url>/2020/04/10/es6/%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
+    <content><![CDATA[<p>模板字面量 是允许嵌入表达式的字符串字面量。你可以使用多行字符串和字符串插值功能。它们在 ES2015 规范的先前版本中被称为“模板字符串”。</p>
 <span id="more"></span>
 
-<p>每个从 Symbol()返回的 symbol 值都是唯一的。一个 symbol 值能作为对象属性的标识符；这是该数据类型仅有的目的。</p>
-<h2 id="基础语法"><a href="#基础语法" class="headerlink" title="基础语法"></a>基础语法</h2><ol>
-<li>Symbol 值通过 Symbol 函数生成，使用 typeof，结果为 “symbol”</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> s = <span class="built_in">Symbol</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">typeof</span> s;</span><br></pre></td></tr></table></figure>
+<h2 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h2><p>模板字符串使用反引号 (<code> </code>) 来代替普通字符串中的用双引号和单引号；模板字符串可以包含特定语法（${expression}）的占位符。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">`Hello World`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message);</span><br></pre></td></tr></table></figure>
 
-<ol start="2">
-<li>不能使用 new 命令</li>
-</ol>
-<p>因为生成的 Symbol 是一个原始类型的值，不是对象。也就是说，由于 Symbol 值不是对象，所以不能添加属性。基本上，它是一种类似于字符串的数据类型。</p>
-<ol start="3">
-<li>可以接受一个字符串作为参数，表示对 Symbol 实例的描述，主要是为了在控制台显示，或者转为字符串时，比较容易区分。</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> s1 = <span class="built_in">Symbol</span>(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(s1); <span class="comment">// Symbol(foo)</span></span><br><span class="line">s1.toString(); <span class="comment">// &quot;Symbol(foo)&quot;</span></span><br></pre></td></tr></table></figure>
+<p>在模版字符串内使用反引号（`）时，需要在它前面加转义符（\）。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">`Hello \` World`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message);</span><br></pre></td></tr></table></figure>
 
-<ol start="4">
-<li>instanceof 的结果为 false</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> s = <span class="built_in">Symbol</span>(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line">s <span class="keyword">instanceof</span> <span class="built_in">Symbol</span>; <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<h2 id="多行字符串"><a href="#多行字符串" class="headerlink" title="多行字符串"></a>多行字符串</h2><p>在新行中插入的任何字符都是模板字符串中的一部分，使用普通字符串，你可以通过以下的方式获得多行字符串：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">&quot;Hello World, \nThis is the second line&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message);</span><br></pre></td></tr></table></figure>
 
-<ol start="5">
-<li>如果 Symbol 的参数是一个对象，就会调用该对象的 toString 方法，将其转为字符串，然后才生成一个 Symbol 值。</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">  <span class="function"><span class="title">toString</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.name;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> s = <span class="built_in">Symbol</span>(obj);</span><br><span class="line"><span class="built_in">console</span>.log(s); <span class="comment">// Symbol(lilei)</span></span><br></pre></td></tr></table></figure>
+<p>在模板字符串中，空格、缩进、换行都会被保留，用模板字符串实现：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">`Hello World,</span></span><br><span class="line"><span class="string">This is the second line`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message);</span><br></pre></td></tr></table></figure>
 
-<h2 id="Symbol-作为属性名"><a href="#Symbol-作为属性名" class="headerlink" title="Symbol 作为属性名"></a>Symbol 作为属性名</h2><p>由于每一个 Symbol 值都是不相等的，这意味着 Symbol 值可以作为标识符，用于对象的属性名，就能保证不会出现同名的属性。这对于一个对象由多个模块构成的情况非常有用，能防止某一个键被不小心改写或覆盖。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> mySymbol = <span class="built_in">Symbol</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第一种写法</span></span><br><span class="line"><span class="keyword">let</span> a = &#123;&#125;;</span><br><span class="line">a[mySymbol] = <span class="string">&quot;Hello!&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二种写法</span></span><br><span class="line"><span class="keyword">let</span> a = &#123;</span><br><span class="line">  [mySymbol]: <span class="string">&quot;Hello!&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第三种写法</span></span><br><span class="line"><span class="keyword">let</span> a = &#123;&#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(a, mySymbol, &#123; <span class="attr">value</span>: <span class="string">&quot;Hello!&quot;</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 以上写法都得到同样结果</span></span><br><span class="line">a[mySymbol]; <span class="comment">// &quot;Hello!&quot;</span></span><br></pre></td></tr></table></figure>
+<h2 id="嵌套变量"><a href="#嵌套变量" class="headerlink" title="嵌套变量"></a>嵌套变量</h2><p>模板字符串支持嵌入变量，只需要将变量名写在 ${} 之中，其实不止变量，任意的 JavaScript 表达式都是可以的：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="number">10</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;Fifteen is &quot;</span> + (a + b) + <span class="string">&quot; and not &quot;</span> + (<span class="number">2</span> * a + b) + <span class="string">&quot;.&quot;</span>);</span><br><span class="line"><span class="comment">// Fifteen is 15 and not 20.</span></span><br></pre></td></tr></table></figure>
 
-<p>注意，Symbol 值作为对象属性名时，不能用点运算符。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> mySymbol = <span class="built_in">Symbol</span>();</span><br><span class="line"><span class="keyword">const</span> a = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">a.mySymbol = <span class="string">&quot;Hello!&quot;</span>;</span><br><span class="line">a[mySymbol]; <span class="comment">// undefined</span></span><br><span class="line">a[<span class="string">&quot;mySymbol&quot;</span>]; <span class="comment">// &quot;Hello!&quot;</span></span><br></pre></td></tr></table></figure>
+<p>值得一提的是，模板字符串支持嵌套:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [&#123; <span class="attr">value</span>: <span class="number">1</span> &#125;, &#123; <span class="attr">value</span>: <span class="number">2</span> &#125;];</span><br><span class="line"><span class="keyword">var</span> message = <span class="string">`</span></span><br><span class="line"><span class="string">&lt;ul&gt;</span></span><br><span class="line"><span class="string">  <span class="subst">$&#123;arr.map((item) =&gt; &#123;</span></span></span><br><span class="line"><span class="subst"><span class="string">    <span class="keyword">return</span> <span class="string">`</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">      &lt;li&gt;<span class="subst">$&#123;item.value&#125;</span>&lt;/li&gt;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">    `</span>;</span></span></span><br><span class="line"><span class="subst"><span class="string">  &#125;)&#125;</span></span></span><br><span class="line"><span class="string">&lt;/ul&gt;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message);</span><br></pre></td></tr></table></figure>
 
-<p>同理，在对象的内部，使用 Symbol 值定义属性时，Symbol 值必须放在方括号之中。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> s = <span class="built_in">Symbol</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  [s]: <span class="function"><span class="keyword">function</span> (<span class="params">arg</span>) </span>&#123; ... &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">obj[s](<span class="number">123</span>);</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  ,</span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="属性名的遍历"><a href="#属性名的遍历" class="headerlink" title="属性名的遍历"></a>属性名的遍历</h2><p>Symbol 作为属性名，该属性不会出现在 for…in、for…of 循环中，也不会被 Object.keys()、Object.getOwnPropertyNames()、JSON.stringify() 返回。<br>但是，它也不是私有属性，有一个 Object.getOwnPropertySymbols 方法，可以获取指定对象的所有 Symbol 属性名。该方法返回一个数组，成员是当前对象的所有用作属性名的 Symbol 值。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;&#125;;</span><br><span class="line"><span class="keyword">let</span> a = <span class="built_in">Symbol</span>(<span class="string">&quot;a&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> b = <span class="built_in">Symbol</span>(<span class="string">&quot;b&quot;</span>);</span><br><span class="line"></span><br><span class="line">obj[a] = <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line">obj[b] = <span class="string">&quot;World&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> objectSymbols = <span class="built_in">Object</span>.getOwnPropertySymbols(obj);</span><br><span class="line"></span><br><span class="line">objectSymbols;</span><br><span class="line"><span class="comment">// [Symbol(a), Symbol(b)]</span></span><br></pre></td></tr></table></figure>
+<p>上面的”,”是因为 map 后生成的数组转字符串导致的，比如一个数组 [1, 2, 3] 就会被转为 1,2,3；所以我们用 jion 处理它：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [&#123; <span class="attr">value</span>: <span class="number">1</span> &#125;, &#123; <span class="attr">value</span>: <span class="number">2</span> &#125;];</span><br><span class="line"><span class="keyword">var</span> message = <span class="string">`</span></span><br><span class="line"><span class="string">&lt;ul&gt;</span></span><br><span class="line"><span class="string"> <span class="subst">$&#123;arr</span></span></span><br><span class="line"><span class="subst"><span class="string">   .map((item) =&gt; &#123;</span></span></span><br><span class="line"><span class="subst"><span class="string">     <span class="keyword">return</span> <span class="string">`</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">     &lt;li&gt;<span class="subst">$&#123;item.value&#125;</span>&lt;/li&gt;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">   `</span>;</span></span></span><br><span class="line"><span class="subst"><span class="string">   &#125;)</span></span></span><br><span class="line"><span class="subst"><span class="string">   .join(<span class="string">&quot;&quot;</span>)&#125;</span></span></span><br><span class="line"><span class="string">&lt;/ul&gt;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message);</span><br></pre></td></tr></table></figure>
 
-<h2 id="Symbol-for"><a href="#Symbol-for" class="headerlink" title="Symbol.for()"></a>Symbol.for()</h2><p>如果我们希望重新使用同一个 Symbol 值，Symbol.for()方法可以做到这一点。它接受一个字符串作为参数，然后搜索有没有以该参数作为名称的 Symbol 值。如果有，就返回这个 Symbol 值，否则就新建一个以该字符串为名称的 Symbol 值，并将其注册到全局。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> s1 = <span class="built_in">Symbol</span>.for(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> s2 = <span class="built_in">Symbol</span>.for(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(s1 === s2); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>上面代码中，s1 和 s2 都是 Symbol 值，但是它们都是由同样参数的 Symbol.for 方法生成的，所以实际上是同一个值。<br>注意，Symbol.for()为 Symbol 值登记的名字，是全局环境的，不管有没有在全局环境运行。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="带标签的模板字符串"><a href="#带标签的模板字符串" class="headerlink" title="带标签的模板字符串"></a>带标签的模板字符串</h2><p>更高级的形式的模板字符串是带标签的模板字符串。标签使您可以用函数解析模板字符串。标签函数的第一个参数包含一个字符串值的数组。其余的参数与表达式相关。最后，你的函数可以返回处理好的的字符串（或者它可以返回完全不同的东西 , 如下个例子所述）。用于该标签的函数的名称可以被命名为任何名字。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> person = <span class="string">&quot;Mike&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> age = <span class="number">28</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myTag</span>(<span class="params">strings, ...values</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(strings); <span class="comment">// [&quot;that &quot;, &quot; is a &quot;, &quot;&quot;]</span></span><br><span class="line">  <span class="built_in">console</span>.log(values); <span class="comment">// [&#x27;Mike&#x27;, 28]</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 拼接字符串</span></span><br><span class="line">  <span class="keyword">let</span> result = strings.reduce(<span class="function">(<span class="params">prev, next, i</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> value = values[i - <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">return</span> prev + value + next;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> output = myTag<span class="string">`that <span class="subst">$&#123;person&#125;</span> is a <span class="subst">$&#123;age&#125;</span>`</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(output);</span><br><span class="line"><span class="comment">// that Mike is a 28</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="Symbol-keyFor"><a href="#Symbol-keyFor" class="headerlink" title="Symbol.keyFor()"></a>Symbol.keyFor()</h2><p>Symbol.keyFor()方法返回一个已登记的 Symbol 类型值的 key。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> s1 = <span class="built_in">Symbol</span>.for(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Symbol</span>.keyFor(s1)); <span class="comment">// &quot;foo&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> s2 = <span class="built_in">Symbol</span>(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Symbol</span>.keyFor(s2)); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+<p>当然标签函数并不一定需要返回一个字符串，比如：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">template</span>(<span class="params">strings, ...keys</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">...values</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> dict = values[values.length - <span class="number">1</span>] || &#123;&#125;;</span><br><span class="line">    <span class="keyword">var</span> result = [strings[<span class="number">0</span>]];</span><br><span class="line">    keys.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">key, i</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> value = <span class="built_in">Number</span>.isInteger(key) ? values[key] : dict[key];</span><br><span class="line">      result.push(value, strings[i + <span class="number">1</span>]);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> result.join(<span class="string">&quot;&quot;</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> t1Closure = template<span class="string">`<span class="subst">$&#123;<span class="number">0</span>&#125;</span><span class="subst">$&#123;<span class="number">1</span>&#125;</span><span class="subst">$&#123;<span class="number">0</span>&#125;</span>!`</span>;</span><br><span class="line">t1Closure(<span class="string">&quot;Y&quot;</span>, <span class="string">&quot;A&quot;</span>); <span class="comment">// &quot;YAY!&quot;</span></span><br><span class="line"><span class="keyword">var</span> t2Closure = template<span class="string">`<span class="subst">$&#123;<span class="number">0</span>&#125;</span> <span class="subst">$&#123;<span class="string">&quot;foo&quot;</span>&#125;</span>!`</span>;</span><br><span class="line">t2Closure(<span class="string">&quot;Hello&quot;</span>, &#123; <span class="attr">foo</span>: <span class="string">&quot;World&quot;</span> &#125;); <span class="comment">// &quot;Hello World!&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="原始字符串"><a href="#原始字符串" class="headerlink" title="原始字符串"></a>原始字符串</h2><p>在标签函数的第一个参数中，存在一个特殊的属性 raw ，我们可以通过它来访问模板字符串的原始字符串，而不经过特殊字符的替换。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">tag</span>(<span class="params">strings</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(strings.raw);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">tag<span class="string">`string text line 1 \n string text line 2`</span>;</span><br><span class="line"><span class="comment">// 输出（包含两个\）：</span></span><br><span class="line"><span class="comment">// [&quot;string text line 1 \\n string text line 2&quot;]</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
-<li><a href="https://es6.ruanyifeng.com/#docs/symbol">https://es6.ruanyifeng.com/#docs/symbol</a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/orphaned/Web/JavaScript/Reference/Template_literals">https://developer.mozilla.org/zh-CN/docs/orphaned/Web/JavaScript/Reference/Template_literals</a></li>
+<li><a href="https://github.com/mqyqingfeng/Blog/issues/82">https://github.com/mqyqingfeng/Blog/issues/82</a></li>
 </ul>
 ]]></content>
       <categories>
@@ -3377,61 +3368,6 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
       </tags>
   </entry>
   <entry>
-    <title>二、ES6系列之模板字符串</title>
-    <url>/2020/04/10/es6/%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
-    <content><![CDATA[<p>模板字面量 是允许嵌入表达式的字符串字面量。你可以使用多行字符串和字符串插值功能。它们在 ES2015 规范的先前版本中被称为“模板字符串”。</p>
-<span id="more"></span>
-
-<h2 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h2><p>模板字符串使用反引号 (<code> </code>) 来代替普通字符串中的用双引号和单引号；模板字符串可以包含特定语法（${expression}）的占位符。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">`Hello World`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message);</span><br></pre></td></tr></table></figure>
-
-<p>在模版字符串内使用反引号（`）时，需要在它前面加转义符（\）。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">`Hello \` World`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message);</span><br></pre></td></tr></table></figure>
-
-<h2 id="多行字符串"><a href="#多行字符串" class="headerlink" title="多行字符串"></a>多行字符串</h2><p>在新行中插入的任何字符都是模板字符串中的一部分，使用普通字符串，你可以通过以下的方式获得多行字符串：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">&quot;Hello World, \nThis is the second line&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message);</span><br></pre></td></tr></table></figure>
-
-<p>在模板字符串中，空格、缩进、换行都会被保留，用模板字符串实现：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">`Hello World,</span></span><br><span class="line"><span class="string">This is the second line`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message);</span><br></pre></td></tr></table></figure>
-
-<h2 id="嵌套变量"><a href="#嵌套变量" class="headerlink" title="嵌套变量"></a>嵌套变量</h2><p>模板字符串支持嵌入变量，只需要将变量名写在 ${} 之中，其实不止变量，任意的 JavaScript 表达式都是可以的：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="number">10</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;Fifteen is &quot;</span> + (a + b) + <span class="string">&quot; and not &quot;</span> + (<span class="number">2</span> * a + b) + <span class="string">&quot;.&quot;</span>);</span><br><span class="line"><span class="comment">// Fifteen is 15 and not 20.</span></span><br></pre></td></tr></table></figure>
-
-<p>值得一提的是，模板字符串支持嵌套:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [&#123; <span class="attr">value</span>: <span class="number">1</span> &#125;, &#123; <span class="attr">value</span>: <span class="number">2</span> &#125;];</span><br><span class="line"><span class="keyword">var</span> message = <span class="string">`</span></span><br><span class="line"><span class="string">&lt;ul&gt;</span></span><br><span class="line"><span class="string">  <span class="subst">$&#123;arr.map((item) =&gt; &#123;</span></span></span><br><span class="line"><span class="subst"><span class="string">    <span class="keyword">return</span> <span class="string">`</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">      &lt;li&gt;<span class="subst">$&#123;item.value&#125;</span>&lt;/li&gt;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">    `</span>;</span></span></span><br><span class="line"><span class="subst"><span class="string">  &#125;)&#125;</span></span></span><br><span class="line"><span class="string">&lt;/ul&gt;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message);</span><br></pre></td></tr></table></figure>
-
-<p>输出结果：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  ,</span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>上面的”,”是因为 map 后生成的数组转字符串导致的，比如一个数组 [1, 2, 3] 就会被转为 1,2,3；所以我们用 jion 处理它：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [&#123; <span class="attr">value</span>: <span class="number">1</span> &#125;, &#123; <span class="attr">value</span>: <span class="number">2</span> &#125;];</span><br><span class="line"><span class="keyword">var</span> message = <span class="string">`</span></span><br><span class="line"><span class="string">&lt;ul&gt;</span></span><br><span class="line"><span class="string"> <span class="subst">$&#123;arr</span></span></span><br><span class="line"><span class="subst"><span class="string">   .map((item) =&gt; &#123;</span></span></span><br><span class="line"><span class="subst"><span class="string">     <span class="keyword">return</span> <span class="string">`</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">     &lt;li&gt;<span class="subst">$&#123;item.value&#125;</span>&lt;/li&gt;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">   `</span>;</span></span></span><br><span class="line"><span class="subst"><span class="string">   &#125;)</span></span></span><br><span class="line"><span class="subst"><span class="string">   .join(<span class="string">&quot;&quot;</span>)&#125;</span></span></span><br><span class="line"><span class="string">&lt;/ul&gt;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message);</span><br></pre></td></tr></table></figure>
-
-<p>输出结果：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="带标签的模板字符串"><a href="#带标签的模板字符串" class="headerlink" title="带标签的模板字符串"></a>带标签的模板字符串</h2><p>更高级的形式的模板字符串是带标签的模板字符串。标签使您可以用函数解析模板字符串。标签函数的第一个参数包含一个字符串值的数组。其余的参数与表达式相关。最后，你的函数可以返回处理好的的字符串（或者它可以返回完全不同的东西 , 如下个例子所述）。用于该标签的函数的名称可以被命名为任何名字。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> person = <span class="string">&quot;Mike&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> age = <span class="number">28</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myTag</span>(<span class="params">strings, ...values</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(strings); <span class="comment">// [&quot;that &quot;, &quot; is a &quot;, &quot;&quot;]</span></span><br><span class="line">  <span class="built_in">console</span>.log(values); <span class="comment">// [&#x27;Mike&#x27;, 28]</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 拼接字符串</span></span><br><span class="line">  <span class="keyword">let</span> result = strings.reduce(<span class="function">(<span class="params">prev, next, i</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> value = values[i - <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">return</span> prev + value + next;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> output = myTag<span class="string">`that <span class="subst">$&#123;person&#125;</span> is a <span class="subst">$&#123;age&#125;</span>`</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(output);</span><br><span class="line"><span class="comment">// that Mike is a 28</span></span><br></pre></td></tr></table></figure>
-
-<p>当然标签函数并不一定需要返回一个字符串，比如：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">template</span>(<span class="params">strings, ...keys</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">...values</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> dict = values[values.length - <span class="number">1</span>] || &#123;&#125;;</span><br><span class="line">    <span class="keyword">var</span> result = [strings[<span class="number">0</span>]];</span><br><span class="line">    keys.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">key, i</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> value = <span class="built_in">Number</span>.isInteger(key) ? values[key] : dict[key];</span><br><span class="line">      result.push(value, strings[i + <span class="number">1</span>]);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> result.join(<span class="string">&quot;&quot;</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> t1Closure = template<span class="string">`<span class="subst">$&#123;<span class="number">0</span>&#125;</span><span class="subst">$&#123;<span class="number">1</span>&#125;</span><span class="subst">$&#123;<span class="number">0</span>&#125;</span>!`</span>;</span><br><span class="line">t1Closure(<span class="string">&quot;Y&quot;</span>, <span class="string">&quot;A&quot;</span>); <span class="comment">// &quot;YAY!&quot;</span></span><br><span class="line"><span class="keyword">var</span> t2Closure = template<span class="string">`<span class="subst">$&#123;<span class="number">0</span>&#125;</span> <span class="subst">$&#123;<span class="string">&quot;foo&quot;</span>&#125;</span>!`</span>;</span><br><span class="line">t2Closure(<span class="string">&quot;Hello&quot;</span>, &#123; <span class="attr">foo</span>: <span class="string">&quot;World&quot;</span> &#125;); <span class="comment">// &quot;Hello World!&quot;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="原始字符串"><a href="#原始字符串" class="headerlink" title="原始字符串"></a>原始字符串</h2><p>在标签函数的第一个参数中，存在一个特殊的属性 raw ，我们可以通过它来访问模板字符串的原始字符串，而不经过特殊字符的替换。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">tag</span>(<span class="params">strings</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(strings.raw);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">tag<span class="string">`string text line 1 \n string text line 2`</span>;</span><br><span class="line"><span class="comment">// 输出（包含两个\）：</span></span><br><span class="line"><span class="comment">// [&quot;string text line 1 \\n string text line 2&quot;]</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
-<li><a href="https://developer.mozilla.org/zh-CN/docs/orphaned/Web/JavaScript/Reference/Template_literals">https://developer.mozilla.org/zh-CN/docs/orphaned/Web/JavaScript/Reference/Template_literals</a></li>
-<li><a href="https://github.com/mqyqingfeng/Blog/issues/82">https://github.com/mqyqingfeng/Blog/issues/82</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>ES6系列</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-        <tag>Es6</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>八、ES6系列之Generator</title>
     <url>/2020/05/02/es6/%E7%94%9F%E6%88%90%E5%99%A8/</url>
     <content><![CDATA[<p>前面我们介绍过 Iterator(迭代器)，本文主要了解 Generator (生成器)函数。<br>生成器是一种返回迭代器的函数，通过 function 关键字后的星号(*)来表示，函数中会用到新的关键字 yield。</p>
@@ -3533,6 +3469,70 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
 <h2 id="没有-super"><a href="#没有-super" class="headerlink" title="没有 super"></a>没有 super</h2><p>连原型都没有，自然也不能通过 super 来访问原型的属性，所以箭头函数也是没有 super 的，不过跟 this、arguments、new.target 一样，这些值由外围最近一层非箭头函数决定。</p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
 <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>ES6系列</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>Es6</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>四、ES6系列之Symbol</title>
+    <url>/2020/04/16/es6/Symbol/</url>
+    <content><![CDATA[<p>Symbol 是一种基本数据类型，Symbol()函数会返回 是一种基本数据类型，Symbol 类型的值，该类型具有静态属性和静态方法。它的静态属性会暴露几个内建的成员对象；它的静态方法会暴露全局的 symbol 注册，且类似于内建对象类，但作为构造函数来说它并不完整，因为它不支持语法：”new Symbol()”。</p>
+<span id="more"></span>
+
+<p>每个从 Symbol()返回的 symbol 值都是唯一的。一个 symbol 值能作为对象属性的标识符；这是该数据类型仅有的目的。</p>
+<h2 id="基础语法"><a href="#基础语法" class="headerlink" title="基础语法"></a>基础语法</h2><ol>
+<li>Symbol 值通过 Symbol 函数生成，使用 typeof，结果为 “symbol”</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> s = <span class="built_in">Symbol</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">typeof</span> s;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>不能使用 new 命令</li>
+</ol>
+<p>因为生成的 Symbol 是一个原始类型的值，不是对象。也就是说，由于 Symbol 值不是对象，所以不能添加属性。基本上，它是一种类似于字符串的数据类型。</p>
+<ol start="3">
+<li>可以接受一个字符串作为参数，表示对 Symbol 实例的描述，主要是为了在控制台显示，或者转为字符串时，比较容易区分。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> s1 = <span class="built_in">Symbol</span>(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(s1); <span class="comment">// Symbol(foo)</span></span><br><span class="line">s1.toString(); <span class="comment">// &quot;Symbol(foo)&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>instanceof 的结果为 false</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> s = <span class="built_in">Symbol</span>(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line">s <span class="keyword">instanceof</span> <span class="built_in">Symbol</span>; <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>如果 Symbol 的参数是一个对象，就会调用该对象的 toString 方法，将其转为字符串，然后才生成一个 Symbol 值。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;lilei&quot;</span>,</span><br><span class="line">  <span class="function"><span class="title">toString</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.name;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> s = <span class="built_in">Symbol</span>(obj);</span><br><span class="line"><span class="built_in">console</span>.log(s); <span class="comment">// Symbol(lilei)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Symbol-作为属性名"><a href="#Symbol-作为属性名" class="headerlink" title="Symbol 作为属性名"></a>Symbol 作为属性名</h2><p>由于每一个 Symbol 值都是不相等的，这意味着 Symbol 值可以作为标识符，用于对象的属性名，就能保证不会出现同名的属性。这对于一个对象由多个模块构成的情况非常有用，能防止某一个键被不小心改写或覆盖。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> mySymbol = <span class="built_in">Symbol</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第一种写法</span></span><br><span class="line"><span class="keyword">let</span> a = &#123;&#125;;</span><br><span class="line">a[mySymbol] = <span class="string">&quot;Hello!&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二种写法</span></span><br><span class="line"><span class="keyword">let</span> a = &#123;</span><br><span class="line">  [mySymbol]: <span class="string">&quot;Hello!&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第三种写法</span></span><br><span class="line"><span class="keyword">let</span> a = &#123;&#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(a, mySymbol, &#123; <span class="attr">value</span>: <span class="string">&quot;Hello!&quot;</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 以上写法都得到同样结果</span></span><br><span class="line">a[mySymbol]; <span class="comment">// &quot;Hello!&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>注意，Symbol 值作为对象属性名时，不能用点运算符。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> mySymbol = <span class="built_in">Symbol</span>();</span><br><span class="line"><span class="keyword">const</span> a = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">a.mySymbol = <span class="string">&quot;Hello!&quot;</span>;</span><br><span class="line">a[mySymbol]; <span class="comment">// undefined</span></span><br><span class="line">a[<span class="string">&quot;mySymbol&quot;</span>]; <span class="comment">// &quot;Hello!&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>同理，在对象的内部，使用 Symbol 值定义属性时，Symbol 值必须放在方括号之中。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> s = <span class="built_in">Symbol</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">  [s]: <span class="function"><span class="keyword">function</span> (<span class="params">arg</span>) </span>&#123; ... &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">obj[s](<span class="number">123</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="属性名的遍历"><a href="#属性名的遍历" class="headerlink" title="属性名的遍历"></a>属性名的遍历</h2><p>Symbol 作为属性名，该属性不会出现在 for…in、for…of 循环中，也不会被 Object.keys()、Object.getOwnPropertyNames()、JSON.stringify() 返回。<br>但是，它也不是私有属性，有一个 Object.getOwnPropertySymbols 方法，可以获取指定对象的所有 Symbol 属性名。该方法返回一个数组，成员是当前对象的所有用作属性名的 Symbol 值。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;&#125;;</span><br><span class="line"><span class="keyword">let</span> a = <span class="built_in">Symbol</span>(<span class="string">&quot;a&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> b = <span class="built_in">Symbol</span>(<span class="string">&quot;b&quot;</span>);</span><br><span class="line"></span><br><span class="line">obj[a] = <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line">obj[b] = <span class="string">&quot;World&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> objectSymbols = <span class="built_in">Object</span>.getOwnPropertySymbols(obj);</span><br><span class="line"></span><br><span class="line">objectSymbols;</span><br><span class="line"><span class="comment">// [Symbol(a), Symbol(b)]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Symbol-for"><a href="#Symbol-for" class="headerlink" title="Symbol.for()"></a>Symbol.for()</h2><p>如果我们希望重新使用同一个 Symbol 值，Symbol.for()方法可以做到这一点。它接受一个字符串作为参数，然后搜索有没有以该参数作为名称的 Symbol 值。如果有，就返回这个 Symbol 值，否则就新建一个以该字符串为名称的 Symbol 值，并将其注册到全局。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> s1 = <span class="built_in">Symbol</span>.for(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> s2 = <span class="built_in">Symbol</span>.for(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(s1 === s2); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>上面代码中，s1 和 s2 都是 Symbol 值，但是它们都是由同样参数的 Symbol.for 方法生成的，所以实际上是同一个值。<br>注意，Symbol.for()为 Symbol 值登记的名字，是全局环境的，不管有没有在全局环境运行。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Symbol-keyFor"><a href="#Symbol-keyFor" class="headerlink" title="Symbol.keyFor()"></a>Symbol.keyFor()</h2><p>Symbol.keyFor()方法返回一个已登记的 Symbol 类型值的 key。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> s1 = <span class="built_in">Symbol</span>.for(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Symbol</span>.keyFor(s1)); <span class="comment">// &quot;foo&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> s2 = <span class="built_in">Symbol</span>(<span class="string">&quot;foo&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Symbol</span>.keyFor(s2)); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><a href="https://es6.ruanyifeng.com/#docs/symbol">https://es6.ruanyifeng.com/#docs/symbol</a></li>
 </ul>
 ]]></content>
       <categories>
