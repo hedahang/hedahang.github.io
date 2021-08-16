@@ -276,66 +276,6 @@ var ctx = canvas.getContext( '2d' );
       </tags>
   </entry>
   <entry>
-    <title>HTML5离线存储和本地缓存</title>
-    <url>/2016/07/15/H5%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98%E5%92%8C%E7%A6%BB%E7%BA%BF%E7%BC%93%E5%AD%98/</url>
-    <content><![CDATA[<h1 id="一、离线缓存"><a href="#一、离线缓存" class="headerlink" title="一、离线缓存"></a>一、离线缓存</h1><p>有一个 web 应用有三个文件 index.html,a.js,b.css，现在需要把 js 和 css 文件缓存起来</p>
-<span id="more"></span>
-<p>1.在 index.html 里加上<html manifest="test.manifest"></p>
-<p>2.manifest 清单格式如下</p>
-<blockquote>
-<pre><code> CACHE MANIFEST
-</code></pre>
-</blockquote>
-<pre><code>#上面一句必须
-#v1.0.0
-#需要缓存的文件
-CACHE:
-a.js
-b.css
-#不需要缓存的文件
-NETWORK:
-*
-#无法访问页面
-FALLBACK:
-404.html
-复制代码
-</code></pre>
-<p>3.manifest 文件的 mime-type 必须是 text/cache-manifest 类型</p>
-<blockquote>
-<p>注意点：<br>a.对于每个 index.html?id=1 或 index.html?id=2 都会分别缓存 index.html 页面，可以通过 chrome 浏览器 Resources/Application Cache 观察<br>b.如果想更新缓存内容，只要修改下 manifest 文件即可，如改版本号 v1.0.1</p>
-</blockquote>
-<!-- more -->
-
-<p>4.离线存储如果资源有更新，可以通过如下代码来监听，但第一次加载还会是原来的版本</p>
-<blockquote>
-<pre><code> window.applicationCache.addEventListener(&#39;updateready&#39;,function(e)&#123;
-</code></pre>
-</blockquote>
-<pre><code>    if(window.applicationCache.status == window.applicationCache.UPDATEREADY)&#123;
-        window.applicationCache.swapCache();
-        if(confirm(&quot;loding new?&quot;))&#123;
-            window.location.reload()
-        &#125;
-    &#125;
-&#125;,false)
-</code></pre>
-<h1 id="二、本地缓存"><a href="#二、本地缓存" class="headerlink" title="二、本地缓存"></a>二、本地缓存</h1><pre><code>localStorage.setItem(&quot;key&quot;,&quot;value&quot;)
-
-localStorage.getItem(&quot;key&quot;,&quot;value&quot;)
-
-localStorage.removeItem(&quot;key&quot;)
-
-localStorage.clear()
-</code></pre>
-<p>1.本地存储永不过期，除非自己去清除</p>
-<p>2.可以通过 chrome 浏览器 Resources/Local Storage 来查看</p>
-<p>3.不同域下就算 key 相同取不到的值也不同，如 localhost 和 127.0.0.1</p>
-]]></content>
-      <tags>
-        <tag>H5</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>H5新特性——音视频</title>
     <url>/2016/07/11/H5%E6%96%B0%E7%89%B9%E6%80%A7%E2%80%94%E2%80%94%E8%A7%86%E9%A2%91/</url>
     <content><![CDATA[<p>HTML5 之前在页面播放需要使用 flash 播放器；HTML5 添加两个标签：</p>
@@ -393,6 +333,66 @@ localStorage.clear()
       <tags>
         <tag>HTML5</tag>
         <tag>video</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HTML5离线存储和本地缓存</title>
+    <url>/2016/07/15/H5%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98%E5%92%8C%E7%A6%BB%E7%BA%BF%E7%BC%93%E5%AD%98/</url>
+    <content><![CDATA[<h1 id="一、离线缓存"><a href="#一、离线缓存" class="headerlink" title="一、离线缓存"></a>一、离线缓存</h1><p>有一个 web 应用有三个文件 index.html,a.js,b.css，现在需要把 js 和 css 文件缓存起来</p>
+<span id="more"></span>
+<p>1.在 index.html 里加上<html manifest="test.manifest"></p>
+<p>2.manifest 清单格式如下</p>
+<blockquote>
+<pre><code> CACHE MANIFEST
+</code></pre>
+</blockquote>
+<pre><code>#上面一句必须
+#v1.0.0
+#需要缓存的文件
+CACHE:
+a.js
+b.css
+#不需要缓存的文件
+NETWORK:
+*
+#无法访问页面
+FALLBACK:
+404.html
+复制代码
+</code></pre>
+<p>3.manifest 文件的 mime-type 必须是 text/cache-manifest 类型</p>
+<blockquote>
+<p>注意点：<br>a.对于每个 index.html?id=1 或 index.html?id=2 都会分别缓存 index.html 页面，可以通过 chrome 浏览器 Resources/Application Cache 观察<br>b.如果想更新缓存内容，只要修改下 manifest 文件即可，如改版本号 v1.0.1</p>
+</blockquote>
+<!-- more -->
+
+<p>4.离线存储如果资源有更新，可以通过如下代码来监听，但第一次加载还会是原来的版本</p>
+<blockquote>
+<pre><code> window.applicationCache.addEventListener(&#39;updateready&#39;,function(e)&#123;
+</code></pre>
+</blockquote>
+<pre><code>    if(window.applicationCache.status == window.applicationCache.UPDATEREADY)&#123;
+        window.applicationCache.swapCache();
+        if(confirm(&quot;loding new?&quot;))&#123;
+            window.location.reload()
+        &#125;
+    &#125;
+&#125;,false)
+</code></pre>
+<h1 id="二、本地缓存"><a href="#二、本地缓存" class="headerlink" title="二、本地缓存"></a>二、本地缓存</h1><pre><code>localStorage.setItem(&quot;key&quot;,&quot;value&quot;)
+
+localStorage.getItem(&quot;key&quot;,&quot;value&quot;)
+
+localStorage.removeItem(&quot;key&quot;)
+
+localStorage.clear()
+</code></pre>
+<p>1.本地存储永不过期，除非自己去清除</p>
+<p>2.可以通过 chrome 浏览器 Resources/Local Storage 来查看</p>
+<p>3.不同域下就算 key 相同取不到的值也不同，如 localhost 和 127.0.0.1</p>
+]]></content>
+      <tags>
+        <tag>H5</tag>
       </tags>
   </entry>
   <entry>
@@ -860,39 +860,6 @@ First Header | Second Header</li>
       </tags>
   </entry>
   <entry>
-    <title>postName</title>
-    <url>/2015/08/12/postName/</url>
-    <content><![CDATA[<pre><code>1. Git安装和Github设置
-使用Mac电脑可以直brew安装,
-</code></pre>
-<span id="more"></span>
-
-<pre><code>brew install git         #Mac电脑使用brew安装
-sudo apt-get install git #Ubuntu系统使用这条命令安装
-git操作和github上SSH设置请看这篇博文
-
-使用Github Page搭建博客, 需要遵循一定的规则, 需要在github建立仓库,仓库名为Github用户.github.io, 更多详情请参考官方文档
-
-2. Node.js安装
-mac电脑可以直接通过brew安装
-
-#安装命令
-brew install node  #如果我没记错的话,最新版的node.js的包中已经集成了npm包管理工具
-
-使用以下命令验证是否安装成功
-node -v
-npm -v
-
-文／Andrew_liu（简书作者）
-原文链接：http://www.jianshu.com/p/858ecf233db9
-著作权归作者所有，转载请联系作者获得授权，并标注“简书作者”。
-</code></pre>
-]]></content>
-      <tags>
-        <tag>JS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Markdown语法学习</title>
     <url>/2016/06/13/next_study/</url>
     <content><![CDATA[<h3 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h3><pre><code># 这是 H1 #
@@ -1124,7 +1091,7 @@ Markdown 使用一种和链接很相似的语法来标记图片，同样也允�
 &amp;#109;&quot;&gt;&amp;#x61;&amp;#x64;&amp;#x64;&amp;#x72;&amp;#x65;&amp;#115;&amp;#115;&amp;#64;&amp;#101;&amp;#120;&amp;#x61;
 &amp;#109;&amp;#x70;&amp;#x6C;e&amp;#x2E;&amp;#99;&amp;#111;&amp;#109;&lt;/a&gt;
 </code></pre>
-<p>在浏览器里面，这段字串（其实是 <a href="mailto:address@example.com">address@example.com</a>）会变成一个可以点击的「<a href="mailto:&#x61;&#100;&#x64;&#114;&#x65;&#115;&#115;&#x40;&#x65;&#120;&#x61;&#x6d;&#x70;&#108;&#101;&#46;&#99;&#111;&#109;">&#x61;&#100;&#x64;&#114;&#x65;&#115;&#115;&#x40;&#x65;&#120;&#x61;&#x6d;&#x70;&#108;&#101;&#46;&#99;&#111;&#109;</a>」链接。</p>
+<p>在浏览器里面，这段字串（其实是 <a href="mailto:address@example.com">address@example.com</a>）会变成一个可以点击的「<a href="mailto:&#x61;&#x64;&#100;&#x72;&#x65;&#115;&#115;&#64;&#x65;&#120;&#x61;&#109;&#112;&#x6c;&#101;&#46;&#99;&#111;&#109;">&#x61;&#x64;&#100;&#x72;&#x65;&#115;&#115;&#64;&#x65;&#120;&#x61;&#109;&#112;&#x6c;&#101;&#46;&#99;&#111;&#109;</a>」链接。</p>
 </blockquote>
 <p>（这种作法虽然可以糊弄不少的机器人，但并不能全部挡下来，不过总比什么都不做好些。不管怎样，公开你的信箱终究会引来广告信件的。）</p>
 <blockquote>
@@ -1149,6 +1116,39 @@ _   底线
 ]]></content>
       <tags>
         <tag>study</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>postName</title>
+    <url>/2015/08/12/postName/</url>
+    <content><![CDATA[<pre><code>1. Git安装和Github设置
+使用Mac电脑可以直brew安装,
+</code></pre>
+<span id="more"></span>
+
+<pre><code>brew install git         #Mac电脑使用brew安装
+sudo apt-get install git #Ubuntu系统使用这条命令安装
+git操作和github上SSH设置请看这篇博文
+
+使用Github Page搭建博客, 需要遵循一定的规则, 需要在github建立仓库,仓库名为Github用户.github.io, 更多详情请参考官方文档
+
+2. Node.js安装
+mac电脑可以直接通过brew安装
+
+#安装命令
+brew install node  #如果我没记错的话,最新版的node.js的包中已经集成了npm包管理工具
+
+使用以下命令验证是否安装成功
+node -v
+npm -v
+
+文／Andrew_liu（简书作者）
+原文链接：http://www.jianshu.com/p/858ecf233db9
+著作权归作者所有，转载请联系作者获得授权，并标注“简书作者”。
+</code></pre>
+]]></content>
+      <tags>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -1819,6 +1819,38 @@ var five = add(two, three);
       </tags>
   </entry>
   <entry>
+    <title>素数算法</title>
+    <url>/2016/06/21/%E7%B4%A0%E6%95%B0%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<h3 id="找出数组中的素数"><a href="#找出数组中的素数" class="headerlink" title="找出数组中的素数"></a>找出数组中的素数</h3><p>例如    shu([1,2,5,9,7,8,6,13,56,48,46]) = [2, 5, 7, 13];</p>
+<pre><code>function shu(arr)&#123;
+    return arr.filter(
+        function(num) &#123;
+          if (num == 1) &#123;
+            return false;
+          &#125;
+          if (num == 2) &#123;
+            return true;
+          &#125;
+          for (var i = 2; i &lt;= Math.sqrt(num); i++) &#123;
+            if (num % i == 0) &#123;
+              return false;
+            &#125;
+          &#125;
+          return true;
+        &#125;
+    )
+&#125;
+</code></pre>
+]]></content>
+      <categories>
+        <category>Testing</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>解决Github打不开问题</title>
     <url>/2021/07/19/%E8%AE%B0%E5%BD%95GitHub%E7%BD%91%E9%A1%B5hosts%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<p>github 最近打不开，很久之前遇到过，但是忘记怎么解决了，查找相关资料后，今天记录在此，以备不时之需：</p>
@@ -1972,7 +2004,7 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
 <h2 id="关于收费"><a href="#关于收费" class="headerlink" title="关于收费"></a>关于收费</h2><p><strong>马克飞象</strong>为新用户提供 10 天的试用期，试用期过后需要<a href="maxiang.info/vip.html">续费</a>才能继续使用。未购买或者未及时续费，将不能同步新的笔记。之前保存过的笔记依然可以编辑。</p>
 <h2 id="反馈与建议"><a href="#反馈与建议" class="headerlink" title="反馈与建议"></a>反馈与建议</h2><ul>
 <li>微博：<a href="http://weibo.com/u/2788354117">@马克飞象</a>，<a href="http://weibo.com/ggock" title="开发者个人账号">@GGock</a></li>
-<li>邮箱：<a href="mailto:&#x68;&#117;&#115;&#116;&#x67;&#111;&#99;&#107;&#64;&#103;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#111;&#109;">&#x68;&#117;&#115;&#116;&#x67;&#111;&#99;&#107;&#64;&#103;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#111;&#109;</a></li>
+<li>邮箱：<a href="mailto:&#104;&#117;&#115;&#116;&#x67;&#x6f;&#x63;&#107;&#64;&#103;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#109;">&#104;&#117;&#115;&#116;&#x67;&#x6f;&#x63;&#107;&#64;&#103;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#109;</a></li>
 </ul>
 <hr>
 <p>感谢阅读这份帮助文档。请点击右上角，绑定印象笔记账号，开启全新的记录与分享体验吧。</p>
@@ -1984,38 +2016,6 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
       <tags>
         <tag>Markdown</tag>
         <tag>编辑器</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>素数算法</title>
-    <url>/2016/06/21/%E7%B4%A0%E6%95%B0%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<h3 id="找出数组中的素数"><a href="#找出数组中的素数" class="headerlink" title="找出数组中的素数"></a>找出数组中的素数</h3><p>例如    shu([1,2,5,9,7,8,6,13,56,48,46]) = [2, 5, 7, 13];</p>
-<pre><code>function shu(arr)&#123;
-    return arr.filter(
-        function(num) &#123;
-          if (num == 1) &#123;
-            return false;
-          &#125;
-          if (num == 2) &#123;
-            return true;
-          &#125;
-          for (var i = 2; i &lt;= Math.sqrt(num); i++) &#123;
-            if (num % i == 0) &#123;
-              return false;
-            &#125;
-          &#125;
-          return true;
-        &#125;
-    )
-&#125;
-</code></pre>
-]]></content>
-      <categories>
-        <category>Testing</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -4217,94 +4217,6 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
       </tags>
   </entry>
   <entry>
-    <title>1.两数之和</title>
-    <url>/2017/05/07/leetcode/1.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/</url>
-    <content><![CDATA[<p>给定一个整数数组 nums  和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那   两个   整数，并返回它们的数组下标。</p>
-<p>你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。</p>
-<p>你可以按任意顺序返回答案。</p>
-<p>示例 1：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [2,7,11,15], target = 9</span><br><span class="line">输出：[0,1]</span><br><span class="line">解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。</span><br></pre></td></tr></table></figure>
-
-<p>示例 2：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [3,2,4], target = 6</span><br><span class="line">输出：[1,2]</span><br></pre></td></tr></table></figure>
-
-<p>示例 3：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [3,3], target = 6</span><br><span class="line">输出：[0,1]</span><br></pre></td></tr></table></figure>
-
-<p>常规方法：</p>
-<blockquote>
-<p>时间复杂度 O(n²)、空间复杂度 O(1)</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">nums</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">target</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number[]&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> twoSum = <span class="function"><span class="keyword">function</span> (<span class="params">nums, target</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">    <span class="keyword">let</span> items = nums[i];</span><br><span class="line">    <span class="keyword">let</span> index = nums.indexOf(target - items, i + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span> (index !== -<span class="number">1</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> [i, index];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>哈希表的方式:</p>
-<blockquote>
-<p>时间复杂度 O(n)、空间复杂度 O(n)</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> twoSum = <span class="function"><span class="keyword">function</span> (<span class="params">nums, target</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (map.has(target - nums[i])) &#123;</span><br><span class="line">      <span class="keyword">return</span> [map.get(target - nums[i]), i];</span><br><span class="line">    &#125;</span><br><span class="line">    map.set(nums[i], i);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>LeetCode题库</category>
-      </categories>
-      <tags>
-        <tag>LeetCode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>2.两数相加</title>
-    <url>/2017/05/07/leetcode/2.%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/</url>
-    <content><![CDATA[<p>给你两个非空的链表，表示两个非负的整数。它们每位数字都是按照   逆序   的方式存储的，并且每个节点只能存储   一位   数字。</p>
-<p>请你将两个数相加，并以相同形式返回一个表示和的链表。</p>
-<p>你可以假设除了数字 0 之外，这两个数都不会以 0  开头。</p>
-<p>示例 1：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：l1 = [2,4,3], l2 = [5,6,4]</span><br><span class="line">输出：[7,0,8]</span><br><span class="line">解释：342 + 465 = 807.</span><br></pre></td></tr></table></figure>
-
-<p>示例 2：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：l1 = [0], l2 = [0]</span><br><span class="line">输出：[0]</span><br></pre></td></tr></table></figure>
-
-<p>示例 3：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]</span><br><span class="line">输出：[8,9,9,9,0,0,0,1]</span><br></pre></td></tr></table></figure>
-
-<p>链表定义如下：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ListNode</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.val = val;</span><br><span class="line">  <span class="built_in">this</span>.next = <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>输入参数的封装：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createListNode</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">  nums += <span class="string">&quot;&quot;</span>;</span><br><span class="line">  <span class="keyword">var</span> result = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">    <span class="keyword">let</span> row = <span class="keyword">new</span> ListNode(<span class="built_in">Number</span>(nums[i]));</span><br><span class="line">    <span class="keyword">if</span> (i &gt; <span class="number">0</span>) &#123;</span><br><span class="line">      row.next = result;</span><br><span class="line">    &#125;</span><br><span class="line">    result = row;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> l1 = createListNode(<span class="number">342</span>);</span><br><span class="line"><span class="keyword">let</span> l2 = createListNode(<span class="number">465</span>);</span><br></pre></td></tr></table></figure>
-
-<p>实现方式:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;ListNode&#125;</span> <span class="variable">l1</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;ListNode&#125;</span> <span class="variable">l2</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;ListNode&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> addTwoNumbers = <span class="function"><span class="keyword">function</span> (<span class="params">l1, l2</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> result = <span class="keyword">new</span> ListNode(<span class="number">0</span>),</span><br><span class="line">    node = result;</span><br><span class="line">  <span class="keyword">while</span> (l1 || l2) &#123;</span><br><span class="line">    <span class="keyword">let</span> r = node.val,</span><br><span class="line">      i = (l1 &amp;&amp; l1.val) || <span class="number">0</span>,</span><br><span class="line">      j = (l2 &amp;&amp; l2.val) || <span class="number">0</span>,</span><br><span class="line">      sum = r + i + j,</span><br><span class="line">      m,</span><br><span class="line">      n;</span><br><span class="line">    <span class="keyword">if</span> (sum &gt;= <span class="number">10</span>) &#123;</span><br><span class="line">      m = <span class="number">1</span>;</span><br><span class="line">      n = sum - <span class="number">10</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      m = <span class="number">0</span>;</span><br><span class="line">      n = sum;</span><br><span class="line">    &#125;</span><br><span class="line">    l1 = l1 &amp;&amp; l1.next;</span><br><span class="line">    l2 = l2 &amp;&amp; l2.next;</span><br><span class="line">    node.val = n;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (m || l1 || l2) &#123;</span><br><span class="line">      node.next = <span class="keyword">new</span> ListNode(m);</span><br><span class="line">      node = node.next;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>LeetCode题库</category>
-      </categories>
-      <tags>
-        <tag>LeetCode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>3.无重复字符的最长子串</title>
-    <url>/2017/05/09/leetcode/3.%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/</url>
-    <content><![CDATA[<p>给定一个字符串 s ，请你找出其中不含有重复字符的 最长子串 的长度。</p>
-<p>示例 1：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入: s = &quot;abcabcbb&quot;</span><br><span class="line">输出: 3</span><br><span class="line">解释: 因为无重复字符的最长子串是 &quot;abc&quot;，所以其长度为 3。</span><br></pre></td></tr></table></figure>
-
-<p>示例 2：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入: s = &quot;bbbbb&quot;</span><br><span class="line">输出: 1</span><br><span class="line">解释: 因为无重复字符的最长子串是 &quot;b&quot;，所以其长度为 1。</span><br></pre></td></tr></table></figure>
-
-<p>示例 3：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入: s = &quot;pwwkew&quot;</span><br><span class="line">输出: 3</span><br><span class="line">解释: 因为无重复字符的最长子串是 &quot;wke&quot;，所以其长度为 3。</span><br><span class="line">     请注意，你的答案必须是 子串 的长度，&quot;pwke&quot; 是一个子序列，不是子串。</span><br></pre></td></tr></table></figure>
-
-<p>实现方式:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;string&#125;</span> <span class="variable">s</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> lengthOfLongestSubstring = <span class="function"><span class="keyword">function</span> (<span class="params">s</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> result = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, len = s.length; i &lt; len; i++) &#123;</span><br><span class="line">    <span class="keyword">let</span> set = <span class="keyword">new</span> <span class="built_in">Set</span>();</span><br><span class="line">    set.add(s.charAt(i));</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = i + <span class="number">1</span>; j &lt; len; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (set.has(s.charAt(j))) &#123;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      set.add(s.charAt(j));</span><br><span class="line">    &#125;</span><br><span class="line">    result = <span class="built_in">Math</span>.max(result, set.size);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>LeetCode题库</category>
-      </categories>
-      <tags>
-        <tag>LeetCode</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Windows 下安装 nvm 管理 nodejs 版本</title>
     <url>/2021/08/12/node/nvm/</url>
     <content><![CDATA[<p>最近维护一个旧项目（祖传代码），由于本地 node 版本太高导致无法运行成功，然后尝试是用 nvm 来管理 node 版本切换，这里做下安装记录。</p>
@@ -4340,6 +4252,94 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
       </categories>
       <tags>
         <tag>Node</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>1.两数之和</title>
+    <url>/2017/05/07/leetcode/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/</url>
+    <content><![CDATA[<p>给定一个整数数组 nums  和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那   两个   整数，并返回它们的数组下标。</p>
+<p>你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。</p>
+<p>你可以按任意顺序返回答案。</p>
+<p>示例 1：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [2,7,11,15], target = 9</span><br><span class="line">输出：[0,1]</span><br><span class="line">解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。</span><br></pre></td></tr></table></figure>
+
+<p>示例 2：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [3,2,4], target = 6</span><br><span class="line">输出：[1,2]</span><br></pre></td></tr></table></figure>
+
+<p>示例 3：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [3,3], target = 6</span><br><span class="line">输出：[0,1]</span><br></pre></td></tr></table></figure>
+
+<p>常规方法：</p>
+<blockquote>
+<p>时间复杂度 O(n²)、空间复杂度 O(1)</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">nums</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">target</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number[]&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> twoSum = <span class="function"><span class="keyword">function</span> (<span class="params">nums, target</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">    <span class="keyword">let</span> items = nums[i];</span><br><span class="line">    <span class="keyword">let</span> index = nums.indexOf(target - items, i + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span> (index !== -<span class="number">1</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> [i, index];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>哈希表的方式:</p>
+<blockquote>
+<p>时间复杂度 O(n)、空间复杂度 O(n)</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> twoSum = <span class="function"><span class="keyword">function</span> (<span class="params">nums, target</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (map.has(target - nums[i])) &#123;</span><br><span class="line">      <span class="keyword">return</span> [map.get(target - nums[i]), i];</span><br><span class="line">    &#125;</span><br><span class="line">    map.set(nums[i], i);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>LeetCode题库</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2.两数相加</title>
+    <url>/2017/05/07/leetcode/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/</url>
+    <content><![CDATA[<p>给你两个非空的链表，表示两个非负的整数。它们每位数字都是按照   逆序   的方式存储的，并且每个节点只能存储   一位   数字。</p>
+<p>请你将两个数相加，并以相同形式返回一个表示和的链表。</p>
+<p>你可以假设除了数字 0 之外，这两个数都不会以 0  开头。</p>
+<p>示例 1：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：l1 = [2,4,3], l2 = [5,6,4]</span><br><span class="line">输出：[7,0,8]</span><br><span class="line">解释：342 + 465 = 807.</span><br></pre></td></tr></table></figure>
+
+<p>示例 2：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：l1 = [0], l2 = [0]</span><br><span class="line">输出：[0]</span><br></pre></td></tr></table></figure>
+
+<p>示例 3：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]</span><br><span class="line">输出：[8,9,9,9,0,0,0,1]</span><br></pre></td></tr></table></figure>
+
+<p>链表定义如下：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ListNode</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.val = val;</span><br><span class="line">  <span class="built_in">this</span>.next = <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输入参数的封装：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createListNode</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">  nums += <span class="string">&quot;&quot;</span>;</span><br><span class="line">  <span class="keyword">var</span> result = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">    <span class="keyword">let</span> row = <span class="keyword">new</span> ListNode(<span class="built_in">Number</span>(nums[i]));</span><br><span class="line">    <span class="keyword">if</span> (i &gt; <span class="number">0</span>) &#123;</span><br><span class="line">      row.next = result;</span><br><span class="line">    &#125;</span><br><span class="line">    result = row;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> l1 = createListNode(<span class="number">342</span>);</span><br><span class="line"><span class="keyword">let</span> l2 = createListNode(<span class="number">465</span>);</span><br></pre></td></tr></table></figure>
+
+<p>实现方式:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;ListNode&#125;</span> <span class="variable">l1</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;ListNode&#125;</span> <span class="variable">l2</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;ListNode&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> addTwoNumbers = <span class="function"><span class="keyword">function</span> (<span class="params">l1, l2</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> result = <span class="keyword">new</span> ListNode(<span class="number">0</span>),</span><br><span class="line">    node = result;</span><br><span class="line">  <span class="keyword">while</span> (l1 || l2) &#123;</span><br><span class="line">    <span class="keyword">let</span> r = node.val,</span><br><span class="line">      i = (l1 &amp;&amp; l1.val) || <span class="number">0</span>,</span><br><span class="line">      j = (l2 &amp;&amp; l2.val) || <span class="number">0</span>,</span><br><span class="line">      sum = r + i + j,</span><br><span class="line">      m,</span><br><span class="line">      n;</span><br><span class="line">    <span class="keyword">if</span> (sum &gt;= <span class="number">10</span>) &#123;</span><br><span class="line">      m = <span class="number">1</span>;</span><br><span class="line">      n = sum - <span class="number">10</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      m = <span class="number">0</span>;</span><br><span class="line">      n = sum;</span><br><span class="line">    &#125;</span><br><span class="line">    l1 = l1 &amp;&amp; l1.next;</span><br><span class="line">    l2 = l2 &amp;&amp; l2.next;</span><br><span class="line">    node.val = n;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (m || l1 || l2) &#123;</span><br><span class="line">      node.next = <span class="keyword">new</span> ListNode(m);</span><br><span class="line">      node = node.next;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>LeetCode题库</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>3.无重复字符的最长子串</title>
+    <url>/2017/05/09/leetcode/%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/</url>
+    <content><![CDATA[<p>给定一个字符串 s ，请你找出其中不含有重复字符的 最长子串 的长度。</p>
+<p>示例 1：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入: s = &quot;abcabcbb&quot;</span><br><span class="line">输出: 3</span><br><span class="line">解释: 因为无重复字符的最长子串是 &quot;abc&quot;，所以其长度为 3。</span><br></pre></td></tr></table></figure>
+
+<p>示例 2：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入: s = &quot;bbbbb&quot;</span><br><span class="line">输出: 1</span><br><span class="line">解释: 因为无重复字符的最长子串是 &quot;b&quot;，所以其长度为 1。</span><br></pre></td></tr></table></figure>
+
+<p>示例 3：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入: s = &quot;pwwkew&quot;</span><br><span class="line">输出: 3</span><br><span class="line">解释: 因为无重复字符的最长子串是 &quot;wke&quot;，所以其长度为 3。</span><br><span class="line">     请注意，你的答案必须是 子串 的长度，&quot;pwke&quot; 是一个子序列，不是子串。</span><br></pre></td></tr></table></figure>
+
+<p>实现方式:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;string&#125;</span> <span class="variable">s</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> lengthOfLongestSubstring = <span class="function"><span class="keyword">function</span> (<span class="params">s</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> result = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, len = s.length; i &lt; len; i++) &#123;</span><br><span class="line">    <span class="keyword">let</span> set = <span class="keyword">new</span> <span class="built_in">Set</span>();</span><br><span class="line">    set.add(s.charAt(i));</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = i + <span class="number">1</span>; j &lt; len; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (set.has(s.charAt(j))) &#123;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      set.add(s.charAt(j));</span><br><span class="line">    &#125;</span><br><span class="line">    result = <span class="built_in">Math</span>.max(result, set.size);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>LeetCode题库</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
       </tags>
   </entry>
 </search>
