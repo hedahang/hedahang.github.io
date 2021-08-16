@@ -276,66 +276,6 @@ var ctx = canvas.getContext( '2d' );
       </tags>
   </entry>
   <entry>
-    <title>H5新特性——音视频</title>
-    <url>/2016/07/11/H5%E6%96%B0%E7%89%B9%E6%80%A7%E2%80%94%E2%80%94%E8%A7%86%E9%A2%91/</url>
-    <content><![CDATA[<p>HTML5 之前在页面播放需要使用 flash 播放器；HTML5 添加两个标签：</p>
-<pre><code>&lt;video&gt;&lt;/video&gt;
-&lt;audio&gt;&lt;/audio&gt;
-</code></pre>
-<p>这两个标签有一些特殊属性、事件、方法。</p>
-<span id="more"></span>
-<h3 id="HTML5-新特性——视频"><a href="#HTML5-新特性——视频" class="headerlink" title="HTML5 新特性——视频"></a>HTML5 新特性——视频</h3><p>1.Video 标签可用的属性：</p>
-<pre><code>(1)src：待播放的资源的URL
-(2)width：播放区域的宽度
-(3)height：播放区域的高度
-(4)controls：是否显示播放控件，默认不显示
-(5)autoplay：是否自动播放，默认不自动播放
-(6)loop：是否循环播放，默认不循环
-(7)preload：如何预加载视频，可以赋值为
-    “none”：不预加载
-    “metadata”：只预加载元数据，如影片宽、高、大小、时长
-    “auto”：（默认值）自动预加载元数据以及部分影片数据
-(8)poster：影片播放之前显示的“电影海报”
-</code></pre>
-<p>2.Video 对象的成员</p>
-<pre><code>1.autoplay:false
-2.controls:false
-3.currentTime:0             当前播放到哪一秒
-4.duration:NaN            总时长
-5.ended:false
-6.loop:false            是否循环
-7.muted:false            是否静音
-8.oncanplay:null            当能够播放时触发
-9.oncanplaythrough:null    当能够顺利播放一段时间
-10.onended:null            当播放的结尾时触发
-11.onerror:null            当播放错误时触发
-12.onloadeddata:null        当加载了影片数据时触发
-13.onloadedmetadata:null    当加载了影片元数据时触发
-14.onpause:null            当影片暂停时触发
-15.onplay:null            当影片开始播放时触发
-16.paused:true            当前是否处于暂停状态
-17.poster:&quot;&quot;                电影海报
-18.preload:&quot;auto&quot;            如何预加载
-19.src:&quot;http://127.0.0.1/html5_day02/resource/birds.mp4&quot;
-20.videoHeight:0
-21.videoWidth:0
-22.volume:1
-23.play(): function()&#123;&#125;    使用JS控制影片播放
-24.pause(): function()&#123;&#125;    使用JS控制影片暂停
-</code></pre>
-<h3 id="HTML5-新特性——音频"><a href="#HTML5-新特性——音频" class="headerlink" title="HTML5 新特性——音频"></a>HTML5 新特性——音频</h3><p>HTML5 之前，播放音频可以使用 flash 播放器，或者使用 bgsound（IE 专有，只能网页的背景音乐，不能使用 JS 控制播放、音量）。<br>HTML5 中，使用 audio 标签来播放音频。该标签的常用属性与 video 几乎一样，如：</p>
-<pre><code>(1)src
-(2)autoplay：是否自动播放，默认为false
-(3)controls：是否显示播放控制条，默认为false
-(4)loop：是否循环播放，默认为false
-</code></pre>
-]]></content>
-      <tags>
-        <tag>HTML5</tag>
-        <tag>video</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>HTML5离线存储和本地缓存</title>
     <url>/2016/07/15/H5%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98%E5%92%8C%E7%A6%BB%E7%BA%BF%E7%BC%93%E5%AD%98/</url>
     <content><![CDATA[<h1 id="一、离线缓存"><a href="#一、离线缓存" class="headerlink" title="一、离线缓存"></a>一、离线缓存</h1><p>有一个 web 应用有三个文件 index.html,a.js,b.css，现在需要把 js 和 css 文件缓存起来</p>
@@ -393,6 +333,66 @@ localStorage.clear()
 ]]></content>
       <tags>
         <tag>H5</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>H5新特性——音视频</title>
+    <url>/2016/07/11/H5%E6%96%B0%E7%89%B9%E6%80%A7%E2%80%94%E2%80%94%E8%A7%86%E9%A2%91/</url>
+    <content><![CDATA[<p>HTML5 之前在页面播放需要使用 flash 播放器；HTML5 添加两个标签：</p>
+<pre><code>&lt;video&gt;&lt;/video&gt;
+&lt;audio&gt;&lt;/audio&gt;
+</code></pre>
+<p>这两个标签有一些特殊属性、事件、方法。</p>
+<span id="more"></span>
+<h3 id="HTML5-新特性——视频"><a href="#HTML5-新特性——视频" class="headerlink" title="HTML5 新特性——视频"></a>HTML5 新特性——视频</h3><p>1.Video 标签可用的属性：</p>
+<pre><code>(1)src：待播放的资源的URL
+(2)width：播放区域的宽度
+(3)height：播放区域的高度
+(4)controls：是否显示播放控件，默认不显示
+(5)autoplay：是否自动播放，默认不自动播放
+(6)loop：是否循环播放，默认不循环
+(7)preload：如何预加载视频，可以赋值为
+    “none”：不预加载
+    “metadata”：只预加载元数据，如影片宽、高、大小、时长
+    “auto”：（默认值）自动预加载元数据以及部分影片数据
+(8)poster：影片播放之前显示的“电影海报”
+</code></pre>
+<p>2.Video 对象的成员</p>
+<pre><code>1.autoplay:false
+2.controls:false
+3.currentTime:0             当前播放到哪一秒
+4.duration:NaN            总时长
+5.ended:false
+6.loop:false            是否循环
+7.muted:false            是否静音
+8.oncanplay:null            当能够播放时触发
+9.oncanplaythrough:null    当能够顺利播放一段时间
+10.onended:null            当播放的结尾时触发
+11.onerror:null            当播放错误时触发
+12.onloadeddata:null        当加载了影片数据时触发
+13.onloadedmetadata:null    当加载了影片元数据时触发
+14.onpause:null            当影片暂停时触发
+15.onplay:null            当影片开始播放时触发
+16.paused:true            当前是否处于暂停状态
+17.poster:&quot;&quot;                电影海报
+18.preload:&quot;auto&quot;            如何预加载
+19.src:&quot;http://127.0.0.1/html5_day02/resource/birds.mp4&quot;
+20.videoHeight:0
+21.videoWidth:0
+22.volume:1
+23.play(): function()&#123;&#125;    使用JS控制影片播放
+24.pause(): function()&#123;&#125;    使用JS控制影片暂停
+</code></pre>
+<h3 id="HTML5-新特性——音频"><a href="#HTML5-新特性——音频" class="headerlink" title="HTML5 新特性——音频"></a>HTML5 新特性——音频</h3><p>HTML5 之前，播放音频可以使用 flash 播放器，或者使用 bgsound（IE 专有，只能网页的背景音乐，不能使用 JS 控制播放、音量）。<br>HTML5 中，使用 audio 标签来播放音频。该标签的常用属性与 video 几乎一样，如：</p>
+<pre><code>(1)src
+(2)autoplay：是否自动播放，默认为false
+(3)controls：是否显示播放控制条，默认为false
+(4)loop：是否循环播放，默认为false
+</code></pre>
+]]></content>
+      <tags>
+        <tag>HTML5</tag>
+        <tag>video</tag>
       </tags>
   </entry>
   <entry>
@@ -860,6 +860,39 @@ First Header | Second Header</li>
       </tags>
   </entry>
   <entry>
+    <title>postName</title>
+    <url>/2015/08/12/postName/</url>
+    <content><![CDATA[<pre><code>1. Git安装和Github设置
+使用Mac电脑可以直brew安装,
+</code></pre>
+<span id="more"></span>
+
+<pre><code>brew install git         #Mac电脑使用brew安装
+sudo apt-get install git #Ubuntu系统使用这条命令安装
+git操作和github上SSH设置请看这篇博文
+
+使用Github Page搭建博客, 需要遵循一定的规则, 需要在github建立仓库,仓库名为Github用户.github.io, 更多详情请参考官方文档
+
+2. Node.js安装
+mac电脑可以直接通过brew安装
+
+#安装命令
+brew install node  #如果我没记错的话,最新版的node.js的包中已经集成了npm包管理工具
+
+使用以下命令验证是否安装成功
+node -v
+npm -v
+
+文／Andrew_liu（简书作者）
+原文链接：http://www.jianshu.com/p/858ecf233db9
+著作权归作者所有，转载请联系作者获得授权，并标注“简书作者”。
+</code></pre>
+]]></content>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Markdown语法学习</title>
     <url>/2016/06/13/next_study/</url>
     <content><![CDATA[<h3 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h3><pre><code># 这是 H1 #
@@ -1091,7 +1124,7 @@ Markdown 使用一种和链接很相似的语法来标记图片，同样也允�
 &amp;#109;&quot;&gt;&amp;#x61;&amp;#x64;&amp;#x64;&amp;#x72;&amp;#x65;&amp;#115;&amp;#115;&amp;#64;&amp;#101;&amp;#120;&amp;#x61;
 &amp;#109;&amp;#x70;&amp;#x6C;e&amp;#x2E;&amp;#99;&amp;#111;&amp;#109;&lt;/a&gt;
 </code></pre>
-<p>在浏览器里面，这段字串（其实是 <a href="mailto:address@example.com">address@example.com</a>）会变成一个可以点击的「<a href="mailto:&#97;&#x64;&#x64;&#114;&#101;&#115;&#115;&#x40;&#x65;&#120;&#x61;&#109;&#x70;&#x6c;&#x65;&#46;&#99;&#111;&#109;">&#97;&#x64;&#x64;&#114;&#101;&#115;&#115;&#x40;&#x65;&#120;&#x61;&#109;&#x70;&#x6c;&#x65;&#46;&#99;&#111;&#109;</a>」链接。</p>
+<p>在浏览器里面，这段字串（其实是 <a href="mailto:address@example.com">address@example.com</a>）会变成一个可以点击的「<a href="mailto:&#x61;&#100;&#x64;&#114;&#x65;&#115;&#115;&#x40;&#x65;&#120;&#x61;&#x6d;&#x70;&#108;&#101;&#46;&#99;&#111;&#109;">&#x61;&#100;&#x64;&#114;&#x65;&#115;&#115;&#x40;&#x65;&#120;&#x61;&#x6d;&#x70;&#108;&#101;&#46;&#99;&#111;&#109;</a>」链接。</p>
 </blockquote>
 <p>（这种作法虽然可以糊弄不少的机器人，但并不能全部挡下来，不过总比什么都不做好些。不管怎样，公开你的信箱终究会引来广告信件的。）</p>
 <blockquote>
@@ -1116,39 +1149,6 @@ _   底线
 ]]></content>
       <tags>
         <tag>study</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>postName</title>
-    <url>/2015/08/12/postName/</url>
-    <content><![CDATA[<pre><code>1. Git安装和Github设置
-使用Mac电脑可以直brew安装,
-</code></pre>
-<span id="more"></span>
-
-<pre><code>brew install git         #Mac电脑使用brew安装
-sudo apt-get install git #Ubuntu系统使用这条命令安装
-git操作和github上SSH设置请看这篇博文
-
-使用Github Page搭建博客, 需要遵循一定的规则, 需要在github建立仓库,仓库名为Github用户.github.io, 更多详情请参考官方文档
-
-2. Node.js安装
-mac电脑可以直接通过brew安装
-
-#安装命令
-brew install node  #如果我没记错的话,最新版的node.js的包中已经集成了npm包管理工具
-
-使用以下命令验证是否安装成功
-node -v
-npm -v
-
-文／Andrew_liu（简书作者）
-原文链接：http://www.jianshu.com/p/858ecf233db9
-著作权归作者所有，转载请联系作者获得授权，并标注“简书作者”。
-</code></pre>
-]]></content>
-      <tags>
-        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -1819,38 +1819,6 @@ var five = add(two, three);
       </tags>
   </entry>
   <entry>
-    <title>素数算法</title>
-    <url>/2016/06/21/%E7%B4%A0%E6%95%B0%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<h3 id="找出数组中的素数"><a href="#找出数组中的素数" class="headerlink" title="找出数组中的素数"></a>找出数组中的素数</h3><p>例如    shu([1,2,5,9,7,8,6,13,56,48,46]) = [2, 5, 7, 13];</p>
-<pre><code>function shu(arr)&#123;
-    return arr.filter(
-        function(num) &#123;
-          if (num == 1) &#123;
-            return false;
-          &#125;
-          if (num == 2) &#123;
-            return true;
-          &#125;
-          for (var i = 2; i &lt;= Math.sqrt(num); i++) &#123;
-            if (num % i == 0) &#123;
-              return false;
-            &#125;
-          &#125;
-          return true;
-        &#125;
-    )
-&#125;
-</code></pre>
-]]></content>
-      <categories>
-        <category>Testing</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>解决Github打不开问题</title>
     <url>/2021/07/19/%E8%AE%B0%E5%BD%95GitHub%E7%BD%91%E9%A1%B5hosts%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<p>github 最近打不开，很久之前遇到过，但是忘记怎么解决了，查找相关资料后，今天记录在此，以备不时之需：</p>
@@ -1875,6 +1843,52 @@ var five = add(two, three);
 ]]></content>
       <tags>
         <tag>网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>模板引擎、字节转换、map函数</title>
+    <url>/2016/06/23/%E9%9D%A2%E8%AF%95%E9%A2%98/</url>
+    <content><![CDATA[<h5 id="1-模板引擎"><a href="#1-模板引擎" class="headerlink" title="1. 模板引擎"></a>1. 模板引擎</h5><pre><code>var reg = /\$\&#123;[a-zA-Z]+\&#125;/g;
+var tpl = &quot;hello $&#123;who&#125;!&quot;;
+var obj = &#123;who:&quot;world&quot;&#125;;
+function template(tpl,obj)&#123;
+        var s = reg.exec(tpl);
+        var s1 = s[0].slice(2,-1);
+        document.write(tpl.replace(reg,obj[s1]));
+    &#125;
+    //template(tpl,obj);
+    template(&#39;Hello,$&#123;name&#125;&#39;,&#123;name:&quot;hedahang&quot;&#125;);
+</code></pre>
+<span id="more"></span>
+<h5 id="2-字节转换"><a href="#2-字节转换" class="headerlink" title="2. 字节转换"></a>2. 字节转换</h5><pre><code>&lt;pre&gt;function bytesToSize(bytes) &#123;
+    if (bytes === 0) return &#39;0 B&#39;;
+    var k = 1024,
+            sizes = [&#39;B&#39;, &#39;KB&#39;, &#39;MB&#39;, &#39;GB&#39;, &#39;TB&#39;, &#39;PB&#39;, &#39;EB&#39;, &#39;ZB&#39;, &#39;YB&#39;],
+            i = Math.floor(Math.log(bytes) / Math.log(k));
+    return (bytes / Math.pow(k, i)).toPrecision(3) + &#39; &#39; + sizes[i];
+&#125;
+console.log( bytesToSize(12345));&lt;/pre&gt;
+</code></pre>
+<h5 id="3-map函数"><a href="#3-map函数" class="headerlink" title="3. map函数"></a>3. map函数</h5><pre><code>&lt;pre&gt;function map(arr,fun)&#123;
+    var array = [];
+    for(var i = 0;i&lt;arr.length;i++)&#123;
+        if( i == 0)&#123;
+            array[i] = fun(0,arr[i]);
+        &#125;else&#123;
+            array[i] = fun(arr[i-1],arr[i])
+        &#125;
+    console.log(array);
+    &#125;
+&#125;
+map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
+</code></pre>
+]]></content>
+      <categories>
+        <category>Testing</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -1958,7 +1972,7 @@ var five = add(two, three);
 <h2 id="关于收费"><a href="#关于收费" class="headerlink" title="关于收费"></a>关于收费</h2><p><strong>马克飞象</strong>为新用户提供 10 天的试用期，试用期过后需要<a href="maxiang.info/vip.html">续费</a>才能继续使用。未购买或者未及时续费，将不能同步新的笔记。之前保存过的笔记依然可以编辑。</p>
 <h2 id="反馈与建议"><a href="#反馈与建议" class="headerlink" title="反馈与建议"></a>反馈与建议</h2><ul>
 <li>微博：<a href="http://weibo.com/u/2788354117">@马克飞象</a>，<a href="http://weibo.com/ggock" title="开发者个人账号">@GGock</a></li>
-<li>邮箱：<a href="mailto:&#x68;&#x75;&#x73;&#116;&#x67;&#111;&#99;&#x6b;&#64;&#x67;&#109;&#x61;&#105;&#108;&#46;&#99;&#x6f;&#109;">&#x68;&#x75;&#x73;&#116;&#x67;&#111;&#99;&#x6b;&#64;&#x67;&#109;&#x61;&#105;&#108;&#46;&#99;&#x6f;&#109;</a></li>
+<li>邮箱：<a href="mailto:&#x68;&#117;&#115;&#116;&#x67;&#111;&#99;&#107;&#64;&#103;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#111;&#109;">&#x68;&#117;&#115;&#116;&#x67;&#111;&#99;&#107;&#64;&#103;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#111;&#109;</a></li>
 </ul>
 <hr>
 <p>感谢阅读这份帮助文档。请点击右上角，绑定印象笔记账号，开启全新的记录与分享体验吧。</p>
@@ -1973,49 +1987,35 @@ var five = add(two, three);
       </tags>
   </entry>
   <entry>
-    <title>模板引擎、字节转换、map函数</title>
-    <url>/2016/06/23/%E9%9D%A2%E8%AF%95%E9%A2%98/</url>
-    <content><![CDATA[<h5 id="1-模板引擎"><a href="#1-模板引擎" class="headerlink" title="1. 模板引擎"></a>1. 模板引擎</h5><pre><code>var reg = /\$\&#123;[a-zA-Z]+\&#125;/g;
-var tpl = &quot;hello $&#123;who&#125;!&quot;;
-var obj = &#123;who:&quot;world&quot;&#125;;
-function template(tpl,obj)&#123;
-        var s = reg.exec(tpl);
-        var s1 = s[0].slice(2,-1);
-        document.write(tpl.replace(reg,obj[s1]));
-    &#125;
-    //template(tpl,obj);
-    template(&#39;Hello,$&#123;name&#125;&#39;,&#123;name:&quot;hedahang&quot;&#125;);
-</code></pre>
-<span id="more"></span>
-<h5 id="2-字节转换"><a href="#2-字节转换" class="headerlink" title="2. 字节转换"></a>2. 字节转换</h5><pre><code>&lt;pre&gt;function bytesToSize(bytes) &#123;
-    if (bytes === 0) return &#39;0 B&#39;;
-    var k = 1024,
-            sizes = [&#39;B&#39;, &#39;KB&#39;, &#39;MB&#39;, &#39;GB&#39;, &#39;TB&#39;, &#39;PB&#39;, &#39;EB&#39;, &#39;ZB&#39;, &#39;YB&#39;],
-            i = Math.floor(Math.log(bytes) / Math.log(k));
-    return (bytes / Math.pow(k, i)).toPrecision(3) + &#39; &#39; + sizes[i];
-&#125;
-console.log( bytesToSize(12345));&lt;/pre&gt;
-</code></pre>
-<h5 id="3-map函数"><a href="#3-map函数" class="headerlink" title="3. map函数"></a>3. map函数</h5><pre><code>&lt;pre&gt;function map(arr,fun)&#123;
-    var array = [];
-    for(var i = 0;i&lt;arr.length;i++)&#123;
-        if( i == 0)&#123;
-            array[i] = fun(0,arr[i]);
-        &#125;else&#123;
-            array[i] = fun(arr[i-1],arr[i])
+    <title>素数算法</title>
+    <url>/2016/06/21/%E7%B4%A0%E6%95%B0%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<h3 id="找出数组中的素数"><a href="#找出数组中的素数" class="headerlink" title="找出数组中的素数"></a>找出数组中的素数</h3><p>例如    shu([1,2,5,9,7,8,6,13,56,48,46]) = [2, 5, 7, 13];</p>
+<pre><code>function shu(arr)&#123;
+    return arr.filter(
+        function(num) &#123;
+          if (num == 1) &#123;
+            return false;
+          &#125;
+          if (num == 2) &#123;
+            return true;
+          &#125;
+          for (var i = 2; i &lt;= Math.sqrt(num); i++) &#123;
+            if (num % i == 0) &#123;
+              return false;
+            &#125;
+          &#125;
+          return true;
         &#125;
-    console.log(array);
-    &#125;
+    )
 &#125;
-map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
 </code></pre>
 ]]></content>
       <categories>
         <category>Testing</category>
       </categories>
       <tags>
-        <tag>JS</tag>
         <tag>算法</tag>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -2100,45 +2100,6 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Otaku</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.name = name;</span><br><span class="line">  <span class="built_in">this</span>.age = age;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">this</span>.habit = <span class="string">&quot;Games&quot;</span>;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    name,</span><br><span class="line">    age,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Otaku.prototype.strength = <span class="number">60</span>;</span><br><span class="line"></span><br><span class="line">Otaku.prototype.sayYourName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;I am &quot;</span> + <span class="built_in">this</span>.name);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person = newFactory(Otaku, <span class="string">&quot;Kevin&quot;</span>, <span class="string">&quot;18&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(person.name); <span class="comment">// Kevin</span></span><br><span class="line"><span class="built_in">console</span>.log(person.habit); <span class="comment">// undefined</span></span><br><span class="line"><span class="built_in">console</span>.log(person.strength); <span class="comment">// undefined</span></span><br><span class="line"></span><br><span class="line">person.sayYourName(); <span class="comment">// person.sayYourName is not a function</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://github.com/mqyqingfeng/Blog/issues/12">https://github.com/mqyqingfeng/Blog/issues/12</a></p>
-]]></content>
-      <categories>
-        <category>深入理解JavaScript系列笔记</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>二、JavaScript之作用域</title>
-    <url>/2019/06/15/deepjs/%E4%BD%9C%E7%94%A8%E5%9F%9F/</url>
-    <content><![CDATA[<h2 id="什么是作用域"><a href="#什么是作用域" class="headerlink" title="什么是作用域"></a>什么是作用域</h2><p>作用域是指程序源代码中定义变量的区域。</p>
-<p>作用域规定了如何查找变量，也就是确定当前执行代码对变量的访问权限。</p>
-<p>JavaScript 采用词法作用域(lexical scoping)，也就是静态作用域。</p>
-<span id="more"></span>
-<h2 id="词法作用域"><a href="#词法作用域" class="headerlink" title="词法作用域"></a>词法作用域</h2><p>在你不知道的javascript上卷中是这样定义的：</p>
-<blockquote>
-<p>词法作用域就是定义在词法阶段的作用域。换句话说，词法作用域是由你在写代码时将变量和块作用域写在哪里来决定的，因此当词法分析器处理代码时会保持作用域不变(大部分情况下是这样的)。</p>
-</blockquote>
-<p>在JS中词法作用域的规则：<a href="https://github.com/getify/You-Dont-Know-JS/blob/1ed-zh-CN/scope%20%26%20closures/ch1.md">点这里</a></p>
-<p>请看下面这段代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var value = 1;</span><br><span class="line"></span><br><span class="line">function foo() &#123;</span><br><span class="line">    console.log(value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function bar() &#123;</span><br><span class="line">    var value = 2;</span><br><span class="line">    foo();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar(); // ???</span><br></pre></td></tr></table></figure>
-<p>假设JavaScript采用静态作用域，让我们分析下执行过程：<br>执行 foo 函数，先从 foo 函数内部查找是否有局部变量 value，如果没有，就根据书写的位置，查找上面一层的代码，也就是 value 等于 1，所以结果会打印 1。</p>
-<p>假设JavaScript采用动态作用域，让我们分析下执行过程：<br>执行 foo 函数，依然是从 foo 函数内部查找是否有局部变量 value。如果没有，就从调用函数的作用域，也就是 bar 函数内部查找 value 变量，所以结果会打印 2。</p>
-<p>前面我们已经说了，JavaScript采用的是静态作用域，所以这个例子的结果是 1。<br>再看下面这段代码：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function foo(a) &#123;</span><br><span class="line"></span><br><span class="line">	var b = a * 2;</span><br><span class="line"></span><br><span class="line">	function bar(c) &#123;</span><br><span class="line">		console.log( a, b, c );</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	bar(b * 3);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo( 2 ); // 2 4 12</span><br></pre></td></tr></table></figure>
-<p>在这个代码示例中有三个固有的嵌套作用域：</p>
-<ul>
-<li>包围着全局作用域，只有一个标识符：foo。</li>
-<li>包围着作用域 foo，它含有三个标识符：a，bar 和 b。</li>
-<li>包围着作用域 bar，它里面只包含一个标识符：c。</li>
-</ul>
-<p>当我们执行console.log(…)语句的时候，开始查找三个被引用的变量 a，b 和 c。它首先从最内部的作用域气泡开始，也就是 bar(…) 函数的作用域。在这里它找不到 a，所以它向上走一层，到外面下一个最近的作用域气泡，foo(…) 的作用域。它在这里找到了 a，于是它就使用这个 a。同样的事情也发生在 b 身上。但是对于 c，它在 bar(..) 内部就找到了。</p>
-<p>如果在 foo(..) 内部定义一个变量 c，console.log(…) 语句也仍然会找到并使用 bar(…) 中的那一个，而不会使用 foo(…) 中的那一个。</p>
-<p><strong>一旦找到第一个匹配，作用域查询就停止了。</strong>相同的标识符名称可以在嵌套作用域的多个层中被指定，这称为“遮蔽（shadowing）”（内部的标识符“遮蔽”了外部的标识符）。无论如何遮蔽，作用域查询总是从当前被执行的最内侧的作用域开始，向外/向上不断查找，直到第一个匹配才停止。</p>
-<p><strong>注意：</strong>全局变量也自动地是全局对象（在浏览器中是 window，等等）的属性，所以不直接通过全局变量的词法名称，而通过将它作为全局对象的一个属性引用来间接地引用，是可能的。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var a = 5;</span><br><span class="line">function foo(a) &#123;</span><br><span class="line">  console.log(a);</span><br><span class="line">  console.log(window.a)</span><br><span class="line">&#125;</span><br><span class="line">foo(2) // 2,5</span><br></pre></td></tr></table></figure>
-
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://github.com/mqyqingfeng/Blog/issues/3">https://github.com/mqyqingfeng/Blog/issues/3</a></p>
 ]]></content>
       <categories>
         <category>深入理解JavaScript系列笔记</category>
@@ -2236,6 +2197,45 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
 <li><a href="http://dmitrysoshnikov.com/ecmascript/ru-chapter-3-this/">http://dmitrysoshnikov.com/ecmascript/ru-chapter-3-this/</a></li>
 <li><a href="https://javascript.info/reference-type">https://javascript.info/reference-type</a></li>
 </ul>
+]]></content>
+      <categories>
+        <category>深入理解JavaScript系列笔记</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>二、JavaScript之作用域</title>
+    <url>/2019/06/15/deepjs/%E4%BD%9C%E7%94%A8%E5%9F%9F/</url>
+    <content><![CDATA[<h2 id="什么是作用域"><a href="#什么是作用域" class="headerlink" title="什么是作用域"></a>什么是作用域</h2><p>作用域是指程序源代码中定义变量的区域。</p>
+<p>作用域规定了如何查找变量，也就是确定当前执行代码对变量的访问权限。</p>
+<p>JavaScript 采用词法作用域(lexical scoping)，也就是静态作用域。</p>
+<span id="more"></span>
+<h2 id="词法作用域"><a href="#词法作用域" class="headerlink" title="词法作用域"></a>词法作用域</h2><p>在你不知道的javascript上卷中是这样定义的：</p>
+<blockquote>
+<p>词法作用域就是定义在词法阶段的作用域。换句话说，词法作用域是由你在写代码时将变量和块作用域写在哪里来决定的，因此当词法分析器处理代码时会保持作用域不变(大部分情况下是这样的)。</p>
+</blockquote>
+<p>在JS中词法作用域的规则：<a href="https://github.com/getify/You-Dont-Know-JS/blob/1ed-zh-CN/scope%20%26%20closures/ch1.md">点这里</a></p>
+<p>请看下面这段代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var value = 1;</span><br><span class="line"></span><br><span class="line">function foo() &#123;</span><br><span class="line">    console.log(value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function bar() &#123;</span><br><span class="line">    var value = 2;</span><br><span class="line">    foo();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar(); // ???</span><br></pre></td></tr></table></figure>
+<p>假设JavaScript采用静态作用域，让我们分析下执行过程：<br>执行 foo 函数，先从 foo 函数内部查找是否有局部变量 value，如果没有，就根据书写的位置，查找上面一层的代码，也就是 value 等于 1，所以结果会打印 1。</p>
+<p>假设JavaScript采用动态作用域，让我们分析下执行过程：<br>执行 foo 函数，依然是从 foo 函数内部查找是否有局部变量 value。如果没有，就从调用函数的作用域，也就是 bar 函数内部查找 value 变量，所以结果会打印 2。</p>
+<p>前面我们已经说了，JavaScript采用的是静态作用域，所以这个例子的结果是 1。<br>再看下面这段代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function foo(a) &#123;</span><br><span class="line"></span><br><span class="line">	var b = a * 2;</span><br><span class="line"></span><br><span class="line">	function bar(c) &#123;</span><br><span class="line">		console.log( a, b, c );</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	bar(b * 3);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo( 2 ); // 2 4 12</span><br></pre></td></tr></table></figure>
+<p>在这个代码示例中有三个固有的嵌套作用域：</p>
+<ul>
+<li>包围着全局作用域，只有一个标识符：foo。</li>
+<li>包围着作用域 foo，它含有三个标识符：a，bar 和 b。</li>
+<li>包围着作用域 bar，它里面只包含一个标识符：c。</li>
+</ul>
+<p>当我们执行console.log(…)语句的时候，开始查找三个被引用的变量 a，b 和 c。它首先从最内部的作用域气泡开始，也就是 bar(…) 函数的作用域。在这里它找不到 a，所以它向上走一层，到外面下一个最近的作用域气泡，foo(…) 的作用域。它在这里找到了 a，于是它就使用这个 a。同样的事情也发生在 b 身上。但是对于 c，它在 bar(..) 内部就找到了。</p>
+<p>如果在 foo(..) 内部定义一个变量 c，console.log(…) 语句也仍然会找到并使用 bar(…) 中的那一个，而不会使用 foo(…) 中的那一个。</p>
+<p><strong>一旦找到第一个匹配，作用域查询就停止了。</strong>相同的标识符名称可以在嵌套作用域的多个层中被指定，这称为“遮蔽（shadowing）”（内部的标识符“遮蔽”了外部的标识符）。无论如何遮蔽，作用域查询总是从当前被执行的最内侧的作用域开始，向外/向上不断查找，直到第一个匹配才停止。</p>
+<p><strong>注意：</strong>全局变量也自动地是全局对象（在浏览器中是 window，等等）的属性，所以不直接通过全局变量的词法名称，而通过将它作为全局对象的一个属性引用来间接地引用，是可能的。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var a = 5;</span><br><span class="line">function foo(a) &#123;</span><br><span class="line">  console.log(a);</span><br><span class="line">  console.log(window.a)</span><br><span class="line">&#125;</span><br><span class="line">foo(2) // 2,5</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://github.com/mqyqingfeng/Blog/issues/3">https://github.com/mqyqingfeng/Blog/issues/3</a></p>
 ]]></content>
       <categories>
         <category>深入理解JavaScript系列笔记</category>
@@ -3658,41 +3658,6 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
       </tags>
   </entry>
   <entry>
-    <title>十、JavaScript专题之惰性函数</title>
-    <url>/2020/03/28/jsspecial/%E6%83%B0%E6%80%A7%E5%87%BD%E6%95%B0/</url>
-    <content><![CDATA[<h2 id="什么是惰性函数"><a href="#什么是惰性函数" class="headerlink" title="什么是惰性函数"></a>什么是惰性函数</h2><p>惰性函数表示函数执行的分支只会在函数第一次调用的时候执行，在第一次调用过程中，该函数会被覆盖为另一个按照合适方式执行的函数，这样任何对原函数的调用就不用再经过执行的分支了。本文将详细介绍惰性函数</p>
-<span id="more"></span>
-
-<h2 id="使用背景"><a href="#使用背景" class="headerlink" title="使用背景"></a>使用背景</h2><p>我们知道 javascript 最大的问题就是浏览器的兼容问题，一个 api 在不同的浏览器调用的结果是不一样的，有的时候我们需要通过 if 判断来实现不同的兼容问题：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addEvent</span>(<span class="params">type, element, fun</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (element.addEventListener) &#123;</span><br><span class="line">    element.addEventListener(type, fun, <span class="literal">false</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (element.attachEvent) &#123;</span><br><span class="line">    element.attachEvent(<span class="string">&quot;on&quot;</span> + type, fun);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    element[<span class="string">&quot;on&quot;</span> + type] = fun;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上面是一个兼容不同浏览器事件绑定的方法，但是，他有一个问题：</p>
-<p>每次调用 addEvent 函数的时候都要进行 if 判断，如果浏览器支持其中的一个方法，那么它就永远支持了，没有必要再进行其他分支的检测了。也就是说，if 语句不必每次都执行，代码可以运行的更快一些，解决方案就是惰性载入。</p>
-<h2 id="函数重写"><a href="#函数重写" class="headerlink" title="函数重写"></a>函数重写</h2><p>在介绍惰性函数之前，首先介绍函数重写技术。由于一个函数可以返回另一个函数，因此可以用新的函数来覆盖旧的函数。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">  a = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;b&quot;</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line">a(); <span class="comment">// a</span></span><br><span class="line">a(); <span class="comment">// b</span></span><br></pre></td></tr></table></figure>
-
-<p>第一次调用该函数时会 console.log(‘a’)会被执行；然后全局变量 a 被重定义，并被赋予新的函数。当该函数再次被调用时， console.log(‘b’)会被执行；</p>
-<h2 id="惰性函数"><a href="#惰性函数" class="headerlink" title="惰性函数"></a>惰性函数</h2><p>惰性函数的本质就是函数重写。所谓惰性载入，指函数执行的分支只会发生一次，有两种实现惰性载入的方式：</p>
-<p>1、第一种是在函数被调用时，再处理函数。函数在第一次调用时，该函数会被覆盖为另外一个按合适方式执行的函数，这样任何对原函数的调用都不用再经过执行的分支了。代码重写如下：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addEvent</span>(<span class="params">type, element, fun</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (element.addEventListener) &#123;</span><br><span class="line">    addEvent = <span class="function"><span class="keyword">function</span> (<span class="params">type, element, fun</span>) </span>&#123;</span><br><span class="line">      element.addEventListener(type, fun, <span class="literal">false</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (element.attachEvent) &#123;</span><br><span class="line">    addEvent = <span class="function"><span class="keyword">function</span> (<span class="params">type, element, fun</span>) </span>&#123;</span><br><span class="line">      element.attachEvent(<span class="string">&quot;on&quot;</span> + type, fun);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    addEvent = <span class="function"><span class="keyword">function</span> (<span class="params">type, element, fun</span>) </span>&#123;</span><br><span class="line">      element[<span class="string">&quot;on&quot;</span> + type] = fun;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> addEvent(type, element, fun);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在这个惰性载入的 addEvent()中，if 语句的每个分支都会为 addEvent 变量赋值，有效覆盖了原函数。最后一步便是调用了新赋函数。下一次调用 addEvent()时，便会直接调用新赋值的函数，这样就不用再执行 if 语句了。<br>但是，这种方法有个缺点，如果函数名称有所改变，修改起来比较麻烦。</p>
-<p>2、第二种是声明函数时就指定适当的函数。把嗅探浏览器的操作提前到代码加载的时候，在代码加载的时候就立刻进行一次判断，以便让 addEvent 返回一个包裹了正确逻辑的函数。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> addEvent = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">document</span>.addEventListener) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">type, element, fun</span>) </span>&#123;</span><br><span class="line">      element.addEventListener(type, fun, <span class="literal">false</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">document</span>.attachEvent) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">type, element, fun</span>) </span>&#123;</span><br><span class="line">      element.attachEvent(<span class="string">&quot;on&quot;</span> + type, fun);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">type, element, fun</span>) </span>&#123;</span><br><span class="line">      element[<span class="string">&quot;on&quot;</span> + type] = fun;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
-
-<p>综上，当我们每次都需要进行条件判断，其实只需要判断一次，接下来的使用方式都不会发生改变的时候，想想是否可以考虑使用惰性函数。</p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
-<li><a href="https://xiaohuochai.site/JS/ECMA/types/LazyFunction.html">https://xiaohuochai.site/JS/ECMA/types/LazyFunction.html</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>JavaScript专题系列笔记</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>八、JavaScript专题之函数柯里化</title>
     <url>/2020/03/15/jsspecial/%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96/</url>
     <content><![CDATA[<p>函数式编程是一种编程风格，它尝试将函数作为参数传递（回调）并返回没有副作用的函数。因此带来了一些其他东西，比如纯函数、柯里化、高阶函数。<br>这里我们主要讨论函数柯里化的实现与应用场景。</p>
@@ -3741,6 +3706,41 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
 
 <p>sun_curry 方法的作用在与接收一个函数和若干参数，然后返回一个函数，该函数能接收后续若干参数。<br>curry 方法的作用就是递归调用辅助函数 sub_curry，实现函数柯里化。</p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://juejin.cn/post/6844903882208837645">https://juejin.cn/post/6844903882208837645</a></p>
+]]></content>
+      <categories>
+        <category>JavaScript专题系列笔记</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>十、JavaScript专题之惰性函数</title>
+    <url>/2020/03/28/jsspecial/%E6%83%B0%E6%80%A7%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<h2 id="什么是惰性函数"><a href="#什么是惰性函数" class="headerlink" title="什么是惰性函数"></a>什么是惰性函数</h2><p>惰性函数表示函数执行的分支只会在函数第一次调用的时候执行，在第一次调用过程中，该函数会被覆盖为另一个按照合适方式执行的函数，这样任何对原函数的调用就不用再经过执行的分支了。本文将详细介绍惰性函数</p>
+<span id="more"></span>
+
+<h2 id="使用背景"><a href="#使用背景" class="headerlink" title="使用背景"></a>使用背景</h2><p>我们知道 javascript 最大的问题就是浏览器的兼容问题，一个 api 在不同的浏览器调用的结果是不一样的，有的时候我们需要通过 if 判断来实现不同的兼容问题：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addEvent</span>(<span class="params">type, element, fun</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (element.addEventListener) &#123;</span><br><span class="line">    element.addEventListener(type, fun, <span class="literal">false</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (element.attachEvent) &#123;</span><br><span class="line">    element.attachEvent(<span class="string">&quot;on&quot;</span> + type, fun);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    element[<span class="string">&quot;on&quot;</span> + type] = fun;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面是一个兼容不同浏览器事件绑定的方法，但是，他有一个问题：</p>
+<p>每次调用 addEvent 函数的时候都要进行 if 判断，如果浏览器支持其中的一个方法，那么它就永远支持了，没有必要再进行其他分支的检测了。也就是说，if 语句不必每次都执行，代码可以运行的更快一些，解决方案就是惰性载入。</p>
+<h2 id="函数重写"><a href="#函数重写" class="headerlink" title="函数重写"></a>函数重写</h2><p>在介绍惰性函数之前，首先介绍函数重写技术。由于一个函数可以返回另一个函数，因此可以用新的函数来覆盖旧的函数。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">  a = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;b&quot;</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line">a(); <span class="comment">// a</span></span><br><span class="line">a(); <span class="comment">// b</span></span><br></pre></td></tr></table></figure>
+
+<p>第一次调用该函数时会 console.log(‘a’)会被执行；然后全局变量 a 被重定义，并被赋予新的函数。当该函数再次被调用时， console.log(‘b’)会被执行；</p>
+<h2 id="惰性函数"><a href="#惰性函数" class="headerlink" title="惰性函数"></a>惰性函数</h2><p>惰性函数的本质就是函数重写。所谓惰性载入，指函数执行的分支只会发生一次，有两种实现惰性载入的方式：</p>
+<p>1、第一种是在函数被调用时，再处理函数。函数在第一次调用时，该函数会被覆盖为另外一个按合适方式执行的函数，这样任何对原函数的调用都不用再经过执行的分支了。代码重写如下：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addEvent</span>(<span class="params">type, element, fun</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (element.addEventListener) &#123;</span><br><span class="line">    addEvent = <span class="function"><span class="keyword">function</span> (<span class="params">type, element, fun</span>) </span>&#123;</span><br><span class="line">      element.addEventListener(type, fun, <span class="literal">false</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (element.attachEvent) &#123;</span><br><span class="line">    addEvent = <span class="function"><span class="keyword">function</span> (<span class="params">type, element, fun</span>) </span>&#123;</span><br><span class="line">      element.attachEvent(<span class="string">&quot;on&quot;</span> + type, fun);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    addEvent = <span class="function"><span class="keyword">function</span> (<span class="params">type, element, fun</span>) </span>&#123;</span><br><span class="line">      element[<span class="string">&quot;on&quot;</span> + type] = fun;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> addEvent(type, element, fun);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个惰性载入的 addEvent()中，if 语句的每个分支都会为 addEvent 变量赋值，有效覆盖了原函数。最后一步便是调用了新赋函数。下一次调用 addEvent()时，便会直接调用新赋值的函数，这样就不用再执行 if 语句了。<br>但是，这种方法有个缺点，如果函数名称有所改变，修改起来比较麻烦。</p>
+<p>2、第二种是声明函数时就指定适当的函数。把嗅探浏览器的操作提前到代码加载的时候，在代码加载的时候就立刻进行一次判断，以便让 addEvent 返回一个包裹了正确逻辑的函数。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> addEvent = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">document</span>.addEventListener) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">type, element, fun</span>) </span>&#123;</span><br><span class="line">      element.addEventListener(type, fun, <span class="literal">false</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">document</span>.attachEvent) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">type, element, fun</span>) </span>&#123;</span><br><span class="line">      element.attachEvent(<span class="string">&quot;on&quot;</span> + type, fun);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">type, element, fun</span>) </span>&#123;</span><br><span class="line">      element[<span class="string">&quot;on&quot;</span> + type] = fun;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<p>综上，当我们每次都需要进行条件判断，其实只需要判断一次，接下来的使用方式都不会发生改变的时候，想想是否可以考虑使用惰性函数。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><a href="https://xiaohuochai.site/JS/ECMA/types/LazyFunction.html">https://xiaohuochai.site/JS/ECMA/types/LazyFunction.html</a></li>
+</ul>
 ]]></content>
       <categories>
         <category>JavaScript专题系列笔记</category>
@@ -4214,6 +4214,94 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
       </categories>
       <tags>
         <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>1.两数之和</title>
+    <url>/2017/05/07/leetcode/1.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/</url>
+    <content><![CDATA[<p>给定一个整数数组 nums  和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那   两个   整数，并返回它们的数组下标。</p>
+<p>你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。</p>
+<p>你可以按任意顺序返回答案。</p>
+<p>示例 1：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [2,7,11,15], target = 9</span><br><span class="line">输出：[0,1]</span><br><span class="line">解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。</span><br></pre></td></tr></table></figure>
+
+<p>示例 2：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [3,2,4], target = 6</span><br><span class="line">输出：[1,2]</span><br></pre></td></tr></table></figure>
+
+<p>示例 3：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [3,3], target = 6</span><br><span class="line">输出：[0,1]</span><br></pre></td></tr></table></figure>
+
+<p>常规方法：</p>
+<blockquote>
+<p>时间复杂度 O(n²)、空间复杂度 O(1)</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">nums</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">target</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number[]&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> twoSum = <span class="function"><span class="keyword">function</span> (<span class="params">nums, target</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">    <span class="keyword">let</span> items = nums[i];</span><br><span class="line">    <span class="keyword">let</span> index = nums.indexOf(target - items, i + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span> (index !== -<span class="number">1</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> [i, index];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>哈希表的方式:</p>
+<blockquote>
+<p>时间复杂度 O(n)、空间复杂度 O(n)</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> twoSum = <span class="function"><span class="keyword">function</span> (<span class="params">nums, target</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (map.has(target - nums[i])) &#123;</span><br><span class="line">      <span class="keyword">return</span> [map.get(target - nums[i]), i];</span><br><span class="line">    &#125;</span><br><span class="line">    map.set(nums[i], i);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>LeetCode题库</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2.两数相加</title>
+    <url>/2017/05/07/leetcode/2.%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/</url>
+    <content><![CDATA[<p>给你两个非空的链表，表示两个非负的整数。它们每位数字都是按照   逆序   的方式存储的，并且每个节点只能存储   一位   数字。</p>
+<p>请你将两个数相加，并以相同形式返回一个表示和的链表。</p>
+<p>你可以假设除了数字 0 之外，这两个数都不会以 0  开头。</p>
+<p>示例 1：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：l1 = [2,4,3], l2 = [5,6,4]</span><br><span class="line">输出：[7,0,8]</span><br><span class="line">解释：342 + 465 = 807.</span><br></pre></td></tr></table></figure>
+
+<p>示例 2：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：l1 = [0], l2 = [0]</span><br><span class="line">输出：[0]</span><br></pre></td></tr></table></figure>
+
+<p>示例 3：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]</span><br><span class="line">输出：[8,9,9,9,0,0,0,1]</span><br></pre></td></tr></table></figure>
+
+<p>链表定义如下：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ListNode</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.val = val;</span><br><span class="line">  <span class="built_in">this</span>.next = <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输入参数的封装：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createListNode</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">  nums += <span class="string">&quot;&quot;</span>;</span><br><span class="line">  <span class="keyword">var</span> result = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">    <span class="keyword">let</span> row = <span class="keyword">new</span> ListNode(<span class="built_in">Number</span>(nums[i]));</span><br><span class="line">    <span class="keyword">if</span> (i &gt; <span class="number">0</span>) &#123;</span><br><span class="line">      row.next = result;</span><br><span class="line">    &#125;</span><br><span class="line">    result = row;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> l1 = createListNode(<span class="number">342</span>);</span><br><span class="line"><span class="keyword">let</span> l2 = createListNode(<span class="number">465</span>);</span><br></pre></td></tr></table></figure>
+
+<p>实现方式:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;ListNode&#125;</span> <span class="variable">l1</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;ListNode&#125;</span> <span class="variable">l2</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;ListNode&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> addTwoNumbers = <span class="function"><span class="keyword">function</span> (<span class="params">l1, l2</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> result = <span class="keyword">new</span> ListNode(<span class="number">0</span>),</span><br><span class="line">    node = result;</span><br><span class="line">  <span class="keyword">while</span> (l1 || l2) &#123;</span><br><span class="line">    <span class="keyword">let</span> r = node.val,</span><br><span class="line">      i = (l1 &amp;&amp; l1.val) || <span class="number">0</span>,</span><br><span class="line">      j = (l2 &amp;&amp; l2.val) || <span class="number">0</span>,</span><br><span class="line">      sum = r + i + j,</span><br><span class="line">      m,</span><br><span class="line">      n;</span><br><span class="line">    <span class="keyword">if</span> (sum &gt;= <span class="number">10</span>) &#123;</span><br><span class="line">      m = <span class="number">1</span>;</span><br><span class="line">      n = sum - <span class="number">10</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      m = <span class="number">0</span>;</span><br><span class="line">      n = sum;</span><br><span class="line">    &#125;</span><br><span class="line">    l1 = l1 &amp;&amp; l1.next;</span><br><span class="line">    l2 = l2 &amp;&amp; l2.next;</span><br><span class="line">    node.val = n;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (m || l1 || l2) &#123;</span><br><span class="line">      node.next = <span class="keyword">new</span> ListNode(m);</span><br><span class="line">      node = node.next;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>LeetCode题库</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>3.无重复字符的最长子串</title>
+    <url>/2017/05/09/leetcode/3.%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/</url>
+    <content><![CDATA[<p>给定一个字符串 s ，请你找出其中不含有重复字符的 最长子串 的长度。</p>
+<p>示例 1：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入: s = &quot;abcabcbb&quot;</span><br><span class="line">输出: 3</span><br><span class="line">解释: 因为无重复字符的最长子串是 &quot;abc&quot;，所以其长度为 3。</span><br></pre></td></tr></table></figure>
+
+<p>示例 2：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入: s = &quot;bbbbb&quot;</span><br><span class="line">输出: 1</span><br><span class="line">解释: 因为无重复字符的最长子串是 &quot;b&quot;，所以其长度为 1。</span><br></pre></td></tr></table></figure>
+
+<p>示例 3：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入: s = &quot;pwwkew&quot;</span><br><span class="line">输出: 3</span><br><span class="line">解释: 因为无重复字符的最长子串是 &quot;wke&quot;，所以其长度为 3。</span><br><span class="line">     请注意，你的答案必须是 子串 的长度，&quot;pwke&quot; 是一个子序列，不是子串。</span><br></pre></td></tr></table></figure>
+
+<p>实现方式:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;string&#125;</span> <span class="variable">s</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> lengthOfLongestSubstring = <span class="function"><span class="keyword">function</span> (<span class="params">s</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> result = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, len = s.length; i &lt; len; i++) &#123;</span><br><span class="line">    <span class="keyword">let</span> set = <span class="keyword">new</span> <span class="built_in">Set</span>();</span><br><span class="line">    set.add(s.charAt(i));</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = i + <span class="number">1</span>; j &lt; len; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (set.has(s.charAt(j))) &#123;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      set.add(s.charAt(j));</span><br><span class="line">    &#125;</span><br><span class="line">    result = <span class="built_in">Math</span>.max(result, set.size);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>LeetCode题库</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
       </tags>
   </entry>
   <entry>
