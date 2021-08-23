@@ -160,7 +160,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives">
         
-          <span class="site-state-item-count">98</span>
+          <span class="site-state-item-count">100</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -216,6 +216,188 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2017/05/07/leetcode/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="muna">
+      <meta itemprop="description" content="Everything is good in its season.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/05/07/leetcode/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/" class="post-title-link" itemprop="url">1.两数之和</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-05-07 19:12:04" itemprop="dateCreated datePublished" datetime="2017-05-07T19:12:04+08:00">2017-05-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/LeetCode%E9%A2%98%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">LeetCode题库</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2017/05/07/leetcode/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/" class="post-meta-item leancloud_visitors" data-flag-title="1.两数之和" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>给定一个整数数组 nums  和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那   两个   整数，并返回它们的数组下标。</p>
+<p>你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。</p>
+<p>你可以按任意顺序返回答案。</p>
+<p>示例 1：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [2,7,11,15], target = 9</span><br><span class="line">输出：[0,1]</span><br><span class="line">解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。</span><br></pre></td></tr></table></figure>
+
+<p>示例 2：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [3,2,4], target = 6</span><br><span class="line">输出：[1,2]</span><br></pre></td></tr></table></figure>
+
+<p>示例 3：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [3,3], target = 6</span><br><span class="line">输出：[0,1]</span><br></pre></td></tr></table></figure>
+
+<p>常规方法：</p>
+<blockquote>
+<p>时间复杂度 O(n²)、空间复杂度 O(1)</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">nums</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">target</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number[]&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> twoSum = <span class="function"><span class="keyword">function</span> (<span class="params">nums, target</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">    <span class="keyword">let</span> items = nums[i];</span><br><span class="line">    <span class="keyword">let</span> index = nums.indexOf(target - items, i + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span> (index !== -<span class="number">1</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> [i, index];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>哈希表的方式:</p>
+<blockquote>
+<p>时间复杂度 O(n)、空间复杂度 O(n)</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> twoSum = <span class="function"><span class="keyword">function</span> (<span class="params">nums, target</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (map.has(target - nums[i])) &#123;</span><br><span class="line">      <span class="keyword">return</span> [map.get(target - nums[i]), i];</span><br><span class="line">    &#125;</span><br><span class="line">    map.set(nums[i], i);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2017/04/23/css%E4%B8%ADoverflow%E6%BB%91%E5%8A%A8%E6%95%88%E6%9E%9C%E5%9C%A8IOS%E4%B8%AD%E4%B8%8D%E6%B5%81%E7%95%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="muna">
+      <meta itemprop="description" content="Everything is good in its season.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/04/23/css%E4%B8%ADoverflow%E6%BB%91%E5%8A%A8%E6%95%88%E6%9E%9C%E5%9C%A8IOS%E4%B8%AD%E4%B8%8D%E6%B5%81%E7%95%85/" class="post-title-link" itemprop="url">css中overflow滑动效果在IOS中不流畅</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-04-23 14:20:10" itemprop="dateCreated datePublished" datetime="2017-04-23T14:20:10+08:00">2017-04-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/CSS/" itemprop="url" rel="index"><span itemprop="name">CSS</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2017/04/23/css%E4%B8%ADoverflow%E6%BB%91%E5%8A%A8%E6%95%88%E6%9E%9C%E5%9C%A8IOS%E4%B8%AD%E4%B8%8D%E6%B5%81%E7%95%85/" class="post-meta-item leancloud_visitors" data-flag-title="css中overflow滑动效果在IOS中不流畅" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>最近新作的一个项目中遇到一个问题，有一段很长的表格，手机显示器展示不全，需要做滑动继续展示的效果；<br>OK，很简单，使用overflow-x:auto;谷歌模拟器一切正常，安卓正常，可是打完包在IOS上，滑动效果慢到完全跟随手指的移动而移动，这样是肯定不行的经过百度发现了解决之道；<br>-webkit-overflow-scrolling: touch;<br>度娘说这句话是启动了硬件加速的特性，所以滑动起来会非常流畅；不过会影响性能；经过测试，发现影响看不出，果断选择用它；<br>完美解决~~~~~~~</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -886,166 +1068,6 @@ Given two integers x and y, calculate the Hamming distance.
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2016/07/15/H5%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98%E5%92%8C%E7%A6%BB%E7%BA%BF%E7%BC%93%E5%AD%98/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2016/07/12/H5%E6%96%B0%E7%89%B9%E6%80%A7%E2%80%94%E2%80%94Canvas/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="muna">
-      <meta itemprop="description" content="Everything is good in its season.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人笔记">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/07/12/H5%E6%96%B0%E7%89%B9%E6%80%A7%E2%80%94%E2%80%94Canvas/" class="post-title-link" itemprop="url">Canvas绘图技术</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2016-07-12 04:11:29" itemprop="dateCreated datePublished" datetime="2016-07-12T04:11:29+08:00">2016-07-12</time>
-    </span>
-
-  
-    <span id="/2016/07/12/H5%E6%96%B0%E7%89%B9%E6%80%A7%E2%80%94%E2%80%94Canvas/" class="post-meta-item leancloud_visitors" data-flag-title="Canvas绘图技术" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="HTML5-新特性——Canvas-绘图技术"><a href="#HTML5-新特性——Canvas-绘图技术" class="headerlink" title="HTML5 新特性——Canvas 绘图技术"></a>HTML5 新特性——Canvas 绘图技术</h2><p>提示：Canvas 绘图的难点在方法和属性的记忆上！<br>Canvas 技术用于在网页上实现绘图，主要应用领域：</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2016/07/12/H5%E6%96%B0%E7%89%B9%E6%80%A7%E2%80%94%E2%80%94Canvas/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2016/07/11/H5%E6%96%B0%E7%89%B9%E6%80%A7%E2%80%94%E2%80%94%E8%A7%86%E9%A2%91/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="muna">
-      <meta itemprop="description" content="Everything is good in its season.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人笔记">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2016/07/11/H5%E6%96%B0%E7%89%B9%E6%80%A7%E2%80%94%E2%80%94%E8%A7%86%E9%A2%91/" class="post-title-link" itemprop="url">H5新特性——音视频</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2016-07-11 22:11:29" itemprop="dateCreated datePublished" datetime="2016-07-11T22:11:29+08:00">2016-07-11</time>
-    </span>
-
-  
-    <span id="/2016/07/11/H5%E6%96%B0%E7%89%B9%E6%80%A7%E2%80%94%E2%80%94%E8%A7%86%E9%A2%91/" class="post-meta-item leancloud_visitors" data-flag-title="H5新特性——音视频" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>HTML5 之前在页面播放需要使用 flash 播放器；HTML5 添加两个标签：</p>
-<pre><code>&lt;video&gt;&lt;/video&gt;
-&lt;audio&gt;&lt;/audio&gt;
-</code></pre>
-<p>这两个标签有一些特殊属性、事件、方法。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2016/07/11/H5%E6%96%B0%E7%89%B9%E6%80%A7%E2%80%94%E2%80%94%E8%A7%86%E9%A2%91/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>

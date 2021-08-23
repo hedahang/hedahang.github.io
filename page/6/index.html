@@ -160,7 +160,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives">
         
-          <span class="site-state-item-count">98</span>
+          <span class="site-state-item-count">100</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -216,6 +216,186 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2017/05/21/leetcode/%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92%20II/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="muna">
+      <meta itemprop="description" content="Everything is good in its season.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/05/21/leetcode/%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92%20II/" class="post-title-link" itemprop="url">119. 杨辉三角 II</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-05-21 19:49:22" itemprop="dateCreated datePublished" datetime="2017-05-21T19:49:22+08:00">2017-05-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/LeetCode%E9%A2%98%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">LeetCode题库</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2017/05/21/leetcode/%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92%20II/" class="post-meta-item leancloud_visitors" data-flag-title="119. 杨辉三角 II" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>给定一个非负索引 rowIndex，返回「杨辉三角」的第 rowIndex 行。</p>
+<p>在「杨辉三角」中，每个数是它左上方和右上方的数的和。</p>
+<p><img src="https://pic.leetcode-cn.com/1626927345-DZmfxB-PascalTriangleAnimated2.gif" alt="杨辉三角"></p>
+<p>示例 1：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: rowIndex = 3</span><br><span class="line">输出: [1,3,3,1]</span><br></pre></td></tr></table></figure>
+
+<p>示例 2：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: rowIndex = 0</span><br><span class="line">输出: [1]</span><br></pre></td></tr></table></figure>
+
+<h3 id="循环遍历"><a href="#循环遍历" class="headerlink" title="循环遍历"></a>循环遍历</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">rowIndex</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number[]&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> getRow = <span class="function"><span class="keyword">function</span> (<span class="params">rowIndex</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> result = [],</span><br><span class="line">    cur = [];</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; rowIndex + <span class="number">1</span>; i++) &#123;</span><br><span class="line">    cur = <span class="keyword">new</span> <span class="built_in">Array</span>(i + <span class="number">1</span>).fill(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">1</span>; j &lt; i; j++) &#123;</span><br><span class="line">      cur[j] = result[j - <span class="number">1</span>] + [j];</span><br><span class="line">    &#125;</span><br><span class="line">    result = cur;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="线性递推"><a href="#线性递推" class="headerlink" title="线性递推"></a>线性递推</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> getRow = <span class="function"><span class="keyword">function</span> (<span class="params">rowIndex</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> row = <span class="keyword">new</span> <span class="built_in">Array</span>(rowIndex + <span class="number">1</span>).fill(<span class="number">0</span>);</span><br><span class="line">  row[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt;= rowIndex; ++i) &#123;</span><br><span class="line">    row[i] = (row[i - <span class="number">1</span>] * (rowIndex - i + <span class="number">1</span>)) / i;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> row;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2017/05/21/leetcode/%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="muna">
+      <meta itemprop="description" content="Everything is good in its season.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2017/05/21/leetcode/%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92/" class="post-title-link" itemprop="url">118. 杨辉三角</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-05-21 19:29:22" itemprop="dateCreated datePublished" datetime="2017-05-21T19:29:22+08:00">2017-05-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/LeetCode%E9%A2%98%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">LeetCode题库</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2017/05/21/leetcode/%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92/" class="post-meta-item leancloud_visitors" data-flag-title="118. 杨辉三角" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>给定一个非负整数 numRows，生成「杨辉三角」的前 numRows 行。</p>
+<p>在「杨辉三角」中，每个数是它左上方和右上方的数的和。</p>
+<p><img src="https://pic.leetcode-cn.com/1626927345-DZmfxB-PascalTriangleAnimated2.gif" alt="杨辉三角"></p>
+<p>示例 1：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: numRows = 5</span><br><span class="line">输出: [[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]</span><br></pre></td></tr></table></figure>
+
+<p>示例 2：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: numRows = 1</span><br><span class="line">输出: [[1]]</span><br></pre></td></tr></table></figure>
+
+<h3 id="循环遍历"><a href="#循环遍历" class="headerlink" title="循环遍历"></a>循环遍历</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">numRows</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number[][]&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> generate = <span class="function"><span class="keyword">function</span> (<span class="params">numRows</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> result = [];</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; numRows; i++) &#123;</span><br><span class="line">    <span class="keyword">let</span> arr = <span class="keyword">new</span> <span class="built_in">Array</span>(i + <span class="number">1</span>).fill(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">1</span>; j &lt; i; j++) &#123;</span><br><span class="line">      arr[j] = result[i - <span class="number">1</span>][j - <span class="number">1</span>] + result[i - <span class="number">1</span>][j];</span><br><span class="line">    &#125;</span><br><span class="line">    result.push(arr);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -948,210 +1128,6 @@
 <li>时间复杂度：O(n^2)，n 为数组长度</li>
 </ul>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> threeSum = <span class="function"><span class="keyword">function</span> (<span class="params">nums</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> result = [];</span><br><span class="line">  <span class="keyword">const</span> len = nums.length;</span><br><span class="line">  <span class="keyword">if</span> (nums == <span class="literal">null</span> || len &lt; <span class="number">3</span>) <span class="keyword">return</span> result;</span><br><span class="line">  nums.sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a - b);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (nums[i] &gt; <span class="number">0</span>) <span class="keyword">break</span>; <span class="comment">// 结束循环</span></span><br><span class="line">    <span class="keyword">if</span> (nums[i] === nums[i - <span class="number">1</span>]) <span class="keyword">continue</span>; <span class="comment">// 去重</span></span><br><span class="line">    <span class="keyword">let</span> L = i + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">let</span> R = len - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (L &lt; R) &#123;</span><br><span class="line">      <span class="keyword">let</span> sum = nums[i] + nums[L] + nums[R];</span><br><span class="line">      <span class="keyword">if</span> (sum === <span class="number">0</span>) &#123;</span><br><span class="line">        result.push([nums[L], nums[i], nums[R]]);</span><br><span class="line">        <span class="keyword">while</span> (L &lt; R &amp;&amp; nums[L] == nums[L + <span class="number">1</span>]) L++; <span class="comment">// 去重</span></span><br><span class="line">        <span class="keyword">while</span> (L &lt; R &amp;&amp; nums[R] == nums[R - <span class="number">1</span>]) R--; <span class="comment">// 去重</span></span><br><span class="line">        L++;</span><br><span class="line">        R--;</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sum &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        L++;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        R--;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2017/05/17/leetcode/%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="muna">
-      <meta itemprop="description" content="Everything is good in its season.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人笔记">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/05/17/leetcode/%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/" class="post-title-link" itemprop="url">11.盛最多水的容器</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-05-17 14:19:22" itemprop="dateCreated datePublished" datetime="2017-05-17T14:19:22+08:00">2017-05-17</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/LeetCode%E9%A2%98%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">LeetCode题库</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/2017/05/17/leetcode/%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/" class="post-meta-item leancloud_visitors" data-flag-title="11.盛最多水的容器" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>给你 n 个非负整数 a1，a2，…，an，每个数代表坐标中的一个点  (i, ai) 。在坐标内画 n 条垂直线，垂直线 i  的两个端点分别为  (i, ai) 和 (i, 0) 。找出其中的两条线，使得它们与  x  轴共同构成的容器可以容纳最多的水。</p>
-<p>说明：你不能倾斜容器。</p>
-<p>示例 1：</p>
-<p><img src="https://aliyun-lc-upload.oss-cn-hangzhou.aliyuncs.com/aliyun-lc-upload/uploads/2018/07/25/question_11.jpg" alt="示例图"></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入：[1,8,6,2,5,4,8,3,7]</span><br><span class="line">输出：49</span><br><span class="line">解释：图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。</span><br><span class="line">在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。</span><br></pre></td></tr></table></figure>
-
-<p>示例 2：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：height = [1,1]</span><br><span class="line">输出：1</span><br></pre></td></tr></table></figure>
-
-<p>示例 3：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：height = [4,3,2,1,4]</span><br><span class="line">输出：16</span><br></pre></td></tr></table></figure>
-
-<p>示例 4：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：height = [1,2,1]</span><br><span class="line">输出：2</span><br></pre></td></tr></table></figure>
-
-<p>暴力破解法:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">height</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> maxArea = <span class="function"><span class="keyword">function</span> (<span class="params">height</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> len = height.length;</span><br><span class="line">  <span class="keyword">let</span> max = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = i + <span class="number">1</span>; j &lt; len; j++) &#123;</span><br><span class="line">      <span class="keyword">let</span> area = (j - i) * <span class="built_in">Math</span>.min(height[i], height[j]);</span><br><span class="line">      max = <span class="built_in">Math</span>.max(max, area);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> max;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>上面的方法虽然功能实现了，但是不能 AC（因为超时了），所以我们得换一种实现方式。</p>
-<p>双指针：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> maxArea = <span class="function"><span class="keyword">function</span>(<span class="params">height</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> len = height.length;</span><br><span class="line">    <span class="keyword">let</span> max = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">let</span> i = <span class="number">0</span></span><br><span class="line">      , j = len - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (i !== j) &#123;</span><br><span class="line">        <span class="keyword">let</span> area = (j - i) * <span class="built_in">Math</span>.min(height[i], height[j]);</span><br><span class="line">        max = <span class="built_in">Math</span>.max(max, area);</span><br><span class="line">        <span class="keyword">if</span> (height[i] &lt;= height[j]) &#123;</span><br><span class="line">            i++</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            j--</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2017/05/17/leetcode/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%8C%B9%E9%85%8D/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="muna">
-      <meta itemprop="description" content="Everything is good in its season.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人笔记">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2017/05/17/leetcode/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%8C%B9%E9%85%8D/" class="post-title-link" itemprop="url">10.正则表达式匹配</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2017-05-17 13:19:22" itemprop="dateCreated datePublished" datetime="2017-05-17T13:19:22+08:00">2017-05-17</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/LeetCode%E9%A2%98%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">LeetCode题库</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/2017/05/17/leetcode/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%8C%B9%E9%85%8D/" class="post-meta-item leancloud_visitors" data-flag-title="10.正则表达式匹配" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>给你一个字符串  s  和一个字符规律  p，请你来实现一个支持 ‘.’  和  ‘*‘  的正则表达式匹配。</p>
-<p>‘.’ 匹配任意单个字符<br>‘*‘ 匹配零个或多个前面的那一个元素<br>所谓匹配，是要涵盖   整个   字符串  s 的，而不是部分字符串。</p>
-<p>示例 1：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;aa&quot; p = &quot;a&quot;</span><br><span class="line">输出：false</span><br><span class="line">解释：&quot;a&quot; 无法匹配 &quot;aa&quot; 整个字符串。</span><br></pre></td></tr></table></figure>
-
-<p>示例 2：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;aa&quot; p = &quot;a*&quot;</span><br><span class="line">输出：true</span><br><span class="line">解释：因为 &#x27;*&#x27; 代表可以匹配零个或多个前面的那一个元素, 在这里前面的元素就是 &#x27;a&#x27;。因此，字符串 &quot;aa&quot; 可被视为 &#x27;a&#x27; 重复了一次。</span><br></pre></td></tr></table></figure>
-
-<p>示例 3：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;ab&quot; p = &quot;.*&quot;</span><br><span class="line">输出：true</span><br><span class="line">解释：&quot;.*&quot; 表示可匹配零个或多个（&#x27;*&#x27;）任意字符（&#x27;.&#x27;）。</span><br></pre></td></tr></table></figure>
-
-<p>示例 4：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;aab&quot; p = &quot;c*a*b&quot;</span><br><span class="line">输出：true</span><br><span class="line">解释：因为 &#x27;*&#x27; 表示零个或多个，这里 &#x27;c&#x27; 为 0 个, &#x27;a&#x27; 被重复一次。因此可以匹配字符串 &quot;aab&quot;。</span><br></pre></td></tr></table></figure>
-
-<p>示例 5：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;mississippi&quot; p = &quot;mis*is*p*.&quot;</span><br><span class="line">输出：false</span><br></pre></td></tr></table></figure>
-
-<p>取巧通过方法:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;string&#125;</span> <span class="variable">s</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;string&#125;</span> <span class="variable">p</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;boolean&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> isMatch = <span class="function"><span class="keyword">function</span> (<span class="params">s, p</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> reg = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">`^<span class="subst">$&#123;p&#125;</span>$`</span>);</span><br><span class="line">  <span class="keyword">return</span> reg.test(s);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>上面的方法虽然能过，但这不是出题的本意，下面我们换一种实现方式。</p>
-<p>动态规划：</p>
-<!-- TODO 待补充 -->
-
-
 
       
     </div>
