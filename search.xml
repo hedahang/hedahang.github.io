@@ -1,45 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>AJAX的XMLHttpRequest对象使用</title>
-    <url>/2016/05/20/AJAX%E7%9A%84XMLHttpRequest%E5%AF%B9%E8%B1%A1%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<blockquote>
-<h3 id="代码如下"><a href="#代码如下" class="headerlink" title="代码如下"></a>代码如下</h3></blockquote>
-<span id="more"></span>
-<blockquote>
-<pre><code>   //1 创建XHR对象
-    var xhr = null;
-    if(window.XMLHttpRequest)&#123;  //新IE、其它浏览器
-        xhr = new XMLHttpRequest();  
-    &#125;else &#123; //老IE
-        xhr = new ActiveXObject(&#39;Microsoft.XMLHTTP&#39;);
-    &#125;
-//2 监听XHR的状态改变
-    xhr.onreadystatechange = function()&#123;
-      if(xhr.readyState===4)&#123; //DONE响应消息接收完成
-        if(xhr.status===200)&#123;
-          console.log(&#39;响应接收完成且成功&#39;);
-          console.log(&#39;响应主体：&#39;+xhr.responseText);
-          doResponse(xhr.responseText);//调用自定义的函数，处理响应数据
-        &#125;else &#123;
-          console.log(&#39;响应接收完成但不成功&#39;);
-          console.log(&#39;响应状态码为：&#39;+xhr.status);
-        &#125;
-      &#125;
-    &#125;
-//3 打开连接
-    xhr.open(&#39;GET&#39;,&#39;test.php?uname=&#39;+n, true);
-//4 发送请求消息
-    xhr.send( null );
-</code></pre>
-</blockquote>
-]]></content>
-      <tags>
-        <tag>AJAX</tag>
-        <tag>JS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>关于JS的模块化开发总结</title>
     <url>/2017/04/10/CommonJSAMDCMD%E5%8C%BA%E5%88%AB/</url>
     <content><![CDATA[<p>一直都在说JS的模块化开发，以前研究和使用过require之类的方法，但是一直不是很明确，今天还是在总结一下：</p>
@@ -81,6 +42,45 @@
       </categories>
       <tags>
         <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>AJAX的XMLHttpRequest对象使用</title>
+    <url>/2016/05/20/AJAX%E7%9A%84XMLHttpRequest%E5%AF%B9%E8%B1%A1%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<blockquote>
+<h3 id="代码如下"><a href="#代码如下" class="headerlink" title="代码如下"></a>代码如下</h3></blockquote>
+<span id="more"></span>
+<blockquote>
+<pre><code>   //1 创建XHR对象
+    var xhr = null;
+    if(window.XMLHttpRequest)&#123;  //新IE、其它浏览器
+        xhr = new XMLHttpRequest();  
+    &#125;else &#123; //老IE
+        xhr = new ActiveXObject(&#39;Microsoft.XMLHTTP&#39;);
+    &#125;
+//2 监听XHR的状态改变
+    xhr.onreadystatechange = function()&#123;
+      if(xhr.readyState===4)&#123; //DONE响应消息接收完成
+        if(xhr.status===200)&#123;
+          console.log(&#39;响应接收完成且成功&#39;);
+          console.log(&#39;响应主体：&#39;+xhr.responseText);
+          doResponse(xhr.responseText);//调用自定义的函数，处理响应数据
+        &#125;else &#123;
+          console.log(&#39;响应接收完成但不成功&#39;);
+          console.log(&#39;响应状态码为：&#39;+xhr.status);
+        &#125;
+      &#125;
+    &#125;
+//3 打开连接
+    xhr.open(&#39;GET&#39;,&#39;test.php?uname=&#39;+n, true);
+//4 发送请求消息
+    xhr.send( null );
+</code></pre>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>JS</tag>
+        <tag>AJAX</tag>
       </tags>
   </entry>
   <entry>
@@ -336,6 +336,66 @@ var ctx = canvas.getContext( '2d' );
       </tags>
   </entry>
   <entry>
+    <title>HTML5离线存储和本地缓存</title>
+    <url>/2016/07/15/H5%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98%E5%92%8C%E7%A6%BB%E7%BA%BF%E7%BC%93%E5%AD%98/</url>
+    <content><![CDATA[<h1 id="一、离线缓存"><a href="#一、离线缓存" class="headerlink" title="一、离线缓存"></a>一、离线缓存</h1><p>有一个 web 应用有三个文件 index.html,a.js,b.css，现在需要把 js 和 css 文件缓存起来</p>
+<span id="more"></span>
+<p>1.在 index.html 里加上<html manifest="test.manifest"></p>
+<p>2.manifest 清单格式如下</p>
+<blockquote>
+<pre><code> CACHE MANIFEST
+</code></pre>
+</blockquote>
+<pre><code>#上面一句必须
+#v1.0.0
+#需要缓存的文件
+CACHE:
+a.js
+b.css
+#不需要缓存的文件
+NETWORK:
+*
+#无法访问页面
+FALLBACK:
+404.html
+复制代码
+</code></pre>
+<p>3.manifest 文件的 mime-type 必须是 text/cache-manifest 类型</p>
+<blockquote>
+<p>注意点：<br>a.对于每个 index.html?id=1 或 index.html?id=2 都会分别缓存 index.html 页面，可以通过 chrome 浏览器 Resources/Application Cache 观察<br>b.如果想更新缓存内容，只要修改下 manifest 文件即可，如改版本号 v1.0.1</p>
+</blockquote>
+<!-- more -->
+
+<p>4.离线存储如果资源有更新，可以通过如下代码来监听，但第一次加载还会是原来的版本</p>
+<blockquote>
+<pre><code> window.applicationCache.addEventListener(&#39;updateready&#39;,function(e)&#123;
+</code></pre>
+</blockquote>
+<pre><code>    if(window.applicationCache.status == window.applicationCache.UPDATEREADY)&#123;
+        window.applicationCache.swapCache();
+        if(confirm(&quot;loding new?&quot;))&#123;
+            window.location.reload()
+        &#125;
+    &#125;
+&#125;,false)
+</code></pre>
+<h1 id="二、本地缓存"><a href="#二、本地缓存" class="headerlink" title="二、本地缓存"></a>二、本地缓存</h1><pre><code>localStorage.setItem(&quot;key&quot;,&quot;value&quot;)
+
+localStorage.getItem(&quot;key&quot;,&quot;value&quot;)
+
+localStorage.removeItem(&quot;key&quot;)
+
+localStorage.clear()
+</code></pre>
+<p>1.本地存储永不过期，除非自己去清除</p>
+<p>2.可以通过 chrome 浏览器 Resources/Local Storage 来查看</p>
+<p>3.不同域下就算 key 相同取不到的值也不同，如 localhost 和 127.0.0.1</p>
+]]></content>
+      <tags>
+        <tag>H5</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hamming Distance</title>
     <url>/2016/09/03/HammingDistance/</url>
     <content><![CDATA[<h1 style="color:#2dbe60"> Hamming Distance </h1>
@@ -586,66 +646,6 @@ count; // 3
       </tags>
   </entry>
   <entry>
-    <title>HTML5离线存储和本地缓存</title>
-    <url>/2016/07/15/H5%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98%E5%92%8C%E7%A6%BB%E7%BA%BF%E7%BC%93%E5%AD%98/</url>
-    <content><![CDATA[<h1 id="一、离线缓存"><a href="#一、离线缓存" class="headerlink" title="一、离线缓存"></a>一、离线缓存</h1><p>有一个 web 应用有三个文件 index.html,a.js,b.css，现在需要把 js 和 css 文件缓存起来</p>
-<span id="more"></span>
-<p>1.在 index.html 里加上<html manifest="test.manifest"></p>
-<p>2.manifest 清单格式如下</p>
-<blockquote>
-<pre><code> CACHE MANIFEST
-</code></pre>
-</blockquote>
-<pre><code>#上面一句必须
-#v1.0.0
-#需要缓存的文件
-CACHE:
-a.js
-b.css
-#不需要缓存的文件
-NETWORK:
-*
-#无法访问页面
-FALLBACK:
-404.html
-复制代码
-</code></pre>
-<p>3.manifest 文件的 mime-type 必须是 text/cache-manifest 类型</p>
-<blockquote>
-<p>注意点：<br>a.对于每个 index.html?id=1 或 index.html?id=2 都会分别缓存 index.html 页面，可以通过 chrome 浏览器 Resources/Application Cache 观察<br>b.如果想更新缓存内容，只要修改下 manifest 文件即可，如改版本号 v1.0.1</p>
-</blockquote>
-<!-- more -->
-
-<p>4.离线存储如果资源有更新，可以通过如下代码来监听，但第一次加载还会是原来的版本</p>
-<blockquote>
-<pre><code> window.applicationCache.addEventListener(&#39;updateready&#39;,function(e)&#123;
-</code></pre>
-</blockquote>
-<pre><code>    if(window.applicationCache.status == window.applicationCache.UPDATEREADY)&#123;
-        window.applicationCache.swapCache();
-        if(confirm(&quot;loding new?&quot;))&#123;
-            window.location.reload()
-        &#125;
-    &#125;
-&#125;,false)
-</code></pre>
-<h1 id="二、本地缓存"><a href="#二、本地缓存" class="headerlink" title="二、本地缓存"></a>二、本地缓存</h1><pre><code>localStorage.setItem(&quot;key&quot;,&quot;value&quot;)
-
-localStorage.getItem(&quot;key&quot;,&quot;value&quot;)
-
-localStorage.removeItem(&quot;key&quot;)
-
-localStorage.clear()
-</code></pre>
-<p>1.本地存储永不过期，除非自己去清除</p>
-<p>2.可以通过 chrome 浏览器 Resources/Local Storage 来查看</p>
-<p>3.不同域下就算 key 相同取不到的值也不同，如 localhost 和 127.0.0.1</p>
-]]></content>
-      <tags>
-        <tag>H5</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>content换行符与打点loading效果实例页面</title>
     <url>/2020/06/19/content%E6%8D%A2%E8%A1%8C%E7%AC%A6%E4%B8%8E%E6%89%93%E7%82%B9loading%E6%95%88%E6%9E%9C%E5%AE%9E%E4%BE%8B%E9%A1%B5%E9%9D%A2/</url>
     <content><![CDATA[<p>代码如下：</p>
@@ -775,36 +775,6 @@ localStorage.clear()
 
 <p>More info: <a href="https://hexo.io/docs/deployment.html">Deployment</a></p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>hexo 常用命令</title>
-    <url>/2016/06/28/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
-    <content><![CDATA[<h2 id="常用部署步骤"><a href="#常用部署步骤" class="headerlink" title="常用部署步骤"></a>常用部署步骤</h2><blockquote>
-<p>每次部署的步骤，可按以下三步来进行。</p>
-</blockquote>
-<pre><code>hexo clean
-hexo generate
-hexo deploy
-</code></pre>
-<span id="more"></span>
-<h6 id="一些常用命令："><a href="#一些常用命令：" class="headerlink" title="一些常用命令："></a>一些常用命令：</h6><pre><code>hexo new ”postName” #新建文章
-
-hexo new page ”pageName” #新建页面
-
-hexo generate #生成静态页面至public目录
-
-hexo server #开启预览访问端口（默认端口4000，’ctrl + c’关闭server）
-
-hexo deploy #将.deploy目录部署到GitHub
-
-hexo help # 查看帮助
-
-hexo version #查看Hexo的版本
-</code></pre>
-]]></content>
-      <tags>
-        <tag>hexo</tag>
-      </tags>
   </entry>
   <entry>
     <title>关于Markdown的基本用法</title>
@@ -1091,7 +1061,7 @@ Markdown 使用一种和链接很相似的语法来标记图片，同样也允�
 &amp;#109;&quot;&gt;&amp;#x61;&amp;#x64;&amp;#x64;&amp;#x72;&amp;#x65;&amp;#115;&amp;#115;&amp;#64;&amp;#101;&amp;#120;&amp;#x61;
 &amp;#109;&amp;#x70;&amp;#x6C;e&amp;#x2E;&amp;#99;&amp;#111;&amp;#109;&lt;/a&gt;
 </code></pre>
-<p>在浏览器里面，这段字串（其实是 <a href="mailto:address@example.com">address@example.com</a>）会变成一个可以点击的「<a href="mailto:&#97;&#100;&#100;&#x72;&#101;&#x73;&#x73;&#64;&#101;&#x78;&#97;&#109;&#112;&#108;&#101;&#x2e;&#99;&#111;&#x6d;">&#97;&#100;&#100;&#x72;&#101;&#x73;&#x73;&#64;&#101;&#x78;&#97;&#109;&#112;&#108;&#101;&#x2e;&#99;&#111;&#x6d;</a>」链接。</p>
+<p>在浏览器里面，这段字串（其实是 <a href="mailto:address@example.com">address@example.com</a>）会变成一个可以点击的「<a href="mailto:&#x61;&#100;&#100;&#114;&#x65;&#115;&#115;&#x40;&#101;&#120;&#x61;&#x6d;&#x70;&#x6c;&#x65;&#x2e;&#x63;&#x6f;&#109;">&#x61;&#100;&#100;&#114;&#x65;&#115;&#115;&#x40;&#101;&#120;&#x61;&#x6d;&#x70;&#x6c;&#x65;&#x2e;&#x63;&#x6f;&#109;</a>」链接。</p>
 </blockquote>
 <p>（这种作法虽然可以糊弄不少的机器人，但并不能全部挡下来，不过总比什么都不做好些。不管怎样，公开你的信箱终究会引来广告信件的。）</p>
 <blockquote>
@@ -1116,6 +1086,36 @@ _   底线
 ]]></content>
       <tags>
         <tag>study</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hexo 常用命令</title>
+    <url>/2016/06/28/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<h2 id="常用部署步骤"><a href="#常用部署步骤" class="headerlink" title="常用部署步骤"></a>常用部署步骤</h2><blockquote>
+<p>每次部署的步骤，可按以下三步来进行。</p>
+</blockquote>
+<pre><code>hexo clean
+hexo generate
+hexo deploy
+</code></pre>
+<span id="more"></span>
+<h6 id="一些常用命令："><a href="#一些常用命令：" class="headerlink" title="一些常用命令："></a>一些常用命令：</h6><pre><code>hexo new ”postName” #新建文章
+
+hexo new page ”pageName” #新建页面
+
+hexo generate #生成静态页面至public目录
+
+hexo server #开启预览访问端口（默认端口4000，’ctrl + c’关闭server）
+
+hexo deploy #将.deploy目录部署到GitHub
+
+hexo help # 查看帮助
+
+hexo version #查看Hexo的版本
+</code></pre>
+]]></content>
+      <tags>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -2004,7 +2004,7 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
 <h2 id="关于收费"><a href="#关于收费" class="headerlink" title="关于收费"></a>关于收费</h2><p><strong>马克飞象</strong>为新用户提供 10 天的试用期，试用期过后需要<a href="maxiang.info/vip.html">续费</a>才能继续使用。未购买或者未及时续费，将不能同步新的笔记。之前保存过的笔记依然可以编辑。</p>
 <h2 id="反馈与建议"><a href="#反馈与建议" class="headerlink" title="反馈与建议"></a>反馈与建议</h2><ul>
 <li>微博：<a href="http://weibo.com/u/2788354117">@马克飞象</a>，<a href="http://weibo.com/ggock" title="开发者个人账号">@GGock</a></li>
-<li>邮箱：<a href="mailto:&#x68;&#x75;&#x73;&#x74;&#x67;&#111;&#99;&#107;&#64;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#111;&#x6d;">&#x68;&#x75;&#x73;&#x74;&#x67;&#111;&#99;&#107;&#64;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#111;&#x6d;</a></li>
+<li>邮箱：<a href="mailto:&#x68;&#117;&#x73;&#116;&#x67;&#111;&#99;&#107;&#x40;&#103;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">&#x68;&#117;&#x73;&#116;&#x67;&#111;&#99;&#107;&#x40;&#103;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a></li>
 </ul>
 <hr>
 <p>感谢阅读这份帮助文档。请点击右上角，绑定印象笔记账号，开启全新的记录与分享体验吧。</p>
@@ -3431,102 +3431,55 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
   <entry>
     <title>十三、ES6系列之Class的继承</title>
     <url>/2020/05/20/es6/class%E7%9A%84%E7%BB%A7%E6%89%BF/</url>
-    <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在 ES5 中，实现继承的方式有多重，比如：</p>
+    <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在 ES5 中，实现继承的方式有多种，详细可以参考前面的文章<a href="https://hedahang.github.io/2019/09/30/deepjs/%E7%BB%A7%E6%89%BF%E7%9A%84%E5%A4%9A%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%92%8C%E4%BC%98%E7%BC%BA%E7%82%B9/">JavaScript 之继承的多种方式和优缺点</a>，这里主要说说 ES6 中 Class 的继承。</p>
 <span id="more"></span>
 
-<ul>
-<li>原型链继承</li>
-<li>借用构造函数(经典继承)</li>
-<li>组合继承</li>
-<li>原型式继承</li>
-<li>寄生式继承</li>
-<li>寄生组合式继承</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype.sayHello = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;hello, I am &quot;</span> + <span class="built_in">this</span>.name;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> kevin = <span class="keyword">new</span> Person(<span class="string">&quot;Kevin&quot;</span>);</span><br><span class="line">kevin.sayHello(); <span class="comment">// hello, I am Kevin</span></span><br></pre></td></tr></table></figure>
+<p>Class 可以通过 extends 关键字实现继承，这比 ES5 的通过修改原型链实现继承，要清晰和方便很多。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Parent</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">name</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Child</span> <span class="keyword">extends</span> <span class="title">Parent</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">name, age</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>(name); <span class="comment">// 调用父类的 constructor(name)</span></span><br><span class="line">    <span class="built_in">this</span>.age = age;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> child1 = <span class="keyword">new</span> Child(<span class="string">&quot;kevin&quot;</span>, <span class="string">&quot;18&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(child1);</span><br></pre></td></tr></table></figure>
 
-<p>ES6 提供了更接近传统语言的写法，引入了 Class（类）这个概念，作为对象的模板。通过 class 关键字，可以定义类。<br>ES6 的 class 可以看作一个语法糖，它的绝大部分功能，ES5 都可以做到，新的 class 写法只是让对象原型的写法更加清晰、更像面向对象编程的语法而已。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">name</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">sayHello</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;hello, I am &quot;</span> + <span class="built_in">this</span>.name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> kevin = <span class="keyword">new</span> Person(<span class="string">&quot;Kevin&quot;</span>);</span><br><span class="line">kevin.sayHello(); <span class="comment">// hello, I am Kevin</span></span><br></pre></td></tr></table></figure>
+<p>值得注意的是：</p>
+<p>super 关键字表示父类的构造函数，相当于 ES5 的 Parent.call(this)。<br>子类必须在 constructor 方法中调用 super 方法，否则新建实例时会报错。这是因为子类没有自己的 this 对象，而是继承父类的 this 对象，然后对其进行加工。如果不调用 super 方法，子类就得不到 this 对象。<br>也正是因为这个原因，在子类的构造函数中，只有调用 super 之后，才可以使用 this 关键字，否则会报错。</p>
+<h2 id="类的-prototype-属性和proto属性"><a href="#类的-prototype-属性和proto属性" class="headerlink" title="类的 prototype 属性和proto属性"></a>类的 prototype 属性和<strong>proto</strong>属性</h2><p>在 ES5 实现之中，每一个对象都有__proto__属性，指向对应的构造函数的 prototype 属性。在 ES6 中，父类的静态方法，可以被子类继承，Class 作为构造函数的语法糖，同时有 prototype 属性和__proto__属性，因此同时存在两条继承链。</p>
+<ol>
+<li>子类的__proto__属性，表示构造函数的继承，总是指向父类。</li>
+<li>子类 prototype 属性的__proto__属性，表示方法的继承，总是指向父类的 prototype 属性。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> <span class="function"><span class="title">classMethod</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bar</span> <span class="keyword">extends</span> <span class="title">Foo</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">Bar.classMethod(); <span class="comment">// &#x27;hello&#x27;</span></span><br><span class="line"><span class="built_in">console</span>.log(Child.__proto__ === Parent); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(Child.prototype.__proto__ === Parent.prototype); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
 
-<p>我们可以看到 ES5 的构造函数 Person，对应 ES6 的 Person 类的 constructor 方法。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">Person.prototype.constructor === Person; <span class="comment">// true</span></span><br><span class="line">kevin.constructor === Person.prototype.constructor; <span class="comment">// true</span></span><br><span class="line">kevin.sayHello === Person.prototype.sayHello; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>ES6 的原型链示意图为：</p>
+<p><img src="/images/class-prototype.png" alt="(原型图)"></p>
+<p>我们会发现，相比寄生组合式继承，ES6 的 class 多了一个 Object.setPrototypeOf(Child, Parent) 的步骤。</p>
+<p>Object.setPrototypeOf 等同于：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.setPrototypeOf = <span class="function"><span class="keyword">function</span> (<span class="params">obj, proto</span>) </span>&#123;</span><br><span class="line">  obj.__proto__ = proto;</span><br><span class="line">  <span class="keyword">return</span> obj;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>上面代码表明，类本身就指向构造函数，类的所有方法都定义在类的 prototype 属性上面。</p>
-<p>值得注意的是：类的内部所有定义的方法，都是不可枚举的（non-enumerable）</p>
-<p>以上面的例子为例，在 ES6 中：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.keys(Person.prototype); <span class="comment">// []</span></span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertyNames(Person.prototype); <span class="comment">// [&quot;constructor&quot;, &quot;sayHello&quot;]</span></span><br></pre></td></tr></table></figure>
+<h2 id="Object-getPrototypeOf"><a href="#Object-getPrototypeOf" class="headerlink" title="Object.getPrototypeOf()"></a>Object.getPrototypeOf()</h2><p>Object.getPrototypeOf 方法可以用来从子类上获取父类。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.getPrototypeOf(Child) === Parent;</span><br><span class="line"><span class="comment">// true</span></span><br></pre></td></tr></table></figure>
 
-<p>然而在 ES5 中：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Object</span>.keys(Person.prototype); <span class="comment">// [&#x27;sayHello&#x27;]</span></span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertyNames(Person.prototype); <span class="comment">// [&quot;constructor&quot;, &quot;sayHello&quot;]</span></span><br></pre></td></tr></table></figure>
+<p>因此，可以使用这个方法判断，一个类是否继承了另一个类。</p>
+<h2 id="Babel-编译"><a href="#Babel-编译" class="headerlink" title="Babel 编译"></a>Babel 编译</h2><p>先看这段代码：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Parent</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">name</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Child</span> <span class="keyword">extends</span> <span class="title">Parent</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">name, age</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>(name); <span class="comment">// 调用父类的 constructor(name)</span></span><br><span class="line">    <span class="built_in">this</span>.age = age;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> child1 = <span class="keyword">new</span> Child(<span class="string">&quot;kevin&quot;</span>, <span class="string">&quot;18&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(child1);</span><br></pre></td></tr></table></figure>
 
-<h2 id="类的实例"><a href="#类的实例" class="headerlink" title="类的实例"></a>类的实例</h2><p>生成类的实例的写法，与 ES5 完全一样，也是使用 new 命令。如果忘记加上 new，像函数那样调用 Class，将会报错。<br>这也是类跟普通构造函数的一个主要区别，后者不用 new 也可以执行。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 报错</span></span><br><span class="line"><span class="keyword">var</span> person = Person(<span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 正确</span></span><br><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> Person(<span class="number">2</span>, <span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+<p><a href="https://babeljs.io/repl">Babel 编译</a>后为：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="meta">&quot;use strict&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_typeof</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="string">&quot;@babel/helpers - typeof&quot;</span>;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">Symbol</span> === <span class="string">&quot;function&quot;</span> &amp;&amp; <span class="keyword">typeof</span> <span class="built_in">Symbol</span>.iterator === <span class="string">&quot;symbol&quot;</span>) &#123;</span><br><span class="line">    _typeof = <span class="function"><span class="keyword">function</span> <span class="title">_typeof</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">typeof</span> obj;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    _typeof = <span class="function"><span class="keyword">function</span> <span class="title">_typeof</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> obj &amp;&amp;</span><br><span class="line">        <span class="keyword">typeof</span> <span class="built_in">Symbol</span> === <span class="string">&quot;function&quot;</span> &amp;&amp;</span><br><span class="line">        obj.constructor === <span class="built_in">Symbol</span> &amp;&amp;</span><br><span class="line">        obj !== <span class="built_in">Symbol</span>.prototype</span><br><span class="line">        ? <span class="string">&quot;symbol&quot;</span></span><br><span class="line">        : <span class="keyword">typeof</span> obj;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> _typeof(obj);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_inherits</span>(<span class="params">subClass, superClass</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> superClass !== <span class="string">&quot;function&quot;</span> &amp;&amp; superClass !== <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">&quot;Super expression must either be null or a function&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  subClass.prototype = <span class="built_in">Object</span>.create(superClass &amp;&amp; superClass.prototype, &#123;</span><br><span class="line">    <span class="attr">constructor</span>: &#123; <span class="attr">value</span>: subClass, <span class="attr">writable</span>: <span class="literal">true</span>, <span class="attr">configurable</span>: <span class="literal">true</span> &#125;,</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">if</span> (superClass) _setPrototypeOf(subClass, superClass);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_setPrototypeOf</span>(<span class="params">o, p</span>) </span>&#123;</span><br><span class="line">  _setPrototypeOf =</span><br><span class="line">    <span class="built_in">Object</span>.setPrototypeOf ||</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">_setPrototypeOf</span>(<span class="params">o, p</span>) </span>&#123;</span><br><span class="line">      o.__proto__ = p;</span><br><span class="line">      <span class="keyword">return</span> o;</span><br><span class="line">    &#125;;</span><br><span class="line">  <span class="keyword">return</span> _setPrototypeOf(o, p);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_createSuper</span>(<span class="params">Derived</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> hasNativeReflectConstruct = _isNativeReflectConstruct();</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">_createSuperInternal</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> Super = _getPrototypeOf(Derived),</span><br><span class="line">      result;</span><br><span class="line">    <span class="keyword">if</span> (hasNativeReflectConstruct) &#123;</span><br><span class="line">      <span class="keyword">var</span> NewTarget = _getPrototypeOf(<span class="built_in">this</span>).constructor;</span><br><span class="line">      result = <span class="built_in">Reflect</span>.construct(Super, <span class="built_in">arguments</span>, NewTarget);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      result = Super.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> _possibleConstructorReturn(<span class="built_in">this</span>, result);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_possibleConstructorReturn</span>(<span class="params">self, call</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (call &amp;&amp; (_typeof(call) === <span class="string">&quot;object&quot;</span> || <span class="keyword">typeof</span> call === <span class="string">&quot;function&quot;</span>)) &#123;</span><br><span class="line">    <span class="keyword">return</span> call;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (call !== <span class="keyword">void</span> <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(</span><br><span class="line">      <span class="string">&quot;Derived constructors may only return object or undefined&quot;</span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> _assertThisInitialized(self);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_assertThisInitialized</span>(<span class="params">self</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (self === <span class="keyword">void</span> <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">ReferenceError</span>(</span><br><span class="line">      <span class="string">&quot;this hasn&#x27;t been initialised - super() hasn&#x27;t been called&quot;</span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> self;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_isNativeReflectConstruct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">Reflect</span> === <span class="string">&quot;undefined&quot;</span> || !<span class="built_in">Reflect</span>.construct) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">Reflect</span>.construct.sham) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">Proxy</span> === <span class="string">&quot;function&quot;</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="built_in">Boolean</span>.prototype.valueOf.call(</span><br><span class="line">      <span class="built_in">Reflect</span>.construct(<span class="built_in">Boolean</span>, [], <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;)</span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_getPrototypeOf</span>(<span class="params">o</span>) </span>&#123;</span><br><span class="line">  _getPrototypeOf = <span class="built_in">Object</span>.setPrototypeOf</span><br><span class="line">    ? <span class="built_in">Object</span>.getPrototypeOf</span><br><span class="line">    : <span class="function"><span class="keyword">function</span> <span class="title">_getPrototypeOf</span>(<span class="params">o</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> o.__proto__ || <span class="built_in">Object</span>.getPrototypeOf(o);</span><br><span class="line">      &#125;;</span><br><span class="line">  <span class="keyword">return</span> _getPrototypeOf(o);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_instanceof</span>(<span class="params">left, right</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (</span><br><span class="line">    right != <span class="literal">null</span> &amp;&amp;</span><br><span class="line">    <span class="keyword">typeof</span> <span class="built_in">Symbol</span> !== <span class="string">&quot;undefined&quot;</span> &amp;&amp;</span><br><span class="line">    right[<span class="built_in">Symbol</span>.hasInstance]</span><br><span class="line">  ) &#123;</span><br><span class="line">    <span class="keyword">return</span> !!right[<span class="built_in">Symbol</span>.hasInstance](left);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> left <span class="keyword">instanceof</span> right;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_classCallCheck</span>(<span class="params">instance, Constructor</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!_instanceof(instance, Constructor)) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">&quot;Cannot call a class as a function&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> Parent = <span class="function"><span class="keyword">function</span> <span class="title">Parent</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  _classCallCheck(<span class="built_in">this</span>, Parent);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">this</span>.name = name;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> Child = <span class="comment">/*#__PURE__*/</span> (<span class="function"><span class="keyword">function</span> (<span class="params">_Parent</span>) </span>&#123;</span><br><span class="line">  _inherits(Child, _Parent);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> _super = _createSuper(Child);</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">Child</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> _this;</span><br><span class="line"></span><br><span class="line">    _classCallCheck(<span class="built_in">this</span>, Child);</span><br><span class="line"></span><br><span class="line">    _this = _super.call(<span class="built_in">this</span>, name); <span class="comment">// 调用父类的 constructor(name)</span></span><br><span class="line"></span><br><span class="line">    _this.age = age;</span><br><span class="line">    <span class="keyword">return</span> _this;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> Child;</span><br><span class="line">&#125;)(Parent);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> child1 = <span class="keyword">new</span> Child(<span class="string">&quot;kevin&quot;</span>, <span class="string">&quot;18&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(child1);</span><br></pre></td></tr></table></figure>
 
-<p>与 ES5 一样，实例的属性除非显式定义在其本身（即定义在 this 对象上），否则都是定义在原型上（即定义在 class 上）。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">name, age</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.age = age;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">sayHello</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="string">&quot;hello, I am &quot;</span> + <span class="built_in">this</span>.name + <span class="string">&quot;and I&#x27;m &quot;</span> + <span class="built_in">this</span>.age + <span class="string">&quot; years old today&quot;</span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> kevin = <span class="keyword">new</span> Person(<span class="string">&quot;Kevin&quot;</span>，<span class="number">8</span>);</span><br><span class="line">kevin.sayHello(); <span class="comment">// &quot;hello, I am Kevinand I&#x27;m 8 years old today&quot;</span></span><br><span class="line">kevin.hasOwnProperty(<span class="string">&#x27;name&#x27;</span>) <span class="comment">// true</span></span><br><span class="line">kevin.hasOwnProperty(<span class="string">&#x27;age&#x27;</span>) <span class="comment">// true</span></span><br><span class="line">kevin.hasOwnProperty(<span class="string">&#x27;sayHello&#x27;</span>) <span class="comment">// false</span></span><br><span class="line">kevin.__proto__.hasOwnProperty(<span class="string">&#x27;sayHello&#x27;</span>) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h3 id="inherits"><a href="#inherits" class="headerlink" title="_inherits"></a>_inherits</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_inherits</span>(<span class="params">subClass, superClass</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// extend 的继承目标必须是函数或者是 null</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> superClass !== <span class="string">&quot;function&quot;</span> &amp;&amp; superClass !== <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">&quot;Super expression must either be null or a function&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 类似于 ES5 的寄生组合式继承，使用 Object.create，设置子类 prototype 属性的 __proto__ 属性指向父类的 prototype 属性</span></span><br><span class="line">  subClass.prototype = <span class="built_in">Object</span>.create(superClass &amp;&amp; superClass.prototype, &#123;</span><br><span class="line">    <span class="attr">constructor</span>: &#123;</span><br><span class="line">      <span class="attr">value</span>: subClass,</span><br><span class="line">      <span class="attr">writable</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">configurable</span>: <span class="literal">true</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">// 设置子类的 __proto__ 属性指向父类</span></span><br><span class="line">  <span class="keyword">if</span> (superClass) _setPrototypeOf(subClass, superClass);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>同样，类的所有实例共享一个原型对象。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> p1 = <span class="keyword">new</span> Person(<span class="string">&quot;lilei&quot;</span>, <span class="number">13</span>);</span><br><span class="line"><span class="keyword">var</span> p2 = <span class="keyword">new</span> Person(<span class="string">&quot;hanmeimei&quot;</span>, <span class="number">12</span>);</span><br><span class="line"></span><br><span class="line">p1.__proto__ === p2.__proto__; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h3 id="createSuper"><a href="#createSuper" class="headerlink" title="_createSuper"></a>_createSuper</h3><p>函数里返回一个_possibleConstructorReturn 方法：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">_createSuper(Child);</span><br><span class="line"><span class="comment">// 可以简化为:</span></span><br><span class="line">_possibleConstructorReturn(<span class="built_in">this</span>, Parent.call(<span class="built_in">this</span>, name));</span><br><span class="line"><span class="comment">// 也就是说_this = _super.call(this, name);可以替换为：</span></span><br><span class="line">_this = _possibleConstructorReturn(<span class="built_in">this</span>, Parent.call(<span class="built_in">this</span>, name));</span><br></pre></td></tr></table></figure>
 
-<h2 id="实例属性"><a href="#实例属性" class="headerlink" title="实例属性"></a>实例属性</h2><p>以前，我们定义实例属性，只能写在类的 constructor 方法里面。比如：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>._count = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>_possibleConstructorReturn 的源码为：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_possibleConstructorReturn</span>(<span class="params">self, call</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (call &amp;&amp; (_typeof(call) === <span class="string">&quot;object&quot;</span> || <span class="keyword">typeof</span> call === <span class="string">&quot;function&quot;</span>)) &#123;</span><br><span class="line">    <span class="keyword">return</span> call;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (call !== <span class="keyword">void</span> <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(</span><br><span class="line">      <span class="string">&quot;Derived constructors may only return object or undefined&quot;</span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> _assertThisInitialized(self);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>然而现在也可以定义在类的最顶层，其他都不变：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  _count = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这里我们判断 Parent.call(this, name) 的返回值的类型：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 返回值： undefined</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Parent</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.xxx = xxx;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 返回值：Object</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Parent</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="attr">name</span>: <span class="string">&quot;kevin&quot;</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 返回值：null</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Parent</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>对应到 ES5 都是：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>._count = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="静态方法"><a href="#静态方法" class="headerlink" title="静态方法"></a>静态方法</h2><p>所有在类中定义的方法，都会被实例继承。如果在一个方法前，加上 static 关键字，就表示该方法不会被实例继承，而是直接通过类来调用，这就称为“静态方法”。</p>
-<p>ES6 中：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> <span class="function"><span class="title">sayHello</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Person.sayHello(); <span class="comment">// &#x27;hello&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> kevin = <span class="keyword">new</span> Person();</span><br><span class="line">kevin.sayHello(); <span class="comment">// TypeError: kevin.sayHello is not a function</span></span><br></pre></td></tr></table></figure>
-
-<p>对应 ES5：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">Person.sayHello = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Person.sayHello(); <span class="comment">// &#x27;hello&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> kevin = <span class="keyword">new</span> Person();</span><br><span class="line">kevin.sayHello(); <span class="comment">// TypeError: kevin.sayHello is not a function</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="静态属性"><a href="#静态属性" class="headerlink" title="静态属性"></a>静态属性</h2><p>静态属性指的是 Class 本身的属性，即 Class.propName，而不是定义在实例对象（this）上的属性。以前，我们添加静态属性只可以这样：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">Person.name = <span class="string">&quot;kevin&quot;</span>;</span><br></pre></td></tr></table></figure>
-
-<p>现在有一个提案提供了类的静态属性，写法是在实例属性的前面，加上 static 关键字。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> name = <span class="string">&quot;kevin&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>对应到 ES5 都是：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">Person.name = <span class="string">&quot;kevin&quot;</span>;</span><br></pre></td></tr></table></figure>
-
-<h2 id="getter-和-setter"><a href="#getter-和-setter" class="headerlink" title="getter 和 setter"></a>getter 和 setter</h2><p>与 ES5 一样，在“类”的内部可以使用 get 和 set 关键字，对某个属性设置存值函数和取值函数，拦截该属性的存取行为。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="keyword">get</span> <span class="title">name</span>() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;kevin&quot;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">set</span> <span class="title">name</span>(<span class="params">newName</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;new name 为：&quot;</span> + newName);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> person = <span class="keyword">new</span> Person();</span><br><span class="line"></span><br><span class="line">person.name = <span class="string">&quot;daisy&quot;</span>;</span><br><span class="line"><span class="comment">// new name 为：daisy</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(person.name);</span><br><span class="line"><span class="comment">// kevin</span></span><br></pre></td></tr></table></figure>
-
-<p>对应到 ES5 中：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype = &#123;</span><br><span class="line">  <span class="keyword">get</span> <span class="title">name</span>() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;kevin&quot;</span>;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="keyword">set</span> <span class="title">name</span>(<span class="params">newName</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;new name 为：&quot;</span> + newName);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> person = <span class="keyword">new</span> Person();</span><br><span class="line"></span><br><span class="line">person.name = <span class="string">&quot;daisy&quot;</span>;</span><br><span class="line"><span class="comment">// new name 为：daisy</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(person.name);</span><br><span class="line"><span class="comment">// kevin</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Babel-编译"><a href="#Babel-编译" class="headerlink" title="Babel 编译"></a>Babel 编译</h2><p>现在我们已经知道了有关“类”的方法中，ES6 与 ES5 是如何对应的，实际上 Babel 在编译时并不会直接就转成这种形式，Babel 会自己生成一些辅助函数，帮助实现 ES6 的特性。</p>
-<p>我们可以在 Babel 官网的 <a href="https://babeljs.io/repl/#?babili=false&evaluate=true&lineWrap=false&presets=es2015%2Creact%2Cstage-2&targets=&browsers=&builtIns=false&debug=false&code_lz=Q">Try it out</a> 页面查看 ES6 的代码编译成什么样子。</p>
-<h3 id="编译（一）"><a href="#编译（一）" class="headerlink" title="编译（一）"></a>编译（一）</h3><p>ES6 代码为：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">name</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Babel 编译为：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="meta">&quot;use strict&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_instanceof</span>(<span class="params">left, right</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (</span><br><span class="line">    right != <span class="literal">null</span> &amp;&amp;</span><br><span class="line">    <span class="keyword">typeof</span> <span class="built_in">Symbol</span> !== <span class="string">&quot;undefined&quot;</span> &amp;&amp;</span><br><span class="line">    right[<span class="built_in">Symbol</span>.hasInstance]</span><br><span class="line">  ) &#123;</span><br><span class="line">    <span class="keyword">return</span> !!right[<span class="built_in">Symbol</span>.hasInstance](left);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> left <span class="keyword">instanceof</span> right;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_classCallCheck</span>(<span class="params">instance, Constructor</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!_instanceof(instance, Constructor)) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">&quot;Cannot call a class as a function&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> Person = <span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  _classCallCheck(<span class="built_in">this</span>, Person);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">this</span>.name = name;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>_instanceof 用于判断某对象是否为某构造器的实例。<br>_classCallCheck 的作用是检查 Person 是否是通过 new 的方式调用，在上面，我们也说过，类必须使用 new 调用，否则会报错。</p>
-<p>当我们使用 var person = Person() 的形式调用的时候，this 指向 window，所以 instance instanceof Constructor 就会为 false，与 ES6 的要求一致。</p>
-<h3 id="编译（二）"><a href="#编译（二）" class="headerlink" title="编译（二）"></a>编译（二）</h3><p>ES6 代码为：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 实例属性</span></span><br><span class="line">  foo = <span class="string">&quot;foo&quot;</span>;</span><br><span class="line">  <span class="comment">// 静态属性</span></span><br><span class="line">  <span class="keyword">static</span> bar = <span class="string">&quot;bar&quot;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">name</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="meta">&quot;use strict&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_instanceof</span>(<span class="params">left, right</span>) </span>&#123;...&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_classCallCheck</span>(<span class="params">instance, Constructor</span>) </span>&#123;...&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_defineProperty</span>(<span class="params">obj, key, value</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (key <span class="keyword">in</span> obj) &#123;</span><br><span class="line">    <span class="built_in">Object</span>.defineProperty(obj, key, &#123;</span><br><span class="line">      <span class="attr">value</span>: value,</span><br><span class="line">      <span class="attr">enumerable</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">configurable</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">writable</span>: <span class="literal">true</span></span><br><span class="line">    &#125;);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    obj[key] = value;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> Person = <span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  _classCallCheck(<span class="built_in">this</span>, Person);</span><br><span class="line"></span><br><span class="line">  _defineProperty(<span class="built_in">this</span>, <span class="string">&quot;foo&quot;</span>, <span class="string">&#x27;foo&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">this</span>.name = name;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">_defineProperty(Person, <span class="string">&quot;bar&quot;</span>, <span class="string">&#x27;bar&#x27;</span>);</span><br></pre></td></tr></table></figure>
-
-<p>_defineProperty 的作用是给某对象上定义一个新属性，或者修改一个对象的现有属性，并返回此对象。</p>
-<h3 id="编译（三）"><a href="#编译（三）" class="headerlink" title="编译（三）"></a>编译（三）</h3><p>ES6 代码为：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">name</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">sayHello</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;hello, I am &quot;</span> + <span class="built_in">this</span>.name;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">static</span> <span class="function"><span class="title">onlySayHello</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">get</span> <span class="title">name</span>() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;kevin&quot;</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">set</span> <span class="title">name</span>(<span class="params">newName</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;new name 为：&quot;</span> + newName);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>对应到 ES5 的代码应该是：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype = &#123;</span><br><span class="line">  <span class="attr">sayHello</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;hello, I am &quot;</span> + <span class="built_in">this</span>.name;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="keyword">get</span> <span class="title">name</span>() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;kevin&quot;</span>;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="keyword">set</span> <span class="title">name</span>(<span class="params">newName</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;new name 为：&quot;</span> + newName);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Person.onlySayHello = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>Babel 编译后为：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_instanceof</span>(<span class="params">left, right</span>) </span>&#123;...&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_classCallCheck</span>(<span class="params">instance, Constructor</span>) </span>&#123;...&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_defineProperty</span>(<span class="params">obj, key, value</span>) </span>&#123;...&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_createClass</span>(<span class="params">Constructor, protoProps, staticProps</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (protoProps) _defineProperties(Constructor.prototype, protoProps);</span><br><span class="line">  <span class="keyword">if</span> (staticProps) _defineProperties(Constructor, staticProps);</span><br><span class="line">  <span class="keyword">return</span> Constructor;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> Person = <span class="comment">/*#__PURE__*/</span><span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    _classCallCheck(<span class="built_in">this</span>, Person);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  _createClass(Person, [&#123;</span><br><span class="line">    <span class="attr">key</span>: <span class="string">&quot;sayHello&quot;</span>,</span><br><span class="line">    <span class="attr">value</span>: <span class="function"><span class="keyword">function</span> <span class="title">sayHello</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">&quot;hello, I am &quot;</span> + <span class="built_in">this</span>.name;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, &#123;</span><br><span class="line">    <span class="attr">key</span>: <span class="string">&quot;name&quot;</span>,</span><br><span class="line">    <span class="attr">get</span>: <span class="function"><span class="keyword">function</span> <span class="title">get</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">&quot;kevin&quot;</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">set</span>: <span class="function"><span class="keyword">function</span> <span class="title">set</span>(<span class="params">newName</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">&quot;new name 为：&quot;</span> + newName);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;], [&#123;</span><br><span class="line">    <span class="attr">key</span>: <span class="string">&quot;onlySayHello&quot;</span>,</span><br><span class="line">    <span class="attr">value</span>: <span class="function"><span class="keyword">function</span> <span class="title">onlySayHello</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;]);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> Person;</span><br><span class="line">&#125;();</span><br></pre></td></tr></table></figure>
-
-<p>我们可以看到 Babel 生成了一个 _createClass 辅助函数，该函数传入三个参数，第一个是构造函数，在这个例子中也就是 Person，第二个是要添加到原型上的函数数组，第三个是要添加到构造函数本身的函数数组，也就是所有添加 static 关键字的函数。该函数的作用就是将函数数组中的方法添加到构造函数或者构造函数的原型中，最后返回这个构造函数。</p>
+<p>所以对于 Parent.call(this) 的值，如果是 object 类型或者是 function 类型，就返回 Parent.call(this)，如果是 null 或者基本类型的值或者是 undefined，都会返回 self 也就是子类的 this。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>最后总体看下如何实现继承：<br>首先执行 _inherits(Child, Parent)，建立 Child 和 Parent 的原型链关系，即 Object.setPrototypeOf(Child.prototype, Parent.prototype) 和 Object.setPrototypeOf(Child, Parent)。</p>
+<p>然后调用 Parent.call(this, name)，根据 Parent 构造函数的返回值类型确定子类构造函数 this 的初始值 _this。</p>
+<p>最终，根据子类构造函数，修改 _this 的值，然后返回该值。</p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
-<li><a href="https://github.com/mqyqingfeng/Blog/issues/105">https://github.com/mqyqingfeng/Blog/issues/105</a></li>
-<li><a href="https://es6.ruanyifeng.com/#docs/class">https://es6.ruanyifeng.com/#docs/class</a></li>
+<li><a href="https://github.com/mqyqingfeng/Blog/issues/106">https://github.com/mqyqingfeng/Blog/issues/106</a></li>
+<li><a href="https://es6.ruanyifeng.com/#docs/class-extends">https://es6.ruanyifeng.com/#docs/class-extends</a></li>
 </ul>
 ]]></content>
       <categories>
@@ -5273,9 +5226,6 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
 <h2 id="安装-nrm"><a href="#安装-nrm" class="headerlink" title="安装 nrm"></a>安装 nrm</h2><p>nrm 是管理 npm 源的，为了下载包更快。</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 安装nrm</span><br><span class="line">npm install -g nrm</span><br><span class="line"></span><br><span class="line"># 列出可用源</span><br><span class="line">nrm ls</span><br><span class="line"></span><br><span class="line"># 切换源</span><br><span class="line">nrm use taobao</span><br></pre></td></tr></table></figure>
 ]]></content>
-      <categories>
-        <category>ES6系列</category>
-      </categories>
       <tags>
         <tag>Node</tag>
       </tags>
