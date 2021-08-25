@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"hedahang.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="本文主要讨论下计算机如何将浮点数存储在有数量限制的内存中。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浮点数的二进制表示">
+<meta property="og:url" content="https://hedahang.github.io/2021/08/20/javascript/%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%A1%A8%E7%A4%BA/index.html">
+<meta property="og:site_name" content="个人笔记">
+<meta property="og:description" content="本文主要讨论下计算机如何将浮点数存储在有数量限制的内存中。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hedahang.github.io/images/chart.png">
+<meta property="og:image" content="https://hedahang.github.io/images/floating_point_frac.png">
+<meta property="og:image" content="https://hedahang.github.io/images/IEEE-754-32.png">
+<meta property="og:image" content="https://hedahang.github.io/images/IEEE-754-32_2.png">
+<meta property="article:published_time" content="2021-08-20T08:33:55.000Z">
+<meta property="article:modified_time" content="2021-08-20T08:33:55.000Z">
+<meta property="article:author" content="muna">
+<meta property="article:tag" content="JS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hedahang.github.io/images/chart.png">
+
+
+<link rel="canonical" href="https://hedahang.github.io/2021/08/20/javascript/%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%A1%A8%E7%A4%BA/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://hedahang.github.io/2021/08/20/javascript/%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%A1%A8%E7%A4%BA/","path":"2021/08/20/javascript/浮点数的二进制表示/","title":"浮点数的二进制表示"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>浮点数的二进制表示 | 个人笔记</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?d9bdb6166b41cc3154f5904bfba322a3"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">个人笔记</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Quick notes</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section">首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives" rel="section">归档</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags" rel="section">标签</a></li>
+        <li class="menu-item menu-item-about"><a href="/about" rel="section">关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%A1%A8%E7%A4%BA%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%B0%8F%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">如何表示二进制小数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IEEE-754-%E6%A0%87%E5%87%86"><span class="nav-number">2.</span> <span class="nav-text">IEEE 754 标准</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7"><span class="nav-number">3.</span> <span class="nav-text">转换工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0-1-0-2-0-3"><span class="nav-number">4.</span> <span class="nav-text">0.1+0.2!&#x3D;0.3</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0%E8%BF%90%E7%AE%97"><span class="nav-number">4.1.</span> <span class="nav-text">浮点数运算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%B9%E9%98%B6"><span class="nav-number">4.1.1.</span> <span class="nav-text">对阶</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%BE%E6%95%B0%E8%BF%90%E7%AE%97"><span class="nav-number">4.1.2.</span> <span class="nav-text">尾数运算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%84%E6%A0%BC%E5%8C%96"><span class="nav-number">4.1.3.</span> <span class="nav-text">规格化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%88%8D%E5%85%A5%E5%A4%84%E7%90%86"><span class="nav-number">4.1.4.</span> <span class="nav-text">舍入处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%BA%A2%E5%87%BA%E5%88%A4%E6%96%AD"><span class="nav-number">4.1.5.</span> <span class="nav-text">溢出判断</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">5.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">muna</p>
+  <div class="site-description" itemprop="description">Everything is good in its season.</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+        
+          <span class="site-state-item-count">101</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags">
+          
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/hedahang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;hedahang" rel="noopener" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Munachar" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Munachar" rel="noopener" target="_blank">Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://weibo.com/p/1005051065718667/home?from=page_100505&mod=TAB&is_all=1#place" title="微博 → http:&#x2F;&#x2F;weibo.com&#x2F;p&#x2F;1005051065718667&#x2F;home?from&#x3D;page_100505&amp;mod&#x3D;TAB&amp;is_all&#x3D;1#place" rel="noopener" target="_blank">微博</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.csdn.net/" title="CSDN → http:&#x2F;&#x2F;www.csdn.net&#x2F;" rel="noopener" target="_blank">CSDN</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/08/20/javascript/%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%A1%A8%E7%A4%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="muna">
+      <meta itemprop="description" content="Everything is good in its season.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          浮点数的二进制表示
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-08-20 16:33:55" itemprop="dateCreated datePublished" datetime="2021-08-20T16:33:55+08:00">2021-08-20</time>
+    </span>
+
+  
+    <span id="/2021/08/20/javascript/%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%A1%A8%E7%A4%BA/" class="post-meta-item leancloud_visitors" data-flag-title="浮点数的二进制表示" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>本文主要讨论下计算机如何将浮点数存储在有数量限制的内存中。</p>
+<span id="more"></span>
+
+<h2 id="如何表示二进制小数"><a href="#如何表示二进制小数" class="headerlink" title="如何表示二进制小数"></a>如何表示二进制小数</h2><p>假设我们有 16 位（2 个字节）来存储数字。在 16 位中，我们可以存储以下范围内[0, 65535]整数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">(0000000000000000)₂ = (0)₁₀</span><br><span class="line"></span><br><span class="line">(0000000000010001)₂ =</span><br><span class="line">    (1 × 2⁴) +</span><br><span class="line">    (0 × 2³) +</span><br><span class="line">    (0 × 2²) +</span><br><span class="line">    (0 × 2¹) +</span><br><span class="line">    (1 × 2⁰) = (17)₁₀</span><br><span class="line"></span><br><span class="line">(1111111111111111)₂ =</span><br><span class="line">    (1 × 2¹⁵) +</span><br><span class="line">    (1 × 2¹⁴) +</span><br><span class="line">    (1 × 2¹³) +</span><br><span class="line">    (1 × 2¹²) +</span><br><span class="line">    (1 × 2¹¹) +</span><br><span class="line">    (1 × 2¹⁰) +</span><br><span class="line">    (1 × 2⁹) +</span><br><span class="line">    (1 × 2⁸) +</span><br><span class="line">    (1 × 2⁷) +</span><br><span class="line">    (1 × 2⁶) +</span><br><span class="line">    (1 × 2⁵) +</span><br><span class="line">    (1 × 2⁴) +</span><br><span class="line">    (1 × 2³) +</span><br><span class="line">    (1 × 2²) +</span><br><span class="line">    (1 × 2¹) +</span><br><span class="line">    (1 × 2⁰) = (65535)₁₀</span><br></pre></td></tr></table></figure>
+
+<p>如果我们需要一个有符号整数， 最高位表示符号,0 为正,1 为负。在这种情况下，16 位整型数据的取值范围是[-32768, +32767]。</p>
+<p>这时我们可以看出，这种方法不允许表示浮点数（如：27.15625），下面我们来看看浮点数 27.15625 用二进制如何表示：<br>整数部分</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(27)₁₀ = (11011)₂</span><br></pre></td></tr></table></figure>
+
+<p>小数部分，我们按照乘 2 余 1 法则，将十进制小数转为二进制小数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0.15625 * 2² = 0.3125; // &lt; 1</span><br><span class="line">0.3125 * 2 = 0.625;   // &lt; 1</span><br><span class="line">0.625 * 2 = 1.25;     // &gt; 1</span><br><span class="line">0.25 * 2 = 0.5;       // &lt; 1</span><br><span class="line">0.5 * 2 = 1;          // = 1</span><br></pre></td></tr></table></figure>
+
+<p>则 0.15625 转换成二进制：00101</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(0.15625)₁₀ = (0 x 2⁻¹) + (0 x 2⁻²) + (1 x 2⁻³) + (0 × 2⁻⁴) + (1 × 2⁻⁵)</span><br></pre></td></tr></table></figure>
+
+<p>现在，我们可以得到看上去有点像的二进制的小数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(27.15625)₁₀ = (11011.00101)₂</span><br><span class="line">(27.5)10 = (11011.1)₂</span><br></pre></td></tr></table></figure>
+
+<p>但是这里小数点并不能被计算机处理，计算机认识 0 和 1。所以，我们需要进一步处理，将符号、小数点也数字化，基本思路就是：</p>
+<ul>
+<li>0 表示正数，1 表示负数，将符号 1，0 数字化；</li>
+<li>用科学计数将小数整数化；</li>
+</ul>
+<p>下面我们以 IEEE754 为例，我们看下十进制浮点数如何表示成二进制浮点数进行存储。</p>
+<h2 id="IEEE-754-标准"><a href="#IEEE-754-标准" class="headerlink" title="IEEE 754 标准"></a>IEEE 754 标准</h2><p>IEEE，电气和电子工程师协会( 全称是 Institute of Electrical and Electronics Engineers)是一个国际性的电子技术与信息科学工程师的协会，是目前全球最大的非营利性专业技术学会，<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/IEEE_754">IEEE 754</a> 标准是 IEEE 二进位浮点数算术标准（IEEE Standard for Floating-Point Arithmetic）的标准编号。<br>根据国际标准 IEEE 754，任意一个二进制浮点数 V 可以表示成下面的形式：</p>
+<p><img src="/images/chart.png" alt="图片"><br>也就是浮点数的实际值，可以分为三个部分：</p>
+<ul>
+<li>(-1)^s 表示符号位，当 s=0，V 为正数；当 s=1，V 为负数。</li>
+<li>M 表示有效数字，大于等于 1，小于 2。</li>
+<li>2^E 表示指数位。</li>
+</ul>
+<p>举例来说：</p>
+<p>十进制的 5.0，写成二进制是 101.0，相当于 1.01×2^2。那么，按照上面 V 的格式，可以得出 s=0，M=1.01，E=2。<br>十进制的-5.0，写成二进制是-101.0，相当于-1.01×2^2。那么，s=1，M=1.01，E=2。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">5.0 -&gt; 101.0 -&gt; (-1)⁰ * 1.01 * 2²</span><br><span class="line">-5.0 -&gt; -101.0 -&gt; (-1)¹ * 1.01 * 2²</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/floating_point_frac.png" alt="图片"></p>
+<p>IEEE 754 对有效数字 M 和指数 E，还有一些特别规定。<br>前面说过，1≤M&lt;2，也就是说，M 可以写成 1.xxxxxx 的形式，其中 xxxxxx 表示小数部分。IEEE 754 规定，在计算机内部保存 M 时，默认这个数的第一位总是 1，因此可以被舍去，只保存后面的 xxxxxx 部分。比如保存 1.01 的时候，只保存 01，等到读取的时候，再把第一位的 1 加上去。这样做的目的，是节省 1 位有效数字。以 32 位浮点数为例，留给 M 只有 23 位，将第一位的 1 舍去以后，等于可以保存 24 位有效数字。</p>
+<p>至于指数 E，情况就比较复杂。</p>
+<p>首先，E 为一个无符号整数（unsigned int）。这意味着，如果 E 为 8 位，它的取值范围为 0~255；如果 E 为 11 位，它的取值范围为 0~2047。但是，我们知道，科学计数法中的 E 是可以出现负数的，<strong>所以 IEEE 754 规定，E 的真实值必须再减去一个中间数，对于 8 位的 E，这个中间数是 127；对于 11 位的 E，这个中间数是 1023。</strong></p>
+<p>比如，2^10 的 E 是 10，所以保存成 32 位浮点数时，必须保存成 10+127=137，即 10001001。</p>
+<p>然后，指数 E 还可以再分成三种情况：</p>
+<ol>
+<li><p> E 不全为 0 或不全为 1。这时，浮点数就采用上面的规则表示，即指数 E 的计算值减去 127（或 1023），得到真实值，再将有效数字 M 前加上第一位的 1。</p>
+</li>
+<li><p> E 全为 0。这时，浮点数的指数 E 等于 1-127（或者 1-1023），有效数字 M 不再加上第一位的 1，而是还原为 0.xxxxxx 的小数。这样做是为了表示 ±0，以及接近于 0 的很小的数字。</p>
+</li>
+<li><p> E 全为 1。这时，如果有效数字 M 全为 0，表示 ± 无穷大（正负取决于符号位 s）；如果有效数字 M 不全为 0，表示这个数不是一个数（NaN）。</p>
+</li>
+</ol>
+<p>一般来说，现在的编译器都支持两种浮点格式，一种是单精度，一种是双精度。单双精度分别对应于编程语言当中的 float 和 double 类型。其中 float 是单精度的，采用 32 位二进制表示，其中 1 位符号位，8 位阶码以及 23 位尾数。double 是双精度的，采用 64 位二进制表示，其中 1 位符号位，11 位阶码以及 52 位尾数，js 中的浮点数就是双进度的。如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>符号位</th>
+<th>阶码</th>
+<th>尾数</th>
+<th>总位数</th>
+<th>偏移值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单精度</td>
+<td>1</td>
+<td>8</td>
+<td>23</td>
+<td>32</td>
+<td>127</td>
+</tr>
+<tr>
+<td>双精度</td>
+<td>1</td>
+<td>11</td>
+<td>52</td>
+<td>64</td>
+<td>1023</td>
+</tr>
+</tbody></table>
+<p>为了更好地了解 IEEE 754 标准的工作原理。为简单起见，这里使用 32 位数字，但同样的方法也适用于 64 位数字。</p>
+<p>还是开头的例子，我们把十进制浮点数(27.15625)转换成二进制，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(27.15625)₁₀ -&gt; (11011.00101)₂ -&gt; 1.101100101 * 2⁴;</span><br><span class="line"></span><br><span class="line">1. 符号位： 正数，s = 0,</span><br><span class="line">2. 阶数为4，则阶码 = 4 + 127 = 131 = (1 × 2⁷) + (1 × 2¹) + (1 × 2⁰) = 10000011</span><br><span class="line">3. 尾数，101100101，不足23位，右侧补0。</span><br><span class="line"></span><br><span class="line">最终结果如下：</span><br><span class="line">0 10000011 10110010100000000000000</span><br></pre></td></tr></table></figure>
+
+<p>示例图：</p>
+<p><img src="/images/IEEE-754-32.png" alt="图片"></p>
+<p>下面我们再看一个列子，把(-10.15)转换成二进制，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(10.15)₁₀ -&gt; (1010.0010011001...1001...)₂ -&gt; 1.0100010011001...1001... * 2³;</span><br><span class="line"></span><br><span class="line">1. 符号位： 负数，s = 1,</span><br><span class="line">2. 阶数为3，则阶码 = 3 + 127 = 130 = (1 × 2⁷) + (1 × 2¹) = 10000010</span><br><span class="line">3. 尾数，0100010011001...1001...，尾数部分是01000+n个1001无限循环小数，由于存储位数限制，只能是 23位，因此第24位0要进行舍去操作，1入0舍。</span><br><span class="line"></span><br><span class="line">最终结果如下：</span><br><span class="line">1 10000010  01000100110011001100110</span><br></pre></td></tr></table></figure>
+
+<p>示例图：</p>
+<p><img src="/images/IEEE-754-32_2.png" alt="图片"></p>
+<h2 id="转换工具"><a href="#转换工具" class="headerlink" title="转换工具"></a>转换工具</h2><p>这里有个网址，可以方便查看十进制、二进制、十六进制与单精度、双精度、四精度之间的关系：(<a target="_blank" rel="noopener" href="https://babbage.cs.qc.cuny.edu/IEEE-754/">https://babbage.cs.qc.cuny.edu/IEEE-754/</a>)</p>
+<h2 id="0-1-0-2-0-3"><a href="#0-1-0-2-0-3" class="headerlink" title="0.1+0.2!=0.3"></a>0.1+0.2!=0.3</h2><p>最后来看看 0.1+0.2!=0.3 这个经典问题。<br>我们 javascript 为例，其浮点数是 64 位。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">x = (0.1)₁₀ = (0.000110011...0011...)₂ = 1.10011...0011... * 2⁻⁴;</span><br><span class="line"></span><br><span class="line">那么x阶数：-4，则阶码 = 1023 + (-4) = 1019 = 01111111011;</span><br><span class="line"></span><br><span class="line">x的尾数：10011...0011...;</span><br><span class="line"></span><br><span class="line">所以最终：</span><br><span class="line">x = 0 01111111011 1001100110011001100110011001100110011001100110011010</span><br></pre></td></tr></table></figure>
+
+<p>同理：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">y =  (0.2)₁₀ = (0.00110011...0011...)₂ = 1.10011...0011... * 2⁻³;</span><br><span class="line"></span><br><span class="line">那么x阶数：-3，则阶码 = 1023 + (-3) = 1020 = 01111111100;</span><br><span class="line"></span><br><span class="line">y的尾数：10011...0011...;</span><br><span class="line"></span><br><span class="line">所以最终：</span><br><span class="line">y = 0 01111111100 1001100110011001100110011001100110011001100110011010</span><br></pre></td></tr></table></figure>
+
+<h3 id="浮点数运算"><a href="#浮点数运算" class="headerlink" title="浮点数运算"></a>浮点数运算</h3><p>浮点数的加减运算一般由以下五个步骤完成：对阶、尾数运算、规格化、舍入处理、溢出判断</p>
+<h4 id="对阶"><a href="#对阶" class="headerlink" title="对阶"></a>对阶</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">x的阶码 = 01111111011;</span><br><span class="line"></span><br><span class="line">y的阶码 = 01111111100;</span><br><span class="line"></span><br><span class="line">y-x 阶码 = 01111111100 - 01111111011 = 1</span><br><span class="line"></span><br><span class="line">则x的阶码需要+1，尾数需要向右移动一位，采用舍入法则，末尾0舍去，如下</span><br><span class="line"></span><br><span class="line">x = 0 01111111100 1100110011001100110011001100110011001100110011001101</span><br><span class="line">y = 0 01111111100 1001100110011001100110011001100110011001100110011010</span><br></pre></td></tr></table></figure>
+
+<h4 id="尾数运算"><a href="#尾数运算" class="headerlink" title="尾数运算"></a>尾数运算</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x:  0.1100 1100 1100 1100 1100 1100 1100 1100 1100 1100 1100 1100 1101</span><br><span class="line">+y: 1.1001 1001 1001 1001 1001 1001 1001 1001 1001 1001 1001 1001 1010</span><br><span class="line">----------------------------------------------------------------------</span><br><span class="line">   10.0110 0110 0110 0110 0110 0110 0110 0110 0110 0110 0110 0110 0111</span><br></pre></td></tr></table></figure>
+
+<h4 id="规格化"><a href="#规格化" class="headerlink" title="规格化"></a>规格化</h4><p>简单理解就是尾数是否是 1.xxxxxx 这种格式，目前是 10.xxx，因此需要做规格化处理，即尾数需要右移 1 位（也称右规），同时阶码+1，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 尾数右移</span><br><span class="line">1.00110 0110 0110 0110 0110 0110 0110 0110 0110 0110 0110 0110 011(1);</span><br><span class="line"></span><br><span class="line">// 阶码+1</span><br><span class="line">0 01111111101 0011001100110011001100110011001100110011001100110011(1);</span><br></pre></td></tr></table></figure>
+
+<p>规格化后，尾数高位 1，隐藏不显示。</p>
+<h4 id="舍入处理"><a href="#舍入处理" class="headerlink" title="舍入处理"></a>舍入处理</h4><p>规格化时，尾数末位如果是 1，直接移除将会丢失进度，因此需要舍入处理，通常采用“1 入 0 舍”法，本例尾数末位是 1，因此需要“入”，即+1 处理：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0 01111111101 0011001100110011001100110011001100110011001100110011(1);</span><br><span class="line">0 01111111101 0011001100110011001100110011001100110011001100110100;</span><br></pre></td></tr></table></figure>
+
+<h4 id="溢出判断"><a href="#溢出判断" class="headerlink" title="溢出判断"></a>溢出判断</h4><p>结果：0 01111111101 0011001100110011001100110011001100110011001100110100，没有溢出，阶码不调整，所以 0.1+0.2 的结果为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 01111111101 0011001100110011001100110011001100110011001100110100</span><br></pre></td></tr></table></figure>
+
+<p>转为 10 进制：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">0 01111111101 0011001100110011001100110011001100110011001100110100</span><br><span class="line">= (-1)⁰ * 2⁻² * (2⁰ + 0.2000000000000002)</span><br><span class="line">= 0.30000000000000004</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://trekhleb.dev/blog/2021/binary-floating-point/">https://trekhleb.dev/blog/2021/binary-floating-point/</a></li>
+<li><a target="_blank" rel="noopener" href="https://babbage.cs.qc.cuny.edu/IEEE-754/">https://babbage.cs.qc.cuny.edu/IEEE-754/</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JS/" rel="tag"># JS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/08/12/node/nvm/" rel="prev" title="Windows 下安装 nvm 管理 nodejs 版本">
+                  <i class="fa fa-chevron-left"></i> Windows 下安装 nvm 管理 nodejs 版本
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">muna</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"4YVBvXUEj3YQFC3sdgsLqQR0-gzGzoHsz","app_key":"Y0Sfizgc4zv8h8EJUzE6fcKu","server_url":null,"security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"hedahang/hedahang.github.io","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
