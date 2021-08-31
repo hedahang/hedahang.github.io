@@ -165,7 +165,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives">
         
-          <span class="site-state-item-count">114</span>
+          <span class="site-state-item-count">122</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -177,7 +177,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags">
           
-        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -288,7 +288,7 @@
 <span id="more"></span>
 
 <p>示例 1：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入：</span><br><span class="line">[1,2,3]</span><br><span class="line">输出：</span><br><span class="line">3</span><br><span class="line">解释：</span><br><span class="line">只需要3次操作（注意每次操作会增加两个元素的值）：</span><br><span class="line">[1,2,3]  =&gt;  [2,3,3]  =&gt;  [3,4,3]  =&gt;  [4,4,4]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入：</span><br><span class="line">[1,2,3]</span><br><span class="line">输出：3</span><br><span class="line">解释：</span><br><span class="line">只需要3次操作（注意每次操作会增加两个元素的值）：</span><br><span class="line">[1,2,3]  =&gt;  [2,3,3]  =&gt;  [3,4,3]  =&gt;  [4,4,4]</span><br></pre></td></tr></table></figure>
 
 <h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>n-1 个数同时加一，相当于每次有一个数自身减一，直到等于数组最小值，所以数组最后的数只能是最小值。这样的话每个元素减去最小值求其和就是答案。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">nums</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> minMoves = <span class="function"><span class="keyword">function</span> (<span class="params">nums</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> min = <span class="built_in">Math</span>.min(...nums);</span><br><span class="line">  <span class="keyword">return</span> nums.reduce(<span class="function">(<span class="params">acc, cur</span>) =&gt;</span> acc + cur - min, <span class="number">0</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
@@ -314,8 +314,8 @@
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2017/06/23/%E5%8F%8C%E9%A3%9E%E7%BF%BC%E5%B8%83%E5%B1%80%E5%92%8C%E5%9C%A3%E6%9D%AF%E5%B8%83%E5%B1%80/" rel="next" title="双飞翼布局和圣杯布局">
-                  双飞翼布局和圣杯布局 <i class="fa fa-chevron-right"></i>
+                <a href="/2017/06/04/leetcode/%E6%9C%80%E5%A4%A7%E8%BF%9E%E7%BB%AD%201%20%E7%9A%84%E4%B8%AA%E6%95%B0/" rel="next" title="485. 最大连续 1 的个数">
+                  485. 最大连续 1 的个数 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
