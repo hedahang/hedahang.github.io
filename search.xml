@@ -396,34 +396,6 @@ localStorage.clear()
       </tags>
   </entry>
   <entry>
-    <title>Hamming Distance</title>
-    <url>/2016/09/03/HammingDistance/</url>
-    <content><![CDATA[<h1 style="color:#2dbe60"> Hamming Distance </h1>
-The <a href="https://en.wikipedia.org/wiki/Hamming_distance" target="_blank" style="box-sizing: border-box; color: rgb(0, 136, 204); text-decoration: none; background-color: transparent;">Hamming distance</a> between two integers is the number of positions at which the corresponding bits are different.
-Given two integers x and y, calculate the Hamming distance.
-<span id="more"></span>
-**Note:**
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">0</span> ≤ x, y &lt; <span class="number">2</span>^<span class="number">31.</span></span><br></pre></td></tr></table></figure>
-**Example:**
-``` flow
-Input: x = 1, y = 4
-
-<p>Output: 2</p>
-<p>Explanation:<br>1 (0 0 0 1)<br>4 (0 1 0 0)<br>? ?</p>
-<p>The above arrows point to positions where the corresponding bits are different.</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">**代码如下:**</span><br><span class="line">``` javascript</span><br><span class="line">/**</span><br><span class="line"> * @param &#123;number&#125; x</span><br><span class="line"> * @param &#123;number&#125; y</span><br><span class="line"> * @return &#123;number&#125;</span><br><span class="line"> */</span><br><span class="line">var  hammingDistance = function(x, y) &#123;</span><br><span class="line">         var z = x^y;</span><br><span class="line">         z = z.toString(2).split(&quot;&quot;);</span><br><span class="line">         var result = 0;</span><br><span class="line">         z.forEach(function(val)&#123;</span><br><span class="line">              if(val === &#x27;1&#x27;)&#123;</span><br><span class="line">                    result++;</span><br><span class="line">              &#125;</span><br><span class="line">         &#125;)</span><br><span class="line">         return result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<hr>
-]]></content>
-      <categories>
-        <category>JS 算法</category>
-      </categories>
-      <tags>
-        <tag>JS</tag>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>JavaScript代码收集</title>
     <url>/2016/07/20/Javascript%E4%BB%A3%E7%A0%81%E6%94%B6%E9%9B%86/</url>
     <content><![CDATA[<h2 id="1-根据userAgent判断是否手机"><a href="#1-根据userAgent判断是否手机" class="headerlink" title="1.根据userAgent判断是否手机"></a>1.根据userAgent判断是否手机</h2><span id="more"></span>
@@ -501,6 +473,34 @@ var ISWP = !!(navigator.userAgent.match(/Windows\sPhone/i));
 ]]></content>
       <tags>
         <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hamming Distance</title>
+    <url>/2016/09/03/HammingDistance/</url>
+    <content><![CDATA[<h1 style="color:#2dbe60"> Hamming Distance </h1>
+The <a href="https://en.wikipedia.org/wiki/Hamming_distance" target="_blank" style="box-sizing: border-box; color: rgb(0, 136, 204); text-decoration: none; background-color: transparent;">Hamming distance</a> between two integers is the number of positions at which the corresponding bits are different.
+Given two integers x and y, calculate the Hamming distance.
+<span id="more"></span>
+**Note:**
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">0</span> ≤ x, y &lt; <span class="number">2</span>^<span class="number">31.</span></span><br></pre></td></tr></table></figure>
+**Example:**
+``` flow
+Input: x = 1, y = 4
+
+<p>Output: 2</p>
+<p>Explanation:<br>1 (0 0 0 1)<br>4 (0 1 0 0)<br>? ?</p>
+<p>The above arrows point to positions where the corresponding bits are different.</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">**代码如下:**</span><br><span class="line">``` javascript</span><br><span class="line">/**</span><br><span class="line"> * @param &#123;number&#125; x</span><br><span class="line"> * @param &#123;number&#125; y</span><br><span class="line"> * @return &#123;number&#125;</span><br><span class="line"> */</span><br><span class="line">var  hammingDistance = function(x, y) &#123;</span><br><span class="line">         var z = x^y;</span><br><span class="line">         z = z.toString(2).split(&quot;&quot;);</span><br><span class="line">         var result = 0;</span><br><span class="line">         z.forEach(function(val)&#123;</span><br><span class="line">              if(val === &#x27;1&#x27;)&#123;</span><br><span class="line">                    result++;</span><br><span class="line">              &#125;</span><br><span class="line">         &#125;)</span><br><span class="line">         return result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<hr>
+]]></content>
+      <categories>
+        <category>JS 算法</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -807,6 +807,93 @@ hexo version #查看Hexo的版本
       </tags>
   </entry>
   <entry>
+    <title>关于Markdown的基本用法</title>
+    <url>/2018/07/11/markerdown%E8%AF%AD%E6%B3%95/</url>
+    <content><![CDATA[<p>Markdown 是一种文本格式。你可以用它来控制文档的显示。使用 markdown，你可以创建粗体的文字，斜体的文字，添加图片，并且创建列表 等等。基本上来讲，Markdown 就是普通的文字加上 # 或者 * 等符号。</p>
+<span id="more"></span>
+
+<h3 id="语法说明"><a href="#语法说明" class="headerlink" title="语法说明"></a>语法说明</h3><h4 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"># 这是</span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span></span><br><span class="line">  一级标题 ## 这是</span><br><span class="line">  <span class="tag">&lt;<span class="name">h2</span>&gt;</span></span><br><span class="line">    二级标题 ### 这是</span><br><span class="line">    <span class="tag">&lt;<span class="name">h3</span>&gt;</span></span><br><span class="line">      三级标题 #### 这是</span><br><span class="line">      <span class="tag">&lt;<span class="name">h4</span>&gt;</span></span><br><span class="line">        四级标题 ##### 这是</span><br><span class="line">        <span class="tag">&lt;<span class="name">h5</span>&gt;</span></span><br><span class="line">          五级标题 ###### 这是</span><br><span class="line">          <span class="tag">&lt;<span class="name">h6</span>&gt;</span>六级标题<span class="tag">&lt;/<span class="name">h6</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">h5</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="强调"><a href="#强调" class="headerlink" title="强调"></a>强调</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">*这会是 斜体 的文字* _这会是 斜体 的文字_ **这会是 粗体 的文字** __这会是 粗体</span><br><span class="line">的文字__ _你也 **组合** 这些符号_ ~~这个文字将会被横线删除~~</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h4><h5 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h5><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">- Item 1 - Item 2 - Item 2a - Item 2b</span><br></pre></td></tr></table></figure>
+
+<h5 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h5><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">1. Item 1 1. Item 2 1. Item 3 1. Item 3a 1. Item 3b</span><br></pre></td></tr></table></figure>
+
+<h4 id="添加图片"><a href="#添加图片" class="headerlink" title="添加图片"></a>添加图片</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">![GitHub Logo](/images/logo.png) Format: ![Alt Text](url)</span><br></pre></td></tr></table></figure>
+
+<p>测试图片：<br><img src="/uploads/author.jpg" alt="GitHub Logo"></p>
+<h4 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">https://github.com - 自动生成！ [GitHub](https://github.com)</span><br></pre></td></tr></table></figure>
+
+<h4 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">正如 Kanye West 所说： &gt; We&#x27;re living the future so &gt; the present is our past.</span><br></pre></td></tr></table></figure>
+
+<h4 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">如下，三个或者更多的: 连字符: --- 星号: *** 下划线: ___</span><br></pre></td></tr></table></figure>
+
+<h4 id="行内代码"><a href="#行内代码" class="headerlink" title="行内代码"></a>行内代码</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">我觉得你应该在这里使用 `function()&#123;console.log(&#x27;行内代码&#x27;)&#125;` 才对。</span><br></pre></td></tr></table></figure>
+
+<h4 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h4><p>你可以在你的代码上面和下面添加 ``` 来表示代码块</p>
+<h5 id="语法高亮"><a href="#语法高亮" class="headerlink" title="语法高亮"></a>语法高亮</h5><p>代码块可以添加任何一种语言的语法高亮，如：</p>
+<figure class="highlight javascript"><figcaption><span>&#123;.class1 .class&#125;</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="代码行数"><a href="#代码行数" class="headerlink" title="代码行数"></a>代码行数</h5><p>如果你想要你的代码块显示代码行数，只要添加 line-numbers class 就可以了。例如：</p>
+<figure class="highlight javascript"><figcaption><span>&#123;.line-numbers&#125;</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你可以通过添加 highlight 属性的方式来高亮代码行数，例如：</p>
+<figure class="highlight javascript"><figcaption><span>&#123;.line-numbers, highlight</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> number = add(<span class="number">10</span>, <span class="number">20</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="任务列表"><a href="#任务列表" class="headerlink" title="任务列表"></a>任务列表</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">- [x] @mentions, #refs, [links](), **formatting**, and <span class="tag">&lt;<span class="name">del</span>&gt;</span>tags<span class="tag">&lt;/<span class="name">del</span>&gt;</span> supported</span><br><span class="line">- [x] list syntax required (any unordered or ordered list supported) - [x] this</span><br><span class="line">is a complete item - [ ] this is an incomplete item</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><input checked="" disabled="" type="checkbox"> @mentions, #refs, <a href="">links</a>, <strong>formatting</strong>, and <del>tags</del> supported</li>
+<li><input checked="" disabled="" type="checkbox"> list syntax required (any unordered or ordered list supported)</li>
+<li><input checked="" disabled="" type="checkbox"> this is a complete item</li>
+<li><input disabled="" type="checkbox"> this is an incomplete item</li>
+</ul>
+<h4 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">First Header | Second Header ------------ | ------------- Content from cell 1 |</span><br><span class="line">Content from cell 2 Content in the first column | Content in the second column</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>First Header</th>
+<th>Second Header</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Content from cell 1</td>
+<td>Content from cell 2</td>
+</tr>
+<tr>
+<td>Content in the first column</td>
+<td>Content in the second column</td>
+</tr>
+</tbody></table>
+<h3 id="扩展的语法"><a href="#扩展的语法" class="headerlink" title="扩展的语法"></a>扩展的语法</h3><h4 id="Emoji-amp-Font-Awesome"><a href="#Emoji-amp-Font-Awesome" class="headerlink" title="Emoji &amp; Font-Awesome"></a>Emoji &amp; Font-Awesome</h4><p>只适用于 markdown-it parser 而不适用于 pandoc parser。 缺省下是启用的。你可以在插件设置里禁用此功能。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">:smile: :fa-car:</span><br></pre></td></tr></table></figure>
+
+<p>:smile:<br>:fa-car:</p>
+<h4 id="上标"><a href="#上标" class="headerlink" title="上标"></a>上标</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">30^th^</span><br></pre></td></tr></table></figure>
+
+<p>30^th^</p>
+<h4 id="下标"><a href="#下标" class="headerlink" title="下标"></a>下标</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">H~2~O</span><br></pre></td></tr></table></figure>
+
+<p>H<del>2</del>O</p>
+<h4 id="脚注"><a href="#脚注" class="headerlink" title="脚注"></a>脚注</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">Content [^1] [^1]: Hi! This is a footnote</span><br></pre></td></tr></table></figure>
+
+<p>Content [^1]<br>[^1]: Hi! This is a footnote</p>
+<h4 id="标记"><a href="#标记" class="headerlink" title="标记"></a>标记</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">==marked==</span><br></pre></td></tr></table></figure>
+
+<p>==marked==</p>
+<h4 id="数字角标"><a href="#数字角标" class="headerlink" title="数字角标"></a>数字角标</h4><p>2⁻⁰¹²³⁴⁵⁶⁷⁸⁹</p>
+]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Markdown语法学习</title>
     <url>/2016/06/13/next_study/</url>
     <content><![CDATA[<h3 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h3><pre><code># 这是 H1 #
@@ -1038,7 +1125,7 @@ Markdown 使用一种和链接很相似的语法来标记图片，同样也允�
 &amp;#109;&quot;&gt;&amp;#x61;&amp;#x64;&amp;#x64;&amp;#x72;&amp;#x65;&amp;#115;&amp;#115;&amp;#64;&amp;#101;&amp;#120;&amp;#x61;
 &amp;#109;&amp;#x70;&amp;#x6C;e&amp;#x2E;&amp;#99;&amp;#111;&amp;#109;&lt;/a&gt;
 </code></pre>
-<p>在浏览器里面，这段字串（其实是 <a href="mailto:address@example.com">address@example.com</a>）会变成一个可以点击的「<a href="mailto:&#x61;&#x64;&#x64;&#x72;&#101;&#115;&#x73;&#x40;&#x65;&#x78;&#97;&#109;&#112;&#x6c;&#x65;&#x2e;&#99;&#111;&#x6d;">&#x61;&#x64;&#x64;&#x72;&#101;&#115;&#x73;&#x40;&#x65;&#x78;&#97;&#109;&#112;&#x6c;&#x65;&#x2e;&#99;&#111;&#x6d;</a>」链接。</p>
+<p>在浏览器里面，这段字串（其实是 <a href="mailto:address@example.com">address@example.com</a>）会变成一个可以点击的「<a href="mailto:&#x61;&#100;&#100;&#x72;&#101;&#115;&#115;&#x40;&#101;&#120;&#x61;&#109;&#x70;&#108;&#x65;&#x2e;&#x63;&#111;&#109;">&#x61;&#100;&#100;&#x72;&#101;&#115;&#115;&#x40;&#101;&#120;&#x61;&#109;&#x70;&#108;&#x65;&#x2e;&#x63;&#111;&#109;</a>」链接。</p>
 </blockquote>
 <p>（这种作法虽然可以糊弄不少的机器人，但并不能全部挡下来，不过总比什么都不做好些。不管怎样，公开你的信箱终究会引来广告信件的。）</p>
 <blockquote>
@@ -1063,93 +1150,6 @@ _   底线
 ]]></content>
       <tags>
         <tag>study</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于Markdown的基本用法</title>
-    <url>/2018/07/11/markerdown%E8%AF%AD%E6%B3%95/</url>
-    <content><![CDATA[<p>Markdown 是一种文本格式。你可以用它来控制文档的显示。使用 markdown，你可以创建粗体的文字，斜体的文字，添加图片，并且创建列表 等等。基本上来讲，Markdown 就是普通的文字加上 # 或者 * 等符号。</p>
-<span id="more"></span>
-
-<h3 id="语法说明"><a href="#语法说明" class="headerlink" title="语法说明"></a>语法说明</h3><h4 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"># 这是</span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span></span><br><span class="line">  一级标题 ## 这是</span><br><span class="line">  <span class="tag">&lt;<span class="name">h2</span>&gt;</span></span><br><span class="line">    二级标题 ### 这是</span><br><span class="line">    <span class="tag">&lt;<span class="name">h3</span>&gt;</span></span><br><span class="line">      三级标题 #### 这是</span><br><span class="line">      <span class="tag">&lt;<span class="name">h4</span>&gt;</span></span><br><span class="line">        四级标题 ##### 这是</span><br><span class="line">        <span class="tag">&lt;<span class="name">h5</span>&gt;</span></span><br><span class="line">          五级标题 ###### 这是</span><br><span class="line">          <span class="tag">&lt;<span class="name">h6</span>&gt;</span>六级标题<span class="tag">&lt;/<span class="name">h6</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">h5</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="强调"><a href="#强调" class="headerlink" title="强调"></a>强调</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">*这会是 斜体 的文字* _这会是 斜体 的文字_ **这会是 粗体 的文字** __这会是 粗体</span><br><span class="line">的文字__ _你也 **组合** 这些符号_ ~~这个文字将会被横线删除~~</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h4 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h4><h5 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h5><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">- Item 1 - Item 2 - Item 2a - Item 2b</span><br></pre></td></tr></table></figure>
-
-<h5 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h5><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">1. Item 1 1. Item 2 1. Item 3 1. Item 3a 1. Item 3b</span><br></pre></td></tr></table></figure>
-
-<h4 id="添加图片"><a href="#添加图片" class="headerlink" title="添加图片"></a>添加图片</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">![GitHub Logo](/images/logo.png) Format: ![Alt Text](url)</span><br></pre></td></tr></table></figure>
-
-<p>测试图片：<br><img src="/uploads/author.jpg" alt="GitHub Logo"></p>
-<h4 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">https://github.com - 自动生成！ [GitHub](https://github.com)</span><br></pre></td></tr></table></figure>
-
-<h4 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">正如 Kanye West 所说： &gt; We&#x27;re living the future so &gt; the present is our past.</span><br></pre></td></tr></table></figure>
-
-<h4 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">如下，三个或者更多的: 连字符: --- 星号: *** 下划线: ___</span><br></pre></td></tr></table></figure>
-
-<h4 id="行内代码"><a href="#行内代码" class="headerlink" title="行内代码"></a>行内代码</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">我觉得你应该在这里使用 `function()&#123;console.log(&#x27;行内代码&#x27;)&#125;` 才对。</span><br></pre></td></tr></table></figure>
-
-<h4 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h4><p>你可以在你的代码上面和下面添加 ``` 来表示代码块</p>
-<h5 id="语法高亮"><a href="#语法高亮" class="headerlink" title="语法高亮"></a>语法高亮</h5><p>代码块可以添加任何一种语言的语法高亮，如：</p>
-<figure class="highlight javascript"><figcaption><span>&#123;.class1 .class&#125;</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="代码行数"><a href="#代码行数" class="headerlink" title="代码行数"></a>代码行数</h5><p>如果你想要你的代码块显示代码行数，只要添加 line-numbers class 就可以了。例如：</p>
-<figure class="highlight javascript"><figcaption><span>&#123;.line-numbers&#125;</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>你可以通过添加 highlight 属性的方式来高亮代码行数，例如：</p>
-<figure class="highlight javascript"><figcaption><span>&#123;.line-numbers, highlight</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> number = add(<span class="number">10</span>, <span class="number">20</span>);</span><br></pre></td></tr></table></figure>
-
-<h4 id="任务列表"><a href="#任务列表" class="headerlink" title="任务列表"></a>任务列表</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">- [x] @mentions, #refs, [links](), **formatting**, and <span class="tag">&lt;<span class="name">del</span>&gt;</span>tags<span class="tag">&lt;/<span class="name">del</span>&gt;</span> supported</span><br><span class="line">- [x] list syntax required (any unordered or ordered list supported) - [x] this</span><br><span class="line">is a complete item - [ ] this is an incomplete item</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><input checked="" disabled="" type="checkbox"> @mentions, #refs, <a href="">links</a>, <strong>formatting</strong>, and <del>tags</del> supported</li>
-<li><input checked="" disabled="" type="checkbox"> list syntax required (any unordered or ordered list supported)</li>
-<li><input checked="" disabled="" type="checkbox"> this is a complete item</li>
-<li><input disabled="" type="checkbox"> this is an incomplete item</li>
-</ul>
-<h4 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">First Header | Second Header ------------ | ------------- Content from cell 1 |</span><br><span class="line">Content from cell 2 Content in the first column | Content in the second column</span><br></pre></td></tr></table></figure>
-
-<table>
-<thead>
-<tr>
-<th>First Header</th>
-<th>Second Header</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Content from cell 1</td>
-<td>Content from cell 2</td>
-</tr>
-<tr>
-<td>Content in the first column</td>
-<td>Content in the second column</td>
-</tr>
-</tbody></table>
-<h3 id="扩展的语法"><a href="#扩展的语法" class="headerlink" title="扩展的语法"></a>扩展的语法</h3><h4 id="Emoji-amp-Font-Awesome"><a href="#Emoji-amp-Font-Awesome" class="headerlink" title="Emoji &amp; Font-Awesome"></a>Emoji &amp; Font-Awesome</h4><p>只适用于 markdown-it parser 而不适用于 pandoc parser。 缺省下是启用的。你可以在插件设置里禁用此功能。</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">:smile: :fa-car:</span><br></pre></td></tr></table></figure>
-
-<p>:smile:<br>:fa-car:</p>
-<h4 id="上标"><a href="#上标" class="headerlink" title="上标"></a>上标</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">30^th^</span><br></pre></td></tr></table></figure>
-
-<p>30^th^</p>
-<h4 id="下标"><a href="#下标" class="headerlink" title="下标"></a>下标</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">H~2~O</span><br></pre></td></tr></table></figure>
-
-<p>H<del>2</del>O</p>
-<h4 id="脚注"><a href="#脚注" class="headerlink" title="脚注"></a>脚注</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">Content [^1] [^1]: Hi! This is a footnote</span><br></pre></td></tr></table></figure>
-
-<p>Content [^1]<br>[^1]: Hi! This is a footnote</p>
-<h4 id="标记"><a href="#标记" class="headerlink" title="标记"></a>标记</h4><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">==marked==</span><br></pre></td></tr></table></figure>
-
-<p>==marked==</p>
-<h4 id="数字角标"><a href="#数字角标" class="headerlink" title="数字角标"></a>数字角标</h4><p>2⁻⁰¹²³⁴⁵⁶⁷⁸⁹</p>
-]]></content>
-      <categories>
-        <category>Markdown</category>
-      </categories>
-      <tags>
-        <tag>Markdown</tag>
       </tags>
   </entry>
   <entry>
@@ -1880,8 +1880,8 @@ var five = add(two, three);
         <category>Testing</category>
       </categories>
       <tags>
-        <tag>算法</tag>
         <tag>JavaScript</tag>
+        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -2038,7 +2038,7 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
 <h2 id="关于收费"><a href="#关于收费" class="headerlink" title="关于收费"></a>关于收费</h2><p><strong>马克飞象</strong>为新用户提供 10 天的试用期，试用期过后需要<a href="maxiang.info/vip.html">续费</a>才能继续使用。未购买或者未及时续费，将不能同步新的笔记。之前保存过的笔记依然可以编辑。</p>
 <h2 id="反馈与建议"><a href="#反馈与建议" class="headerlink" title="反馈与建议"></a>反馈与建议</h2><ul>
 <li>微博：<a href="http://weibo.com/u/2788354117">@马克飞象</a>，<a href="http://weibo.com/ggock" title="开发者个人账号">@GGock</a></li>
-<li>邮箱：<a href="mailto:&#x68;&#x75;&#x73;&#116;&#103;&#x6f;&#99;&#x6b;&#x40;&#103;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#109;">&#x68;&#x75;&#x73;&#116;&#103;&#x6f;&#99;&#x6b;&#x40;&#103;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#109;</a></li>
+<li>邮箱：<a href="mailto:&#104;&#x75;&#115;&#x74;&#x67;&#111;&#99;&#x6b;&#x40;&#103;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;">&#104;&#x75;&#115;&#x74;&#x67;&#111;&#99;&#x6b;&#x40;&#103;&#109;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;</a></li>
 </ul>
 <hr>
 <p>感谢阅读这份帮助文档。请点击右上角，绑定印象笔记账号，开启全新的记录与分享体验吧。</p>
@@ -3243,61 +3243,6 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
       </tags>
   </entry>
   <entry>
-    <title>十一、ES6系列之Async</title>
-    <url>/2020/05/15/es6/async/</url>
-    <content><![CDATA[<h2 id="含义"><a href="#含义" class="headerlink" title="含义"></a>含义</h2><p>ES2017 标准引入了 async 函数，使得异步操作变得更加方便。</p>
-<p>在异步处理上，async 函数就是 Generator 函数的语法糖。</p>
-<span id="more"></span>
-
-<p>举个例子：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 使用 generator</span></span><br><span class="line"><span class="keyword">var</span> fetch = <span class="built_in">require</span>(<span class="string">&quot;node-fetch&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> co = <span class="built_in">require</span>(<span class="string">&quot;co&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">gen</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> r1 = <span class="keyword">yield</span> fetch(<span class="string">&quot;https://api.github.com/users/github&quot;</span>);</span><br><span class="line">  <span class="keyword">var</span> json1 = <span class="keyword">yield</span> r1.json();</span><br><span class="line">  <span class="built_in">console</span>.log(json1.bio);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">co(gen);</span><br></pre></td></tr></table></figure>
-
-<p>当你使用 async 时：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 使用 async</span></span><br><span class="line"><span class="keyword">var</span> fetch = <span class="built_in">require</span>(<span class="string">&quot;node-fetch&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fetchData = <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> r1 = <span class="keyword">await</span> fetch(<span class="string">&quot;https://api.github.com/users/github&quot;</span>);</span><br><span class="line">  <span class="keyword">var</span> json1 = <span class="keyword">await</span> r1.json();</span><br><span class="line">  <span class="built_in">console</span>.log(json1.bio);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">fetchData();</span><br></pre></td></tr></table></figure>
-
-<p>一比较就会发现，其实 async 函数的实现原理，就是将 Generator 函数和自动执行器，包装在一个函数里。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">args</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 等同于</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> spawn(<span class="function"><span class="keyword">function</span>* (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>spawn 函数指的是自动执行器，就比如说 co。</p>
-<p>再加上 async 函数返回一个 Promise 对象，你也可以理解为 async 函数是基于 Promise 和 Generator 的一层封装。<br>下面给出 spawn 函数的实现，基本就是前文自动执行器的翻版。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">spawn</span>(<span class="params">genF</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> gen = genF();</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">step</span>(<span class="params">nextF</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">let</span> next;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        next = nextF();</span><br><span class="line">      &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">        <span class="keyword">return</span> reject(e);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (next.done) &#123;</span><br><span class="line">        <span class="keyword">return</span> resolve(next.value);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="built_in">Promise</span>.resolve(next.value).then(</span><br><span class="line">        <span class="function"><span class="keyword">function</span> (<span class="params">v</span>) </span>&#123;</span><br><span class="line">          step(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> gen.next(v);</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">          step(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> gen.throw(e);</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">      );</span><br><span class="line">    &#125;</span><br><span class="line">    step(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> gen.next(<span class="literal">undefined</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><p>async 函数返回一个 Promise 对象，可以使用 then 方法添加回调函数。当函数执行的时候，一旦遇到 await 就会先返回，等到异步操作完成，再接着执行函数体内后面的语句。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">resolveAfter2Seconds</span>(<span class="params">ms</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(resolve, ms);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">asyncCall</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;calling&quot;</span>);</span><br><span class="line">  <span class="keyword">await</span> resolveAfter2Seconds(<span class="number">2000</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;ending&quot;</span>);</span><br><span class="line">  <span class="comment">// expected output: &quot;ending&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">asyncCall();</span><br></pre></td></tr></table></figure>
-
-<p>由于 async 函数返回的是 Promise 对象，可以作为 await 命令的参数。所以，上面的例子也可以写成下面的形式。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">resolveAfter2Seconds</span>(<span class="params">ms</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">await</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(resolve, ms);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">asyncCall</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;calling&quot;</span>);</span><br><span class="line">  <span class="keyword">const</span> result = <span class="keyword">await</span> resolveAfter2Seconds(<span class="number">2000</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;ending&quot;</span>);</span><br><span class="line">  <span class="comment">// expected output: &quot;ending&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">asyncCall();</span><br></pre></td></tr></table></figure>
-
-<h2 id="继发与并发"><a href="#继发与并发" class="headerlink" title="继发与并发"></a>继发与并发</h2><p>问题：给定一个 URL 数组，如何实现接口的继发和并发？</p>
-<p>async 继发实现：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 继发一</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">loadData</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> res = <span class="keyword">await</span> fetch(url1);</span><br><span class="line">  <span class="keyword">var</span> res2 = <span class="keyword">await</span> fetch(url2);</span><br><span class="line">  <span class="keyword">var</span> res3 = <span class="keyword">await</span> fetch(url3);</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;whew all done&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 继发二</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">loadData</span>(<span class="params">urls</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">const</span> url <span class="keyword">of</span> urls) &#123;</span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">await</span> fetch(url);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">await</span> response.text());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>async 并发实现：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 并发一</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">loadData</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> res = <span class="keyword">await</span> <span class="built_in">Promise</span>.all([fetch(url1), fetch(url2), fetch(url3)]);</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;whew all done&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 并发二</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">loadData</span>(<span class="params">urls</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 并发读取 url</span></span><br><span class="line">  <span class="keyword">const</span> textPromises = urls.map(<span class="keyword">async</span> (url) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">await</span> fetch(url);</span><br><span class="line">    <span class="keyword">return</span> response.text();</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 按次序输出</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">const</span> textPromise <span class="keyword">of</span> textPromises) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">await</span> textPromise);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="错误捕获"><a href="#错误捕获" class="headerlink" title="错误捕获"></a>错误捕获</h2><p>尽管我们可以使用 try catch 捕获错误，但是当我们需要捕获多个错误并做不同的处理时，很快 try catch 就会导致代码杂乱，就比如：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">await</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;出错了&quot;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(e);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">await</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;出错了2&quot;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(e);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">await</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;出错了3&quot;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(e);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">await</span> <span class="string">&quot;hello world&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>为了简化这种错误的捕获，我们可以给 await 后的 promise 对象添加 catch 函数，为此我们需要写一个 helper:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// to.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">to</span>(<span class="params">promise</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> promise</span><br><span class="line">    .then(<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> [<span class="literal">null</span>, data];</span><br><span class="line">    &#125;)</span><br><span class="line">    .catch(<span class="function">(<span class="params">err</span>) =&gt;</span> [err]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>简化后的代码：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> to <span class="keyword">from</span> <span class="string">&quot;./to.js&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  [err, user] = <span class="keyword">await</span> to(</span><br><span class="line">    <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;出错了&quot;</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">  );</span><br><span class="line">  <span class="keyword">if</span> (!user) <span class="built_in">console</span>.log(err);</span><br><span class="line"></span><br><span class="line">  [err, user] = <span class="keyword">await</span> to(</span><br><span class="line">    <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;出错了2&quot;</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">  );</span><br><span class="line">  <span class="keyword">if</span> (err) <span class="built_in">console</span>.log(err);</span><br><span class="line"></span><br><span class="line">  [err, user] = <span class="keyword">await</span> to(</span><br><span class="line">    <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;出错了3&quot;</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">  );</span><br><span class="line">  <span class="keyword">if</span> (!user) <span class="built_in">console</span>.log(err);</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">await</span> <span class="string">&quot;hello world&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
-<li><a href="https://github.com/mqyqingfeng/Blog/issues/100">https://github.com/mqyqingfeng/Blog/issues/100</a></li>
-<li><a href="https://es6.ruanyifeng.com/#docs/async">https://es6.ruanyifeng.com/#docs/async</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>ES6系列</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-        <tag>Es6</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>四、ES6系列之Symbol</title>
     <url>/2020/04/16/es6/Symbol/</url>
     <content><![CDATA[<p>Symbol 是一种基本数据类型，Symbol()函数会返回 是一种基本数据类型，Symbol 类型的值，该类型具有静态属性和静态方法。它的静态属性会暴露几个内建的成员对象；它的静态方法会暴露全局的 symbol 注册，且类似于内建对象类，但作为构造函数来说它并不完整，因为它不支持语法：”new Symbol()”。</p>
@@ -3351,6 +3296,61 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
 
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
 <li><a href="https://es6.ruanyifeng.com/#docs/symbol">https://es6.ruanyifeng.com/#docs/symbol</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>ES6系列</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>Es6</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>十一、ES6系列之Async</title>
+    <url>/2020/05/15/es6/async/</url>
+    <content><![CDATA[<h2 id="含义"><a href="#含义" class="headerlink" title="含义"></a>含义</h2><p>ES2017 标准引入了 async 函数，使得异步操作变得更加方便。</p>
+<p>在异步处理上，async 函数就是 Generator 函数的语法糖。</p>
+<span id="more"></span>
+
+<p>举个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 使用 generator</span></span><br><span class="line"><span class="keyword">var</span> fetch = <span class="built_in">require</span>(<span class="string">&quot;node-fetch&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> co = <span class="built_in">require</span>(<span class="string">&quot;co&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">gen</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> r1 = <span class="keyword">yield</span> fetch(<span class="string">&quot;https://api.github.com/users/github&quot;</span>);</span><br><span class="line">  <span class="keyword">var</span> json1 = <span class="keyword">yield</span> r1.json();</span><br><span class="line">  <span class="built_in">console</span>.log(json1.bio);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">co(gen);</span><br></pre></td></tr></table></figure>
+
+<p>当你使用 async 时：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 使用 async</span></span><br><span class="line"><span class="keyword">var</span> fetch = <span class="built_in">require</span>(<span class="string">&quot;node-fetch&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fetchData = <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> r1 = <span class="keyword">await</span> fetch(<span class="string">&quot;https://api.github.com/users/github&quot;</span>);</span><br><span class="line">  <span class="keyword">var</span> json1 = <span class="keyword">await</span> r1.json();</span><br><span class="line">  <span class="built_in">console</span>.log(json1.bio);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">fetchData();</span><br></pre></td></tr></table></figure>
+
+<p>一比较就会发现，其实 async 函数的实现原理，就是将 Generator 函数和自动执行器，包装在一个函数里。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">args</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 等同于</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">args</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> spawn(<span class="function"><span class="keyword">function</span>* (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>spawn 函数指的是自动执行器，就比如说 co。</p>
+<p>再加上 async 函数返回一个 Promise 对象，你也可以理解为 async 函数是基于 Promise 和 Generator 的一层封装。<br>下面给出 spawn 函数的实现，基本就是前文自动执行器的翻版。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">spawn</span>(<span class="params">genF</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> gen = genF();</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">step</span>(<span class="params">nextF</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">let</span> next;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        next = nextF();</span><br><span class="line">      &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">        <span class="keyword">return</span> reject(e);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (next.done) &#123;</span><br><span class="line">        <span class="keyword">return</span> resolve(next.value);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="built_in">Promise</span>.resolve(next.value).then(</span><br><span class="line">        <span class="function"><span class="keyword">function</span> (<span class="params">v</span>) </span>&#123;</span><br><span class="line">          step(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> gen.next(v);</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">          step(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> gen.throw(e);</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">      );</span><br><span class="line">    &#125;</span><br><span class="line">    step(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> gen.next(<span class="literal">undefined</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><p>async 函数返回一个 Promise 对象，可以使用 then 方法添加回调函数。当函数执行的时候，一旦遇到 await 就会先返回，等到异步操作完成，再接着执行函数体内后面的语句。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">resolveAfter2Seconds</span>(<span class="params">ms</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(resolve, ms);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">asyncCall</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;calling&quot;</span>);</span><br><span class="line">  <span class="keyword">await</span> resolveAfter2Seconds(<span class="number">2000</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;ending&quot;</span>);</span><br><span class="line">  <span class="comment">// expected output: &quot;ending&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">asyncCall();</span><br></pre></td></tr></table></figure>
+
+<p>由于 async 函数返回的是 Promise 对象，可以作为 await 命令的参数。所以，上面的例子也可以写成下面的形式。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">resolveAfter2Seconds</span>(<span class="params">ms</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">await</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(resolve, ms);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">asyncCall</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;calling&quot;</span>);</span><br><span class="line">  <span class="keyword">const</span> result = <span class="keyword">await</span> resolveAfter2Seconds(<span class="number">2000</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;ending&quot;</span>);</span><br><span class="line">  <span class="comment">// expected output: &quot;ending&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">asyncCall();</span><br></pre></td></tr></table></figure>
+
+<h2 id="继发与并发"><a href="#继发与并发" class="headerlink" title="继发与并发"></a>继发与并发</h2><p>问题：给定一个 URL 数组，如何实现接口的继发和并发？</p>
+<p>async 继发实现：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 继发一</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">loadData</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> res = <span class="keyword">await</span> fetch(url1);</span><br><span class="line">  <span class="keyword">var</span> res2 = <span class="keyword">await</span> fetch(url2);</span><br><span class="line">  <span class="keyword">var</span> res3 = <span class="keyword">await</span> fetch(url3);</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;whew all done&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 继发二</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">loadData</span>(<span class="params">urls</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">const</span> url <span class="keyword">of</span> urls) &#123;</span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">await</span> fetch(url);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">await</span> response.text());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>async 并发实现：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 并发一</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">loadData</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> res = <span class="keyword">await</span> <span class="built_in">Promise</span>.all([fetch(url1), fetch(url2), fetch(url3)]);</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;whew all done&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 并发二</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">loadData</span>(<span class="params">urls</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 并发读取 url</span></span><br><span class="line">  <span class="keyword">const</span> textPromises = urls.map(<span class="keyword">async</span> (url) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">await</span> fetch(url);</span><br><span class="line">    <span class="keyword">return</span> response.text();</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 按次序输出</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">const</span> textPromise <span class="keyword">of</span> textPromises) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">await</span> textPromise);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="错误捕获"><a href="#错误捕获" class="headerlink" title="错误捕获"></a>错误捕获</h2><p>尽管我们可以使用 try catch 捕获错误，但是当我们需要捕获多个错误并做不同的处理时，很快 try catch 就会导致代码杂乱，就比如：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">await</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;出错了&quot;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(e);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">await</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;出错了2&quot;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(e);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">await</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;出错了3&quot;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(e);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">await</span> <span class="string">&quot;hello world&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>为了简化这种错误的捕获，我们可以给 await 后的 promise 对象添加 catch 函数，为此我们需要写一个 helper:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// to.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">to</span>(<span class="params">promise</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> promise</span><br><span class="line">    .then(<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> [<span class="literal">null</span>, data];</span><br><span class="line">    &#125;)</span><br><span class="line">    .catch(<span class="function">(<span class="params">err</span>) =&gt;</span> [err]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>简化后的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> to <span class="keyword">from</span> <span class="string">&quot;./to.js&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  [err, user] = <span class="keyword">await</span> to(</span><br><span class="line">    <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;出错了&quot;</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">  );</span><br><span class="line">  <span class="keyword">if</span> (!user) <span class="built_in">console</span>.log(err);</span><br><span class="line"></span><br><span class="line">  [err, user] = <span class="keyword">await</span> to(</span><br><span class="line">    <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;出错了2&quot;</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">  );</span><br><span class="line">  <span class="keyword">if</span> (err) <span class="built_in">console</span>.log(err);</span><br><span class="line"></span><br><span class="line">  [err, user] = <span class="keyword">await</span> to(</span><br><span class="line">    <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;出错了3&quot;</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">  );</span><br><span class="line">  <span class="keyword">if</span> (!user) <span class="built_in">console</span>.log(err);</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">await</span> <span class="string">&quot;hello world&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><a href="https://github.com/mqyqingfeng/Blog/issues/100">https://github.com/mqyqingfeng/Blog/issues/100</a></li>
+<li><a href="https://es6.ruanyifeng.com/#docs/async">https://es6.ruanyifeng.com/#docs/async</a></li>
 </ul>
 ]]></content>
       <categories>
@@ -4643,76 +4643,6 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
       </tags>
   </entry>
   <entry>
-    <title>Windows 下安装 nvm 管理 nodejs 版本</title>
-    <url>/2021/08/12/node/nvm/</url>
-    <content><![CDATA[<p>最近维护一个旧项目（祖传代码），由于本地 node 版本太高导致无法运行成功，然后尝试是用 nvm 来管理 node 版本切换，这里做下安装记录。</p>
-<span id="more"></span>
-
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ol>
-<li>卸载 node，删除路径以及残留文件</li>
-<li>安装 nvm-windows</li>
-<li>安装 node</li>
-<li>安装 nrm 配置镜像源</li>
-</ol>
-<h2 id="卸载-node"><a href="#卸载-node" class="headerlink" title="卸载 node"></a>卸载 node</h2><p>如果没有安装可以跳过本步骤。</p>
-<ul>
-<li>在卸载程序中卸载 node(控制面板\程序\程序和功能)。</li>
-<li>在环境变量中删除所有与 node 相关的路径(无论是 user 级，还是 system 级)<br>删除以下路径的文件(可能只有部分文件才有) ,如:<br>C:\Program Files\nodejs<br>C:\Users{User}\AppData\Roaming\npm<br>C:\Users{User}\AppData\Roaming\npm-cache<br>C:\Users{User}\node_modules</li>
-</ul>
-<h2 id="安装-nvm"><a href="#安装-nvm" class="headerlink" title="安装 nvm"></a>安装 nvm</h2><p>nvm 是 nodejs 的版本管理工具，可以快速切换\更新 nodejs 版本。<br>windows 系统使用 <a href="https://github.com/coreybutler/nvm-windows/releases">nvm-windows</a>。安装时会需要选择两个安装目录，一个是 nvm 的目录，另一个是 node 的版本库目录，我这里分别用 D:\tools\nvm 和 D:\tools\nodejs。</p>
-<p>安装完成检查是否成功：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\Administrator&gt;nvm version</span><br><span class="line">1.1.7</span><br></pre></td></tr></table></figure>
-
-<h2 id="安装-node"><a href="#安装-node" class="headerlink" title="安装 node"></a>安装 node</h2><p>nvm 安装完后就可以开始管理 nodejs 的版本了。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 查看线上所有版本</span><br><span class="line">nvm list available</span><br><span class="line"></span><br><span class="line"># 下载指定版本</span><br><span class="line">nvm install 14.15.0</span><br><span class="line"></span><br><span class="line"># 查看已安装的 node 版本</span><br><span class="line">nvm list</span><br><span class="line"></span><br><span class="line"># 切换版本</span><br><span class="line">nvm use 14.15.0</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>这时就会在 D:\tools 的目录出现个 nodejs 的快捷方式。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 查看node是否安装成功</span><br><span class="line">node -v</span><br></pre></td></tr></table></figure>
-
-<p>如果显示 v14.15.0，那么就表示安装成功了。</p>
-<h2 id="安装-nrm"><a href="#安装-nrm" class="headerlink" title="安装 nrm"></a>安装 nrm</h2><p>nrm 是管理 npm 源的，为了下载包更快。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 安装nrm</span><br><span class="line">npm install -g nrm</span><br><span class="line"></span><br><span class="line"># 列出可用源</span><br><span class="line">nrm ls</span><br><span class="line"></span><br><span class="line"># 切换源</span><br><span class="line">nrm use taobao</span><br></pre></td></tr></table></figure>
-]]></content>
-      <tags>
-        <tag>Node</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>前端导出 Excel(CSV)文件</title>
-    <url>/2021/02/10/project/%E5%89%8D%E7%AB%AF%E5%AF%BC%E5%87%BA%20Excel(CSV)%E6%96%87%E4%BB%B6/</url>
-    <content><![CDATA[<p>在项目中，有时候需要把一些数据导出到一个 Excel 文件中，这里记录下导出方案。</p>
-<span id="more"></span>
-
-<p>首先我们需要了解什么是 CSV（Comma-Separated Values） 文件:</p>
-<blockquote>
-<p>CSV 是逗号分隔文件(Comma Separated Values)的首字母英文缩写，是一种用来存储数据的纯文本格式，通常用于电子表格或数据库软件。在 CSV 文件中，数据“栏”以逗号分隔，可允许程序通过读取文件为数据重新创建正确的栏结构，并在每次遇到逗号时开始新的一栏。</p>
-</blockquote>
-<p>比如：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">order,name,age,sex</span><br><span class="line">1,张三,20,男</span><br><span class="line">2,李四,30,女</span><br><span class="line">3,王五,27,女</span><br></pre></td></tr></table></figure>
-
-<p>所以，要把一些数据导出到文件只要转换成这种数据格式即可。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> base = &#123;</span><br><span class="line">  <span class="attr">header</span>: [<span class="string">&quot;order&quot;</span>, <span class="string">&quot;name&quot;</span>, <span class="string">&quot;age&quot;</span>, <span class="string">&quot;sex&quot;</span>],</span><br><span class="line">  <span class="attr">data</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">order</span>: <span class="number">1</span>,</span><br><span class="line">      <span class="attr">name</span>: <span class="string">&quot;张三&quot;</span>,</span><br><span class="line">      <span class="attr">age</span>: <span class="string">&quot;11&quot;</span>,</span><br><span class="line">      <span class="attr">sex</span>: <span class="string">&quot;男&quot;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">order</span>: <span class="number">2</span>,</span><br><span class="line">      <span class="attr">name</span>: <span class="string">&quot;李四&quot;</span>,</span><br><span class="line">      <span class="attr">age</span>: <span class="string">&quot;33&quot;</span>,</span><br><span class="line">      <span class="attr">sex</span>: <span class="string">&quot;男&quot;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">order</span>: <span class="number">3</span>,</span><br><span class="line">      <span class="attr">name</span>: <span class="string">&quot;王五&quot;</span>,</span><br><span class="line">      <span class="attr">age</span>: <span class="string">&quot;32&quot;</span>,</span><br><span class="line">      <span class="attr">sex</span>: <span class="string">&quot;女&quot;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  ],</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>然后将对象转换成 CSV 字符串，代码如下：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toCSVFile</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> header = obj.header.join(<span class="string">&quot;,&quot;</span>) + <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">  <span class="keyword">let</span> datas = obj.data.map(<span class="function">(<span class="params">ele</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;ele.order&#125;</span>,<span class="subst">$&#123;ele.name&#125;</span>,<span class="subst">$&#123;ele.age&#125;</span>,<span class="subst">$&#123;ele.sex&#125;</span>\n`</span>;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">let</span> dataStrs = [header, ...datas].join(<span class="string">&quot;&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> dataStrs;</span><br><span class="line">&#125;</span><br><span class="line">toCSVFile(base);</span><br></pre></td></tr></table></figure>
-
-<p>把字符串导出文件，可以使用 Blob 对象，通过 Blob 对象生成一个 URL，然后创建一个 a 标签，达到下载文件的目的。代码中的 \uFEFF 是一个文件头，表示文件的编码，不加这个头，通过某些软件打开时可能会发生乱码。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 创建一个 Blob 对象</span></span><br><span class="line"><span class="keyword">const</span> blob = <span class="keyword">new</span> Blob([<span class="string">&quot;\uFEFF&quot;</span> + dataStrs], &#123;</span><br><span class="line">  <span class="attr">type</span>: <span class="string">&quot;text/plain;charset=utf-8&quot;</span>,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<p>创建一个 a 标签，用于下载 Blob 文件：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> link = <span class="built_in">document</span>.createElement(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">link.href = URL.createObjectURL(blob);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 文件名</span></span><br><span class="line">link.download = <span class="string">&quot;测试文件.csv&quot;</span>;</span><br><span class="line">link.click();</span><br><span class="line"><span class="comment">// 需要释放 URL</span></span><br><span class="line">URL.revokeObjectURL(link.href);</span><br></pre></td></tr></table></figure>
-
-<p>完整代码如下：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> base = &#123;</span><br><span class="line">  <span class="attr">header</span>: [<span class="string">&quot;order&quot;</span>, <span class="string">&quot;name&quot;</span>, <span class="string">&quot;age&quot;</span>, <span class="string">&quot;sex&quot;</span>],</span><br><span class="line">  <span class="attr">data</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">order</span>: <span class="number">1</span>,</span><br><span class="line">      <span class="attr">name</span>: <span class="string">&quot;张三&quot;</span>,</span><br><span class="line">      <span class="attr">age</span>: <span class="string">&quot;11&quot;</span>,</span><br><span class="line">      <span class="attr">sex</span>: <span class="string">&quot;男&quot;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">order</span>: <span class="number">2</span>,</span><br><span class="line">      <span class="attr">name</span>: <span class="string">&quot;李四&quot;</span>,</span><br><span class="line">      <span class="attr">age</span>: <span class="string">&quot;33&quot;</span>,</span><br><span class="line">      <span class="attr">sex</span>: <span class="string">&quot;男&quot;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">order</span>: <span class="number">3</span>,</span><br><span class="line">      <span class="attr">name</span>: <span class="string">&quot;王五&quot;</span>,</span><br><span class="line">      <span class="attr">age</span>: <span class="string">&quot;32&quot;</span>,</span><br><span class="line">      <span class="attr">sex</span>: <span class="string">&quot;女&quot;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  ],</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toCSVFile</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> header = obj.header.join(<span class="string">&quot;,&quot;</span>) + <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">  <span class="keyword">let</span> datas = obj.data.map(<span class="function">(<span class="params">ele</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;ele.order&#125;</span>,<span class="subst">$&#123;ele.name&#125;</span>,<span class="subst">$&#123;ele.age&#125;</span>,<span class="subst">$&#123;ele.sex&#125;</span>\n`</span>;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">let</span> dataStrs = [header, ...datas].join(<span class="string">&quot;&quot;</span>);</span><br><span class="line">  <span class="comment">// 创建一个 Blob 对象</span></span><br><span class="line">  <span class="keyword">const</span> blob = <span class="keyword">new</span> Blob([<span class="string">&quot;\uFEFF&quot;</span> + dataStrs], &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="string">&quot;text/plain;charset=utf-8&quot;</span>,</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">const</span> link = <span class="built_in">document</span>.createElement(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">  link.href = URL.createObjectURL(blob);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 文件名</span></span><br><span class="line">  link.download = <span class="string">&quot;测试文件.csv&quot;</span>;</span><br><span class="line">  link.click();</span><br><span class="line">  <span class="comment">// 需要释放 URL</span></span><br><span class="line">  URL.revokeObjectURL(link.href);</span><br><span class="line">&#125;</span><br><span class="line">toCSVFile(base);</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>项目经验</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>168. Excel表列名称</title>
     <url>/2017/06/20/leetcode/Excel%E8%A1%A8%E5%88%97%E5%90%8D%E7%A7%B0/</url>
     <content><![CDATA[<p>给你一个整数 columnNumber ，返回它在 Excel 表中相对应的列名称。</p>
@@ -5436,6 +5366,31 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
       </tags>
   </entry>
   <entry>
+    <title>21. 合并两个有序链表</title>
+    <url>/2017/08/01/leetcode/%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E9%93%BE%E8%A1%A8/</url>
+    <content><![CDATA[<p>将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。</p>
+<span id="more"></span>
+
+<p>示例 1：<br><img src="https://assets.leetcode.com/uploads/2020/10/03/merge_ex1.jpg" alt="示例图"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：l1 = [1,2,4], l2 = [1,3,4]</span><br><span class="line">输出：[1,1,2,3,4,4]</span><br></pre></td></tr></table></figure>
+
+<p>示例 2：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：l1 = [], l2 = []</span><br><span class="line">输出：[]</span><br></pre></td></tr></table></figure>
+
+<p>示例 3：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：l1 = [], l2 = [0]</span><br><span class="line">输出：[0]</span><br></pre></td></tr></table></figure>
+
+<h3 id="合并排序"><a href="#合并排序" class="headerlink" title="合并排序"></a>合并排序</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * function ListNode(val, next) &#123;</span></span><br><span class="line"><span class="comment"> *     this.val = (val===undefined ? 0 : val)</span></span><br><span class="line"><span class="comment"> *     this.next = (next===undefined ? null : next)</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;ListNode&#125;</span> <span class="variable">l1</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;ListNode&#125;</span> <span class="variable">l2</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;ListNode&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> mergeTwoLists = <span class="function"><span class="keyword">function</span> (<span class="params">l1, l2</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (l1 == <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> l2;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (l2 == <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> l1;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (l1.val &lt; l2.val) &#123;</span><br><span class="line">    l1.next = mergeTwoLists(l1.next, l2);</span><br><span class="line">    <span class="keyword">return</span> l1;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    l2.next = mergeTwoLists(l1, l2.next);</span><br><span class="line">    <span class="keyword">return</span> l2;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>LeetCode题库</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>LeetCode-数组</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>88. 合并两个有序数组</title>
     <url>/2017/05/21/leetcode/%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84/</url>
     <content><![CDATA[<p>给你两个按 非递减顺序 排列的整数数组  nums1 和 nums2，另有两个整数 m 和 n ，分别表示 nums1 和 nums2 中的元素数目。</p>
@@ -5455,31 +5410,6 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
 <h3 id="合并排序"><a href="#合并排序" class="headerlink" title="合并排序"></a>合并排序</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">nums1</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">m</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">nums2</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> <span class="variable">n</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;void&#125;</span> </span>Do not return anything, modify nums1 in-place instead.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> merge = <span class="function"><span class="keyword">function</span> (<span class="params">nums1, m, nums2, n</span>) </span>&#123;</span><br><span class="line">  nums1.splice(m, nums1.length - m, ...nums2);</span><br><span class="line">  nums1.sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a - b);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <h3 id="双指针"><a href="#双指针" class="headerlink" title="双指针"></a>双指针</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> merge = <span class="function"><span class="keyword">function</span> (<span class="params">nums1, m, nums2, n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> i = m - <span class="number">1</span>,</span><br><span class="line">    j = n - <span class="number">1</span>,</span><br><span class="line">    cur = m + n - <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">while</span> (j &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> isMax = i &gt;= <span class="number">0</span> &amp;&amp; nums1[i] &gt; nums2[j];</span><br><span class="line">    nums1[cur--] = isMax ? nums1[i--] : nums2[j--];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>LeetCode题库</category>
-      </categories>
-      <tags>
-        <tag>LeetCode</tag>
-        <tag>LeetCode-数组</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>21. 合并两个有序链表</title>
-    <url>/2017/08/01/leetcode/%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E9%93%BE%E8%A1%A8/</url>
-    <content><![CDATA[<p>将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。</p>
-<span id="more"></span>
-
-<p>示例 1：<br><img src="https://assets.leetcode.com/uploads/2020/10/03/merge_ex1.jpg" alt="示例图"></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：l1 = [1,2,4], l2 = [1,3,4]</span><br><span class="line">输出：[1,1,2,3,4,4]</span><br></pre></td></tr></table></figure>
-
-<p>示例 2：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：l1 = [], l2 = []</span><br><span class="line">输出：[]</span><br></pre></td></tr></table></figure>
-
-<p>示例 3：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：l1 = [], l2 = [0]</span><br><span class="line">输出：[0]</span><br></pre></td></tr></table></figure>
-
-<h3 id="合并排序"><a href="#合并排序" class="headerlink" title="合并排序"></a>合并排序</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * function ListNode(val, next) &#123;</span></span><br><span class="line"><span class="comment"> *     this.val = (val===undefined ? 0 : val)</span></span><br><span class="line"><span class="comment"> *     this.next = (next===undefined ? null : next)</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;ListNode&#125;</span> <span class="variable">l1</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;ListNode&#125;</span> <span class="variable">l2</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;ListNode&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> mergeTwoLists = <span class="function"><span class="keyword">function</span> (<span class="params">l1, l2</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (l1 == <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> l2;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (l2 == <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> l1;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (l1.val &lt; l2.val) &#123;</span><br><span class="line">    l1.next = mergeTwoLists(l1.next, l2);</span><br><span class="line">    <span class="keyword">return</span> l1;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    l2.next = mergeTwoLists(l1, l2.next);</span><br><span class="line">    <span class="keyword">return</span> l2;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>LeetCode题库</category>
@@ -6629,6 +6559,76 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
       <tags>
         <tag>LeetCode</tag>
         <tag>LeetCode-字符串</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows 下安装 nvm 管理 nodejs 版本</title>
+    <url>/2021/08/12/node/nvm/</url>
+    <content><![CDATA[<p>最近维护一个旧项目（祖传代码），由于本地 node 版本太高导致无法运行成功，然后尝试是用 nvm 来管理 node 版本切换，这里做下安装记录。</p>
+<span id="more"></span>
+
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ol>
+<li>卸载 node，删除路径以及残留文件</li>
+<li>安装 nvm-windows</li>
+<li>安装 node</li>
+<li>安装 nrm 配置镜像源</li>
+</ol>
+<h2 id="卸载-node"><a href="#卸载-node" class="headerlink" title="卸载 node"></a>卸载 node</h2><p>如果没有安装可以跳过本步骤。</p>
+<ul>
+<li>在卸载程序中卸载 node(控制面板\程序\程序和功能)。</li>
+<li>在环境变量中删除所有与 node 相关的路径(无论是 user 级，还是 system 级)<br>删除以下路径的文件(可能只有部分文件才有) ,如:<br>C:\Program Files\nodejs<br>C:\Users{User}\AppData\Roaming\npm<br>C:\Users{User}\AppData\Roaming\npm-cache<br>C:\Users{User}\node_modules</li>
+</ul>
+<h2 id="安装-nvm"><a href="#安装-nvm" class="headerlink" title="安装 nvm"></a>安装 nvm</h2><p>nvm 是 nodejs 的版本管理工具，可以快速切换\更新 nodejs 版本。<br>windows 系统使用 <a href="https://github.com/coreybutler/nvm-windows/releases">nvm-windows</a>。安装时会需要选择两个安装目录，一个是 nvm 的目录，另一个是 node 的版本库目录，我这里分别用 D:\tools\nvm 和 D:\tools\nodejs。</p>
+<p>安装完成检查是否成功：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\Users\Administrator&gt;nvm version</span><br><span class="line">1.1.7</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装-node"><a href="#安装-node" class="headerlink" title="安装 node"></a>安装 node</h2><p>nvm 安装完后就可以开始管理 nodejs 的版本了。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 查看线上所有版本</span><br><span class="line">nvm list available</span><br><span class="line"></span><br><span class="line"># 下载指定版本</span><br><span class="line">nvm install 14.15.0</span><br><span class="line"></span><br><span class="line"># 查看已安装的 node 版本</span><br><span class="line">nvm list</span><br><span class="line"></span><br><span class="line"># 切换版本</span><br><span class="line">nvm use 14.15.0</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这时就会在 D:\tools 的目录出现个 nodejs 的快捷方式。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 查看node是否安装成功</span><br><span class="line">node -v</span><br></pre></td></tr></table></figure>
+
+<p>如果显示 v14.15.0，那么就表示安装成功了。</p>
+<h2 id="安装-nrm"><a href="#安装-nrm" class="headerlink" title="安装 nrm"></a>安装 nrm</h2><p>nrm 是管理 npm 源的，为了下载包更快。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 安装nrm</span><br><span class="line">npm install -g nrm</span><br><span class="line"></span><br><span class="line"># 列出可用源</span><br><span class="line">nrm ls</span><br><span class="line"></span><br><span class="line"># 切换源</span><br><span class="line">nrm use taobao</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>Node</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>前端导出 Excel(CSV)文件</title>
+    <url>/2021/02/10/project/%E5%89%8D%E7%AB%AF%E5%AF%BC%E5%87%BA%20Excel(CSV)%E6%96%87%E4%BB%B6/</url>
+    <content><![CDATA[<p>在项目中，有时候需要把一些数据导出到一个 Excel 文件中，这里记录下导出方案。</p>
+<span id="more"></span>
+
+<p>首先我们需要了解什么是 CSV（Comma-Separated Values） 文件:</p>
+<blockquote>
+<p>CSV 是逗号分隔文件(Comma Separated Values)的首字母英文缩写，是一种用来存储数据的纯文本格式，通常用于电子表格或数据库软件。在 CSV 文件中，数据“栏”以逗号分隔，可允许程序通过读取文件为数据重新创建正确的栏结构，并在每次遇到逗号时开始新的一栏。</p>
+</blockquote>
+<p>比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">order,name,age,sex</span><br><span class="line">1,张三,20,男</span><br><span class="line">2,李四,30,女</span><br><span class="line">3,王五,27,女</span><br></pre></td></tr></table></figure>
+
+<p>所以，要把一些数据导出到文件只要转换成这种数据格式即可。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> base = &#123;</span><br><span class="line">  <span class="attr">header</span>: [<span class="string">&quot;order&quot;</span>, <span class="string">&quot;name&quot;</span>, <span class="string">&quot;age&quot;</span>, <span class="string">&quot;sex&quot;</span>],</span><br><span class="line">  <span class="attr">data</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">order</span>: <span class="number">1</span>,</span><br><span class="line">      <span class="attr">name</span>: <span class="string">&quot;张三&quot;</span>,</span><br><span class="line">      <span class="attr">age</span>: <span class="string">&quot;11&quot;</span>,</span><br><span class="line">      <span class="attr">sex</span>: <span class="string">&quot;男&quot;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">order</span>: <span class="number">2</span>,</span><br><span class="line">      <span class="attr">name</span>: <span class="string">&quot;李四&quot;</span>,</span><br><span class="line">      <span class="attr">age</span>: <span class="string">&quot;33&quot;</span>,</span><br><span class="line">      <span class="attr">sex</span>: <span class="string">&quot;男&quot;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">order</span>: <span class="number">3</span>,</span><br><span class="line">      <span class="attr">name</span>: <span class="string">&quot;王五&quot;</span>,</span><br><span class="line">      <span class="attr">age</span>: <span class="string">&quot;32&quot;</span>,</span><br><span class="line">      <span class="attr">sex</span>: <span class="string">&quot;女&quot;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  ],</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>然后将对象转换成 CSV 字符串，代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toCSVFile</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> header = obj.header.join(<span class="string">&quot;,&quot;</span>) + <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">  <span class="keyword">let</span> datas = obj.data.map(<span class="function">(<span class="params">ele</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;ele.order&#125;</span>,<span class="subst">$&#123;ele.name&#125;</span>,<span class="subst">$&#123;ele.age&#125;</span>,<span class="subst">$&#123;ele.sex&#125;</span>\n`</span>;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">let</span> dataStrs = [header, ...datas].join(<span class="string">&quot;&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> dataStrs;</span><br><span class="line">&#125;</span><br><span class="line">toCSVFile(base);</span><br></pre></td></tr></table></figure>
+
+<p>把字符串导出文件，可以使用 Blob 对象，通过 Blob 对象生成一个 URL，然后创建一个 a 标签，达到下载文件的目的。代码中的 \uFEFF 是一个文件头，表示文件的编码，不加这个头，通过某些软件打开时可能会发生乱码。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 创建一个 Blob 对象</span></span><br><span class="line"><span class="keyword">const</span> blob = <span class="keyword">new</span> Blob([<span class="string">&quot;\uFEFF&quot;</span> + dataStrs], &#123;</span><br><span class="line">  <span class="attr">type</span>: <span class="string">&quot;text/plain;charset=utf-8&quot;</span>,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>创建一个 a 标签，用于下载 Blob 文件：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> link = <span class="built_in">document</span>.createElement(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">link.href = URL.createObjectURL(blob);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 文件名</span></span><br><span class="line">link.download = <span class="string">&quot;测试文件.csv&quot;</span>;</span><br><span class="line">link.click();</span><br><span class="line"><span class="comment">// 需要释放 URL</span></span><br><span class="line">URL.revokeObjectURL(link.href);</span><br></pre></td></tr></table></figure>
+
+<p>完整代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> base = &#123;</span><br><span class="line">  <span class="attr">header</span>: [<span class="string">&quot;order&quot;</span>, <span class="string">&quot;name&quot;</span>, <span class="string">&quot;age&quot;</span>, <span class="string">&quot;sex&quot;</span>],</span><br><span class="line">  <span class="attr">data</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">order</span>: <span class="number">1</span>,</span><br><span class="line">      <span class="attr">name</span>: <span class="string">&quot;张三&quot;</span>,</span><br><span class="line">      <span class="attr">age</span>: <span class="string">&quot;11&quot;</span>,</span><br><span class="line">      <span class="attr">sex</span>: <span class="string">&quot;男&quot;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">order</span>: <span class="number">2</span>,</span><br><span class="line">      <span class="attr">name</span>: <span class="string">&quot;李四&quot;</span>,</span><br><span class="line">      <span class="attr">age</span>: <span class="string">&quot;33&quot;</span>,</span><br><span class="line">      <span class="attr">sex</span>: <span class="string">&quot;男&quot;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">order</span>: <span class="number">3</span>,</span><br><span class="line">      <span class="attr">name</span>: <span class="string">&quot;王五&quot;</span>,</span><br><span class="line">      <span class="attr">age</span>: <span class="string">&quot;32&quot;</span>,</span><br><span class="line">      <span class="attr">sex</span>: <span class="string">&quot;女&quot;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  ],</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toCSVFile</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> header = obj.header.join(<span class="string">&quot;,&quot;</span>) + <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">  <span class="keyword">let</span> datas = obj.data.map(<span class="function">(<span class="params">ele</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;ele.order&#125;</span>,<span class="subst">$&#123;ele.name&#125;</span>,<span class="subst">$&#123;ele.age&#125;</span>,<span class="subst">$&#123;ele.sex&#125;</span>\n`</span>;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">let</span> dataStrs = [header, ...datas].join(<span class="string">&quot;&quot;</span>);</span><br><span class="line">  <span class="comment">// 创建一个 Blob 对象</span></span><br><span class="line">  <span class="keyword">const</span> blob = <span class="keyword">new</span> Blob([<span class="string">&quot;\uFEFF&quot;</span> + dataStrs], &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="string">&quot;text/plain;charset=utf-8&quot;</span>,</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">const</span> link = <span class="built_in">document</span>.createElement(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">  link.href = URL.createObjectURL(blob);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 文件名</span></span><br><span class="line">  link.download = <span class="string">&quot;测试文件.csv&quot;</span>;</span><br><span class="line">  link.click();</span><br><span class="line">  <span class="comment">// 需要释放 URL</span></span><br><span class="line">  URL.revokeObjectURL(link.href);</span><br><span class="line">&#125;</span><br><span class="line">toCSVFile(base);</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>项目经验</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
 </search>
