@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>AJAX的XMLHttpRequest对象使用</title>
+    <url>/2016/05/20/AJAX%E7%9A%84XMLHttpRequest%E5%AF%B9%E8%B1%A1%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<blockquote>
+<h3 id="代码如下"><a href="#代码如下" class="headerlink" title="代码如下"></a>代码如下</h3></blockquote>
+<span id="more"></span>
+<blockquote>
+<pre><code>   //1 创建XHR对象
+    var xhr = null;
+    if(window.XMLHttpRequest)&#123;  //新IE、其它浏览器
+        xhr = new XMLHttpRequest();  
+    &#125;else &#123; //老IE
+        xhr = new ActiveXObject(&#39;Microsoft.XMLHTTP&#39;);
+    &#125;
+//2 监听XHR的状态改变
+    xhr.onreadystatechange = function()&#123;
+      if(xhr.readyState===4)&#123; //DONE响应消息接收完成
+        if(xhr.status===200)&#123;
+          console.log(&#39;响应接收完成且成功&#39;);
+          console.log(&#39;响应主体：&#39;+xhr.responseText);
+          doResponse(xhr.responseText);//调用自定义的函数，处理响应数据
+        &#125;else &#123;
+          console.log(&#39;响应接收完成但不成功&#39;);
+          console.log(&#39;响应状态码为：&#39;+xhr.status);
+        &#125;
+      &#125;
+    &#125;
+//3 打开连接
+    xhr.open(&#39;GET&#39;,&#39;test.php?uname=&#39;+n, true);
+//4 发送请求消息
+    xhr.send( null );
+</code></pre>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>AJAX</tag>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>关于JS的模块化开发总结</title>
     <url>/2017/04/10/CommonJSAMDCMD%E5%8C%BA%E5%88%AB/</url>
     <content><![CDATA[<p>一直都在说JS的模块化开发，以前研究和使用过require之类的方法，但是一直不是很明确，今天还是在总结一下：</p>
@@ -123,45 +162,6 @@
 ]]></content>
       <tags>
         <tag>HTML5</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>AJAX的XMLHttpRequest对象使用</title>
-    <url>/2016/05/20/AJAX%E7%9A%84XMLHttpRequest%E5%AF%B9%E8%B1%A1%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<blockquote>
-<h3 id="代码如下"><a href="#代码如下" class="headerlink" title="代码如下"></a>代码如下</h3></blockquote>
-<span id="more"></span>
-<blockquote>
-<pre><code>   //1 创建XHR对象
-    var xhr = null;
-    if(window.XMLHttpRequest)&#123;  //新IE、其它浏览器
-        xhr = new XMLHttpRequest();  
-    &#125;else &#123; //老IE
-        xhr = new ActiveXObject(&#39;Microsoft.XMLHTTP&#39;);
-    &#125;
-//2 监听XHR的状态改变
-    xhr.onreadystatechange = function()&#123;
-      if(xhr.readyState===4)&#123; //DONE响应消息接收完成
-        if(xhr.status===200)&#123;
-          console.log(&#39;响应接收完成且成功&#39;);
-          console.log(&#39;响应主体：&#39;+xhr.responseText);
-          doResponse(xhr.responseText);//调用自定义的函数，处理响应数据
-        &#125;else &#123;
-          console.log(&#39;响应接收完成但不成功&#39;);
-          console.log(&#39;响应状态码为：&#39;+xhr.status);
-        &#125;
-      &#125;
-    &#125;
-//3 打开连接
-    xhr.open(&#39;GET&#39;,&#39;test.php?uname=&#39;+n, true);
-//4 发送请求消息
-    xhr.send( null );
-</code></pre>
-</blockquote>
-]]></content>
-      <tags>
-        <tag>JS</tag>
-        <tag>AJAX</tag>
       </tags>
   </entry>
   <entry>
@@ -396,6 +396,34 @@ localStorage.clear()
       </tags>
   </entry>
   <entry>
+    <title>Hamming Distance</title>
+    <url>/2016/09/03/HammingDistance/</url>
+    <content><![CDATA[<h1 style="color:#2dbe60"> Hamming Distance </h1>
+The <a href="https://en.wikipedia.org/wiki/Hamming_distance" target="_blank" style="box-sizing: border-box; color: rgb(0, 136, 204); text-decoration: none; background-color: transparent;">Hamming distance</a> between two integers is the number of positions at which the corresponding bits are different.
+Given two integers x and y, calculate the Hamming distance.
+<span id="more"></span>
+**Note:**
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">0</span> ≤ x, y &lt; <span class="number">2</span>^<span class="number">31.</span></span><br></pre></td></tr></table></figure>
+**Example:**
+``` flow
+Input: x = 1, y = 4
+
+<p>Output: 2</p>
+<p>Explanation:<br>1 (0 0 0 1)<br>4 (0 1 0 0)<br>? ?</p>
+<p>The above arrows point to positions where the corresponding bits are different.</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">**代码如下:**</span><br><span class="line">``` javascript</span><br><span class="line">/**</span><br><span class="line"> * @param &#123;number&#125; x</span><br><span class="line"> * @param &#123;number&#125; y</span><br><span class="line"> * @return &#123;number&#125;</span><br><span class="line"> */</span><br><span class="line">var  hammingDistance = function(x, y) &#123;</span><br><span class="line">         var z = x^y;</span><br><span class="line">         z = z.toString(2).split(&quot;&quot;);</span><br><span class="line">         var result = 0;</span><br><span class="line">         z.forEach(function(val)&#123;</span><br><span class="line">              if(val === &#x27;1&#x27;)&#123;</span><br><span class="line">                    result++;</span><br><span class="line">              &#125;</span><br><span class="line">         &#125;)</span><br><span class="line">         return result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<hr>
+]]></content>
+      <categories>
+        <category>JS 算法</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>JavaScript代码收集</title>
     <url>/2016/07/20/Javascript%E4%BB%A3%E7%A0%81%E6%94%B6%E9%9B%86/</url>
     <content><![CDATA[<h2 id="1-根据userAgent判断是否手机"><a href="#1-根据userAgent判断是否手机" class="headerlink" title="1.根据userAgent判断是否手机"></a>1.根据userAgent判断是否手机</h2><span id="more"></span>
@@ -473,34 +501,6 @@ var ISWP = !!(navigator.userAgent.match(/Windows\sPhone/i));
 ]]></content>
       <tags>
         <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hamming Distance</title>
-    <url>/2016/09/03/HammingDistance/</url>
-    <content><![CDATA[<h1 style="color:#2dbe60"> Hamming Distance </h1>
-The <a href="https://en.wikipedia.org/wiki/Hamming_distance" target="_blank" style="box-sizing: border-box; color: rgb(0, 136, 204); text-decoration: none; background-color: transparent;">Hamming distance</a> between two integers is the number of positions at which the corresponding bits are different.
-Given two integers x and y, calculate the Hamming distance.
-<span id="more"></span>
-**Note:**
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="number">0</span> ≤ x, y &lt; <span class="number">2</span>^<span class="number">31.</span></span><br></pre></td></tr></table></figure>
-**Example:**
-``` flow
-Input: x = 1, y = 4
-
-<p>Output: 2</p>
-<p>Explanation:<br>1 (0 0 0 1)<br>4 (0 1 0 0)<br>? ?</p>
-<p>The above arrows point to positions where the corresponding bits are different.</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">**代码如下:**</span><br><span class="line">``` javascript</span><br><span class="line">/**</span><br><span class="line"> * @param &#123;number&#125; x</span><br><span class="line"> * @param &#123;number&#125; y</span><br><span class="line"> * @return &#123;number&#125;</span><br><span class="line"> */</span><br><span class="line">var  hammingDistance = function(x, y) &#123;</span><br><span class="line">         var z = x^y;</span><br><span class="line">         z = z.toString(2).split(&quot;&quot;);</span><br><span class="line">         var result = 0;</span><br><span class="line">         z.forEach(function(val)&#123;</span><br><span class="line">              if(val === &#x27;1&#x27;)&#123;</span><br><span class="line">                    result++;</span><br><span class="line">              &#125;</span><br><span class="line">         &#125;)</span><br><span class="line">         return result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<hr>
-]]></content>
-      <categories>
-        <category>JS 算法</category>
-      </categories>
-      <tags>
-        <tag>JS</tag>
-        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -660,19 +660,6 @@ count; // 3
       </tags>
   </entry>
   <entry>
-    <title>css中overflow滑动效果在IOS中不流畅</title>
-    <url>/2017/04/23/css%E4%B8%ADoverflow%E6%BB%91%E5%8A%A8%E6%95%88%E6%9E%9C%E5%9C%A8IOS%E4%B8%AD%E4%B8%8D%E6%B5%81%E7%95%85/</url>
-    <content><![CDATA[<p>最近新作的一个项目中遇到一个问题，有一段很长的表格，手机显示器展示不全，需要做滑动继续展示的效果；<br>OK，很简单，使用overflow-x:auto;谷歌模拟器一切正常，安卓正常，可是打完包在IOS上，滑动效果慢到完全跟随手指的移动而移动，这样是肯定不行的经过百度发现了解决之道；<br>-webkit-overflow-scrolling: touch;<br>度娘说这句话是启动了硬件加速的特性，所以滑动起来会非常流畅；不过会影响性能；经过测试，发现影响看不出，果断选择用它；<br>完美解决~~~~~~~</p>
-]]></content>
-      <categories>
-        <category>CSS</category>
-      </categories>
-      <tags>
-        <tag>CSS</tag>
-        <tag>IOS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>面试题</title>
     <url>/2016/06/23/count%E6%96%B9%E6%B3%95/</url>
     <content><![CDATA[<h3 id="count方法"><a href="#count方法" class="headerlink" title="count方法"></a>count方法</h3><p>封装一个count方法，能实现如此调用：count(a)(b)(c)(d)(e)… 并且返回的值为参数连乘的结果，即abcde*…。如count(1)(3)(7) 得到21</p>
@@ -695,6 +682,19 @@ count; // 3
       <tags>
         <tag>JS</tag>
         <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>css中overflow滑动效果在IOS中不流畅</title>
+    <url>/2017/04/23/css%E4%B8%ADoverflow%E6%BB%91%E5%8A%A8%E6%95%88%E6%9E%9C%E5%9C%A8IOS%E4%B8%AD%E4%B8%8D%E6%B5%81%E7%95%85/</url>
+    <content><![CDATA[<p>最近新作的一个项目中遇到一个问题，有一段很长的表格，手机显示器展示不全，需要做滑动继续展示的效果；<br>OK，很简单，使用overflow-x:auto;谷歌模拟器一切正常，安卓正常，可是打完包在IOS上，滑动效果慢到完全跟随手指的移动而移动，这样是肯定不行的经过百度发现了解决之道；<br>-webkit-overflow-scrolling: touch;<br>度娘说这句话是启动了硬件加速的特性，所以滑动起来会非常流畅；不过会影响性能；经过测试，发现影响看不出，果断选择用它；<br>完美解决~~~~~~~</p>
+]]></content>
+      <categories>
+        <category>CSS</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+        <tag>IOS</tag>
       </tags>
   </entry>
   <entry>
@@ -1125,7 +1125,7 @@ Markdown 使用一种和链接很相似的语法来标记图片，同样也允�
 &amp;#109;&quot;&gt;&amp;#x61;&amp;#x64;&amp;#x64;&amp;#x72;&amp;#x65;&amp;#115;&amp;#115;&amp;#64;&amp;#101;&amp;#120;&amp;#x61;
 &amp;#109;&amp;#x70;&amp;#x6C;e&amp;#x2E;&amp;#99;&amp;#111;&amp;#109;&lt;/a&gt;
 </code></pre>
-<p>在浏览器里面，这段字串（其实是 <a href="mailto:address@example.com">address@example.com</a>）会变成一个可以点击的「<a href="mailto:&#97;&#100;&#x64;&#x72;&#101;&#x73;&#x73;&#x40;&#x65;&#x78;&#97;&#x6d;&#x70;&#108;&#x65;&#46;&#99;&#111;&#x6d;">&#97;&#100;&#x64;&#x72;&#101;&#x73;&#x73;&#x40;&#x65;&#x78;&#97;&#x6d;&#x70;&#108;&#x65;&#46;&#99;&#111;&#x6d;</a>」链接。</p>
+<p>在浏览器里面，这段字串（其实是 <a href="mailto:address@example.com">address@example.com</a>）会变成一个可以点击的「<a href="mailto:&#x61;&#x64;&#x64;&#114;&#101;&#x73;&#x73;&#x40;&#x65;&#x78;&#x61;&#x6d;&#x70;&#108;&#101;&#x2e;&#99;&#x6f;&#109;">&#x61;&#x64;&#x64;&#114;&#101;&#x73;&#x73;&#x40;&#x65;&#x78;&#x61;&#x6d;&#x70;&#108;&#101;&#x2e;&#99;&#x6f;&#109;</a>」链接。</p>
 </blockquote>
 <p>（这种作法虽然可以糊弄不少的机器人，但并不能全部挡下来，不过总比什么都不做好些。不管怎样，公开你的信箱终究会引来广告信件的。）</p>
 <blockquote>
@@ -1150,28 +1150,6 @@ _   底线
 ]]></content>
       <tags>
         <tag>study</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>postcss-pxtorem的使用</title>
-    <url>/2020/11/11/postcss-pxtorem%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<p>最近公司要开发一个H5的项目，这里用postcss-pxtorem来处理自适应的问题；</p>
-<blockquote>
-<p>postcss-pxtorem是PostCSS的插件，用于将像素单元生成rem单位。前端开发还原设计稿的重要性毋庸置疑，目前应用的单位最多还是rem,然而每次在制作过程中需要自己计算rem值，为了能够直接按照设计图的尺寸开发，并且能自动编译转换成rem，下面就来分享下postcss-pxtorem的使用。</p>
-</blockquote>
-<h2 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install postcss-pxtorem -D</span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-<h2 id="设置规则"><a href="#设置规则" class="headerlink" title="设置规则"></a>设置规则</h2><p>更改postcss.config.js,该文件为使用vue-cli3自动创建的文件</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  plugins: &#123;</span><br><span class="line">    &#x27;autoprefixer&#x27;: &#123; // autoprefixer 是自动补全代码用的</span><br><span class="line">      browsers: [&#x27;Android &gt;= 4.0&#x27;, &#x27;iOS &gt;= 7&#x27;]</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x27;postcss-pxtorem&#x27;: &#123;</span><br><span class="line">      rootValue: 16,//结果为：设计稿元素尺寸/16，比如元素宽320px,最终页面会换算成 20rem</span><br><span class="line">      propList: [&#x27;*&#x27;]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="设置根节点"><a href="#设置根节点" class="headerlink" title="设置根节点"></a>设置根节点</h2><p>首先我们要在src目录下，新建 assets/js/rem.js文件；</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">c</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> e = <span class="built_in">document</span>.documentElement || <span class="built_in">document</span>.body,</span><br><span class="line">    a = <span class="string">&quot;orientationchange&quot;</span> <span class="keyword">in</span> <span class="built_in">window</span> ? <span class="string">&quot;orientationchange&quot;</span> : <span class="string">&quot;resize&quot;</span>,</span><br><span class="line">    b = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> f = e.clientWidth;</span><br><span class="line">      <span class="comment">// 320 默认大小16px; 320px = 20rem ;每个元素px基础上/16</span></span><br><span class="line">      e.style.fontSize = f / <span class="number">20</span> + <span class="string">&quot;px&quot;</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">  b();</span><br><span class="line">  c.addEventListener(a, b, <span class="literal">false</span>);</span><br><span class="line">&#125;)(<span class="built_in">window</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>然后在main.js中引入rem.js就可以了。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&quot;@assets/js/rem&quot;</span>;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <tags>
-        <tag>vue</tag>
-        <tag>css</tag>
       </tags>
   </entry>
   <entry>
@@ -1205,6 +1183,28 @@ npm -v
 ]]></content>
       <tags>
         <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>postcss-pxtorem的使用</title>
+    <url>/2020/11/11/postcss-pxtorem%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<p>最近公司要开发一个H5的项目，这里用postcss-pxtorem来处理自适应的问题；</p>
+<blockquote>
+<p>postcss-pxtorem是PostCSS的插件，用于将像素单元生成rem单位。前端开发还原设计稿的重要性毋庸置疑，目前应用的单位最多还是rem,然而每次在制作过程中需要自己计算rem值，为了能够直接按照设计图的尺寸开发，并且能自动编译转换成rem，下面就来分享下postcss-pxtorem的使用。</p>
+</blockquote>
+<h2 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install postcss-pxtorem -D</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<h2 id="设置规则"><a href="#设置规则" class="headerlink" title="设置规则"></a>设置规则</h2><p>更改postcss.config.js,该文件为使用vue-cli3自动创建的文件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  plugins: &#123;</span><br><span class="line">    &#x27;autoprefixer&#x27;: &#123; // autoprefixer 是自动补全代码用的</span><br><span class="line">      browsers: [&#x27;Android &gt;= 4.0&#x27;, &#x27;iOS &gt;= 7&#x27;]</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x27;postcss-pxtorem&#x27;: &#123;</span><br><span class="line">      rootValue: 16,//结果为：设计稿元素尺寸/16，比如元素宽320px,最终页面会换算成 20rem</span><br><span class="line">      propList: [&#x27;*&#x27;]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="设置根节点"><a href="#设置根节点" class="headerlink" title="设置根节点"></a>设置根节点</h2><p>首先我们要在src目录下，新建 assets/js/rem.js文件；</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">c</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> e = <span class="built_in">document</span>.documentElement || <span class="built_in">document</span>.body,</span><br><span class="line">    a = <span class="string">&quot;orientationchange&quot;</span> <span class="keyword">in</span> <span class="built_in">window</span> ? <span class="string">&quot;orientationchange&quot;</span> : <span class="string">&quot;resize&quot;</span>,</span><br><span class="line">    b = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> f = e.clientWidth;</span><br><span class="line">      <span class="comment">// 320 默认大小16px; 320px = 20rem ;每个元素px基础上/16</span></span><br><span class="line">      e.style.fontSize = f / <span class="number">20</span> + <span class="string">&quot;px&quot;</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">  b();</span><br><span class="line">  c.addEventListener(a, b, <span class="literal">false</span>);</span><br><span class="line">&#125;)(<span class="built_in">window</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>然后在main.js中引入rem.js就可以了。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&quot;@assets/js/rem&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>vue</tag>
+        <tag>css</tag>
       </tags>
   </entry>
   <entry>
@@ -1880,8 +1880,8 @@ var five = add(two, three);
         <category>Testing</category>
       </categories>
       <tags>
-        <tag>JavaScript</tag>
         <tag>算法</tag>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -2038,7 +2038,7 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
 <h2 id="关于收费"><a href="#关于收费" class="headerlink" title="关于收费"></a>关于收费</h2><p><strong>马克飞象</strong>为新用户提供 10 天的试用期，试用期过后需要<a href="maxiang.info/vip.html">续费</a>才能继续使用。未购买或者未及时续费，将不能同步新的笔记。之前保存过的笔记依然可以编辑。</p>
 <h2 id="反馈与建议"><a href="#反馈与建议" class="headerlink" title="反馈与建议"></a>反馈与建议</h2><ul>
 <li>微博：<a href="http://weibo.com/u/2788354117">@马克飞象</a>，<a href="http://weibo.com/ggock" title="开发者个人账号">@GGock</a></li>
-<li>邮箱：<a href="mailto:&#104;&#x75;&#x73;&#x74;&#x67;&#x6f;&#x63;&#x6b;&#x40;&#103;&#x6d;&#x61;&#x69;&#108;&#x2e;&#99;&#111;&#x6d;">&#104;&#x75;&#x73;&#x74;&#x67;&#x6f;&#x63;&#x6b;&#x40;&#103;&#x6d;&#x61;&#x69;&#108;&#x2e;&#99;&#111;&#x6d;</a></li>
+<li>邮箱：<a href="mailto:&#x68;&#x75;&#x73;&#x74;&#x67;&#111;&#99;&#x6b;&#x40;&#103;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;">&#x68;&#x75;&#x73;&#x74;&#x67;&#111;&#99;&#x6b;&#x40;&#103;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;</a></li>
 </ul>
 <hr>
 <p>感谢阅读这份帮助文档。请点击右上角，绑定印象笔记账号，开启全新的记录与分享体验吧。</p>
@@ -2420,35 +2420,6 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
       </tags>
   </entry>
   <entry>
-    <title>一、JavaScript之原型和原型链</title>
-    <url>/2019/06/11/deepjs/%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE/</url>
-    <content><![CDATA[<h2 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h2><p>首先创建一个构造函数</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function Person() &#123;&#125;</span><br><span class="line">var person = new Person();</span><br><span class="line">person.name = &#x27;lilei&#x27;;</span><br><span class="line">console.log(person.name) // lilei</span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-<p>在这个例子中，Person 就是一个构造函数，我们使用 new 创建了一个实例对象 person。</p>
-<h3 id="prototype"><a href="#prototype" class="headerlink" title="prototype"></a>prototype</h3><p>每个函数都有一个prototype属性，那这个属性到底是指向哪里呢？是这个函数的原型吗？</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function Person() &#123;&#125;</span><br><span class="line">Person.prototype.name = &#x27;lilei&#x27;;</span><br><span class="line">var person1 = new Person();</span><br><span class="line">var person2 = new Person();</span><br><span class="line">console.log(person1.name) // lilei</span><br><span class="line">console.log(person2.name) // lilei</span><br></pre></td></tr></table></figure>
-<p>从这里可以看出，函数Person的prototype熟悉指向了一个对象，这个对象就是正在调用该构造函数而创建的实例的原型，也就是这个例子中的person的原型。<br>那什么是原型呢？可以这样理解，每个JavaScript对象（null除外）在创建的时候都会关联另一个对象，这个对象就是我们所说的原型，每一个对象都会从原型继承属性。</p>
-<h3 id="proto"><a href="#proto" class="headerlink" title="proto"></a><strong>proto</strong></h3><p>每一个JavaScript对象（null除外）都具有的一个属性叫 ‘<strong>proto</strong>‘ , 这个属性指向该对象的原型。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function Person() &#123;&#125;</span><br><span class="line">var person = new Person();</span><br><span class="line">console.log(person.__proto__ === Person.prototype); // true</span><br></pre></td></tr></table></figure>
-<h3 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h3><p>前面我们已经知道实例对象和构造函数都可以指向原型，那么原型是否有属性指向构造函数或者实例呢？<br>因为一个构造函数可以生成多个实例，所以原型没有指向实例的属性，，但是原型可以指向构造函数，这就要讲到第三个属性：constructor，每个原型都有一个 constructor 属性指向关联的构造函数。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function Person() &#123;&#125;</span><br><span class="line">console.log(Person === Person.prototype.constructor); // true</span><br></pre></td></tr></table></figure>
-<p>综上我们已经得出</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function Person() &#123;&#125;</span><br><span class="line"></span><br><span class="line">var person = new Person();</span><br><span class="line"></span><br><span class="line">console.log(person.__proto__ == Person.prototype) // true</span><br><span class="line">console.log(Person.prototype.constructor == Person) // true</span><br><span class="line">// 顺便学习一个ES5的方法,可以获得对象的原型</span><br><span class="line">console.log(Object.getPrototypeOf(person) === Person.prototype) // true</span><br></pre></td></tr></table></figure>
-<h2 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h2><p>在前面，我们已经知道什么是原型，下面我们说说原型链。<br>当读取实例的属性时，如果找不到，就会查找与对象关联的原型中的属性，如果还查不到，就去找原型的原型，一直找到最顶层为止。<br>那么原型的最顶层是什么呢？请看下面的代码</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">console.log(Object.prototype.__proto__ === null) // true</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>null字面意思：空值，这个值的语义是，希望表示一个对象被人为的重置为空对象，而非一个变量最原始的状态 。<br>所以 Object.prototype.<strong>proto</strong> 的值为 null 跟 Object.prototype 没有原型，其实表达了一个意思。<br>所以查找属性的时候查到 Object.prototype 就可以停止查找了，所以原型的最顶层就是null。<br>最后用一张图来表示之间的关系：<br><img src="/images/prototype.png" alt="(原型图)"><br>图中由相互关联的原型组成的链状结构就是原型链，也就是蓝色的这条线。</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>深入理解JavaScript系列笔记</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>四、JavaScript之变量对象</title>
     <url>/2019/07/12/deepjs/%E5%8F%98%E9%87%8F%E5%AF%B9%E8%B1%A1/</url>
     <content><![CDATA[<p>在前面的文章<a href="https://hedahang.github.io/2019/06/26/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E6%A0%88/">《JavaScript之执行上下文栈》</a>中讲到，当 JavaScript 代码执行一段可执行代码(executable code)时，会创建对应的执行上下文(execution context)。</p>
@@ -2533,6 +2504,35 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
 </li>
 </ul>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="http://dmitrysoshnikov.com/ecmascript/ru-chapter-2-variable-object/">http://dmitrysoshnikov.com/ecmascript/ru-chapter-2-variable-object/</a></p>
+]]></content>
+      <categories>
+        <category>深入理解JavaScript系列笔记</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>一、JavaScript之原型和原型链</title>
+    <url>/2019/06/11/deepjs/%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE/</url>
+    <content><![CDATA[<h2 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h2><p>首先创建一个构造函数</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function Person() &#123;&#125;</span><br><span class="line">var person = new Person();</span><br><span class="line">person.name = &#x27;lilei&#x27;;</span><br><span class="line">console.log(person.name) // lilei</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<p>在这个例子中，Person 就是一个构造函数，我们使用 new 创建了一个实例对象 person。</p>
+<h3 id="prototype"><a href="#prototype" class="headerlink" title="prototype"></a>prototype</h3><p>每个函数都有一个prototype属性，那这个属性到底是指向哪里呢？是这个函数的原型吗？</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function Person() &#123;&#125;</span><br><span class="line">Person.prototype.name = &#x27;lilei&#x27;;</span><br><span class="line">var person1 = new Person();</span><br><span class="line">var person2 = new Person();</span><br><span class="line">console.log(person1.name) // lilei</span><br><span class="line">console.log(person2.name) // lilei</span><br></pre></td></tr></table></figure>
+<p>从这里可以看出，函数Person的prototype熟悉指向了一个对象，这个对象就是正在调用该构造函数而创建的实例的原型，也就是这个例子中的person的原型。<br>那什么是原型呢？可以这样理解，每个JavaScript对象（null除外）在创建的时候都会关联另一个对象，这个对象就是我们所说的原型，每一个对象都会从原型继承属性。</p>
+<h3 id="proto"><a href="#proto" class="headerlink" title="proto"></a><strong>proto</strong></h3><p>每一个JavaScript对象（null除外）都具有的一个属性叫 ‘<strong>proto</strong>‘ , 这个属性指向该对象的原型。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function Person() &#123;&#125;</span><br><span class="line">var person = new Person();</span><br><span class="line">console.log(person.__proto__ === Person.prototype); // true</span><br></pre></td></tr></table></figure>
+<h3 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h3><p>前面我们已经知道实例对象和构造函数都可以指向原型，那么原型是否有属性指向构造函数或者实例呢？<br>因为一个构造函数可以生成多个实例，所以原型没有指向实例的属性，，但是原型可以指向构造函数，这就要讲到第三个属性：constructor，每个原型都有一个 constructor 属性指向关联的构造函数。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function Person() &#123;&#125;</span><br><span class="line">console.log(Person === Person.prototype.constructor); // true</span><br></pre></td></tr></table></figure>
+<p>综上我们已经得出</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">function Person() &#123;&#125;</span><br><span class="line"></span><br><span class="line">var person = new Person();</span><br><span class="line"></span><br><span class="line">console.log(person.__proto__ == Person.prototype) // true</span><br><span class="line">console.log(Person.prototype.constructor == Person) // true</span><br><span class="line">// 顺便学习一个ES5的方法,可以获得对象的原型</span><br><span class="line">console.log(Object.getPrototypeOf(person) === Person.prototype) // true</span><br></pre></td></tr></table></figure>
+<h2 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h2><p>在前面，我们已经知道什么是原型，下面我们说说原型链。<br>当读取实例的属性时，如果找不到，就会查找与对象关联的原型中的属性，如果还查不到，就去找原型的原型，一直找到最顶层为止。<br>那么原型的最顶层是什么呢？请看下面的代码</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">console.log(Object.prototype.__proto__ === null) // true</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>null字面意思：空值，这个值的语义是，希望表示一个对象被人为的重置为空对象，而非一个变量最原始的状态 。<br>所以 Object.prototype.<strong>proto</strong> 的值为 null 跟 Object.prototype 没有原型，其实表达了一个意思。<br>所以查找属性的时候查到 Object.prototype 就可以停止查找了，所以原型的最顶层就是null。<br>最后用一张图来表示之间的关系：<br><img src="/images/prototype.png" alt="(原型图)"><br>图中由相互关联的原型组成的链状结构就是原型链，也就是蓝色的这条线。</p>
+</blockquote>
 ]]></content>
       <categories>
         <category>深入理解JavaScript系列笔记</category>
@@ -3676,6 +3676,61 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
       </tags>
   </entry>
   <entry>
+    <title>二、ES6系列之模板字符串</title>
+    <url>/2020/04/10/es6/%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
+    <content><![CDATA[<p>模板字面量 是允许嵌入表达式的字符串字面量。你可以使用多行字符串和字符串插值功能。它们在 ES2015 规范的先前版本中被称为“模板字符串”。</p>
+<span id="more"></span>
+
+<h2 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h2><p>模板字符串使用反引号 (<code> </code>) 来代替普通字符串中的用双引号和单引号；模板字符串可以包含特定语法（${expression}）的占位符。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">`Hello World`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message);</span><br></pre></td></tr></table></figure>
+
+<p>在模版字符串内使用反引号（`）时，需要在它前面加转义符（\）。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">`Hello \` World`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message);</span><br></pre></td></tr></table></figure>
+
+<h2 id="多行字符串"><a href="#多行字符串" class="headerlink" title="多行字符串"></a>多行字符串</h2><p>在新行中插入的任何字符都是模板字符串中的一部分，使用普通字符串，你可以通过以下的方式获得多行字符串：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">&quot;Hello World, \nThis is the second line&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message);</span><br></pre></td></tr></table></figure>
+
+<p>在模板字符串中，空格、缩进、换行都会被保留，用模板字符串实现：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">`Hello World,</span></span><br><span class="line"><span class="string">This is the second line`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message);</span><br></pre></td></tr></table></figure>
+
+<h2 id="嵌套变量"><a href="#嵌套变量" class="headerlink" title="嵌套变量"></a>嵌套变量</h2><p>模板字符串支持嵌入变量，只需要将变量名写在 ${} 之中，其实不止变量，任意的 JavaScript 表达式都是可以的：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="number">10</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;Fifteen is &quot;</span> + (a + b) + <span class="string">&quot; and not &quot;</span> + (<span class="number">2</span> * a + b) + <span class="string">&quot;.&quot;</span>);</span><br><span class="line"><span class="comment">// Fifteen is 15 and not 20.</span></span><br></pre></td></tr></table></figure>
+
+<p>值得一提的是，模板字符串支持嵌套:</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [&#123; <span class="attr">value</span>: <span class="number">1</span> &#125;, &#123; <span class="attr">value</span>: <span class="number">2</span> &#125;];</span><br><span class="line"><span class="keyword">var</span> message = <span class="string">`</span></span><br><span class="line"><span class="string">&lt;ul&gt;</span></span><br><span class="line"><span class="string">  <span class="subst">$&#123;arr.map((item) =&gt; &#123;</span></span></span><br><span class="line"><span class="subst"><span class="string">    <span class="keyword">return</span> <span class="string">`</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">      &lt;li&gt;<span class="subst">$&#123;item.value&#125;</span>&lt;/li&gt;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">    `</span>;</span></span></span><br><span class="line"><span class="subst"><span class="string">  &#125;)&#125;</span></span></span><br><span class="line"><span class="string">&lt;/ul&gt;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message);</span><br></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  ,</span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>上面的”,”是因为 map 后生成的数组转字符串导致的，比如一个数组 [1, 2, 3] 就会被转为 1,2,3；所以我们用 jion 处理它：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [&#123; <span class="attr">value</span>: <span class="number">1</span> &#125;, &#123; <span class="attr">value</span>: <span class="number">2</span> &#125;];</span><br><span class="line"><span class="keyword">var</span> message = <span class="string">`</span></span><br><span class="line"><span class="string">&lt;ul&gt;</span></span><br><span class="line"><span class="string"> <span class="subst">$&#123;arr</span></span></span><br><span class="line"><span class="subst"><span class="string">   .map((item) =&gt; &#123;</span></span></span><br><span class="line"><span class="subst"><span class="string">     <span class="keyword">return</span> <span class="string">`</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">     &lt;li&gt;<span class="subst">$&#123;item.value&#125;</span>&lt;/li&gt;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">   `</span>;</span></span></span><br><span class="line"><span class="subst"><span class="string">   &#125;)</span></span></span><br><span class="line"><span class="subst"><span class="string">   .join(<span class="string">&quot;&quot;</span>)&#125;</span></span></span><br><span class="line"><span class="string">&lt;/ul&gt;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message);</span><br></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="带标签的模板字符串"><a href="#带标签的模板字符串" class="headerlink" title="带标签的模板字符串"></a>带标签的模板字符串</h2><p>更高级的形式的模板字符串是带标签的模板字符串。标签使您可以用函数解析模板字符串。标签函数的第一个参数包含一个字符串值的数组。其余的参数与表达式相关。最后，你的函数可以返回处理好的的字符串（或者它可以返回完全不同的东西 , 如下个例子所述）。用于该标签的函数的名称可以被命名为任何名字。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> person = <span class="string">&quot;Mike&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> age = <span class="number">28</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myTag</span>(<span class="params">strings, ...values</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(strings); <span class="comment">// [&quot;that &quot;, &quot; is a &quot;, &quot;&quot;]</span></span><br><span class="line">  <span class="built_in">console</span>.log(values); <span class="comment">// [&#x27;Mike&#x27;, 28]</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 拼接字符串</span></span><br><span class="line">  <span class="keyword">let</span> result = strings.reduce(<span class="function">(<span class="params">prev, next, i</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> value = values[i - <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">return</span> prev + value + next;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> output = myTag<span class="string">`that <span class="subst">$&#123;person&#125;</span> is a <span class="subst">$&#123;age&#125;</span>`</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(output);</span><br><span class="line"><span class="comment">// that Mike is a 28</span></span><br></pre></td></tr></table></figure>
+
+<p>当然标签函数并不一定需要返回一个字符串，比如：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">template</span>(<span class="params">strings, ...keys</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">...values</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> dict = values[values.length - <span class="number">1</span>] || &#123;&#125;;</span><br><span class="line">    <span class="keyword">var</span> result = [strings[<span class="number">0</span>]];</span><br><span class="line">    keys.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">key, i</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> value = <span class="built_in">Number</span>.isInteger(key) ? values[key] : dict[key];</span><br><span class="line">      result.push(value, strings[i + <span class="number">1</span>]);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> result.join(<span class="string">&quot;&quot;</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> t1Closure = template<span class="string">`<span class="subst">$&#123;<span class="number">0</span>&#125;</span><span class="subst">$&#123;<span class="number">1</span>&#125;</span><span class="subst">$&#123;<span class="number">0</span>&#125;</span>!`</span>;</span><br><span class="line">t1Closure(<span class="string">&quot;Y&quot;</span>, <span class="string">&quot;A&quot;</span>); <span class="comment">// &quot;YAY!&quot;</span></span><br><span class="line"><span class="keyword">var</span> t2Closure = template<span class="string">`<span class="subst">$&#123;<span class="number">0</span>&#125;</span> <span class="subst">$&#123;<span class="string">&quot;foo&quot;</span>&#125;</span>!`</span>;</span><br><span class="line">t2Closure(<span class="string">&quot;Hello&quot;</span>, &#123; <span class="attr">foo</span>: <span class="string">&quot;World&quot;</span> &#125;); <span class="comment">// &quot;Hello World!&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="原始字符串"><a href="#原始字符串" class="headerlink" title="原始字符串"></a>原始字符串</h2><p>在标签函数的第一个参数中，存在一个特殊的属性 raw ，我们可以通过它来访问模板字符串的原始字符串，而不经过特殊字符的替换。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">tag</span>(<span class="params">strings</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(strings.raw);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">tag<span class="string">`string text line 1 \n string text line 2`</span>;</span><br><span class="line"><span class="comment">// 输出（包含两个\）：</span></span><br><span class="line"><span class="comment">// [&quot;string text line 1 \\n string text line 2&quot;]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/orphaned/Web/JavaScript/Reference/Template_literals">https://developer.mozilla.org/zh-CN/docs/orphaned/Web/JavaScript/Reference/Template_literals</a></li>
+<li><a href="https://github.com/mqyqingfeng/Blog/issues/82">https://github.com/mqyqingfeng/Blog/issues/82</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>ES6系列</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>Es6</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>八、ES6系列之Generator</title>
     <url>/2020/05/02/es6/%E7%94%9F%E6%88%90%E5%99%A8/</url>
     <content><![CDATA[<p>前面我们介绍过 Iterator(迭代器)，本文主要了解 Generator (生成器)函数。<br>生成器是一种返回迭代器的函数，通过 function 关键字后的星号(*)来表示，函数中会用到新的关键字 yield。</p>
@@ -3724,61 +3779,6 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>最后总结下，生成器是创建迭代器的函数，生成器函数内部有 yield 关键字来提供暂停接口，作为创建的迭代器调用 next()方法执行的节点。生成器函数与普通函数的区别是前者在 function 关键字后有星号(*)，并且生成器函数执行后会创建一个新的迭代器实例，其他则和普通函数一样，可以传参和返回值。迭代器的 next()方法可以传入参数，传入的参数值将会代替迭代器内上一条 yield 语句的返回值。</p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
 <li><a href="https://es6.ruanyifeng.com/#docs/generator">https://es6.ruanyifeng.com/#docs/generator</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>ES6系列</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-        <tag>Es6</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>二、ES6系列之模板字符串</title>
-    <url>/2020/04/10/es6/%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
-    <content><![CDATA[<p>模板字面量 是允许嵌入表达式的字符串字面量。你可以使用多行字符串和字符串插值功能。它们在 ES2015 规范的先前版本中被称为“模板字符串”。</p>
-<span id="more"></span>
-
-<h2 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h2><p>模板字符串使用反引号 (<code> </code>) 来代替普通字符串中的用双引号和单引号；模板字符串可以包含特定语法（${expression}）的占位符。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">`Hello World`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message);</span><br></pre></td></tr></table></figure>
-
-<p>在模版字符串内使用反引号（`）时，需要在它前面加转义符（\）。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">`Hello \` World`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message);</span><br></pre></td></tr></table></figure>
-
-<h2 id="多行字符串"><a href="#多行字符串" class="headerlink" title="多行字符串"></a>多行字符串</h2><p>在新行中插入的任何字符都是模板字符串中的一部分，使用普通字符串，你可以通过以下的方式获得多行字符串：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">&quot;Hello World, \nThis is the second line&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message);</span><br></pre></td></tr></table></figure>
-
-<p>在模板字符串中，空格、缩进、换行都会被保留，用模板字符串实现：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">`Hello World,</span></span><br><span class="line"><span class="string">This is the second line`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message);</span><br></pre></td></tr></table></figure>
-
-<h2 id="嵌套变量"><a href="#嵌套变量" class="headerlink" title="嵌套变量"></a>嵌套变量</h2><p>模板字符串支持嵌入变量，只需要将变量名写在 ${} 之中，其实不止变量，任意的 JavaScript 表达式都是可以的：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="number">10</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;Fifteen is &quot;</span> + (a + b) + <span class="string">&quot; and not &quot;</span> + (<span class="number">2</span> * a + b) + <span class="string">&quot;.&quot;</span>);</span><br><span class="line"><span class="comment">// Fifteen is 15 and not 20.</span></span><br></pre></td></tr></table></figure>
-
-<p>值得一提的是，模板字符串支持嵌套:</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [&#123; <span class="attr">value</span>: <span class="number">1</span> &#125;, &#123; <span class="attr">value</span>: <span class="number">2</span> &#125;];</span><br><span class="line"><span class="keyword">var</span> message = <span class="string">`</span></span><br><span class="line"><span class="string">&lt;ul&gt;</span></span><br><span class="line"><span class="string">  <span class="subst">$&#123;arr.map((item) =&gt; &#123;</span></span></span><br><span class="line"><span class="subst"><span class="string">    <span class="keyword">return</span> <span class="string">`</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">      &lt;li&gt;<span class="subst">$&#123;item.value&#125;</span>&lt;/li&gt;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">    `</span>;</span></span></span><br><span class="line"><span class="subst"><span class="string">  &#125;)&#125;</span></span></span><br><span class="line"><span class="string">&lt;/ul&gt;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message);</span><br></pre></td></tr></table></figure>
-
-<p>输出结果：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  ,</span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>上面的”,”是因为 map 后生成的数组转字符串导致的，比如一个数组 [1, 2, 3] 就会被转为 1,2,3；所以我们用 jion 处理它：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [&#123; <span class="attr">value</span>: <span class="number">1</span> &#125;, &#123; <span class="attr">value</span>: <span class="number">2</span> &#125;];</span><br><span class="line"><span class="keyword">var</span> message = <span class="string">`</span></span><br><span class="line"><span class="string">&lt;ul&gt;</span></span><br><span class="line"><span class="string"> <span class="subst">$&#123;arr</span></span></span><br><span class="line"><span class="subst"><span class="string">   .map((item) =&gt; &#123;</span></span></span><br><span class="line"><span class="subst"><span class="string">     <span class="keyword">return</span> <span class="string">`</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">     &lt;li&gt;<span class="subst">$&#123;item.value&#125;</span>&lt;/li&gt;</span></span></span></span><br><span class="line"><span class="string"><span class="subst"><span class="string">   `</span>;</span></span></span><br><span class="line"><span class="subst"><span class="string">   &#125;)</span></span></span><br><span class="line"><span class="subst"><span class="string">   .join(<span class="string">&quot;&quot;</span>)&#125;</span></span></span><br><span class="line"><span class="string">&lt;/ul&gt;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(message);</span><br></pre></td></tr></table></figure>
-
-<p>输出结果：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="带标签的模板字符串"><a href="#带标签的模板字符串" class="headerlink" title="带标签的模板字符串"></a>带标签的模板字符串</h2><p>更高级的形式的模板字符串是带标签的模板字符串。标签使您可以用函数解析模板字符串。标签函数的第一个参数包含一个字符串值的数组。其余的参数与表达式相关。最后，你的函数可以返回处理好的的字符串（或者它可以返回完全不同的东西 , 如下个例子所述）。用于该标签的函数的名称可以被命名为任何名字。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> person = <span class="string">&quot;Mike&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> age = <span class="number">28</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myTag</span>(<span class="params">strings, ...values</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(strings); <span class="comment">// [&quot;that &quot;, &quot; is a &quot;, &quot;&quot;]</span></span><br><span class="line">  <span class="built_in">console</span>.log(values); <span class="comment">// [&#x27;Mike&#x27;, 28]</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 拼接字符串</span></span><br><span class="line">  <span class="keyword">let</span> result = strings.reduce(<span class="function">(<span class="params">prev, next, i</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> value = values[i - <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">return</span> prev + value + next;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> output = myTag<span class="string">`that <span class="subst">$&#123;person&#125;</span> is a <span class="subst">$&#123;age&#125;</span>`</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(output);</span><br><span class="line"><span class="comment">// that Mike is a 28</span></span><br></pre></td></tr></table></figure>
-
-<p>当然标签函数并不一定需要返回一个字符串，比如：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">template</span>(<span class="params">strings, ...keys</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">...values</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> dict = values[values.length - <span class="number">1</span>] || &#123;&#125;;</span><br><span class="line">    <span class="keyword">var</span> result = [strings[<span class="number">0</span>]];</span><br><span class="line">    keys.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">key, i</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> value = <span class="built_in">Number</span>.isInteger(key) ? values[key] : dict[key];</span><br><span class="line">      result.push(value, strings[i + <span class="number">1</span>]);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> result.join(<span class="string">&quot;&quot;</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> t1Closure = template<span class="string">`<span class="subst">$&#123;<span class="number">0</span>&#125;</span><span class="subst">$&#123;<span class="number">1</span>&#125;</span><span class="subst">$&#123;<span class="number">0</span>&#125;</span>!`</span>;</span><br><span class="line">t1Closure(<span class="string">&quot;Y&quot;</span>, <span class="string">&quot;A&quot;</span>); <span class="comment">// &quot;YAY!&quot;</span></span><br><span class="line"><span class="keyword">var</span> t2Closure = template<span class="string">`<span class="subst">$&#123;<span class="number">0</span>&#125;</span> <span class="subst">$&#123;<span class="string">&quot;foo&quot;</span>&#125;</span>!`</span>;</span><br><span class="line">t2Closure(<span class="string">&quot;Hello&quot;</span>, &#123; <span class="attr">foo</span>: <span class="string">&quot;World&quot;</span> &#125;); <span class="comment">// &quot;Hello World!&quot;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="原始字符串"><a href="#原始字符串" class="headerlink" title="原始字符串"></a>原始字符串</h2><p>在标签函数的第一个参数中，存在一个特殊的属性 raw ，我们可以通过它来访问模板字符串的原始字符串，而不经过特殊字符的替换。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">tag</span>(<span class="params">strings</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(strings.raw);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">tag<span class="string">`string text line 1 \n string text line 2`</span>;</span><br><span class="line"><span class="comment">// 输出（包含两个\）：</span></span><br><span class="line"><span class="comment">// [&quot;string text line 1 \\n string text line 2&quot;]</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
-<li><a href="https://developer.mozilla.org/zh-CN/docs/orphaned/Web/JavaScript/Reference/Template_literals">https://developer.mozilla.org/zh-CN/docs/orphaned/Web/JavaScript/Reference/Template_literals</a></li>
-<li><a href="https://github.com/mqyqingfeng/Blog/issues/82">https://github.com/mqyqingfeng/Blog/issues/82</a></li>
 </ul>
 ]]></content>
       <categories>
@@ -4984,33 +4984,6 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
       </tags>
   </entry>
   <entry>
-    <title>122. 买卖股票的最佳时机 II</title>
-    <url>/2017/05/21/leetcode/%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA%20II/</url>
-    <content><![CDATA[<p>给定一个数组 prices ，其中  prices[i] 是一支给定股票第 i 天的价格。</p>
-<span id="more"></span>
-
-<p>设计一个算法来计算你所能获取的最大利润。你可以尽可能地完成更多的交易（多次买卖一支股票）。</p>
-<p>注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。</p>
-<p>示例 1：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入: prices = [7,1,5,3,6,4]</span><br><span class="line">输出: 7</span><br><span class="line">解释: 在第 2 天（股票价格 = 1）的时候买入，在第 3 天（股票价格 = 5）的时候卖出, 这笔交易所能获得利润 = 5-1 = 4 。</span><br><span class="line">     随后，在第 4 天（股票价格 = 3）的时候买入，在第 5 天（股票价格 = 6）的时候卖出, 这笔交易所能获得利润 = 6-3 = 3 。</span><br></pre></td></tr></table></figure>
-
-<p>示例 2：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入: prices = [1,2,3,4,5]</span><br><span class="line">输出: 4</span><br><span class="line">解释: 在第 1 天（股票价格 = 1）的时候买入，在第 5 天 （股票价格 = 5）的时候卖出, 这笔交易所能获得利润 = 5-1 = 4 。</span><br><span class="line">     注意你不能在第 1 天和第 2 天接连购买股票，之后再将它们卖出。因为这样属于同时参与了多笔交易，你必须在再次购买前出售掉之前的股票。</span><br></pre></td></tr></table></figure>
-
-<h3 id="循环遍历"><a href="#循环遍历" class="headerlink" title="循环遍历"></a>循环遍历</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">prices</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> maxProfit = <span class="function"><span class="keyword">function</span> (<span class="params">prices</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> min = prices[<span class="number">0</span>],</span><br><span class="line">    result = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; prices.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (prices[i] &gt; min) &#123;</span><br><span class="line">      <span class="keyword">let</span> val = prices[i] - min;</span><br><span class="line">      result += val;</span><br><span class="line">      min = prices[i];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      min = prices[i];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>简化代码：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">prices</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> maxProfit = <span class="function"><span class="keyword">function</span> (<span class="params">prices</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> result = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; prices.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (prices[i] &gt; prices[i - <span class="number">1</span>]) &#123;</span><br><span class="line">      result += prices[i] - prices[i - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>LeetCode题库</category>
-      </categories>
-      <tags>
-        <tag>LeetCode</tag>
-        <tag>LeetCode-数组</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>121. 买卖股票的最佳时机</title>
     <url>/2017/05/21/leetcode/%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA/</url>
     <content><![CDATA[<p>给定一个数组 prices ，它的第  i 个元素  prices[i] 表示一支给定股票第 i 天的价格。</p>
@@ -5035,37 +5008,30 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
       </tags>
   </entry>
   <entry>
-    <title>94. 二叉树的中序遍历</title>
-    <url>/2018/02/10/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/</url>
-    <content><![CDATA[<p>给定一个二叉树的根节点 root ，返回它的 中序 遍历。</p>
+    <title>122. 买卖股票的最佳时机 II</title>
+    <url>/2017/05/21/leetcode/%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA%20II/</url>
+    <content><![CDATA[<p>给定一个数组 prices ，其中  prices[i] 是一支给定股票第 i 天的价格。</p>
 <span id="more"></span>
 
+<p>设计一个算法来计算你所能获取的最大利润。你可以尽可能地完成更多的交易（多次买卖一支股票）。</p>
+<p>注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。</p>
 <p>示例 1：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：</span><br><span class="line">root = new TreeNode(1,null,null);</span><br><span class="line">root.left = new TreeNode(2,null,null);</span><br><span class="line">root.left.left = new TreeNode(4,null,null);</span><br><span class="line">root.left.right = new TreeNode(5,null,null);</span><br><span class="line">root.right = new TreeNode(3,null,null);</span><br><span class="line">root.right.left = new TreeNode(6,null,null);</span><br><span class="line">root.right.right = new TreeNode(9,null,null);</span><br><span class="line"></span><br><span class="line">输出: [4, 2, 5, 1, 6, 3, 9]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入: prices = [7,1,5,3,6,4]</span><br><span class="line">输出: 7</span><br><span class="line">解释: 在第 2 天（股票价格 = 1）的时候买入，在第 3 天（股票价格 = 5）的时候卖出, 这笔交易所能获得利润 = 5-1 = 4 。</span><br><span class="line">     随后，在第 4 天（股票价格 = 3）的时候买入，在第 5 天（股票价格 = 6）的时候卖出, 这笔交易所能获得利润 = 6-3 = 3 。</span><br></pre></td></tr></table></figure>
 
-<h3 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">TreeNode</span>(<span class="params">val, left, right</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.val = val === <span class="literal">undefined</span> ? <span class="number">0</span> : val;</span><br><span class="line">  <span class="built_in">this</span>.left = left === <span class="literal">undefined</span> ? <span class="literal">null</span> : left;</span><br><span class="line">  <span class="built_in">this</span>.right = right === <span class="literal">undefined</span> ? <span class="literal">null</span> : right;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;TreeNode&#125;</span> <span class="variable">root</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number[]&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> inorderTraversal = <span class="function"><span class="keyword">function</span> (<span class="params">root</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> result = [];</span><br><span class="line">  <span class="keyword">let</span> inorder = <span class="function">(<span class="params">root</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    inorder(root.left);</span><br><span class="line">    result.push(root.val);</span><br><span class="line">    inorder(root.right);</span><br><span class="line">  &#125;;</span><br><span class="line">  inorder(root);</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>示例 2：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入: prices = [1,2,3,4,5]</span><br><span class="line">输出: 4</span><br><span class="line">解释: 在第 1 天（股票价格 = 1）的时候买入，在第 5 天 （股票价格 = 5）的时候卖出, 这笔交易所能获得利润 = 5-1 = 4 。</span><br><span class="line">     注意你不能在第 1 天和第 2 天接连购买股票，之后再将它们卖出。因为这样属于同时参与了多笔交易，你必须在再次购买前出售掉之前的股票。</span><br></pre></td></tr></table></figure>
 
-<h3 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> inorderTraversal = <span class="function"><span class="keyword">function</span> (<span class="params">root</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> result = [];</span><br><span class="line">  <span class="keyword">let</span> stack = [];</span><br><span class="line">  <span class="keyword">while</span> (root || stack.length) &#123;</span><br><span class="line">    <span class="keyword">while</span> (root) &#123;</span><br><span class="line">      stack.push(root);</span><br><span class="line">      root = root.left;</span><br><span class="line">    &#125;</span><br><span class="line">    root = stack.pop();</span><br><span class="line">    result.push(root.val);</span><br><span class="line">    root = root.right;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="循环遍历"><a href="#循环遍历" class="headerlink" title="循环遍历"></a>循环遍历</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">prices</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> maxProfit = <span class="function"><span class="keyword">function</span> (<span class="params">prices</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> min = prices[<span class="number">0</span>],</span><br><span class="line">    result = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; prices.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (prices[i] &gt; min) &#123;</span><br><span class="line">      <span class="keyword">let</span> val = prices[i] - min;</span><br><span class="line">      result += val;</span><br><span class="line">      min = prices[i];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      min = prices[i];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<h3 id="迭代-1"><a href="#迭代-1" class="headerlink" title="迭代"></a>迭代</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> inorderTraversal = <span class="function"><span class="keyword">function</span> (<span class="params">root</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> result = [];</span><br><span class="line">  <span class="keyword">let</span> stack = [];</span><br><span class="line">  <span class="keyword">while</span> (root || stack.length) &#123;</span><br><span class="line">    <span class="keyword">while</span> (root) &#123;</span><br><span class="line">      stack.push(root);</span><br><span class="line">      root = root.left;</span><br><span class="line">    &#125;</span><br><span class="line">    root = stack.pop();</span><br><span class="line">    result.push(root.val);</span><br><span class="line">    root = root.right;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="morris-遍历"><a href="#morris-遍历" class="headerlink" title="morris 遍历"></a>morris 遍历</h3><p>Morris 遍历算法是另一种遍历二叉树的方法，它能将非递归的中序遍历空间复杂度降为 O(1)。<br>Morris 遍历算法整体步骤如下(假设当前遍历到的节点为 cur。):</p>
-<ol>
-<li>如果 cur 无左孩子，cur 向右移动（cur=cur.right）</li>
-<li>如果 cur 有左孩子，找到 cur 左子树上最右的节点，记为 mostright:<ul>
-<li>如果 mostright 的 right 指针指向空，让其指向 cur，cur 向左移动（cur=cur.left）</li>
-<li>如果 mostright 的 right 指针指向 cur，让其指向空，cur 向右移动（cur=cur.right）</li>
-</ul>
-</li>
-<li>重复上述操作，直至访问完整棵树。</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> inorderTraversal = <span class="function"><span class="keyword">function</span> (<span class="params">root</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> res = [];</span><br><span class="line">  <span class="keyword">let</span> cur = root;</span><br><span class="line">  <span class="keyword">let</span> mostRight = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">while</span> (cur) &#123;</span><br><span class="line">    <span class="keyword">if</span> (cur.left) &#123;</span><br><span class="line">      <span class="comment">// mostRight 节点就是当前 cur 节点向左走一步，然后一直向右走至无法走为止</span></span><br><span class="line">      mostRight = cur.left;</span><br><span class="line">      <span class="keyword">while</span> (mostRight.right &amp;&amp; mostRight.right !== cur) &#123;</span><br><span class="line">        mostRight = mostRight.right;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// mostRight的右孩子指向空，让其指向cur，cur向左移动</span></span><br><span class="line">      <span class="keyword">if</span> (!mostRight.right) &#123;</span><br><span class="line">        mostRight.right = cur;</span><br><span class="line">        cur = cur.left;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 说明左子树已经访问完了，我们需要断开链接</span></span><br><span class="line">        <span class="comment">// mostRight的右孩子指向cur，让其指向空，cur向右移动</span></span><br><span class="line">        res.push(cur.val);</span><br><span class="line">        mostRight.right = <span class="literal">null</span>;</span><br><span class="line">        cur = cur.right;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// 如果没有左孩子，则直接访问右孩子</span></span><br><span class="line">      res.push(cur.val);</span><br><span class="line">      cur = cur.right;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> res;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>简化代码：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">prices</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> maxProfit = <span class="function"><span class="keyword">function</span> (<span class="params">prices</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> result = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; prices.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (prices[i] &gt; prices[i - <span class="number">1</span>]) &#123;</span><br><span class="line">      result += prices[i] - prices[i - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>LeetCode题库</category>
       </categories>
       <tags>
         <tag>LeetCode</tag>
+        <tag>LeetCode-数组</tag>
       </tags>
   </entry>
   <entry>
@@ -5262,6 +5228,40 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
       </tags>
   </entry>
   <entry>
+    <title>94. 二叉树的中序遍历</title>
+    <url>/2018/02/10/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/</url>
+    <content><![CDATA[<p>给定一个二叉树的根节点 root ，返回它的 中序 遍历。</p>
+<span id="more"></span>
+
+<p>示例 1：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：</span><br><span class="line">root = new TreeNode(1,null,null);</span><br><span class="line">root.left = new TreeNode(2,null,null);</span><br><span class="line">root.left.left = new TreeNode(4,null,null);</span><br><span class="line">root.left.right = new TreeNode(5,null,null);</span><br><span class="line">root.right = new TreeNode(3,null,null);</span><br><span class="line">root.right.left = new TreeNode(6,null,null);</span><br><span class="line">root.right.right = new TreeNode(9,null,null);</span><br><span class="line"></span><br><span class="line">输出: [4, 2, 5, 1, 6, 3, 9]</span><br></pre></td></tr></table></figure>
+
+<h3 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">TreeNode</span>(<span class="params">val, left, right</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.val = val === <span class="literal">undefined</span> ? <span class="number">0</span> : val;</span><br><span class="line">  <span class="built_in">this</span>.left = left === <span class="literal">undefined</span> ? <span class="literal">null</span> : left;</span><br><span class="line">  <span class="built_in">this</span>.right = right === <span class="literal">undefined</span> ? <span class="literal">null</span> : right;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;TreeNode&#125;</span> <span class="variable">root</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number[]&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> inorderTraversal = <span class="function"><span class="keyword">function</span> (<span class="params">root</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> result = [];</span><br><span class="line">  <span class="keyword">let</span> inorder = <span class="function">(<span class="params">root</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    inorder(root.left);</span><br><span class="line">    result.push(root.val);</span><br><span class="line">    inorder(root.right);</span><br><span class="line">  &#125;;</span><br><span class="line">  inorder(root);</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> inorderTraversal = <span class="function"><span class="keyword">function</span> (<span class="params">root</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> result = [];</span><br><span class="line">  <span class="keyword">let</span> stack = [];</span><br><span class="line">  <span class="keyword">while</span> (root || stack.length) &#123;</span><br><span class="line">    <span class="keyword">while</span> (root) &#123;</span><br><span class="line">      stack.push(root);</span><br><span class="line">      root = root.left;</span><br><span class="line">    &#125;</span><br><span class="line">    root = stack.pop();</span><br><span class="line">    result.push(root.val);</span><br><span class="line">    root = root.right;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="迭代-1"><a href="#迭代-1" class="headerlink" title="迭代"></a>迭代</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> inorderTraversal = <span class="function"><span class="keyword">function</span> (<span class="params">root</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> result = [];</span><br><span class="line">  <span class="keyword">let</span> stack = [];</span><br><span class="line">  <span class="keyword">while</span> (root || stack.length) &#123;</span><br><span class="line">    <span class="keyword">while</span> (root) &#123;</span><br><span class="line">      stack.push(root);</span><br><span class="line">      root = root.left;</span><br><span class="line">    &#125;</span><br><span class="line">    root = stack.pop();</span><br><span class="line">    result.push(root.val);</span><br><span class="line">    root = root.right;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="morris-遍历"><a href="#morris-遍历" class="headerlink" title="morris 遍历"></a>morris 遍历</h3><p>Morris 遍历算法是另一种遍历二叉树的方法，它能将非递归的中序遍历空间复杂度降为 O(1)。<br>Morris 遍历算法整体步骤如下(假设当前遍历到的节点为 cur。):</p>
+<ol>
+<li>如果 cur 无左孩子，cur 向右移动（cur=cur.right）</li>
+<li>如果 cur 有左孩子，找到 cur 左子树上最右的节点，记为 mostright:<ul>
+<li>如果 mostright 的 right 指针指向空，让其指向 cur，cur 向左移动（cur=cur.left）</li>
+<li>如果 mostright 的 right 指针指向 cur，让其指向空，cur 向右移动（cur=cur.right）</li>
+</ul>
+</li>
+<li>重复上述操作，直至访问完整棵树。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> inorderTraversal = <span class="function"><span class="keyword">function</span> (<span class="params">root</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> res = [];</span><br><span class="line">  <span class="keyword">let</span> cur = root;</span><br><span class="line">  <span class="keyword">let</span> mostRight = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">while</span> (cur) &#123;</span><br><span class="line">    <span class="keyword">if</span> (cur.left) &#123;</span><br><span class="line">      <span class="comment">// mostRight 节点就是当前 cur 节点向左走一步，然后一直向右走至无法走为止</span></span><br><span class="line">      mostRight = cur.left;</span><br><span class="line">      <span class="keyword">while</span> (mostRight.right &amp;&amp; mostRight.right !== cur) &#123;</span><br><span class="line">        mostRight = mostRight.right;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// mostRight的右孩子指向空，让其指向cur，cur向左移动</span></span><br><span class="line">      <span class="keyword">if</span> (!mostRight.right) &#123;</span><br><span class="line">        mostRight.right = cur;</span><br><span class="line">        cur = cur.left;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 说明左子树已经访问完了，我们需要断开链接</span></span><br><span class="line">        <span class="comment">// mostRight的右孩子指向cur，让其指向空，cur向右移动</span></span><br><span class="line">        res.push(cur.val);</span><br><span class="line">        mostRight.right = <span class="literal">null</span>;</span><br><span class="line">        cur = cur.right;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// 如果没有左孩子，则直接访问右孩子</span></span><br><span class="line">      res.push(cur.val);</span><br><span class="line">      cur = cur.right;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> res;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>LeetCode题库</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>290. 单词规律</title>
     <url>/2017/06/25/leetcode/%E5%8D%95%E8%AF%8D%E8%A7%84%E5%BE%8B/</url>
     <content><![CDATA[<p>给定一种规律 pattern  和一个字符串  str ，判断 str 是否遵循相同的规律。</p>
@@ -5275,6 +5275,29 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入:pattern = &quot;abba&quot;, str = &quot;dog cat cat fish&quot;</span><br><span class="line">输出: false</span><br></pre></td></tr></table></figure>
 
 <h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;string&#125;</span> <span class="variable">pattern</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;string&#125;</span> <span class="variable">s</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;boolean&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> wordPattern = <span class="function"><span class="keyword">function</span> (<span class="params">pattern, s</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> arr = s.split(<span class="string">&quot; &quot;</span>);</span><br><span class="line">  <span class="keyword">if</span> (pattern.length !== arr.length) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">let</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; pattern.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (map.has(pattern[i])) &#123;</span><br><span class="line">      <span class="keyword">if</span> (map.get(pattern[i]) !== arr[i]) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      map.set(pattern[i], arr[i]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Set</span>([...map.values()]).size === map.size;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>LeetCode题库</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>LeetCode-字符串</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>345. 反转字符串中的元音字母</title>
+    <url>/2017/06/28/leetcode/%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%85%83%E9%9F%B3%E5%AD%97%E6%AF%8D/</url>
+    <content><![CDATA[<p>给你一个字符串 s ，仅反转字符串中的所有元音字母，并返回结果字符串。</p>
+<span id="more"></span>
+
+<p>元音字母包括 ‘a’、’e’、’i’、’o’、’u’，且可能以大小写两种形式出现。</p>
+<p>示例 1：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：s = &quot;hello&quot;</span><br><span class="line">输出：&quot;holle&quot;</span><br></pre></td></tr></table></figure>
+
+<p>示例  2:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：s = &quot;leetcode&quot;</span><br><span class="line">输出：&quot;leotcede&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="代码实现-双指针"><a href="#代码实现-双指针" class="headerlink" title="代码实现: 双指针"></a>代码实现: 双指针</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;string&#125;</span> <span class="variable">s</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;string&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> reverseVowels = <span class="function"><span class="keyword">function</span> (<span class="params">s</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> i = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> j = s.length - <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">let</span> str = <span class="string">&quot;aeiouAEIOU&quot;</span>;</span><br><span class="line">  s = s.split(<span class="string">&quot;&quot;</span>);</span><br><span class="line">  <span class="keyword">while</span> (i &lt; j) &#123;</span><br><span class="line">    <span class="keyword">while</span> (i &lt; j &amp;&amp; !str.includes(s[i])) &#123;</span><br><span class="line">      i++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (i &lt; j &amp;&amp; !str.includes(s[j])) &#123;</span><br><span class="line">      j--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (i &lt; j) &#123;</span><br><span class="line">      [s[i], s[j]] = [s[j], s[i]];</span><br><span class="line">    &#125;</span><br><span class="line">    j--;</span><br><span class="line">    i++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> s.join(<span class="string">&quot;&quot;</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>LeetCode题库</category>
@@ -5299,29 +5322,6 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：[&quot;H&quot;,&quot;a&quot;,&quot;n&quot;,&quot;n&quot;,&quot;a&quot;,&quot;h&quot;]</span><br><span class="line">输出：[&quot;h&quot;,&quot;a&quot;,&quot;n&quot;,&quot;n&quot;,&quot;a&quot;,&quot;H&quot;]</span><br></pre></td></tr></table></figure>
 
 <h3 id="代码实现-双指针"><a href="#代码实现-双指针" class="headerlink" title="代码实现: 双指针"></a>代码实现: 双指针</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;character[]&#125;</span> <span class="variable">s</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;void&#125;</span> </span>Do not return anything, modify s in-place instead.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> reverseString = <span class="function"><span class="keyword">function</span> (<span class="params">s</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> i = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> j = s.length - <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">while</span> (i &lt; j) &#123;</span><br><span class="line">    [s[i], s[j]] = [s[j], s[i]];</span><br><span class="line">    i++;</span><br><span class="line">    j--;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>LeetCode题库</category>
-      </categories>
-      <tags>
-        <tag>LeetCode</tag>
-        <tag>LeetCode-字符串</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>345. 反转字符串中的元音字母</title>
-    <url>/2017/06/28/leetcode/%E5%8F%8D%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%85%83%E9%9F%B3%E5%AD%97%E6%AF%8D/</url>
-    <content><![CDATA[<p>给你一个字符串 s ，仅反转字符串中的所有元音字母，并返回结果字符串。</p>
-<span id="more"></span>
-
-<p>元音字母包括 ‘a’、’e’、’i’、’o’、’u’，且可能以大小写两种形式出现。</p>
-<p>示例 1：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：s = &quot;hello&quot;</span><br><span class="line">输出：&quot;holle&quot;</span><br></pre></td></tr></table></figure>
-
-<p>示例  2:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：s = &quot;leetcode&quot;</span><br><span class="line">输出：&quot;leotcede&quot;</span><br></pre></td></tr></table></figure>
-
-<h3 id="代码实现-双指针"><a href="#代码实现-双指针" class="headerlink" title="代码实现: 双指针"></a>代码实现: 双指针</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;string&#125;</span> <span class="variable">s</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;string&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> reverseVowels = <span class="function"><span class="keyword">function</span> (<span class="params">s</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> i = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> j = s.length - <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">let</span> str = <span class="string">&quot;aeiouAEIOU&quot;</span>;</span><br><span class="line">  s = s.split(<span class="string">&quot;&quot;</span>);</span><br><span class="line">  <span class="keyword">while</span> (i &lt; j) &#123;</span><br><span class="line">    <span class="keyword">while</span> (i &lt; j &amp;&amp; !str.includes(s[i])) &#123;</span><br><span class="line">      i++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (i &lt; j &amp;&amp; !str.includes(s[j])) &#123;</span><br><span class="line">      j--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (i &lt; j) &#123;</span><br><span class="line">      [s[i], s[j]] = [s[j], s[i]];</span><br><span class="line">    &#125;</span><br><span class="line">    j--;</span><br><span class="line">    i++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> s.join(<span class="string">&quot;&quot;</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>LeetCode题库</category>
@@ -6019,6 +6019,27 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
       </tags>
   </entry>
   <entry>
+    <title>409.最长回文串</title>
+    <url>/2017/07/05/leetcode/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E4%B8%B2/</url>
+    <content><![CDATA[<p>给定一个包含大写字母和小写字母的字符串，找到通过这些字母构造成的最长的回文串。</p>
+<span id="more"></span>
+
+<p>在构造过程中，请注意区分大小写。比如  “Aa”  不能当做一个回文字符串。</p>
+<p>注意:<br>假设字符串的长度不会超过 1010。</p>
+<p>示例 1：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入:</span><br><span class="line">&quot;abccccdd&quot;</span><br><span class="line"></span><br><span class="line">输出:</span><br><span class="line">7</span><br><span class="line"></span><br><span class="line">解释:</span><br><span class="line">我们可以构造的最长的回文串是&quot;dccaccd&quot;, 它的长度是 7。</span><br></pre></td></tr></table></figure>
+
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> longestPalindrome = <span class="function"><span class="keyword">function</span> (<span class="params">s</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> arr = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">58</span>).fill(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; s.length; i++) &#123;</span><br><span class="line">    arr[s.codePointAt(i) - <span class="string">&quot;A&quot;</span>.codePointAt()]++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> len = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (arr[i] != <span class="number">0</span>) &#123;</span><br><span class="line">      len += (arr[i] / <span class="number">2</span>) &gt;&gt; <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> len * <span class="number">2</span> + (s.length &gt; len * <span class="number">2</span> ? <span class="number">1</span> : <span class="number">0</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>LeetCode题库</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>LeetCode-字符串</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>14. 最长公共前缀</title>
     <url>/2017/06/06/leetcode/%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%89%8D%E7%BC%80/</url>
     <content><![CDATA[<p>编写一个函数来查找字符串数组中的最长公共前缀。</p>
@@ -6032,27 +6053,6 @@ map([1,2,3,4,5],function(o,i)&#123;return o + i;&#125;)&lt;/pre&gt;
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：strs = [&quot;dog&quot;,&quot;racecar&quot;,&quot;car&quot;]</span><br><span class="line">输出：&quot;&quot;</span><br><span class="line">解释：输入不存在公共前缀。</span><br></pre></td></tr></table></figure>
 
 <h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;string[]&#125;</span> <span class="variable">strs</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;string&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> longestCommonPrefix = <span class="function"><span class="keyword">function</span> (<span class="params">strs</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> s = strs[<span class="number">0</span>];</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; s.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!strs.every(<span class="function">(<span class="params">e</span>) =&gt;</span> e.charAt(i) === s.charAt(i))) &#123;</span><br><span class="line">      <span class="keyword">return</span> i == <span class="number">0</span> ? <span class="string">&quot;&quot;</span> : s.slice(<span class="number">0</span>, i);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> s;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>LeetCode题库</category>
-      </categories>
-      <tags>
-        <tag>LeetCode</tag>
-        <tag>LeetCode-字符串</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>409.最长回文串</title>
-    <url>/2017/07/05/leetcode/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E4%B8%B2/</url>
-    <content><![CDATA[<p>给定一个包含大写字母和小写字母的字符串，找到通过这些字母构造成的最长的回文串。</p>
-<span id="more"></span>
-
-<p>在构造过程中，请注意区分大小写。比如  “Aa”  不能当做一个回文字符串。</p>
-<p>注意:<br>假设字符串的长度不会超过 1010。</p>
-<p>示例 1：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入:</span><br><span class="line">&quot;abccccdd&quot;</span><br><span class="line"></span><br><span class="line">输出:</span><br><span class="line">7</span><br><span class="line"></span><br><span class="line">解释:</span><br><span class="line">我们可以构造的最长的回文串是&quot;dccaccd&quot;, 它的长度是 7。</span><br></pre></td></tr></table></figure>
-
-<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> longestPalindrome = <span class="function"><span class="keyword">function</span> (<span class="params">s</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> arr = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">58</span>).fill(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; s.length; i++) &#123;</span><br><span class="line">    arr[s.codePointAt(i) - <span class="string">&quot;A&quot;</span>.codePointAt()]++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> len = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (arr[i] != <span class="number">0</span>) &#123;</span><br><span class="line">      len += (arr[i] / <span class="number">2</span>) &gt;&gt; <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> len * <span class="number">2</span> + (s.length &gt; len * <span class="number">2</span> ? <span class="number">1</span> : <span class="number">0</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>LeetCode题库</category>
