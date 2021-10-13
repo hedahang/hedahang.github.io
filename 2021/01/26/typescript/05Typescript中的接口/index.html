@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"hedahang.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="接口的作用：在面向对象的编程中，接口是一种规范的定义，它定义了行为和动作的规范，在程序设计里面，接口起到一种限制和规范的作用。接口定义了某一批类所需要遵守的规范，接口不关心这些类的内部状态数据，也不关心这些类里方法的实现细节，它只规定这批类里必须提供某些方法，提供这些方法的类就可以满足实际需要。 typescrip 中的接口类似于 java，同时还增加了更灵活的接口类型，包括属性、函数、可索引和类">
+<meta property="og:type" content="article">
+<meta property="og:title" content="05Typescript中的接口的用途以及属性类型接口">
+<meta property="og:url" content="https://hedahang.github.io/2021/01/26/typescript/05Typescript%E4%B8%AD%E7%9A%84%E6%8E%A5%E5%8F%A3/index.html">
+<meta property="og:site_name" content="个人笔记">
+<meta property="og:description" content="接口的作用：在面向对象的编程中，接口是一种规范的定义，它定义了行为和动作的规范，在程序设计里面，接口起到一种限制和规范的作用。接口定义了某一批类所需要遵守的规范，接口不关心这些类的内部状态数据，也不关心这些类里方法的实现细节，它只规定这批类里必须提供某些方法，提供这些方法的类就可以满足实际需要。 typescrip 中的接口类似于 java，同时还增加了更灵活的接口类型，包括属性、函数、可索引和类">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-01-26T12:29:22.000Z">
+<meta property="article:modified_time" content="2021-01-26T12:29:22.000Z">
+<meta property="article:author" content="muna">
+<meta property="article:tag" content="Typescript">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://hedahang.github.io/2021/01/26/typescript/05Typescript%E4%B8%AD%E7%9A%84%E6%8E%A5%E5%8F%A3/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://hedahang.github.io/2021/01/26/typescript/05Typescript%E4%B8%AD%E7%9A%84%E6%8E%A5%E5%8F%A3/","path":"2021/01/26/typescript/05Typescript中的接口/","title":"05Typescript中的接口的用途以及属性类型接口"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>05Typescript中的接口的用途以及属性类型接口 | 个人笔记</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?d9bdb6166b41cc3154f5904bfba322a3"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">个人笔记</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Quick notes</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section">首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives" rel="section">归档</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags" rel="section">标签</a></li>
+        <li class="menu-item menu-item-about"><a href="/about" rel="section">关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.</span> <span class="nav-text">属性接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E6%96%B9%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">定义方法:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E6%96%B9%E6%B3%95%E4%BC%A0%E5%85%A5%E5%8F%82%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">定义方法传入参数:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%96%B9%E6%B3%95%E4%BC%A0%E5%85%A5%E5%8F%82%E6%95%B0-%E5%AF%B9-json-%E8%BF%9B%E8%A1%8C%E7%BA%A6%E6%9D%9F"><span class="nav-number">1.3.</span> <span class="nav-text">自定义方法传入参数,对 json 进行约束:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E6%89%B9%E9%87%8F%E6%96%B9%E6%B3%95%E4%BC%A0%E5%85%A5%E5%8F%82%E6%95%B0%E8%BF%9B%E8%A1%8C%E7%BA%A6%E6%9D%9F"><span class="nav-number">1.4.</span> <span class="nav-text">对批量方法传入参数进行约束:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E9%80%89%E5%B1%9E%E6%80%A7%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.5.</span> <span class="nav-text">可选属性接口:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.6.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%8E%A5%E5%8F%A3"><span class="nav-number">2.</span> <span class="nav-text">函数类型接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E7%B4%A2%E5%BC%95%E6%8E%A5%E5%8F%A3"><span class="nav-number">3.</span> <span class="nav-text">可索引接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E7%B1%BB%E5%9E%8B%E6%8E%A5%E5%8F%A3"><span class="nav-number">4.</span> <span class="nav-text">类类型接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF%E6%8E%A5%E5%8F%A3"><span class="nav-number">5.</span> <span class="nav-text">继承接口</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">muna</p>
+  <div class="site-description" itemprop="description">Everything is good in its season.</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+        
+          <span class="site-state-item-count">153</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags">
+          
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/hedahang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;hedahang" rel="noopener" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Munachar" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Munachar" rel="noopener" target="_blank">Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://weibo.com/p/1005051065718667/home?from=page_100505&mod=TAB&is_all=1#place" title="微博 → http:&#x2F;&#x2F;weibo.com&#x2F;p&#x2F;1005051065718667&#x2F;home?from&#x3D;page_100505&amp;mod&#x3D;TAB&amp;is_all&#x3D;1#place" rel="noopener" target="_blank">微博</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.csdn.net/" title="CSDN → http:&#x2F;&#x2F;www.csdn.net&#x2F;" rel="noopener" target="_blank">CSDN</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/01/26/typescript/05Typescript%E4%B8%AD%E7%9A%84%E6%8E%A5%E5%8F%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="muna">
+      <meta itemprop="description" content="Everything is good in its season.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          05Typescript中的接口的用途以及属性类型接口
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-01-26 20:29:22" itemprop="dateCreated datePublished" datetime="2021-01-26T20:29:22+08:00">2021-01-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Typescript/" itemprop="url" rel="index"><span itemprop="name">Typescript</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2021/01/26/typescript/05Typescript%E4%B8%AD%E7%9A%84%E6%8E%A5%E5%8F%A3/" class="post-meta-item leancloud_visitors" data-flag-title="05Typescript中的接口的用途以及属性类型接口" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>接口的作用：在面向对象的编程中，接口是一种规范的定义，它定义了行为和动作的规范，在程序设计里面，接口起到一种限制和规范的作用。接口定义了某一批类所需要遵守的规范，接口不关心这些类的内部状态数据，也不关心这些类里方法的实现细节，它只规定这批类里必须提供某些方法，提供这些方法的类就可以满足实际需要。 typescrip 中的接口类似于 java，同时还增加了更灵活的接口类型，包括属性、函数、可索引和类等。</p>
+<span id="more"></span>
+
+<h2 id="属性接口"><a href="#属性接口" class="headerlink" title="属性接口"></a>属性接口</h2><h3 id="定义方法"><a href="#定义方法" class="headerlink" title="定义方法:"></a>定义方法:</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printLabel</span>(<span class="params"></span>): <span class="title">void</span> </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;printLabel&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line">printLabel();</span><br></pre></td></tr></table></figure>
+
+<h3 id="定义方法传入参数"><a href="#定义方法传入参数" class="headerlink" title="定义方法传入参数:"></a>定义方法传入参数:</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printLabel</span>(<span class="params">label: <span class="built_in">string</span></span>): <span class="title">void</span> </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;printLabel&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">printLabel(<span class="string">&quot;hahah&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="自定义方法传入参数-对-json-进行约束"><a href="#自定义方法传入参数-对-json-进行约束" class="headerlink" title="自定义方法传入参数,对 json 进行约束:"></a>自定义方法传入参数,对 json 进行约束:</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printLabel</span>(<span class="params">labelInfo: &#123; label: <span class="built_in">string</span> &#125;</span>): <span class="title">void</span> </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;printLabel&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">printLabel(<span class="string">&quot;hahah&quot;</span>); <span class="comment">//错误写法</span></span><br><span class="line"></span><br><span class="line">printLabel(&#123; <span class="attr">name</span>: <span class="string">&quot;张三&quot;</span> &#125;); <span class="comment">//错误的写法</span></span><br><span class="line"></span><br><span class="line">printLabel(&#123; <span class="attr">label</span>: <span class="string">&quot;张三&quot;</span> &#125;); <span class="comment">//正确的写法</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="对批量方法传入参数进行约束"><a href="#对批量方法传入参数进行约束" class="headerlink" title="对批量方法传入参数进行约束:"></a>对批量方法传入参数进行约束:</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//就是传入对象的约束</span></span><br><span class="line"><span class="keyword">interface</span> FullName &#123;</span><br><span class="line">  <span class="attr">firstName</span>: <span class="built_in">string</span>; <span class="comment">//注意;结束</span></span><br><span class="line">  secondName: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printName</span>(<span class="params">name: FullName</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 必须传入对象  firstName  secondName</span></span><br><span class="line">  <span class="built_in">console</span>.log(name.firstName + <span class="string">&quot;--&quot;</span> + name.secondName);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// printName(&#x27;1123&#x27;); // 报错</span></span><br><span class="line">printName(&#123;</span><br><span class="line">  <span class="comment">// age: 20, // 报错</span></span><br><span class="line">  <span class="attr">firstName</span>: <span class="string">&quot;张&quot;</span>,</span><br><span class="line">  <span class="attr">secondName</span>: <span class="string">&quot;三&quot;</span>,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 换一种方式传参：传入对象</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="comment">/*传入的参数必须包含 firstName  secondName*/</span></span><br><span class="line">  <span class="attr">age</span>: <span class="number">20</span>,</span><br><span class="line">  <span class="attr">firstName</span>: <span class="string">&quot;张&quot;</span>,</span><br><span class="line">  <span class="attr">secondName</span>: <span class="string">&quot;三&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line">printName(obj); <span class="comment">//张--三</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printInfo</span>(<span class="params">info: FullName</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 必须传入对象  firstName  secondName</span></span><br><span class="line">  <span class="built_in">console</span>.log(info.firstName + info.secondName + info.age);</span><br><span class="line">&#125;</span><br><span class="line">printInfo(&#123;</span><br><span class="line">  <span class="attr">firstName</span>: <span class="string">&quot;李&quot;</span>,</span><br><span class="line">  <span class="attr">secondName</span>: <span class="string">&quot;四&quot;</span>,</span><br><span class="line">&#125;); <span class="comment">// 李四</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="可选属性接口"><a href="#可选属性接口" class="headerlink" title="可选属性接口:"></a>可选属性接口:</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> FullName &#123;</span><br><span class="line">  <span class="attr">firstName</span>: <span class="built_in">string</span>; <span class="comment">//注意;结束</span></span><br><span class="line">  secondName?: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printName</span>(<span class="params">name: FullName</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">printName(&#123;</span><br><span class="line">  <span class="attr">firstName</span>: <span class="string">&quot;张&quot;</span>,</span><br><span class="line">&#125;); <span class="comment">// &#123;firstName: &#x27;张&#x27;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> Config &#123;</span><br><span class="line">  <span class="attr">type</span>: <span class="built_in">string</span>;</span><br><span class="line">  url: <span class="built_in">string</span>;</span><br><span class="line">  data?: <span class="built_in">string</span>;</span><br><span class="line">  dataType: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 原生js封装ajax</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ajax</span>(<span class="params">config: Config</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">  xhr.open(config.type, config.url, <span class="literal">true</span>);</span><br><span class="line">  xhr.send(config.data);</span><br><span class="line">  xhr.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (xhr.readyState == <span class="number">4</span> &amp;&amp; xhr.status == <span class="number">200</span>) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">&quot;成功&quot;</span>);</span><br><span class="line">      <span class="keyword">if</span> (config.dataType == <span class="string">&quot;json&quot;</span>) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.parse(xhr.responseText));</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(xhr.responseText);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line">ajax(&#123;</span><br><span class="line">  <span class="attr">type</span>: <span class="string">&quot;get&quot;</span>,</span><br><span class="line">  <span class="attr">data</span>: <span class="string">&quot;name=zhangsan&quot;</span>, <span class="comment">// 可传可不传</span></span><br><span class="line">  <span class="attr">url</span>: <span class="string">&quot;http://a.itying.com/api/productlist&quot;</span>, <span class="comment">//api</span></span><br><span class="line">  <span class="attr">dataType</span>: <span class="string">&quot;json&quot;</span>,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="函数类型接口"><a href="#函数类型接口" class="headerlink" title="函数类型接口"></a>函数类型接口</h2><p>接口能够描述 JavaScript 中对象拥有的各种各样的外形。 除了描述带有属性的普通对象外，接口也可以描述函数类型。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义接口</span></span><br><span class="line"><span class="keyword">interface</span> encrypt &#123;</span><br><span class="line">  (key: <span class="built_in">string</span>, <span class="attr">value</span>: <span class="built_in">string</span>): <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> md5: encrypt = <span class="function"><span class="keyword">function</span> (<span class="params">label: <span class="built_in">string</span>, val: <span class="built_in">string</span></span>): <span class="title">string</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 模拟操作</span></span><br><span class="line">  <span class="keyword">return</span> label + val;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(md5(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;张三&quot;</span>)); <span class="comment">//name张三</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 批量约束</span></span><br><span class="line"><span class="comment">// 函数的参数名不需要与接口里定义的名字相匹配</span></span><br><span class="line"><span class="keyword">var</span> sha1: encrypt = <span class="function"><span class="keyword">function</span> (<span class="params">label: <span class="built_in">string</span>, val: <span class="built_in">string</span></span>): <span class="title">string</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> label + <span class="string">&quot;---&quot;</span> + val;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(sha1(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;韩梅梅&quot;</span>)); <span class="comment">//name---韩梅梅</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="可索引接口"><a href="#可索引接口" class="headerlink" title="可索引接口"></a>可索引接口</h2><p>与使用接口描述函数类型差不多，我们也可以描述那些能够“通过索引得到”的类型(数组、对象的约束)，比如 a[0]或 ageMap[“name”]。 可索引类型具有一个 索引签名，它描述了对象索引的类型，还有相应的索引返回值类型。<br>让我们看一个例子：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对数组的约束</span></span><br><span class="line"><span class="keyword">interface</span> UserArr &#123;</span><br><span class="line">  [index: <span class="built_in">number</span>]: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> arr: UserArr = [<span class="string">&quot;aaa&quot;</span>, <span class="string">&quot;bbb&quot;</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(arr[<span class="string">&quot;0&quot;</span>]); <span class="comment">// aaa</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 对对象的约束</span></span><br><span class="line"><span class="keyword">interface</span> UserObj &#123;</span><br><span class="line">  [index: <span class="built_in">string</span>]: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person: UserObj = &#123; <span class="attr">name</span>: <span class="string">&quot;张三&quot;</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(person.name); <span class="comment">// 张三</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="类类型接口"><a href="#类类型接口" class="headerlink" title="类类型接口"></a>类类型接口</h2><p>类类型接口是用来明确的强制一个类去符合某种契约,和抽象类抽象有点相似。</p>
+<p>举个例子：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> Animal &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">  eat(str: <span class="built_in">string</span>): <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span> <span class="title">implements</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">name: <span class="built_in">string</span></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">eat</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name + <span class="string">&quot;吃骨头&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> d = <span class="keyword">new</span> Dog(<span class="string">&quot;小黑&quot;</span>);</span><br><span class="line"></span><br><span class="line">d.eat(); <span class="comment">//小黑吃骨头</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="title">implements</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">name: <span class="built_in">string</span></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">eat</span>(<span class="params">food: <span class="built_in">string</span></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name + <span class="string">&quot;吃&quot;</span> + food);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> e = <span class="keyword">new</span> Cat(<span class="string">&quot;小花&quot;</span>);</span><br><span class="line">e.eat(<span class="string">&quot;老鼠&quot;</span>); <span class="comment">//小花吃老鼠</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="继承接口"><a href="#继承接口" class="headerlink" title="继承接口"></a>继承接口</h2><p>和类一样，接口也可以相互继承。 这让我们能够从一个接口里复制成员到另一个接口里，可以更灵活地将接口分割到可重用的模块里。</p>
+<p>示例：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> Animal &#123;</span><br><span class="line">  eat(): <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 接口继承</span></span><br><span class="line"><span class="keyword">interface</span> Person <span class="keyword">extends</span> Animal &#123;</span><br><span class="line">  work(): <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Web</span> <span class="title">implements</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="keyword">public</span> name: <span class="built_in">string</span>;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">name: <span class="built_in">string</span></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">eat</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name + <span class="string">&quot;喜欢吃馒头&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">work</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name + <span class="string">&quot;写代码&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> w = <span class="keyword">new</span> Web(<span class="string">&quot;小李&quot;</span>);</span><br><span class="line">w.eat(); <span class="comment">//小李喜欢吃馒头</span></span><br><span class="line">w.work(); <span class="comment">//小李写代码</span></span><br></pre></td></tr></table></figure>
+
+<p>下面再看一个示例:</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> Animal &#123;</span><br><span class="line">  eat(): <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> Person <span class="keyword">extends</span> Animal &#123;</span><br><span class="line">  work(): <span class="built_in">void</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Programmer</span> </span>&#123;</span><br><span class="line">  <span class="keyword">public</span> name: <span class="built_in">string</span>;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">name: <span class="built_in">string</span></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">coding</span>(<span class="params">code: <span class="built_in">string</span></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name + code);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Web</span> <span class="keyword">extends</span> <span class="title">Programmer</span> <span class="title">implements</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">name: <span class="built_in">string</span></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>(name);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">eat</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name + <span class="string">&quot;喜欢吃馒头&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">work</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name + <span class="string">&quot;写代码&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> w = <span class="keyword">new</span> Web(<span class="string">&quot;小李&quot;</span>);</span><br><span class="line">w.coding(<span class="string">&quot;写ts代码&quot;</span>); <span class="comment">//小李写ts代码</span></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Typescript/" rel="tag"># Typescript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/01/20/typescript/04Typescript%E4%B8%AD%E7%9A%84%E7%B1%BB/" rel="prev" title="04Typescript中的类">
+                  <i class="fa fa-chevron-left"></i> 04Typescript中的类
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/02/02/typescript/06Typescript%E4%B8%AD%E7%9A%84%E6%B3%9B%E5%9E%8B/" rel="next" title="06Typescript中的泛型">
+                  06Typescript中的泛型 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">muna</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"4YVBvXUEj3YQFC3sdgsLqQR0-gzGzoHsz","app_key":"Y0Sfizgc4zv8h8EJUzE6fcKu","server_url":null,"security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"hedahang/hedahang.github.io","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

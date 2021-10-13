@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"hedahang.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="软件工程中，我们不仅要创建一致的定义良好的 API，同时也要考虑可重用性。 组件不仅能够支持当前的数据类型，同时也能支持未来的数据类型，这在创建大型系统时为你提供了十分灵活的功能。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="06Typescript中的泛型">
+<meta property="og:url" content="https://hedahang.github.io/2021/02/02/typescript/06Typescript%E4%B8%AD%E7%9A%84%E6%B3%9B%E5%9E%8B/index.html">
+<meta property="og:site_name" content="个人笔记">
+<meta property="og:description" content="软件工程中，我们不仅要创建一致的定义良好的 API，同时也要考虑可重用性。 组件不仅能够支持当前的数据类型，同时也能支持未来的数据类型，这在创建大型系统时为你提供了十分灵活的功能。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-02-02T04:29:22.000Z">
+<meta property="article:modified_time" content="2021-02-02T04:29:22.000Z">
+<meta property="article:author" content="muna">
+<meta property="article:tag" content="Typescript">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://hedahang.github.io/2021/02/02/typescript/06Typescript%E4%B8%AD%E7%9A%84%E6%B3%9B%E5%9E%8B/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://hedahang.github.io/2021/02/02/typescript/06Typescript%E4%B8%AD%E7%9A%84%E6%B3%9B%E5%9E%8B/","path":"2021/02/02/typescript/06Typescript中的泛型/","title":"06Typescript中的泛型"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>06Typescript中的泛型 | 个人笔记</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?d9bdb6166b41cc3154f5904bfba322a3"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">个人笔记</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Quick notes</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section">首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives" rel="section">归档</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags" rel="section">标签</a></li>
+        <li class="menu-item menu-item-about"><a href="/about" rel="section">关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">泛型函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B%E6%8E%A5%E5%8F%A3"><span class="nav-number">2.</span> <span class="nav-text">泛型接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B%E7%B1%BB"><span class="nav-number">3.</span> <span class="nav-text">泛型类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="nav-number">3.1.</span> <span class="nav-text">基本用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E4%BD%BF%E7%94%A8"><span class="nav-number">3.2.</span> <span class="nav-text">具体使用</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">muna</p>
+  <div class="site-description" itemprop="description">Everything is good in its season.</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+        
+          <span class="site-state-item-count">153</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags">
+          
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/hedahang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;hedahang" rel="noopener" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Munachar" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Munachar" rel="noopener" target="_blank">Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://weibo.com/p/1005051065718667/home?from=page_100505&mod=TAB&is_all=1#place" title="微博 → http:&#x2F;&#x2F;weibo.com&#x2F;p&#x2F;1005051065718667&#x2F;home?from&#x3D;page_100505&amp;mod&#x3D;TAB&amp;is_all&#x3D;1#place" rel="noopener" target="_blank">微博</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.csdn.net/" title="CSDN → http:&#x2F;&#x2F;www.csdn.net&#x2F;" rel="noopener" target="_blank">CSDN</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/02/02/typescript/06Typescript%E4%B8%AD%E7%9A%84%E6%B3%9B%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="muna">
+      <meta itemprop="description" content="Everything is good in its season.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          06Typescript中的泛型
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-02-02 12:29:22" itemprop="dateCreated datePublished" datetime="2021-02-02T12:29:22+08:00">2021-02-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Typescript/" itemprop="url" rel="index"><span itemprop="name">Typescript</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2021/02/02/typescript/06Typescript%E4%B8%AD%E7%9A%84%E6%B3%9B%E5%9E%8B/" class="post-meta-item leancloud_visitors" data-flag-title="06Typescript中的泛型" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>软件工程中，我们不仅要创建一致的定义良好的 API，同时也要考虑可重用性。 组件不仅能够支持当前的数据类型，同时也能支持未来的数据类型，这在创建大型系统时为你提供了十分灵活的功能。</p>
+<span id="more"></span>
+
+<p>在像 C#和 Java 这样的语言中，可以使用泛型来创建可重用的组件，一个组件可以支持多种类型的数据。 这样用户就可以以自己的数据类型来使用组件。<br>通俗理解：泛型就是解决 类 接口 方法的复用性、以及对不特定数据类型的支持(类型校验)。</p>
+<h2 id="泛型函数"><a href="#泛型函数" class="headerlink" title="泛型函数"></a>泛型函数</h2><p>下面来创建第一个使用泛型的例子：identity 函数。 这个函数会返回任何传入它的值。 你可以把这个函数当成是 echo 命令。</p>
+<p>不用泛型的话，这个函数可能是下面这样：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 传入/返回string类型的数据</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">identity</span>(<span class="params">value: <span class="built_in">string</span></span>): <span class="title">string</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br><span class="line">identity(<span class="string">&quot;test&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>如果我们要同时返回 number 和 string 类型，可以使用 any 解决这个问题</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 传入/返回string类型的数据</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">identity</span>(<span class="params">value: <span class="built_in">any</span></span>): <span class="title">any</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br><span class="line">identity(<span class="string">&quot;test&quot;</span>);</span><br><span class="line">identity(<span class="number">123</span>);</span><br></pre></td></tr></table></figure>
+
+<p>使用 any 类型会导致这个函数可以接收任何类型的 arg 参数，这样就丢失了一些信息：传入的类型与返回的类型应该是相同的。如果我们传入一个数字，我们只知道任何类型的值都有可能被返回。这就导致传入和返回的参数类型可能不一致</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 传入/返回string类型的数据</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">identity</span>(<span class="params">value: <span class="built_in">any</span></span>): <span class="title">any</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;呵呵呵&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line">identity(<span class="number">123</span>);</span><br></pre></td></tr></table></figure>
+
+<p>因此，我们需要一种方法使返回值的类型与传入参数的类型是相同的。 这里，我们使用了 类型变量，它是一种特殊的变量，只用于表示类型而不是值。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">identity</span>&lt;<span class="title">T</span>&gt;(<span class="params">arg: T</span>): <span class="title">T</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> arg;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们给 identity 添加了类型变量 T。 T 帮助我们捕获用户传入的类型（比如：number），之后我们就可以使用这个类型。 之后我们再次使用了 T 当做返回值类型。现在我们可以知道参数类型与返回值类型是相同的了。 这允许我们跟踪函数里使用的类型的信息。</p>
+<p><strong>T 表示泛型，具体什么类型是调用这个方法的时候决定的。</strong></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">identity</span>&lt;<span class="title">T</span>&gt;(<span class="params">arg: T</span>): <span class="title">T</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> arg;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(identity&lt;<span class="built_in">number</span>&gt;(<span class="number">123</span>)); <span class="comment">// 123</span></span><br><span class="line"><span class="built_in">console</span>.log(identity&lt;<span class="built_in">string</span>&gt;(<span class="string">&quot;123&quot;</span>)); <span class="comment">// &#x27;123&#x27;</span></span><br><span class="line"><span class="built_in">console</span>.log(identity&lt;<span class="built_in">boolean</span>&gt;(<span class="literal">true</span>)); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(identity&lt;<span class="built_in">object</span>&gt;(&#123; <span class="attr">age</span>: <span class="number">123</span> &#125;)); <span class="comment">// &#123;age:123&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(identity&lt;<span class="built_in">Array</span>&lt;<span class="built_in">number</span>&gt;&gt;([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])); <span class="comment">// [1, 2, 3, 4]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 当然我们没必要使用尖括号（&lt;&gt;）来明确地传入类型；编译器可以自动识别参数类型</span></span><br><span class="line"><span class="built_in">console</span>.log(identity([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])); <span class="comment">// [1, 2, 3, 4]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="泛型接口"><a href="#泛型接口" class="headerlink" title="泛型接口"></a>泛型接口</h2><p>首先我先回顾一下函数类型接口的定义：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> ConfigFn &#123;</span><br><span class="line">  (value1: <span class="built_in">string</span>, <span class="attr">value2</span>: <span class="built_in">string</span>): <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> setData: ConfigFn = <span class="function"><span class="keyword">function</span> (<span class="params">value1: <span class="built_in">string</span>, value2: <span class="built_in">string</span></span>): <span class="title">string</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> value1 + value2;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(setData(<span class="string">&quot;名字是&quot;</span>, <span class="string">&quot;张三&quot;</span>)); <span class="comment">//名字是张三</span></span><br></pre></td></tr></table></figure>
+
+<p>上面的列子参数我们只能传入 string 类型，如果需要传入其他类型，就需要用到泛型接口了。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 第一种泛型接口</span></span><br><span class="line"><span class="keyword">interface</span> ConfigFn &#123;</span><br><span class="line">  &lt;T&gt;(value: T): T;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> setData: ConfigFn = <span class="function"><span class="keyword">function</span> &lt;<span class="title">T</span>&gt;(<span class="params">value: T</span>): <span class="title">T</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> value;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(setData(<span class="string">&quot;张三&quot;</span>)); <span class="comment">//张三</span></span><br><span class="line"><span class="built_in">console</span>.log(setData(<span class="number">111</span>)); <span class="comment">//111</span></span><br></pre></td></tr></table></figure>
+
+<p>下面我们换一种写法：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> ConfigFn&lt;T&gt; &#123;</span><br><span class="line">  (value: T): T;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getData</span>&lt;<span class="title">T</span>&gt;(<span class="params">value: T</span>): <span class="title">T</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> setData: ConfigFn&lt;<span class="built_in">string</span>&gt; = getData;</span><br><span class="line"><span class="built_in">console</span>.log(setData(<span class="string">&quot;张三&quot;</span>)); <span class="comment">//张三</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> setData2: ConfigFn&lt;<span class="built_in">number</span>&gt; = getData;</span><br><span class="line"><span class="built_in">console</span>.log(setData2(<span class="number">111</span>)); <span class="comment">//111</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="泛型类"><a href="#泛型类" class="headerlink" title="泛型类"></a>泛型类</h2><p>泛型类使用（ &lt;&gt;）括起泛型类型，跟在类名后面。</p>
+<h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p>假如有个最小堆算法，需要同时支持返回数字和字符串 a - z 两种类型。通过类的泛型来实现：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MinFun</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">public</span> list: T[] = [];</span><br><span class="line">  add(value: T): <span class="built_in">void</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.list.push(value);</span><br><span class="line">  &#125;</span><br><span class="line">  min(): T &#123;</span><br><span class="line">    <span class="keyword">let</span> minNum = <span class="built_in">this</span>.list[<span class="number">0</span>];</span><br><span class="line">    <span class="built_in">this</span>.list.forEach(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (item &lt; minNum) &#123;</span><br><span class="line">        minNum = item;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> minNum;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> m1 = <span class="keyword">new</span> MinFun&lt;<span class="built_in">number</span>&gt;();</span><br><span class="line">m1.add(<span class="number">11</span>);</span><br><span class="line">m1.add(<span class="number">9</span>);</span><br><span class="line">m1.add(<span class="number">5</span>);</span><br><span class="line">m1.add(<span class="number">4</span>);</span><br><span class="line"><span class="built_in">console</span>.log(m1.min()); <span class="comment">// 4</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> m2 = <span class="keyword">new</span> MinFun&lt;<span class="built_in">string</span>&gt;();</span><br><span class="line">m2.add(<span class="string">&quot;d&quot;</span>);</span><br><span class="line">m2.add(<span class="string">&quot;f&quot;</span>);</span><br><span class="line">m2.add(<span class="string">&quot;z&quot;</span>);</span><br><span class="line">m2.add(<span class="string">&quot;b&quot;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(m2.min()); <span class="comment">// b</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="具体使用"><a href="#具体使用" class="headerlink" title="具体使用"></a>具体使用</h3><p>定义一个 User 的类这个类的作用就是映射数据库字段。<br>然后定义一个 MysqlDb 的类这个类用于操作数据库。<br>然后把 User 类作为参数传入到 MysqlDb 中。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 定义一个User类 和数据库进行映射</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">  <span class="attr">username</span>: <span class="built_in">string</span> | <span class="literal">undefined</span>;</span><br><span class="line">  password: <span class="built_in">string</span> | <span class="literal">undefined</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 2.定义操作数据库的泛型类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MysqlDb</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">  add(info: T): <span class="built_in">boolean</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(info);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> u = <span class="keyword">new</span> User();</span><br><span class="line">u.username = <span class="string">&quot;张三&quot;</span>;</span><br><span class="line">u.password = <span class="string">&quot;123456&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3.把 User 类作为参数传入到 MysqlDb 中</span></span><br><span class="line"><span class="keyword">var</span> Db = <span class="keyword">new</span> MysqlDb&lt;User&gt;();</span><br><span class="line">Db.add(u); <span class="comment">// User &#123;username: &#x27;张三&#x27;, password: &#x27;123456&#x27;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>下面我们增加一个 ArticleCate 类和数据库进行映射：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 定义一个User类 和数据库进行映射</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">  <span class="attr">username</span>: <span class="built_in">string</span> | <span class="literal">undefined</span>;</span><br><span class="line">  password: <span class="built_in">string</span> | <span class="literal">undefined</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 2.定义操作数据库的泛型类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MysqlDb</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">  add(info: T): <span class="built_in">boolean</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(info);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  updated(info: T, <span class="attr">id</span>: <span class="built_in">number</span>): <span class="built_in">boolean</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(info);</span><br><span class="line">    <span class="built_in">console</span>.log(id);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> u = <span class="keyword">new</span> User();</span><br><span class="line">u.username = <span class="string">&quot;张三&quot;</span>;</span><br><span class="line">u.password = <span class="string">&quot;123456&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> Db = <span class="keyword">new</span> MysqlDb&lt;User&gt;();</span><br><span class="line">Db.add(u); <span class="comment">// User &#123;username: &#x27;张三&#x27;, password: &#x27;123456&#x27;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ArticleCate</span> </span>&#123;</span><br><span class="line">  <span class="attr">title</span>: <span class="built_in">string</span> | <span class="literal">undefined</span>;</span><br><span class="line">  desc: <span class="built_in">string</span> | <span class="literal">undefined</span>;</span><br><span class="line">  status: <span class="built_in">number</span> | <span class="literal">undefined</span>;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">params: &#123;</span></span></span><br><span class="line"><span class="params"><span class="function">    title: <span class="built_in">string</span> | <span class="literal">undefined</span>;</span></span></span><br><span class="line"><span class="params"><span class="function">    desc: <span class="built_in">string</span> | <span class="literal">undefined</span>;</span></span></span><br><span class="line"><span class="params"><span class="function">    status?: <span class="built_in">number</span> | <span class="literal">undefined</span>;</span></span></span><br><span class="line"><span class="params"><span class="function">  &#125;</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.title = params.title;</span><br><span class="line">    <span class="built_in">this</span>.desc = params.desc;</span><br><span class="line">    <span class="built_in">this</span>.status = params.status;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//增加操作</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> ArticleCate(&#123;</span><br><span class="line">  <span class="attr">title</span>: <span class="string">&quot;分类&quot;</span>,</span><br><span class="line">  <span class="attr">desc</span>: <span class="string">&quot;1111&quot;</span>,</span><br><span class="line">  <span class="attr">status</span>: <span class="number">1</span>,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//类当做参数的泛型类</span></span><br><span class="line"><span class="keyword">var</span> Db2 = <span class="keyword">new</span> MysqlDb&lt;ArticleCate&gt;();</span><br><span class="line">Db2.add(a); <span class="comment">// ArticleCate &#123;title: &#x27;分类&#x27;, status: 1&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//修改数据</span></span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> ArticleCate(&#123;</span><br><span class="line">  <span class="attr">title</span>: <span class="string">&quot;分类1&quot;</span>,</span><br><span class="line">  <span class="attr">desc</span>: <span class="string">&quot;描述&quot;</span>,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">a.status = <span class="number">0</span>;</span><br><span class="line">Db2.updated(b, <span class="number">2</span>); <span class="comment">//ArticleCate &#123;title: &#x27;分类1&#x27;, desc: &#x27;描述&#x27;, status: undefined&#125;---2</span></span><br></pre></td></tr></table></figure>
+<p>总结一下，这里主要体现把类作为参数类型的泛型类的用法。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Typescript/" rel="tag"># Typescript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/01/26/typescript/05Typescript%E4%B8%AD%E7%9A%84%E6%8E%A5%E5%8F%A3/" rel="prev" title="05Typescript中的接口的用途以及属性类型接口">
+                  <i class="fa fa-chevron-left"></i> 05Typescript中的接口的用途以及属性类型接口
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/02/10/project/%E5%89%8D%E7%AB%AF%E5%AF%BC%E5%87%BA%20Excel(CSV)%E6%96%87%E4%BB%B6/" rel="next" title="前端导出 Excel(CSV)文件">
+                  前端导出 Excel(CSV)文件 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">muna</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"4YVBvXUEj3YQFC3sdgsLqQR0-gzGzoHsz","app_key":"Y0Sfizgc4zv8h8EJUzE6fcKu","server_url":null,"security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"hedahang/hedahang.github.io","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
