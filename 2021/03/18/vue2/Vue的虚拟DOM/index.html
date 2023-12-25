@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"hedahang.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="前言Virtual DOM 这个概念相信大部分人都不会陌生，它产生的前提是浏览器中的 DOM 是很“昂贵”的，为了更直观的感受，我们可以简单的把一个简单的 div 元素的属性都打印出来，如图所示：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue.js的虚拟DOM">
+<meta property="og:url" content="https://hedahang.github.io/2021/03/18/vue2/Vue%E7%9A%84%E8%99%9A%E6%8B%9FDOM/index.html">
+<meta property="og:site_name" content="个人笔记">
+<meta property="og:description" content="前言Virtual DOM 这个概念相信大部分人都不会陌生，它产生的前提是浏览器中的 DOM 是很“昂贵”的，为了更直观的感受，我们可以简单的把一个简单的 div 元素的属性都打印出来，如图所示：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hedahang.github.io/images/dom.png">
+<meta property="article:published_time" content="2021-03-18T06:49:34.000Z">
+<meta property="article:modified_time" content="2021-03-18T06:49:34.000Z">
+<meta property="article:author" content="muna">
+<meta property="article:tag" content="Vue">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hedahang.github.io/images/dom.png">
+
+
+<link rel="canonical" href="https://hedahang.github.io/2021/03/18/vue2/Vue%E7%9A%84%E8%99%9A%E6%8B%9FDOM/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://hedahang.github.io/2021/03/18/vue2/Vue%E7%9A%84%E8%99%9A%E6%8B%9FDOM/","path":"2021/03/18/vue2/Vue的虚拟DOM/","title":"Vue.js的虚拟DOM"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Vue.js的虚拟DOM | 个人笔记</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?d9bdb6166b41cc3154f5904bfba322a3"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">个人笔记</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Quick notes</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section">首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives" rel="section">归档</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags" rel="section">标签</a></li>
+        <li class="menu-item menu-item-about"><a href="/about" rel="section">关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VNode-%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">VNode 的类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E9%87%8A%E8%8A%82%E7%82%B9"><span class="nav-number">2.1.</span> <span class="nav-text">注释节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E6%9C%AC%E8%8A%82%E7%82%B9"><span class="nav-number">2.2.</span> <span class="nav-text">文本节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%8B%E9%9A%86%E8%8A%82%E7%82%B9"><span class="nav-number">2.3.</span> <span class="nav-text">克隆节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%83%E7%B4%A0%E8%8A%82%E7%82%B9"><span class="nav-number">2.4.</span> <span class="nav-text">元素节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E8%8A%82%E7%82%B9"><span class="nav-number">2.5.</span> <span class="nav-text">组件节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BB%84%E4%BB%B6%E8%8A%82%E7%82%B9"><span class="nav-number">2.6.</span> <span class="nav-text">函数式组件节点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">muna</p>
+  <div class="site-description" itemprop="description">Everything is good in its season.</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+        
+          <span class="site-state-item-count">168</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags">
+          
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/hedahang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;hedahang" rel="noopener" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Munachar" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Munachar" rel="noopener" target="_blank">Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://weibo.com/p/1005051065718667/home?from=page_100505&mod=TAB&is_all=1#place" title="微博 → http:&#x2F;&#x2F;weibo.com&#x2F;p&#x2F;1005051065718667&#x2F;home?from&#x3D;page_100505&amp;mod&#x3D;TAB&amp;is_all&#x3D;1#place" rel="noopener" target="_blank">微博</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.csdn.net/" title="CSDN → http:&#x2F;&#x2F;www.csdn.net&#x2F;" rel="noopener" target="_blank">CSDN</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/03/18/vue2/Vue%E7%9A%84%E8%99%9A%E6%8B%9FDOM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="muna">
+      <meta itemprop="description" content="Everything is good in its season.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Vue.js的虚拟DOM
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-03-18 14:49:34" itemprop="dateCreated datePublished" datetime="2021-03-18T14:49:34+08:00">2021-03-18</time>
+    </span>
+
+  
+    <span id="/2021/03/18/vue2/Vue%E7%9A%84%E8%99%9A%E6%8B%9FDOM/" class="post-meta-item leancloud_visitors" data-flag-title="Vue.js的虚拟DOM" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Virtual DOM 这个概念相信大部分人都不会陌生，它产生的前提是浏览器中的 DOM 是很“昂贵”的，为了更直观的感受，我们可以简单的把一个简单的 div 元素的属性都打印出来，如图所示：</p>
+<span id="more"></span>
+
+<p><img src="/images/dom.png" alt="(dom)"></p>
+<p>上图中我们打印一个简单的空 div 标签，就打印出这么多东西，更不用说复杂的、深嵌套的 DOM 节点了。由此可见，直接操作真实 DOM 是非常消耗性能的。<br>而 Virtual DOM 就是用一个原生的 JS 对象去描述一个 DOM 节点，所以它比创建一个 DOM 的代价要小很多。在 Vue.js 中，Virtual DOM 是用 VNode 这么一个 Class 去描述，它是定义在 src/core/vdom/vnode.js 中的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">VNode</span> </span>&#123;</span><br><span class="line">  <span class="attr">tag</span>: string | <span class="keyword">void</span>;</span><br><span class="line">  data: VNodeData | <span class="keyword">void</span>;</span><br><span class="line">  children: ?<span class="built_in">Array</span>&lt;VNode&gt;;</span><br><span class="line">  text: string | <span class="keyword">void</span>;</span><br><span class="line">  elm: Node | <span class="keyword">void</span>;</span><br><span class="line">  ns: string | <span class="keyword">void</span>;</span><br><span class="line">  context: Component | <span class="keyword">void</span>; <span class="comment">// rendered in this component&#x27;s scope</span></span><br><span class="line">  key: string | number | <span class="keyword">void</span>;</span><br><span class="line">  componentOptions: VNodeComponentOptions | <span class="keyword">void</span>;</span><br><span class="line">  componentInstance: Component | <span class="keyword">void</span>; <span class="comment">// component instance</span></span><br><span class="line">  parent: VNode | <span class="keyword">void</span>; <span class="comment">// component placeholder node</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// strictly internal</span></span><br><span class="line">  raw: boolean; <span class="comment">// contains raw HTML? (server only)</span></span><br><span class="line">  isStatic: boolean; <span class="comment">// hoisted static node</span></span><br><span class="line">  isRootInsert: boolean; <span class="comment">// necessary for enter transition check</span></span><br><span class="line">  isComment: boolean; <span class="comment">// empty comment placeholder?</span></span><br><span class="line">  isCloned: boolean; <span class="comment">// is a cloned node?</span></span><br><span class="line">  isOnce: boolean; <span class="comment">// is a v-once node?</span></span><br><span class="line">  asyncFactory: <span class="built_in">Function</span> | <span class="keyword">void</span>; <span class="comment">// async component factory function</span></span><br><span class="line">  asyncMeta: <span class="built_in">Object</span> | <span class="keyword">void</span>;</span><br><span class="line">  isAsyncPlaceholder: boolean;</span><br><span class="line">  ssrContext: <span class="built_in">Object</span> | <span class="keyword">void</span>;</span><br><span class="line">  fnContext: Component | <span class="keyword">void</span>; <span class="comment">// real context vm for functional nodes</span></span><br><span class="line">  fnOptions: ?ComponentOptions; <span class="comment">// for SSR caching</span></span><br><span class="line">  devtoolsMeta: ?<span class="built_in">Object</span>; <span class="comment">// used to store functional render context for devtools</span></span><br><span class="line">  fnScopeId: ?string; <span class="comment">// functional scope id support</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="function">    tag?: string,</span></span></span><br><span class="line"><span class="params"><span class="function">    data?: VNodeData,</span></span></span><br><span class="line"><span class="params"><span class="function">    children?: ?<span class="built_in">Array</span>&lt;VNode&gt;,</span></span></span><br><span class="line"><span class="params"><span class="function">    text?: string,</span></span></span><br><span class="line"><span class="params"><span class="function">    elm?: Node,</span></span></span><br><span class="line"><span class="params"><span class="function">    context?: Component,</span></span></span><br><span class="line"><span class="params"><span class="function">    componentOptions?: VNodeComponentOptions,</span></span></span><br><span class="line"><span class="params"><span class="function">    asyncFactory?: <span class="built_in">Function</span></span></span></span><br><span class="line"><span class="params"><span class="function">  </span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.tag = tag; <span class="comment">/*当前节点的标签名*/</span></span><br><span class="line">    <span class="built_in">this</span>.data =</span><br><span class="line">      data; <span class="comment">/*当前节点对应的对象，包含了具体的一些数据信息，是一个VNodeData类型，可以参考VNodeData类型中的数据信息*/</span></span><br><span class="line">    <span class="built_in">this</span>.children = children; <span class="comment">/*当前节点的子节点，是一个数组*/</span></span><br><span class="line">    <span class="built_in">this</span>.text = text; <span class="comment">/*当前节点的文本*/</span></span><br><span class="line">    <span class="built_in">this</span>.elm = elm; <span class="comment">/*当前虚拟节点对应的真实dom节点*/</span></span><br><span class="line">    <span class="built_in">this</span>.ns = <span class="literal">undefined</span>; <span class="comment">/*当前节点的名字空间*/</span></span><br><span class="line">    <span class="built_in">this</span>.context = context; <span class="comment">/*当前组件节点对应的Vue实例*/</span></span><br><span class="line">    <span class="built_in">this</span>.fnContext = <span class="literal">undefined</span>; <span class="comment">/*函数式组件对应的Vue实例*/</span></span><br><span class="line">    <span class="built_in">this</span>.fnOptions = <span class="literal">undefined</span>;</span><br><span class="line">    <span class="built_in">this</span>.fnScopeId = <span class="literal">undefined</span>;</span><br><span class="line">    <span class="built_in">this</span>.key = data &amp;&amp; data.key; <span class="comment">/*节点的key属性，被当作节点的标志，用以优化*/</span></span><br><span class="line">    <span class="built_in">this</span>.componentOptions = componentOptions; <span class="comment">/*组件的option选项*/</span></span><br><span class="line">    <span class="built_in">this</span>.componentInstance = <span class="literal">undefined</span>; <span class="comment">/*当前节点对应的组件的实例*/</span></span><br><span class="line">    <span class="built_in">this</span>.parent = <span class="literal">undefined</span>; <span class="comment">/*当前节点的父节点*/</span></span><br><span class="line">    <span class="built_in">this</span>.raw = <span class="literal">false</span>; <span class="comment">/*简而言之就是是否为原生HTML或只是普通文本，innerHTML的时候为true，textContent的时候为false*/</span></span><br><span class="line">    <span class="built_in">this</span>.isStatic = <span class="literal">false</span>; <span class="comment">/*静态节点标志*/</span></span><br><span class="line">    <span class="built_in">this</span>.isRootInsert = <span class="literal">true</span>; <span class="comment">/*是否作为根节点插入*/</span></span><br><span class="line">    <span class="built_in">this</span>.isComment = <span class="literal">false</span>; <span class="comment">/*是否为注释节点*/</span></span><br><span class="line">    <span class="built_in">this</span>.isCloned = <span class="literal">false</span>; <span class="comment">/*是否为克隆节点*/</span></span><br><span class="line">    <span class="built_in">this</span>.isOnce = <span class="literal">false</span>; <span class="comment">/*是否有v-once指令*/</span></span><br><span class="line">    <span class="built_in">this</span>.asyncFactory = asyncFactory;</span><br><span class="line">    <span class="built_in">this</span>.asyncMeta = <span class="literal">undefined</span>;</span><br><span class="line">    <span class="built_in">this</span>.isAsyncPlaceholder = <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// DEPRECATED: alias for componentInstance for backwards compat.</span></span><br><span class="line">  <span class="comment">/* istanbul ignore next */</span></span><br><span class="line">  <span class="keyword">get</span> <span class="title">child</span>(): <span class="title">Component</span> | <span class="title">void</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.componentInstance;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到 Vue.js 中的 Virtual DOM 的定义还是略微复杂一些的，因为它这里包含了很多 Vue.js 的特性。这里千万不要被这些茫茫多的属性吓到，实际上 Vue.js 中 Virtual DOM 是借鉴了一个开源库 snabbdom 的实现，然后加入了一些 Vue.js 特色的东西。我建议大家如果想深入了解 Vue.js 的 Virtual DOM 前不妨先阅读这个库的源码，因为它更加简单和纯粹。</p>
+<h2 id="VNode-的类型"><a href="#VNode-的类型" class="headerlink" title="VNode 的类型"></a>VNode 的类型</h2><p>VNode 类可以通过不同属性的搭配来描述出各种类型的真实 DOM 节点。那么它都可以描述出哪些类型的节点呢？通过阅读源码，发现可以描述出以下几种类型的节点。</p>
+<ul>
+<li>注释节点</li>
+<li>文本节点</li>
+<li>元素节点</li>
+<li>组件节点</li>
+<li>函数式组件节点</li>
+<li>克隆节点</li>
+</ul>
+<p>接下来，我们就把这几种类型的节点描述方式从源码中一一对应起来。</p>
+<h3 id="注释节点"><a href="#注释节点" class="headerlink" title="注释节点"></a>注释节点</h3><p>注释节点描述起来相对就非常简单了，它只需两个属性就够了，源码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> createEmptyVNode = <span class="function">(<span class="params">text: string = <span class="string">&quot;&quot;</span></span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> node = <span class="keyword">new</span> VNode();</span><br><span class="line">  node.text = text;</span><br><span class="line">  node.isComment = <span class="literal">true</span>;</span><br><span class="line">  <span class="keyword">return</span> node;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>从上面代码中可以看到，描述一个注释节点只需两个属性，分别是：text 和 isComment。其中 text 属性表示具体的注释信息，isComment 是一个标志，用来标识一个节点是否是注释节点。</p>
+<h3 id="文本节点"><a href="#文本节点" class="headerlink" title="文本节点"></a>文本节点</h3><p>文本节点描述起来比注释节点更简单，因为它只需要一个属性，那就是 text 属性，用来表示具体的文本信息。源码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">createTextVNode</span>(<span class="params">val: string | number</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> VNode(<span class="literal">undefined</span>, <span class="literal">undefined</span>, <span class="literal">undefined</span>, <span class="built_in">String</span>(val));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="克隆节点"><a href="#克隆节点" class="headerlink" title="克隆节点"></a>克隆节点</h3><p>克隆节点就是把一个已经存在的节点复制一份出来，它主要是为了做模板编译优化时使用，这个后面我们会说到。关于克隆节点的描述，源码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">cloneVNode</span>(<span class="params">vnode: VNode</span>): <span class="title">VNode</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> cloned = <span class="keyword">new</span> VNode(</span><br><span class="line">    vnode.tag,</span><br><span class="line">    vnode.data,</span><br><span class="line">    <span class="comment">// #7975</span></span><br><span class="line">    <span class="comment">// clone children array to avoid mutating original in case of cloning</span></span><br><span class="line">    <span class="comment">// a child.</span></span><br><span class="line">    vnode.children &amp;&amp; vnode.children.slice(),</span><br><span class="line">    vnode.text,</span><br><span class="line">    vnode.elm,</span><br><span class="line">    vnode.context,</span><br><span class="line">    vnode.componentOptions,</span><br><span class="line">    vnode.asyncFactory</span><br><span class="line">  );</span><br><span class="line">  cloned.ns = vnode.ns;</span><br><span class="line">  cloned.isStatic = vnode.isStatic;</span><br><span class="line">  cloned.key = vnode.key;</span><br><span class="line">  cloned.isComment = vnode.isComment;</span><br><span class="line">  cloned.fnContext = vnode.fnContext;</span><br><span class="line">  cloned.fnOptions = vnode.fnOptions;</span><br><span class="line">  cloned.fnScopeId = vnode.fnScopeId;</span><br><span class="line">  cloned.asyncMeta = vnode.asyncMeta;</span><br><span class="line">  cloned.isCloned = <span class="literal">true</span>;</span><br><span class="line">  <span class="keyword">return</span> cloned;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从上面代码中可以看到，克隆节点就是把已有节点的属性全部复制到新节点中，而现有节点和新克隆得到的节点之间唯一的不同就是克隆得到的节点 isCloned 为 true。</p>
+<h3 id="元素节点"><a href="#元素节点" class="headerlink" title="元素节点"></a>元素节点</h3><p>相比之下，元素节点更贴近于我们通常看到的真实 DOM 节点，它有描述节点标签名词的 tag 属性，描述节点属性如 class、attributes 等的 data 属性，有描述包含的子节点信息的 children 属性等。由于元素节点所包含的情况相比而言比较复杂，源码中没有像前三种节点一样直接写死（当然也不可能写死），那就举个简单例子说明一下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 真实DOM节点</span></span><br><span class="line">&lt;div id=<span class="string">&#x27;a&#x27;</span>&gt;<span class="xml"><span class="tag">&lt;<span class="name">span</span>&gt;</span>难凉热血<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span>&lt;/div&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// VNode节点</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">tag</span>:<span class="string">&#x27;div&#x27;</span>,</span><br><span class="line">  <span class="attr">data</span>:&#123;&#125;,</span><br><span class="line">  <span class="attr">children</span>:[</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">tag</span>:<span class="string">&#x27;span&#x27;</span>,</span><br><span class="line">      <span class="attr">text</span>:<span class="string">&#x27;难凉热血&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到，真实 DOM 节点中:div 标签里面包含了一个 span 标签，而 span 标签里面有一段文本。反应到 VNode 节点上就如上所示:tag 表示标签名，data 表示标签的属性 id 等，children 表示子节点数组。</p>
+<h3 id="组件节点"><a href="#组件节点" class="headerlink" title="组件节点"></a>组件节点</h3><p>组件节点除了有元素节点具有的属性之外，它还有两个特有的属性：</p>
+<ul>
+<li>componentOptions :组件的 option 选项，如组件的 props 等</li>
+<li>componentInstance :当前组件节点对应的 Vue 实例</li>
+</ul>
+<h3 id="函数式组件节点"><a href="#函数式组件节点" class="headerlink" title="函数式组件节点"></a>函数式组件节点</h3><p>函数式组件节点相较于组件节点，它又有两个特有的属性：</p>
+<ul>
+<li>fnContext:函数式组件对应的 Vue 实例</li>
+<li>fnOptions: 组件的 option 选项</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>其实 VNode 是对真实 DOM 的一种抽象描述，它的核心定义无非就几个关键属性，标签名、数据、子节点、键值等，其它属性都是用来扩展 VNode 的灵活性以及实现一些特殊 feature 的。由于 VNode 只是用来映射到真实 DOM 的渲染，不需要包含操作 DOM 的方法，因此它是非常轻量和简单的。</p>
+<p>Virtual DOM 除了它的数据结构的定义，映射到真实的 DOM 实际上要经历 VNode 的 create、diff、patch 等过程。有了数据变化前后的VNode，我们才能进行后续的DOM-Diff找出差异，最终做到只更新有差异的视图，从而达到尽可能少的操作真实DOM的目的，以节省性能。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://vue-js.com/">https://vue-js.com/</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Vue/" rel="tag"># Vue</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/03/17/vue2/Vue%E7%9A%84nextTick%E5%8E%9F%E7%90%86/" rel="prev" title="Vue.js的nextTick实现">
+                  <i class="fa fa-chevron-left"></i> Vue.js的nextTick实现
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/03/18/vue2/Vue%E7%9A%84DOM-Diff/" rel="next" title="Vue.js的DOM-Diff">
+                  Vue.js的DOM-Diff <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">muna</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"4YVBvXUEj3YQFC3sdgsLqQR0-gzGzoHsz","app_key":"Y0Sfizgc4zv8h8EJUzE6fcKu","server_url":null,"security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"hedahang/hedahang.github.io","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
