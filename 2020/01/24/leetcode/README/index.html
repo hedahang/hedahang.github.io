@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"hedahang.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="LeetCode题目难度分类总结本文档整理了所有LeetCode题目的难度分类，方便按难度学习和复习。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeetCode题目难度分类总结">
+<meta property="og:url" content="https://hedahang.github.io/2020/01/24/leetcode/README/index.html">
+<meta property="og:site_name" content="个人笔记">
+<meta property="og:description" content="LeetCode题目难度分类总结本文档整理了所有LeetCode题目的难度分类，方便按难度学习和复习。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-01-24T11:12:09.000Z">
+<meta property="article:modified_time" content="2020-01-24T11:12:09.000Z">
+<meta property="article:author" content="muna">
+<meta property="article:tag" content="LeetCode">
+<meta property="article:tag" content="算法总结">
+<meta property="article:tag" content="难度分类">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://hedahang.github.io/2020/01/24/leetcode/README/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://hedahang.github.io/2020/01/24/leetcode/README/","path":"2020/01/24/leetcode/README/","title":"LeetCode题目难度分类总结"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>LeetCode题目难度分类总结 | 个人笔记</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?d9bdb6166b41cc3154f5904bfba322a3"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">个人笔记</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Quick notes</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section">首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives" rel="section">归档</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags" rel="section">标签</a></li>
+        <li class="menu-item menu-item-about"><a href="/about" rel="section">关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LeetCode%E9%A2%98%E7%9B%AE%E9%9A%BE%E5%BA%A6%E5%88%86%E7%B1%BB%E6%80%BB%E7%BB%93"><span class="nav-number">1.</span> <span class="nav-text">LeetCode题目难度分类总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%93%8A-%E9%9A%BE%E5%BA%A6%E5%88%86%E5%B8%83%E7%BB%9F%E8%AE%A1"><span class="nav-number">1.1.</span> <span class="nav-text">📊 难度分布统计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%9F%A2-%E7%AE%80%E5%8D%95%E9%A2%98%E7%9B%AE-Easy"><span class="nav-number">1.2.</span> <span class="nav-text">🟢 简单题目 (Easy)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%B1%BB"><span class="nav-number">1.2.1.</span> <span class="nav-text">数组类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB"><span class="nav-number">1.2.2.</span> <span class="nav-text">字符串类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%93%BE%E8%A1%A8%E7%B1%BB"><span class="nav-number">1.2.3.</span> <span class="nav-text">链表类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91%E7%B1%BB"><span class="nav-number">1.2.4.</span> <span class="nav-text">二叉树类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E5%AD%A6%E7%B1%BB"><span class="nav-number">1.2.5.</span> <span class="nav-text">数学类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%9F%A1-%E4%B8%AD%E7%AD%89%E9%A2%98%E7%9B%AE-Medium"><span class="nav-number">1.3.</span> <span class="nav-text">🟡 中等题目 (Medium)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%B1%BB-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">数组类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB-1"><span class="nav-number">1.3.2.</span> <span class="nav-text">字符串类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%93%BE%E8%A1%A8%E7%B1%BB-1"><span class="nav-number">1.3.3.</span> <span class="nav-text">链表类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91%E7%B1%BB-1"><span class="nav-number">1.3.4.</span> <span class="nav-text">二叉树类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%B1%BB"><span class="nav-number">1.3.5.</span> <span class="nav-text">动态规划类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%94%B4-%E5%9B%B0%E9%9A%BE%E9%A2%98%E7%9B%AE-Hard"><span class="nav-number">1.4.</span> <span class="nav-text">🔴 困难题目 (Hard)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%B1%BB-2"><span class="nav-number">1.4.1.</span> <span class="nav-text">数组类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB-2"><span class="nav-number">1.4.2.</span> <span class="nav-text">字符串类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91%E7%B1%BB-2"><span class="nav-number">1.4.3.</span> <span class="nav-text">二叉树类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8E%AF-%E5%AD%A6%E4%B9%A0%E5%BB%BA%E8%AE%AE"><span class="nav-number">1.5.</span> <span class="nav-text">🎯 学习建议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%AD%A6%E8%80%85%E8%B7%AF%E7%BA%BF"><span class="nav-number">1.5.1.</span> <span class="nav-text">初学者路线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E9%98%B6%E8%B7%AF%E7%BA%BF"><span class="nav-number">1.5.2.</span> <span class="nav-text">进阶路线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87"><span class="nav-number">1.5.3.</span> <span class="nav-text">面试准备</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%93%9A-%E7%AE%97%E6%B3%95%E5%88%86%E7%B1%BB"><span class="nav-number">1.6.</span> <span class="nav-text">📚 算法分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95"><span class="nav-number">1.6.1.</span> <span class="nav-text">基础算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">1.6.2.</span> <span class="nav-text">数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E7%AE%97%E6%B3%95"><span class="nav-number">1.6.3.</span> <span class="nav-text">高级算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%94%97-%E7%9B%B8%E5%85%B3%E8%B5%84%E6%BA%90"><span class="nav-number">1.7.</span> <span class="nav-text">🔗 相关资源</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">muna</p>
+  <div class="site-description" itemprop="description">Everything is good in its season.</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+        
+          <span class="site-state-item-count">184</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags">
+          
+        <span class="site-state-item-count">90</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/hedahang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;hedahang" rel="noopener" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Munachar" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Munachar" rel="noopener" target="_blank">Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://weibo.com/p/1005051065718667/home?from=page_100505&mod=TAB&is_all=1#place" title="微博 → http:&#x2F;&#x2F;weibo.com&#x2F;p&#x2F;1005051065718667&#x2F;home?from&#x3D;page_100505&amp;mod&#x3D;TAB&amp;is_all&#x3D;1#place" rel="noopener" target="_blank">微博</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.csdn.net/" title="CSDN → http:&#x2F;&#x2F;www.csdn.net&#x2F;" rel="noopener" target="_blank">CSDN</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2020/01/24/leetcode/README/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="muna">
+      <meta itemprop="description" content="Everything is good in its season.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          LeetCode题目难度分类总结
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-01-24 19:12:09" itemprop="dateCreated datePublished" datetime="2020-01-24T19:12:09+08:00">2020-01-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/LeetCode%E9%A2%98%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">LeetCode题库</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2020/01/24/leetcode/README/" class="post-meta-item leancloud_visitors" data-flag-title="LeetCode题目难度分类总结" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="LeetCode题目难度分类总结"><a href="#LeetCode题目难度分类总结" class="headerlink" title="LeetCode题目难度分类总结"></a>LeetCode题目难度分类总结</h1><p>本文档整理了所有LeetCode题目的难度分类，方便按难度学习和复习。</p>
+<span id="more"></span>
+
+<h2 id="📊-难度分布统计"><a href="#📊-难度分布统计" class="headerlink" title="📊 难度分布统计"></a>📊 难度分布统计</h2><ul>
+<li><strong>简单题目</strong>: 约40%</li>
+<li><strong>中等题目</strong>: 约45% </li>
+<li><strong>困难题目</strong>: 约15%</li>
+</ul>
+<h2 id="🟢-简单题目-Easy"><a href="#🟢-简单题目-Easy" class="headerlink" title="🟢 简单题目 (Easy)"></a>🟢 简单题目 (Easy)</h2><h3 id="数组类"><a href="#数组类" class="headerlink" title="数组类"></a>数组类</h3><ul>
+<li><a href="/2017/05/07/leetcode/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">1.两数之和</a> - 哈希表、数组</li>
+<li><a href="/2021/09/03/leetcode/%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/">11.盛最多水的容器</a> - 双指针、数组、贪心、面试高频</li>
+<li><a href="/2021/09/05/leetcode/%E5%88%A0%E9%99%A4%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9/">26.删除有序数组中的重复项</a> - 双指针、数组、面试高频</li>
+<li><a href="/2021/09/07/leetcode/%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0/">27.移除元素</a> - 双指针、数组、面试高频</li>
+<li><a href="/2017/05/07/leetcode/%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8C/">53.最大子序和</a> - 动态规划、数组、分治</li>
+<li><a href="/2017/05/07/leetcode/%E5%AD%98%E5%9C%A8%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0/">217.存在重复元素</a> - 数组、哈希表</li>
+<li><a href="/2017/05/07/leetcode/%E4%B8%A2%E5%A4%B1%E7%9A%84%E6%95%B0%E5%AD%97/">268.丢失的数字</a> - 位运算、数学</li>
+<li><a href="/2017/05/07/leetcode/%E7%AC%AC%E4%B8%89%E5%A4%A7%E7%9A%84%E6%95%B0/">414.第三大的数</a> - 数组、排序</li>
+<li><a href="/2017/05/07/leetcode/%E6%89%BE%E5%88%B0%E6%89%80%E6%9C%89%E6%95%B0%E7%BB%84%E4%B8%AD%E6%B6%88%E5%A4%B1%E7%9A%84%E6%95%B0%E5%AD%97/">448.找到所有数组中消失的数字</a> - 数组、哈希表</li>
+<li><a href="/2017/05/07/leetcode/%E5%88%86%E5%8F%91%E9%A5%BC%E5%B9%B2/">455.分发饼干</a> - 贪心、排序</li>
+</ul>
+<h3 id="字符串类"><a href="#字符串类" class="headerlink" title="字符串类"></a>字符串类</h3><ul>
+<li><a href="/2017/05/07/leetcode/%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%89%8D%E7%BC%80/">14.最长公共前缀</a> - 字符串、分治</li>
+<li><a href="/2017/05/07/leetcode/%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%94%AF%E4%B8%80%E5%AD%97%E7%AC%A6/">387.字符串中的第一个唯一字符</a> - 字符串、哈希表</li>
+<li><a href="/2017/05/07/leetcode/%E6%89%BE%E4%B8%8D%E5%90%8C/">389.找不同</a> - 位运算、字符串</li>
+</ul>
+<h3 id="链表类"><a href="#链表类" class="headerlink" title="链表类"></a>链表类</h3><ul>
+<li><a href="/2017/05/07/leetcode/%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E9%93%BE%E8%A1%A8/">21.合并两个有序链表</a> - 链表、递归</li>
+<li><a href="/2021/09/15/leetcode/%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/">141.环形链表</a> - 链表、双指针、快慢指针、面试高频</li>
+<li><a href="/2021/09/24/leetcode/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/">206.反转链表</a> - 链表、递归、迭代、面试高频</li>
+</ul>
+<h3 id="二叉树类"><a href="#二叉树类" class="headerlink" title="二叉树类"></a>二叉树类</h3><ul>
+<li><a href="/2017/05/07/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/">94.二叉树的中序遍历</a> - 二叉树、栈、递归、Morris遍历</li>
+<li><a href="/2017/05/07/leetcode/%E7%9B%B8%E5%90%8C%E7%9A%84%E6%A0%91/">100.相同的树</a> - 二叉树、递归</li>
+<li><a href="/2017/05/07/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6/">104.二叉树的最大深度</a> - 二叉树、递归</li>
+</ul>
+<h3 id="数学类"><a href="#数学类" class="headerlink" title="数学类"></a>数学类</h3><ul>
+<li><a href="/2021/09/12/leetcode/%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE/">35.搜索插入位置</a> - 二分查找、数组、面试高频</li>
+<li><a href="/2017/05/07/leetcode/%E7%88%AC%E6%A5%BC%E6%A2%AF/">70.爬楼梯</a> - 动态规划、数学、记忆化搜索</li>
+<li><a href="/2017/05/07/leetcode/%E8%AE%A1%E6%95%B0%E8%B4%A8%E6%95%B0/">204.计数质数</a> - 数学、埃氏筛法</li>
+</ul>
+<h2 id="🟡-中等题目-Medium"><a href="#🟡-中等题目-Medium" class="headerlink" title="🟡 中等题目 (Medium)"></a>🟡 中等题目 (Medium)</h2><h3 id="数组类-1"><a href="#数组类-1" class="headerlink" title="数组类"></a>数组类</h3><ul>
+<li><a href="/2017/05/07/leetcode/%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/">15.三数之和</a> - 双指针、数组、排序</li>
+<li><a href="/2017/05/07/leetcode/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C-II-%E8%BE%93%E5%85%A5%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84/">167.两数之和 II - 输入有序数组</a> - 双指针、数组</li>
+<li><a href="/2017/05/07/leetcode/%E5%AD%98%E5%9C%A8%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0-II/">219.存在重复元素 II</a> - 数组、哈希表、滑动窗口</li>
+</ul>
+<h3 id="字符串类-1"><a href="#字符串类-1" class="headerlink" title="字符串类"></a>字符串类</h3><ul>
+<li><a href="/2017/05/07/leetcode/%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/">3.无重复字符的最长子串</a> - 滑动窗口、字符串、哈希表</li>
+<li><a href="/2017/05/07/leetcode/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/">5.最长回文子串</a> - 动态规划、字符串、中心扩展</li>
+<li><a href="/2021/09/01/leetcode/%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7/">20.有效的括号</a> - 栈、字符串、面试高频</li>
+<li><a href="/2021/09/27/leetcode/%E6%8B%AC%E5%8F%B7%E7%94%9F%E6%88%90/">22.括号生成</a> - 回溯、递归、面试高频</li>
+<li><a href="/2021/09/09/leetcode/%E5%AE%9E%E7%8E%B0-strStr/">28.实现 strStr()</a> - 字符串、KMP算法、面试高频</li>
+<li><a href="/2017/05/07/leetcode/%E6%9C%89%E6%95%88%E7%9A%84%E5%AD%97%E6%AF%8D%E5%BC%82%E4%BD%8D%E8%AF%8D/">242.有效的字母异位词</a> - 字符串、哈希表、排序</li>
+</ul>
+<h3 id="链表类-1"><a href="#链表类-1" class="headerlink" title="链表类"></a>链表类</h3><ul>
+<li><a href="/2017/05/07/leetcode/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/">2.两数相加</a> - 链表、数学</li>
+</ul>
+<h3 id="二叉树类-1"><a href="#二叉树类-1" class="headerlink" title="二叉树类"></a>二叉树类</h3><ul>
+<li><a href="/2017/05/07/leetcode/%E9%AA%8C%E8%AF%81%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/">98.验证二叉搜索树</a> - 二叉树、递归、中序遍历</li>
+<li><a href="/2017/05/07/leetcode/%E5%AF%B9%E7%A7%B0%E4%BA%8C%E5%8F%89%E6%A0%91/">101.对称二叉树</a> - 二叉树、递归、迭代</li>
+<li><a href="/2017/05/07/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/">102.二叉树的层序遍历</a> - 二叉树、BFS、队列</li>
+<li><a href="/2021/09/30/leetcode/%E5%85%A8%E6%8E%92%E5%88%97/">46.全排列</a> - 回溯、递归、面试高频</li>
+<li><a href="/2021/10/03/leetcode/%E5%AD%90%E9%9B%86/">78.子集</a> - 回溯、递归、面试高频</li>
+</ul>
+<h3 id="动态规划类"><a href="#动态规划类" class="headerlink" title="动态规划类"></a>动态规划类</h3><ul>
+<li><a href="/2017/05/07/leetcode/%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84/">62.不同路径</a> - 动态规划、数学</li>
+<li><a href="/2017/05/07/leetcode/%E6%9C%80%E5%B0%8F%E8%B7%AF%E5%BE%84%E5%92%8C/">64.最小路径和</a> - 动态规划、数组</li>
+<li><a href="/2021/09/18/leetcode/LRU%E7%BC%93%E5%AD%98/">146.LRU缓存</a> - 设计、哈希表、双向链表、面试高频</li>
+<li><a href="/2021/09/21/leetcode/%E6%9C%80%E5%B0%8F%E6%A0%88/">155.最小栈</a> - 栈、设计、面试高频</li>
+<li><a href="/2021/10/06/leetcode/%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D/">198.打家劫舍</a> - 动态规划、面试高频</li>
+<li><a href="/2021/10/09/leetcode/%E7%94%A8%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/">232.用栈实现队列</a> - 栈、队列、设计、面试高频</li>
+</ul>
+<h2 id="🔴-困难题目-Hard"><a href="#🔴-困难题目-Hard" class="headerlink" title="🔴 困难题目 (Hard)"></a>🔴 困难题目 (Hard)</h2><h3 id="数组类-2"><a href="#数组类-2" class="headerlink" title="数组类"></a>数组类</h3><ul>
+<li><a href="/2017/05/07/leetcode/%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%AD%A3%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/">4.寻找两个正序数组的中位数</a> - 二分查找、数组、分治</li>
+<li><a href="/2017/05/07/leetcode/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%8C%B9%E9%85%8D/">10.正则表达式匹配</a> - 动态规划、字符串</li>
+</ul>
+<h3 id="字符串类-2"><a href="#字符串类-2" class="headerlink" title="字符串类"></a>字符串类</h3><ul>
+<li><a href="/2017/05/07/leetcode/%E6%9C%80%E9%95%BF%E6%9C%89%E6%95%88%E6%8B%AC%E5%8F%B7/">32.最长有效括号</a> - 动态规划、栈、字符串</li>
+</ul>
+<h3 id="二叉树类-2"><a href="#二叉树类-2" class="headerlink" title="二叉树类"></a>二叉树类</h3><ul>
+<li><a href="/2017/05/07/leetcode/%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E8%B7%AF%E5%BE%84%E5%92%8C/">124.二叉树中的最大路径和</a> - 二叉树、递归、动态规划</li>
+</ul>
+<h2 id="🎯-学习建议"><a href="#🎯-学习建议" class="headerlink" title="🎯 学习建议"></a>🎯 学习建议</h2><h3 id="初学者路线"><a href="#初学者路线" class="headerlink" title="初学者路线"></a>初学者路线</h3><ol>
+<li><strong>从简单题目开始</strong> - 熟悉基本数据结构和算法</li>
+<li><strong>重点掌握</strong> - 数组、字符串、哈希表、双指针</li>
+<li><strong>逐步提升</strong> - 学习动态规划、递归、二叉树</li>
+</ol>
+<h3 id="进阶路线"><a href="#进阶路线" class="headerlink" title="进阶路线"></a>进阶路线</h3><ol>
+<li><strong>中等题目为主</strong> - 掌握常见算法模式</li>
+<li><strong>重点突破</strong> - 动态规划、回溯、图论</li>
+<li><strong>困难题目挑战</strong> - 提升算法思维和解题技巧</li>
+</ol>
+<h3 id="面试准备"><a href="#面试准备" class="headerlink" title="面试准备"></a>面试准备</h3><ol>
+<li><strong>高频题目</strong> - 重点复习标记的经典题目</li>
+<li><strong>算法模式</strong> - 掌握常见解题模板</li>
+<li><strong>时间控制</strong> - 练习在规定时间内解题</li>
+</ol>
+<h2 id="📚-算法分类"><a href="#📚-算法分类" class="headerlink" title="📚 算法分类"></a>📚 算法分类</h2><h3 id="基础算法"><a href="#基础算法" class="headerlink" title="基础算法"></a>基础算法</h3><ul>
+<li><strong>双指针</strong> - 数组、字符串处理</li>
+<li><strong>滑动窗口</strong> - 子串、子数组问题</li>
+<li><strong>二分查找</strong> - 有序数组查找</li>
+<li><strong>排序</strong> - 各种排序算法应用</li>
+</ul>
+<h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><ul>
+<li><strong>数组</strong> - 基础数据结构</li>
+<li><strong>链表</strong> - 指针操作</li>
+<li><strong>栈/队列</strong> - 先进后出/先进先出</li>
+<li><strong>哈希表</strong> - 快速查找</li>
+<li><strong>二叉树</strong> - 递归、遍历</li>
+</ul>
+<h3 id="高级算法"><a href="#高级算法" class="headerlink" title="高级算法"></a>高级算法</h3><ul>
+<li><strong>动态规划</strong> - 状态转移、最优子结构</li>
+<li><strong>回溯</strong> - 深度优先搜索、状态恢复</li>
+<li><strong>贪心</strong> - 局部最优选择</li>
+<li><strong>分治</strong> - 问题分解、合并</li>
+</ul>
+<h2 id="🔗-相关资源"><a href="#🔗-相关资源" class="headerlink" title="🔗 相关资源"></a>🔗 相关资源</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/">LeetCode官网</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problemset/all/">力扣题解</a></li>
+<li><a target="_blank" rel="noopener" href="https://visualgo.net/">算法可视化</a></li>
+</ul>
+<hr>
+<p><em>最后更新: 2025-01-24</em> </p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
+              <a href="/tags/%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/" rel="tag"># 算法总结</a>
+              <a href="/tags/%E9%9A%BE%E5%BA%A6%E5%88%86%E7%B1%BB/" rel="tag"># 难度分类</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/01/14/jsspecial/%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/" rel="prev" title="二、JavaScript专题之数组去重">
+                  <i class="fa fa-chevron-left"></i> 二、JavaScript专题之数组去重
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/02/14/jsspecial/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD%E4%B8%8A/" rel="next" title="三、JavaScript专题之类型判断(上)">
+                  三、JavaScript专题之类型判断(上) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">muna</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"4YVBvXUEj3YQFC3sdgsLqQR0-gzGzoHsz","app_key":"Y0Sfizgc4zv8h8EJUzE6fcKu","server_url":"https://leancloud.cn","security":false,"betterPerformance":false,"pageSize":10,"debug":true,"enable_sync":true}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"hedahang/hedahang.github.io","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

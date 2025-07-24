@@ -160,7 +160,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives">
         
-          <span class="site-state-item-count">175</span>
+          <span class="site-state-item-count">184</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -172,7 +172,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags">
           
-        <span class="site-state-item-count">77</span>
+        <span class="site-state-item-count">90</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -225,7 +225,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/03/22/vue2/Vue%E7%9A%84%E8%99%9A%E6%8B%9FDOM/">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/09/27/leetcode/%E6%8B%AC%E5%8F%B7%E7%94%9F%E6%88%90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -238,7 +238,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/03/22/vue2/Vue%E7%9A%84%E8%99%9A%E6%8B%9FDOM/" class="post-title-link" itemprop="url">Vue.js的虚拟DOM</a>
+          <a href="/2021/09/27/leetcode/%E6%8B%AC%E5%8F%B7%E7%94%9F%E6%88%90/" class="post-title-link" itemprop="url">22.括号生成</a>
         </h2>
 
         <div class="post-meta-container">
@@ -249,558 +249,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2021-03-22 19:19:24" itemprop="dateCreated datePublished" datetime="2021-03-22T19:19:24+08:00">2021-03-22</time>
-    </span>
-
-  
-    <span id="/2021/03/22/vue2/Vue%E7%9A%84%E8%99%9A%E6%8B%9FDOM/" class="post-meta-item leancloud_visitors" data-flag-title="Vue.js的虚拟DOM" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Virtual DOM 这个概念相信大部分人都不会陌生，它产生的前提是浏览器中的 DOM 是很“昂贵”的，为了更直观的感受，我们可以简单的把一个简单的 div 元素的属性都打印出来，如图所示：</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/03/22/vue2/Vue%E7%9A%84%E8%99%9A%E6%8B%9FDOM/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/03/18/vue2/Vue%E7%9A%84DOM-Diff/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="muna">
-      <meta itemprop="description" content="Everything is good in its season.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人笔记">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/03/18/vue2/Vue%E7%9A%84DOM-Diff/" class="post-title-link" itemprop="url">Vue.js的DOM-Diff</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-03-18 14:49:34" itemprop="dateCreated datePublished" datetime="2021-03-18T14:49:34+08:00">2021-03-18</time>
-    </span>
-
-  
-    <span id="/2021/03/18/vue2/Vue%E7%9A%84DOM-Diff/" class="post-meta-item leancloud_visitors" data-flag-title="Vue.js的DOM-Diff" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Virtual DOM 这个概念相信大部分人都不会陌生，它产生的前提是浏览器中的 DOM 是很“昂贵”的，为了更直观的感受，我们可以简单的把一个简单的 div 元素的属性都打印出来，如图所示：</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/03/18/vue2/Vue%E7%9A%84DOM-Diff/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/03/17/vue2/Vue%E7%9A%84nextTick%E5%8E%9F%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="muna">
-      <meta itemprop="description" content="Everything is good in its season.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人笔记">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/03/17/vue2/Vue%E7%9A%84nextTick%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">Vue.js的nextTick实现</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-03-17 12:49:34" itemprop="dateCreated datePublished" datetime="2021-03-17T12:49:34+08:00">2021-03-17</time>
-    </span>
-
-  
-    <span id="/2021/03/17/vue2/Vue%E7%9A%84nextTick%E5%8E%9F%E7%90%86/" class="post-meta-item leancloud_visitors" data-flag-title="Vue.js的nextTick实现" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>nextTick 是 Vue 的一个核心实现，在介绍 Vue 的 nextTick 之前，我们先结合上一节的例子来回顾下 nextTick 用法。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/03/17/vue2/Vue%E7%9A%84nextTick%E5%8E%9F%E7%90%86/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/03/15/vue2/Vue%E7%9A%84%E5%BC%82%E6%AD%A5%E6%9B%B4%E6%96%B0DOM%E7%AD%96%E7%95%A5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="muna">
-      <meta itemprop="description" content="Everything is good in its season.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人笔记">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/03/15/vue2/Vue%E7%9A%84%E5%BC%82%E6%AD%A5%E6%9B%B4%E6%96%B0DOM%E7%AD%96%E7%95%A5/" class="post-title-link" itemprop="url">Vue.js的异步更新DOM策略</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-03-15 17:31:52" itemprop="dateCreated datePublished" datetime="2021-03-15T17:31:52+08:00">2021-03-15</time>
-    </span>
-
-  
-    <span id="/2021/03/15/vue2/Vue%E7%9A%84%E5%BC%82%E6%AD%A5%E6%9B%B4%E6%96%B0DOM%E7%AD%96%E7%95%A5/" class="post-meta-item leancloud_visitors" data-flag-title="Vue.js的异步更新DOM策略" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前面析我们了解了响应式数据依赖收集过程，收集的目的就是为了当我们修改数据的时候，可以对相关的依赖派发更新，那么这一节我们来详细分析这个过程。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/03/15/vue2/Vue%E7%9A%84%E5%BC%82%E6%AD%A5%E6%9B%B4%E6%96%B0DOM%E7%AD%96%E7%95%A5/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/03/13/vue2/Vue%E6%95%B0%E7%BB%84%E7%9A%84%E4%BE%9D%E8%B5%96%E6%94%B6%E9%9B%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="muna">
-      <meta itemprop="description" content="Everything is good in its season.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人笔记">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/03/13/vue2/Vue%E6%95%B0%E7%BB%84%E7%9A%84%E4%BE%9D%E8%B5%96%E6%94%B6%E9%9B%86/" class="post-title-link" itemprop="url">Vue.js数组的依赖收集</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-03-13 20:13:48" itemprop="dateCreated datePublished" datetime="2021-03-13T20:13:48+08:00">2021-03-13</time>
-    </span>
-
-  
-    <span id="/2021/03/13/vue2/Vue%E6%95%B0%E7%BB%84%E7%9A%84%E4%BE%9D%E8%B5%96%E6%94%B6%E9%9B%86/" class="post-meta-item leancloud_visitors" data-flag-title="Vue.js数组的依赖收集" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前面说了 Object 数据的变化侦测方式，下面我们来看一下对 Array 型数据的变化 Vue 是如何进行侦测的。</p>
-<p>为什么 Object 数据和 Array 型数据会有两种不同的变化侦测方式？</p>
-<p>这是因为对于 Object 数据我们使用的是 JS 提供的对象原型上的方法 Object.defineProperty，而这个方法是对象原型上的，所以 Array 无法使用这个方法，所以我们需要对 Array 型数据设计一套另外的变化侦测机制。</p>
-<p>万变不离其宗，虽然对 Array 型数据设计了新的变化侦测机制，但是其根本思路还是不变的。那就是：还是在获取数据时收集依赖，数据变化时通知依赖更新。</p>
-<p>下面我们就通过源码来看看 Vue 对 Array 型数据到底是如何进行变化侦测的。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/03/13/vue2/Vue%E6%95%B0%E7%BB%84%E7%9A%84%E4%BE%9D%E8%B5%96%E6%94%B6%E9%9B%86/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/03/11/vue2/Vue%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%BE%9D%E8%B5%96%E6%94%B6%E9%9B%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="muna">
-      <meta itemprop="description" content="Everything is good in its season.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人笔记">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/03/11/vue2/Vue%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%BE%9D%E8%B5%96%E6%94%B6%E9%9B%86/" class="post-title-link" itemprop="url">Vue.js对象的依赖收集</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-03-11 16:33:55" itemprop="dateCreated datePublished" datetime="2021-03-11T16:33:55+08:00">2021-03-11</time>
-    </span>
-
-  
-    <span id="/2021/03/11/vue2/Vue%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%BE%9D%E8%B5%96%E6%94%B6%E9%9B%86/" class="post-meta-item leancloud_visitors" data-flag-title="Vue.js对象的依赖收集" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="为什么要依赖收集"><a href="#为什么要依赖收集" class="headerlink" title="为什么要依赖收集"></a>为什么要依赖收集</h2><p>在上一章中，我们知道了数据什么时候发生了变化，那么当数据发生变化时，我们就需要去通知视图更新。那么问题又来了，视图那么大，我们到底该通知谁去变化？总不能一个数据变化了，把整个视图全部更新一遍吧，这样显然是不合理的。</p>
-<p>视图里谁用到了这个数据就更新谁，我们换个优雅说法：我们把”谁用到了这个数据”称为”谁依赖了这个数据”,我们给每个数据都建一个依赖数组(因为一个数据可能被多处使用)，谁依赖了这个数据(即谁用到了这个数据)我们就把谁放入这个依赖数组中，那么当这个数据发生变化的时候，我们就去它对应的依赖数组中，把每个依赖都通知一遍，告诉他们：”你们依赖的数据变啦，你们该更新啦！”。这个过程就是依赖收集。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/03/11/vue2/Vue%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%BE%9D%E8%B5%96%E6%94%B6%E9%9B%86/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/03/10/vue2/Vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="muna">
-      <meta itemprop="description" content="Everything is good in its season.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人笔记">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/03/10/vue2/Vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">Vue.js响应式原理</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-03-10 16:33:55" itemprop="dateCreated datePublished" datetime="2021-03-10T16:33:55+08:00">2021-03-10</time>
-    </span>
-
-  
-    <span id="/2021/03/10/vue2/Vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/" class="post-meta-item leancloud_visitors" data-flag-title="Vue.js响应式原理" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="关于-Vue-js"><a href="#关于-Vue-js" class="headerlink" title="关于 Vue.js"></a>关于 Vue.js</h2><p>Vue.js 是一款 MVVM 框架，上手快速简单易用，通过响应式在修改数据的时候更新视图。当你把一个普通的 JavaScript 对象传入 Vue 实例作为 data 选项，Vue 将遍历此对象所有的 property，并使用 Object.defineProperty 把这些 property 全部转为 getter/setter。Object.defineProperty 是 ES5 中一个无法 shim 的特性，这也就是 Vue 不支持 IE8 以及更低版本浏览器的原因。Vue 通过设定对象属性的 setter/getter 方法来监听数据的变化，通过 getter 进行依赖收集，而每个 setter 方法就是一个观察者，在数据变更的时候通知订阅者更新视图。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/03/10/vue2/Vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/03/01/typescript/10Typescript%E4%B8%AD%E8%A3%85%E9%A5%B0%E5%99%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="muna">
-      <meta itemprop="description" content="Everything is good in its season.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人笔记">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/03/01/typescript/10Typescript%E4%B8%AD%E8%A3%85%E9%A5%B0%E5%99%A8/" class="post-title-link" itemprop="url">10Typescript中的装饰器</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-03-01 18:19:21" itemprop="dateCreated datePublished" datetime="2021-03-01T18:19:21+08:00">2021-03-01</time>
+      <time title="创建时间：2021-09-27 14:22:18" itemprop="dateCreated datePublished" datetime="2021-09-27T14:22:18+08:00">2021-09-27</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -808,12 +257,12 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Typescript/" itemprop="url" rel="index"><span itemprop="name">Typescript</span></a>
+          <a href="/categories/LeetCode%E9%A2%98%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">LeetCode题库</span></a>
         </span>
     </span>
 
   
-    <span id="/2021/03/01/typescript/10Typescript%E4%B8%AD%E8%A3%85%E9%A5%B0%E5%99%A8/" class="post-meta-item leancloud_visitors" data-flag-title="10Typescript中的装饰器" title="阅读次数">
+    <span id="/2021/09/27/leetcode/%E6%8B%AC%E5%8F%B7%E7%94%9F%E6%88%90/" class="post-meta-item leancloud_visitors" data-flag-title="22.括号生成" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -829,10 +278,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>装饰器是一种特殊类型的声明，它能够被附加到类声明，方法，属性或参数上，可以修改类的行为。<br>通俗的讲装饰器就是一个方法，可以注入到类、方法、属性参数上来扩展类、属性、方法、参数的功能。<br>常见的装饰器有：类装饰器、属性装饰器、方法装饰器、参数装饰器。<br>装饰器的写法：普通装饰器（无法传参） 、 装饰器工厂（可传参）。<br>装饰器是过去几年中 js 最大的成就之一，已是 Es7 的标准特性之一。</p>
+          <p>数字 <code>n</code> 代表生成括号的对数，请你设计一个函数，用于能够生成所有可能的并且 <strong>有效的</strong> 括号组合。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2021/03/01/typescript/10Typescript%E4%B8%AD%E8%A3%85%E9%A5%B0%E5%99%A8/#more" rel="contents">
+              <a class="btn" href="/2021/09/27/leetcode/%E6%8B%AC%E5%8F%B7%E7%94%9F%E6%88%90/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -863,7 +312,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/02/25/typescript/09Typescript%E4%B8%AD%E7%9A%84%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4/">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/09/24/leetcode/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -876,7 +325,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/02/25/typescript/09Typescript%E4%B8%AD%E7%9A%84%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4/" class="post-title-link" itemprop="url">09Typescript中的命名空间</a>
+          <a href="/2021/09/24/leetcode/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" class="post-title-link" itemprop="url">206.反转链表</a>
         </h2>
 
         <div class="post-meta-container">
@@ -887,7 +336,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2021-02-25 18:19:21" itemprop="dateCreated datePublished" datetime="2021-02-25T18:19:21+08:00">2021-02-25</time>
+      <time title="创建时间：2021-09-24 16:18:45" itemprop="dateCreated datePublished" datetime="2021-09-24T16:18:45+08:00">2021-09-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -895,12 +344,12 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Typescript/" itemprop="url" rel="index"><span itemprop="name">Typescript</span></a>
+          <a href="/categories/LeetCode%E9%A2%98%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">LeetCode题库</span></a>
         </span>
     </span>
 
   
-    <span id="/2021/02/25/typescript/09Typescript%E4%B8%AD%E7%9A%84%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4/" class="post-meta-item leancloud_visitors" data-flag-title="09Typescript中的命名空间" title="阅读次数">
+    <span id="/2021/09/24/leetcode/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" class="post-meta-item leancloud_visitors" data-flag-title="206.反转链表" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -916,10 +365,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>在代码量较大的情况下，为了避免各种变量命名相冲突，可将相似功能的函数、类、接口等放置到命名空间内。</p>
+          <p>给你单链表的头节点 <code>head</code> ，请你反转链表，并返回反转后的链表。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2021/02/25/typescript/09Typescript%E4%B8%AD%E7%9A%84%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4/#more" rel="contents">
+              <a class="btn" href="/2021/09/24/leetcode/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -950,7 +399,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/02/20/typescript/08Typescript%E4%B8%AD%E7%9A%84%E6%A8%A1%E5%9D%97/">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/09/21/leetcode/%E6%9C%80%E5%B0%8F%E6%A0%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -963,7 +412,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/02/20/typescript/08Typescript%E4%B8%AD%E7%9A%84%E6%A8%A1%E5%9D%97/" class="post-title-link" itemprop="url">08Typescript中的模块</a>
+          <a href="/2021/09/21/leetcode/%E6%9C%80%E5%B0%8F%E6%A0%88/" class="post-title-link" itemprop="url">155.最小栈</a>
         </h2>
 
         <div class="post-meta-container">
@@ -974,7 +423,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2021-02-20 18:19:21" itemprop="dateCreated datePublished" datetime="2021-02-20T18:19:21+08:00">2021-02-20</time>
+      <time title="创建时间：2021-09-21 10:35:18" itemprop="dateCreated datePublished" datetime="2021-09-21T10:35:18+08:00">2021-09-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -982,12 +431,12 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Typescript/" itemprop="url" rel="index"><span itemprop="name">Typescript</span></a>
+          <a href="/categories/LeetCode%E9%A2%98%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">LeetCode题库</span></a>
         </span>
     </span>
 
   
-    <span id="/2021/02/20/typescript/08Typescript%E4%B8%AD%E7%9A%84%E6%A8%A1%E5%9D%97/" class="post-meta-item leancloud_visitors" data-flag-title="08Typescript中的模块" title="阅读次数">
+    <span id="/2021/09/21/leetcode/%E6%9C%80%E5%B0%8F%E6%A0%88/" class="post-meta-item leancloud_visitors" data-flag-title="155.最小栈" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -1003,10 +452,619 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="模块的的概念（官方）"><a href="#模块的的概念（官方）" class="headerlink" title="模块的的概念（官方）:"></a>模块的的概念（官方）:</h2><p>关于术语的一点说明: 请务必注意一点，TypeScript 1.5 里术语名已经发生了变化。 “内部模块”现在称做“命名空间”。<br>“外部模块”现在则简称为“模块” 模块在其自身的作用域里执行，而不是在全局作用域里；</p>
+          <p>设计一个支持 <code>push</code> ，<code>pop</code> ，<code>top</code> 操作，并能在常数时间内检索到最小元素的栈。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2021/02/20/typescript/08Typescript%E4%B8%AD%E7%9A%84%E6%A8%A1%E5%9D%97/#more" rel="contents">
+              <a class="btn" href="/2021/09/21/leetcode/%E6%9C%80%E5%B0%8F%E6%A0%88/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/09/18/leetcode/LRU%E7%BC%93%E5%AD%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="muna">
+      <meta itemprop="description" content="Everything is good in its season.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/09/18/leetcode/LRU%E7%BC%93%E5%AD%98/" class="post-title-link" itemprop="url">146.LRU缓存</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-09-18 15:42:33" itemprop="dateCreated datePublished" datetime="2021-09-18T15:42:33+08:00">2021-09-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/LeetCode%E9%A2%98%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">LeetCode题库</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2021/09/18/leetcode/LRU%E7%BC%93%E5%AD%98/" class="post-meta-item leancloud_visitors" data-flag-title="146.LRU缓存" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>请你设计并实现一个满足 LRU (最近最少使用) 缓存 约束的数据结构。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/09/18/leetcode/LRU%E7%BC%93%E5%AD%98/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/09/15/leetcode/%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="muna">
+      <meta itemprop="description" content="Everything is good in its season.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/09/15/leetcode/%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/" class="post-title-link" itemprop="url">141.环形链表</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-09-15 13:28:55" itemprop="dateCreated datePublished" datetime="2021-09-15T13:28:55+08:00">2021-09-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/LeetCode%E9%A2%98%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">LeetCode题库</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2021/09/15/leetcode/%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/" class="post-meta-item leancloud_visitors" data-flag-title="141.环形链表" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>给你一个链表的头节点 <code>head</code> ，判断链表中是否有环。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/09/15/leetcode/%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/09/12/leetcode/%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="muna">
+      <meta itemprop="description" content="Everything is good in its season.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/09/12/leetcode/%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE/" class="post-title-link" itemprop="url">35.搜索插入位置</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-09-12 08:15:42" itemprop="dateCreated datePublished" datetime="2021-09-12T08:15:42+08:00">2021-09-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/LeetCode%E9%A2%98%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">LeetCode题库</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2021/09/12/leetcode/%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE/" class="post-meta-item leancloud_visitors" data-flag-title="35.搜索插入位置" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/09/12/leetcode/%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/09/09/leetcode/%E5%AE%9E%E7%8E%B0%20strStr()/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="muna">
+      <meta itemprop="description" content="Everything is good in its season.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/09/09/leetcode/%E5%AE%9E%E7%8E%B0%20strStr()/" class="post-title-link" itemprop="url">28.实现 strStr()</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-09-09 11:25:18" itemprop="dateCreated datePublished" datetime="2021-09-09T11:25:18+08:00">2021-09-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/LeetCode%E9%A2%98%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">LeetCode题库</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2021/09/09/leetcode/%E5%AE%9E%E7%8E%B0%20strStr()/" class="post-meta-item leancloud_visitors" data-flag-title="28.实现 strStr()" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>实现 <code>strStr()</code> 函数。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/09/09/leetcode/%E5%AE%9E%E7%8E%B0%20strStr()/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/09/07/leetcode/%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="muna">
+      <meta itemprop="description" content="Everything is good in its season.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/09/07/leetcode/%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0/" class="post-title-link" itemprop="url">27.移除元素</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-09-07 16:42:33" itemprop="dateCreated datePublished" datetime="2021-09-07T16:42:33+08:00">2021-09-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/LeetCode%E9%A2%98%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">LeetCode题库</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2021/09/07/leetcode/%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0/" class="post-meta-item leancloud_visitors" data-flag-title="27.移除元素" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>给你一个数组 <code>nums</code> 和一个值 <code>val</code>，你需要 <strong>原地</strong> 移除所有数值等于 <code>val</code> 的元素，并返回移除后数组的新长度。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/09/07/leetcode/%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/09/05/leetcode/%E5%88%A0%E9%99%A4%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="muna">
+      <meta itemprop="description" content="Everything is good in its season.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/09/05/leetcode/%E5%88%A0%E9%99%A4%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9/" class="post-title-link" itemprop="url">26.删除有序数组中的重复项</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-09-05 09:18:45" itemprop="dateCreated datePublished" datetime="2021-09-05T09:18:45+08:00">2021-09-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/LeetCode%E9%A2%98%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">LeetCode题库</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2021/09/05/leetcode/%E5%88%A0%E9%99%A4%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9/" class="post-meta-item leancloud_visitors" data-flag-title="26.删除有序数组中的重复项" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>给你一个 <strong>升序排列</strong> 的数组 <code>nums</code> ，请你 <strong>原地</strong> 删除重复出现的元素，使每个元素 <strong>只出现一次</strong> ，返回删除后数组的新长度。元素的 <strong>相对顺序</strong> 应该保持 <strong>一致</strong> 。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/09/05/leetcode/%E5%88%A0%E9%99%A4%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/09/03/leetcode/%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="muna">
+      <meta itemprop="description" content="Everything is good in its season.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/09/03/leetcode/%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/" class="post-title-link" itemprop="url">11.盛最多水的容器</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-09-03 14:35:22" itemprop="dateCreated datePublished" datetime="2021-09-03T14:35:22+08:00">2021-09-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/LeetCode%E9%A2%98%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">LeetCode题库</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2021/09/03/leetcode/%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/" class="post-meta-item leancloud_visitors" data-flag-title="11.盛最多水的容器" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>给你 n 个非负整数 a1，a2，…，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0) 。找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/09/03/leetcode/%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1030,7 +1088,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

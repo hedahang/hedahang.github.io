@@ -160,7 +160,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives">
         
-          <span class="site-state-item-count">175</span>
+          <span class="site-state-item-count">184</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -172,7 +172,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags">
           
-        <span class="site-state-item-count">77</span>
+        <span class="site-state-item-count">90</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -225,7 +225,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2020/06/19/content%E6%8D%A2%E8%A1%8C%E7%AC%A6%E4%B8%8E%E6%89%93%E7%82%B9loading%E6%95%88%E6%9E%9C%E5%AE%9E%E4%BE%8B%E9%A1%B5%E9%9D%A2/">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/03/10/vue2/Vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -238,7 +238,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/06/19/content%E6%8D%A2%E8%A1%8C%E7%AC%A6%E4%B8%8E%E6%89%93%E7%82%B9loading%E6%95%88%E6%9E%9C%E5%AE%9E%E4%BE%8B%E9%A1%B5%E9%9D%A2/" class="post-title-link" itemprop="url">content换行符与打点loading效果实例页面</a>
+          <a href="/2021/03/10/vue2/Vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">Vue.js响应式原理</a>
         </h2>
 
         <div class="post-meta-container">
@@ -249,20 +249,11 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-06-19 11:31:10" itemprop="dateCreated datePublished" datetime="2020-06-19T11:31:10+08:00">2020-06-19</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/JS/" itemprop="url" rel="index"><span itemprop="name">JS</span></a>
-        </span>
+      <time title="创建时间：2021-03-10 16:33:55" itemprop="dateCreated datePublished" datetime="2021-03-10T16:33:55+08:00">2021-03-10</time>
     </span>
 
   
-    <span id="/2020/06/19/content%E6%8D%A2%E8%A1%8C%E7%AC%A6%E4%B8%8E%E6%89%93%E7%82%B9loading%E6%95%88%E6%9E%9C%E5%AE%9E%E4%BE%8B%E9%A1%B5%E9%9D%A2/" class="post-meta-item leancloud_visitors" data-flag-title="content换行符与打点loading效果实例页面" title="阅读次数">
+    <span id="/2021/03/10/vue2/Vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/" class="post-meta-item leancloud_visitors" data-flag-title="Vue.js响应式原理" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -278,11 +269,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>代码如下：</p>
-<h3 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h3>
+          <h2 id="关于-Vue-js"><a href="#关于-Vue-js" class="headerlink" title="关于 Vue.js"></a>关于 Vue.js</h2><p>Vue.js 是一款 MVVM 框架，上手快速简单易用，通过响应式在修改数据的时候更新视图。当你把一个普通的 JavaScript 对象传入 Vue 实例作为 data 选项，Vue 将遍历此对象所有的 property，并使用 Object.defineProperty 把这些 property 全部转为 getter/setter。Object.defineProperty 是 ES5 中一个无法 shim 的特性，这也就是 Vue 不支持 IE8 以及更低版本浏览器的原因。Vue 通过设定对象属性的 setter/getter 方法来监听数据的变化，通过 getter 进行依赖收集，而每个 setter 方法就是一个观察者，在数据变更的时候通知订阅者更新视图。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/06/19/content%E6%8D%A2%E8%A1%8C%E7%AC%A6%E4%B8%8E%E6%89%93%E7%82%B9loading%E6%95%88%E6%9E%9C%E5%AE%9E%E4%BE%8B%E9%A1%B5%E9%9D%A2/#more" rel="contents">
+              <a class="btn" href="/2021/03/10/vue2/Vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -313,7 +303,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2020/05/20/es6/class%E7%9A%84%E7%BB%A7%E6%89%BF/">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/03/01/typescript/10Typescript%E4%B8%AD%E8%A3%85%E9%A5%B0%E5%99%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -326,7 +316,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/05/20/es6/class%E7%9A%84%E7%BB%A7%E6%89%BF/" class="post-title-link" itemprop="url">十三、ES6系列之Class的继承</a>
+          <a href="/2021/03/01/typescript/10Typescript%E4%B8%AD%E8%A3%85%E9%A5%B0%E5%99%A8/" class="post-title-link" itemprop="url">10Typescript中的装饰器</a>
         </h2>
 
         <div class="post-meta-container">
@@ -337,7 +327,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-05-20 19:12:04" itemprop="dateCreated datePublished" datetime="2020-05-20T19:12:04+08:00">2020-05-20</time>
+      <time title="创建时间：2021-03-01 18:19:21" itemprop="dateCreated datePublished" datetime="2021-03-01T18:19:21+08:00">2021-03-01</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -345,12 +335,12 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/ES6%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">ES6系列</span></a>
+          <a href="/categories/Typescript/" itemprop="url" rel="index"><span itemprop="name">Typescript</span></a>
         </span>
     </span>
 
   
-    <span id="/2020/05/20/es6/class%E7%9A%84%E7%BB%A7%E6%89%BF/" class="post-meta-item leancloud_visitors" data-flag-title="十三、ES6系列之Class的继承" title="阅读次数">
+    <span id="/2021/03/01/typescript/10Typescript%E4%B8%AD%E8%A3%85%E9%A5%B0%E5%99%A8/" class="post-meta-item leancloud_visitors" data-flag-title="10Typescript中的装饰器" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -366,10 +356,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在 ES5 中，实现继承的方式有多种，详细可以参考前面的文章<a href="https://hedahang.github.io/2019/09/30/deepjs/%E7%BB%A7%E6%89%BF%E7%9A%84%E5%A4%9A%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%92%8C%E4%BC%98%E7%BC%BA%E7%82%B9/">JavaScript 之继承的多种方式和优缺点</a>，这里主要说说 ES6 中 Class 的继承。</p>
+          <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>装饰器是一种特殊类型的声明，它能够被附加到类声明，方法，属性或参数上，可以修改类的行为。<br>通俗的讲装饰器就是一个方法，可以注入到类、方法、属性参数上来扩展类、属性、方法、参数的功能。<br>常见的装饰器有：类装饰器、属性装饰器、方法装饰器、参数装饰器。<br>装饰器的写法：普通装饰器（无法传参） 、 装饰器工厂（可传参）。<br>装饰器是过去几年中 js 最大的成就之一，已是 Es7 的标准特性之一。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/05/20/es6/class%E7%9A%84%E7%BB%A7%E6%89%BF/#more" rel="contents">
+              <a class="btn" href="/2021/03/01/typescript/10Typescript%E4%B8%AD%E8%A3%85%E9%A5%B0%E5%99%A8/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -400,7 +390,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2020/05/18/es6/class%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/02/25/typescript/09Typescript%E4%B8%AD%E7%9A%84%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -413,7 +403,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/05/18/es6/class%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/" class="post-title-link" itemprop="url">十二、ES6系列之Class基本用法</a>
+          <a href="/2021/02/25/typescript/09Typescript%E4%B8%AD%E7%9A%84%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4/" class="post-title-link" itemprop="url">09Typescript中的命名空间</a>
         </h2>
 
         <div class="post-meta-container">
@@ -424,7 +414,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-05-18 19:12:04" itemprop="dateCreated datePublished" datetime="2020-05-18T19:12:04+08:00">2020-05-18</time>
+      <time title="创建时间：2021-02-25 18:19:21" itemprop="dateCreated datePublished" datetime="2021-02-25T18:19:21+08:00">2021-02-25</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -432,12 +422,12 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/ES6%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">ES6系列</span></a>
+          <a href="/categories/Typescript/" itemprop="url" rel="index"><span itemprop="name">Typescript</span></a>
         </span>
     </span>
 
   
-    <span id="/2020/05/18/es6/class%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/" class="post-meta-item leancloud_visitors" data-flag-title="十二、ES6系列之Class基本用法" title="阅读次数">
+    <span id="/2021/02/25/typescript/09Typescript%E4%B8%AD%E7%9A%84%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4/" class="post-meta-item leancloud_visitors" data-flag-title="09Typescript中的命名空间" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -453,10 +443,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在 JavaScript 语言中，生成实例对象的传统方法是通过构造函数。</p>
+          <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>在代码量较大的情况下，为了避免各种变量命名相冲突，可将相似功能的函数、类、接口等放置到命名空间内。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/05/18/es6/class%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/#more" rel="contents">
+              <a class="btn" href="/2021/02/25/typescript/09Typescript%E4%B8%AD%E7%9A%84%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -487,7 +477,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2020/05/15/es6/async/">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/02/20/typescript/08Typescript%E4%B8%AD%E7%9A%84%E6%A8%A1%E5%9D%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -500,7 +490,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/05/15/es6/async/" class="post-title-link" itemprop="url">十一、ES6系列之Async</a>
+          <a href="/2021/02/20/typescript/08Typescript%E4%B8%AD%E7%9A%84%E6%A8%A1%E5%9D%97/" class="post-title-link" itemprop="url">08Typescript中的模块</a>
         </h2>
 
         <div class="post-meta-container">
@@ -511,7 +501,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-05-15 19:12:04" itemprop="dateCreated datePublished" datetime="2020-05-15T19:12:04+08:00">2020-05-15</time>
+      <time title="创建时间：2021-02-20 18:19:21" itemprop="dateCreated datePublished" datetime="2021-02-20T18:19:21+08:00">2021-02-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -519,12 +509,12 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/ES6%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">ES6系列</span></a>
+          <a href="/categories/Typescript/" itemprop="url" rel="index"><span itemprop="name">Typescript</span></a>
         </span>
     </span>
 
   
-    <span id="/2020/05/15/es6/async/" class="post-meta-item leancloud_visitors" data-flag-title="十一、ES6系列之Async" title="阅读次数">
+    <span id="/2021/02/20/typescript/08Typescript%E4%B8%AD%E7%9A%84%E6%A8%A1%E5%9D%97/" class="post-meta-item leancloud_visitors" data-flag-title="08Typescript中的模块" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -540,11 +530,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="含义"><a href="#含义" class="headerlink" title="含义"></a>含义</h2><p>ES2017 标准引入了 async 函数，使得异步操作变得更加方便。</p>
-<p>在异步处理上，async 函数就是 Generator 函数的语法糖。</p>
+          <h2 id="模块的的概念（官方）"><a href="#模块的的概念（官方）" class="headerlink" title="模块的的概念（官方）:"></a>模块的的概念（官方）:</h2><p>关于术语的一点说明: 请务必注意一点，TypeScript 1.5 里术语名已经发生了变化。 “内部模块”现在称做“命名空间”。<br>“外部模块”现在则简称为“模块” 模块在其自身的作用域里执行，而不是在全局作用域里；</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/05/15/es6/async/#more" rel="contents">
+              <a class="btn" href="/2021/02/20/typescript/08Typescript%E4%B8%AD%E7%9A%84%E6%A8%A1%E5%9D%97/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -575,7 +564,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2020/05/09/es6/Reflect/">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/02/10/project/%E5%89%8D%E7%AB%AF%E5%AF%BC%E5%87%BA%20Excel(CSV)%E6%96%87%E4%BB%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -588,7 +577,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/05/09/es6/Reflect/" class="post-title-link" itemprop="url">十、ES6系列之Reflect</a>
+          <a href="/2021/02/10/project/%E5%89%8D%E7%AB%AF%E5%AF%BC%E5%87%BA%20Excel(CSV)%E6%96%87%E4%BB%B6/" class="post-title-link" itemprop="url">前端导出 Excel(CSV)文件</a>
         </h2>
 
         <div class="post-meta-container">
@@ -599,7 +588,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-05-09 19:12:04" itemprop="dateCreated datePublished" datetime="2020-05-09T19:12:04+08:00">2020-05-09</time>
+      <time title="创建时间：2021-02-10 22:29:22" itemprop="dateCreated datePublished" datetime="2021-02-10T22:29:22+08:00">2021-02-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -607,12 +596,12 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/ES6%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">ES6系列</span></a>
+          <a href="/categories/%E9%A1%B9%E7%9B%AE%E7%BB%8F%E9%AA%8C/" itemprop="url" rel="index"><span itemprop="name">项目经验</span></a>
         </span>
     </span>
 
   
-    <span id="/2020/05/09/es6/Reflect/" class="post-meta-item leancloud_visitors" data-flag-title="十、ES6系列之Reflect" title="阅读次数">
+    <span id="/2021/02/10/project/%E5%89%8D%E7%AB%AF%E5%AF%BC%E5%87%BA%20Excel(CSV)%E6%96%87%E4%BB%B6/" class="post-meta-item leancloud_visitors" data-flag-title="前端导出 Excel(CSV)文件" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -628,10 +617,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>Reflect 是一个内置的对象，它提供拦截 JavaScript 操作的方法。这些方法与 proxy handlers 的方法相同。Reflect 不是一个函数对象，因此它是不可构造的。</p>
+          <p>在项目中，有时候需要把一些数据导出到一个 Excel 文件中，这里记录下导出方案。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/05/09/es6/Reflect/#more" rel="contents">
+              <a class="btn" href="/2021/02/10/project/%E5%89%8D%E7%AB%AF%E5%AF%BC%E5%87%BA%20Excel(CSV)%E6%96%87%E4%BB%B6/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -662,7 +651,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2020/05/07/es6/Proxy/">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/02/10/typescript/07Typescript%E4%B8%AD%E7%9A%84%E7%BB%BC%E5%90%88%E5%BA%94%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -675,7 +664,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/05/07/es6/Proxy/" class="post-title-link" itemprop="url">九、ES6系列之Proxy</a>
+          <a href="/2021/02/10/typescript/07Typescript%E4%B8%AD%E7%9A%84%E7%BB%BC%E5%90%88%E5%BA%94%E7%94%A8/" class="post-title-link" itemprop="url">07Typescript中的综合使用</a>
         </h2>
 
         <div class="post-meta-container">
@@ -686,7 +675,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-05-07 19:12:04" itemprop="dateCreated datePublished" datetime="2020-05-07T19:12:04+08:00">2020-05-07</time>
+      <time title="创建时间：2021-02-10 17:29:11" itemprop="dateCreated datePublished" datetime="2021-02-10T17:29:11+08:00">2021-02-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -694,12 +683,12 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/ES6%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">ES6系列</span></a>
+          <a href="/categories/Typescript/" itemprop="url" rel="index"><span itemprop="name">Typescript</span></a>
         </span>
     </span>
 
   
-    <span id="/2020/05/07/es6/Proxy/" class="post-meta-item leancloud_visitors" data-flag-title="九、ES6系列之Proxy" title="阅读次数">
+    <span id="/2021/02/10/typescript/07Typescript%E4%B8%AD%E7%9A%84%E7%BB%BC%E5%90%88%E5%BA%94%E7%94%A8/" class="post-meta-item leancloud_visitors" data-flag-title="07Typescript中的综合使用" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -715,10 +704,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>Proxy 对象用于创建一个对象的代理，从而实现基本操作的拦截和自定义（如属性查找、赋值、枚举、函数调用等）。</p>
+          <p>前面已经学习了 typescript 的相关概念、这里实现一个类型、接口、类 、泛型 综合使用的例子：<br>–TypeScript 封装统一操作 Mysql Mongodb Mssql 的底层类库</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/05/07/es6/Proxy/#more" rel="contents">
+              <a class="btn" href="/2021/02/10/typescript/07Typescript%E4%B8%AD%E7%9A%84%E7%BB%BC%E5%90%88%E5%BA%94%E7%94%A8/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -749,7 +738,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2020/05/02/es6/%E7%94%9F%E6%88%90%E5%99%A8/">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/02/02/typescript/06Typescript%E4%B8%AD%E7%9A%84%E6%B3%9B%E5%9E%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -762,7 +751,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/05/02/es6/%E7%94%9F%E6%88%90%E5%99%A8/" class="post-title-link" itemprop="url">八、ES6系列之Generator</a>
+          <a href="/2021/02/02/typescript/06Typescript%E4%B8%AD%E7%9A%84%E6%B3%9B%E5%9E%8B/" class="post-title-link" itemprop="url">06Typescript中的泛型</a>
         </h2>
 
         <div class="post-meta-container">
@@ -773,7 +762,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-05-02 19:12:04" itemprop="dateCreated datePublished" datetime="2020-05-02T19:12:04+08:00">2020-05-02</time>
+      <time title="创建时间：2021-02-02 12:29:22" itemprop="dateCreated datePublished" datetime="2021-02-02T12:29:22+08:00">2021-02-02</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -781,12 +770,12 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/ES6%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">ES6系列</span></a>
+          <a href="/categories/Typescript/" itemprop="url" rel="index"><span itemprop="name">Typescript</span></a>
         </span>
     </span>
 
   
-    <span id="/2020/05/02/es6/%E7%94%9F%E6%88%90%E5%99%A8/" class="post-meta-item leancloud_visitors" data-flag-title="八、ES6系列之Generator" title="阅读次数">
+    <span id="/2021/02/02/typescript/06Typescript%E4%B8%AD%E7%9A%84%E6%B3%9B%E5%9E%8B/" class="post-meta-item leancloud_visitors" data-flag-title="06Typescript中的泛型" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -802,10 +791,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>前面我们介绍过 Iterator(迭代器)，本文主要了解 Generator (生成器)函数。<br>生成器是一种返回迭代器的函数，通过 function 关键字后的星号(*)来表示，函数中会用到新的关键字 yield。</p>
+          <p>软件工程中，我们不仅要创建一致的定义良好的 API，同时也要考虑可重用性。 组件不仅能够支持当前的数据类型，同时也能支持未来的数据类型，这在创建大型系统时为你提供了十分灵活的功能。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/05/02/es6/%E7%94%9F%E6%88%90%E5%99%A8/#more" rel="contents">
+              <a class="btn" href="/2021/02/02/typescript/06Typescript%E4%B8%AD%E7%9A%84%E6%B3%9B%E5%9E%8B/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -836,7 +825,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2020/04/28/es6/Promise/">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/01/26/typescript/05Typescript%E4%B8%AD%E7%9A%84%E6%8E%A5%E5%8F%A3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -849,7 +838,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/04/28/es6/Promise/" class="post-title-link" itemprop="url">七、ES6系列之Promise</a>
+          <a href="/2021/01/26/typescript/05Typescript%E4%B8%AD%E7%9A%84%E6%8E%A5%E5%8F%A3/" class="post-title-link" itemprop="url">05Typescript中的接口的用途以及属性类型接口</a>
         </h2>
 
         <div class="post-meta-container">
@@ -860,7 +849,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-04-28 22:12:04" itemprop="dateCreated datePublished" datetime="2020-04-28T22:12:04+08:00">2020-04-28</time>
+      <time title="创建时间：2021-01-26 20:29:22" itemprop="dateCreated datePublished" datetime="2021-01-26T20:29:22+08:00">2021-01-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -868,12 +857,12 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/ES6%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">ES6系列</span></a>
+          <a href="/categories/Typescript/" itemprop="url" rel="index"><span itemprop="name">Typescript</span></a>
         </span>
     </span>
 
   
-    <span id="/2020/04/28/es6/Promise/" class="post-meta-item leancloud_visitors" data-flag-title="七、ES6系列之Promise" title="阅读次数">
+    <span id="/2021/01/26/typescript/05Typescript%E4%B8%AD%E7%9A%84%E6%8E%A5%E5%8F%A3/" class="post-meta-item leancloud_visitors" data-flag-title="05Typescript中的接口的用途以及属性类型接口" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -889,10 +878,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Promises 是用于传递异步计算结果的回调的替代方法。它让您能够把异步操作最终的成功返回值或者失败原因和相应的处理程序关联起来。 这样使得异步方法可以像同步方法那样返回值：异步方法并不会立即返回最终的值，而是会返回一个 promise，以便在未来某个时候把值交给使用者。</p>
+          <p>接口的作用：在面向对象的编程中，接口是一种规范的定义，它定义了行为和动作的规范，在程序设计里面，接口起到一种限制和规范的作用。接口定义了某一批类所需要遵守的规范，接口不关心这些类的内部状态数据，也不关心这些类里方法的实现细节，它只规定这批类里必须提供某些方法，提供这些方法的类就可以满足实际需要。 typescrip 中的接口类似于 java，同时还增加了更灵活的接口类型，包括属性、函数、可索引和类等。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/04/28/es6/Promise/#more" rel="contents">
+              <a class="btn" href="/2021/01/26/typescript/05Typescript%E4%B8%AD%E7%9A%84%E6%8E%A5%E5%8F%A3/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -923,7 +912,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2020/04/22/es6/%E8%BF%AD%E4%BB%A3%E5%99%A8/">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/01/20/typescript/04Typescript%E4%B8%AD%E7%9A%84%E7%B1%BB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -936,7 +925,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/04/22/es6/%E8%BF%AD%E4%BB%A3%E5%99%A8/" class="post-title-link" itemprop="url">六、ES6系列之Iterator 和 for...of 循环</a>
+          <a href="/2021/01/20/typescript/04Typescript%E4%B8%AD%E7%9A%84%E7%B1%BB/" class="post-title-link" itemprop="url">04Typescript中的类</a>
         </h2>
 
         <div class="post-meta-container">
@@ -947,7 +936,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-04-22 19:12:04" itemprop="dateCreated datePublished" datetime="2020-04-22T19:12:04+08:00">2020-04-22</time>
+      <time title="创建时间：2021-01-20 20:29:22" itemprop="dateCreated datePublished" datetime="2021-01-20T20:29:22+08:00">2021-01-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -955,12 +944,12 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/ES6%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">ES6系列</span></a>
+          <a href="/categories/Typescript/" itemprop="url" rel="index"><span itemprop="name">Typescript</span></a>
         </span>
     </span>
 
   
-    <span id="/2020/04/22/es6/%E8%BF%AD%E4%BB%A3%E5%99%A8/" class="post-meta-item leancloud_visitors" data-flag-title="六、ES6系列之Iterator 和 for...of 循环" title="阅读次数">
+    <span id="/2021/01/20/typescript/04Typescript%E4%B8%AD%E7%9A%84%E7%B1%BB/" class="post-meta-item leancloud_visitors" data-flag-title="04Typescript中的类" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -976,10 +965,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>首先定义一个数组：</p>
+          <p>类描述了所创建的对象共同的属性和方法。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/04/22/es6/%E8%BF%AD%E4%BB%A3%E5%99%A8/#more" rel="contents">
+              <a class="btn" href="/2021/01/20/typescript/04Typescript%E4%B8%AD%E7%9A%84%E7%B1%BB/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1010,7 +999,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2020/04/18/es6/SetMap/">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/01/16/typescript/03Typescript%E4%B8%AD%E7%9A%84%E5%87%BD%E6%95%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1023,7 +1012,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/04/18/es6/SetMap/" class="post-title-link" itemprop="url">五、ES6系列之Set和Map</a>
+          <a href="/2021/01/16/typescript/03Typescript%E4%B8%AD%E7%9A%84%E5%87%BD%E6%95%B0/" class="post-title-link" itemprop="url">03Typescript中的函数</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1034,7 +1023,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2020-04-18 19:12:04" itemprop="dateCreated datePublished" datetime="2020-04-18T19:12:04+08:00">2020-04-18</time>
+      <time title="创建时间：2021-01-16 20:29:22" itemprop="dateCreated datePublished" datetime="2021-01-16T20:29:22+08:00">2021-01-16</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1042,12 +1031,12 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/ES6%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">ES6系列</span></a>
+          <a href="/categories/Typescript/" itemprop="url" rel="index"><span itemprop="name">Typescript</span></a>
         </span>
     </span>
 
   
-    <span id="/2020/04/18/es6/SetMap/" class="post-meta-item leancloud_visitors" data-flag-title="五、ES6系列之Set和Map" title="阅读次数">
+    <span id="/2021/01/16/typescript/03Typescript%E4%B8%AD%E7%9A%84%E5%87%BD%E6%95%B0/" class="post-meta-item leancloud_visitors" data-flag-title="03Typescript中的函数" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -1063,10 +1052,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h2><h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><p>ES6 提供了新的数据结构 Set，它类似于数组，但是成员的值都是唯一的，没有重复的值。</p>
+          <p>函数是一组一起执行一个任务的语句。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/04/18/es6/SetMap/#more" rel="contents">
+              <a class="btn" href="/2021/01/16/typescript/03Typescript%E4%B8%AD%E7%9A%84%E5%87%BD%E6%95%B0/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1090,7 +1079,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

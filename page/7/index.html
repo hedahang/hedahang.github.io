@@ -160,7 +160,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives">
         
-          <span class="site-state-item-count">175</span>
+          <span class="site-state-item-count">184</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -172,7 +172,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags">
           
-        <span class="site-state-item-count">77</span>
+        <span class="site-state-item-count">90</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -225,7 +225,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2019/08/26/deepjs/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2020/03/22/jsspecial/%E5%81%8F%E5%87%BD%E6%95%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -238,7 +238,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/08/26/deepjs/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/" class="post-title-link" itemprop="url">七、JavaScript之执行上下文</a>
+          <a href="/2020/03/22/jsspecial/%E5%81%8F%E5%87%BD%E6%95%B0/" class="post-title-link" itemprop="url">九、JavaScript专题之偏函数</a>
         </h2>
 
         <div class="post-meta-container">
@@ -249,7 +249,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2019-08-26 21:12:24" itemprop="dateCreated datePublished" datetime="2019-08-26T21:12:24+08:00">2019-08-26</time>
+      <time title="创建时间：2020-03-22 19:12:04" itemprop="dateCreated datePublished" datetime="2020-03-22T19:12:04+08:00">2020-03-22</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -257,12 +257,12 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JavaScript%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">深入理解JavaScript系列笔记</span></a>
+          <a href="/categories/JavaScript%E4%B8%93%E9%A2%98%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">JavaScript专题系列笔记</span></a>
         </span>
     </span>
 
   
-    <span id="/2019/08/26/deepjs/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/" class="post-meta-item leancloud_visitors" data-flag-title="七、JavaScript之执行上下文" title="阅读次数">
+    <span id="/2020/03/22/jsspecial/%E5%81%8F%E5%87%BD%E6%95%B0/" class="post-meta-item leancloud_visitors" data-flag-title="九、JavaScript专题之偏函数" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -278,12 +278,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>每次当控制器转到 ECMAScript 可执行代码的时候，即会进入到一个执行上下文。执行上下文(简称-EC)是 ECMA-262 标准里的一个抽象概念，用于同可执行代码(executable code)概念进行区分。</p>
-<p>标准规范没有从技术实现的角度定义 EC 的准确类型和结构，这应该是具体实现 ECMAScript 引擎时要考虑的问题。</p>
-<p>活动的执行上下文组在逻辑上组成一个堆栈。堆栈底部永远都是全局上下文(global context)，而顶部就是当前(活动的)执行上下文。堆栈在 EC 类型进入和退出上下文的时候被修改（推入或弹出）。</p>
+          <h2 id="什么是偏函数"><a href="#什么是偏函数" class="headerlink" title="什么是偏函数"></a>什么是偏函数</h2><p>偏函数（Partial application），wiki 上解释：</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2019/08/26/deepjs/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/#more" rel="contents">
+              <a class="btn" href="/2020/03/22/jsspecial/%E5%81%8F%E5%87%BD%E6%95%B0/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -314,7 +312,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2019/08/06/deepjs/this/">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2020/03/15/jsspecial/%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -327,7 +325,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/08/06/deepjs/this/" class="post-title-link" itemprop="url">六、JavaScript之this理解</a>
+          <a href="/2020/03/15/jsspecial/%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96/" class="post-title-link" itemprop="url">八、JavaScript专题之函数柯里化</a>
         </h2>
 
         <div class="post-meta-container">
@@ -338,7 +336,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2019-08-06 12:14:44" itemprop="dateCreated datePublished" datetime="2019-08-06T12:14:44+08:00">2019-08-06</time>
+      <time title="创建时间：2020-03-15 19:12:04" itemprop="dateCreated datePublished" datetime="2020-03-15T19:12:04+08:00">2020-03-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -346,12 +344,12 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JavaScript%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">深入理解JavaScript系列笔记</span></a>
+          <a href="/categories/JavaScript%E4%B8%93%E9%A2%98%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">JavaScript专题系列笔记</span></a>
         </span>
     </span>
 
   
-    <span id="/2019/08/06/deepjs/this/" class="post-meta-item leancloud_visitors" data-flag-title="六、JavaScript之this理解" title="阅读次数">
+    <span id="/2020/03/15/jsspecial/%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96/" class="post-meta-item leancloud_visitors" data-flag-title="八、JavaScript专题之函数柯里化" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -367,14 +365,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>在前面我们已经知道，当JavaScript代码执行一段可执行代码(executable code)时，会创建对应的执行上下文(execution context)。<br>对于每个执行上下文，都有三个重要属性：</p>
-<ul>
-<li>变量对象(Variable object，VO)</li>
-<li>作用域链(Scope chain)</li>
-<li>this
+          <p>函数式编程是一种编程风格，它尝试将函数作为参数传递（回调）并返回没有副作用的函数。因此带来了一些其他东西，比如纯函数、柯里化、高阶函数。<br>这里我们主要讨论函数柯里化的实现与应用场景。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2019/08/06/deepjs/this/#more" rel="contents">
+              <a class="btn" href="/2020/03/15/jsspecial/%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -405,7 +399,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2019/07/18/deepjs/%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE/">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2020/03/12/jsspecial/%E6%95%B0%E7%BB%84%E6%89%81%E5%B9%B3%E5%8C%96/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -418,7 +412,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/07/18/deepjs/%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE/" class="post-title-link" itemprop="url">五、JavaScript之作用域链</a>
+          <a href="/2020/03/12/jsspecial/%E6%95%B0%E7%BB%84%E6%89%81%E5%B9%B3%E5%8C%96/" class="post-title-link" itemprop="url">七、JavaScript专题之数组扁平化</a>
         </h2>
 
         <div class="post-meta-container">
@@ -429,7 +423,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2019-07-18 20:12:24" itemprop="dateCreated datePublished" datetime="2019-07-18T20:12:24+08:00">2019-07-18</time>
+      <time title="创建时间：2020-03-12 19:12:04" itemprop="dateCreated datePublished" datetime="2020-03-12T19:12:04+08:00">2020-03-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -437,12 +431,12 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JavaScript%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">深入理解JavaScript系列笔记</span></a>
+          <a href="/categories/JavaScript%E4%B8%93%E9%A2%98%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">JavaScript专题系列笔记</span></a>
         </span>
     </span>
 
   
-    <span id="/2019/07/18/deepjs/%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE/" class="post-meta-item leancloud_visitors" data-flag-title="五、JavaScript之作用域链" title="阅读次数">
+    <span id="/2020/03/12/jsspecial/%E6%95%B0%E7%BB%84%E6%89%81%E5%B9%B3%E5%8C%96/" class="post-meta-item leancloud_visitors" data-flag-title="七、JavaScript专题之数组扁平化" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -458,11 +452,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>在上一篇的文章中，我们了解到执行上下文数据（变量、函数声明和函数的所有形参）是由这个变量对象的属性存储的，另外，我们知道每次进入上下文时都会创建变量对象并填充初始化值，并且在执行上下文代码时会发生它的修改。</p>
-<p>下面我们叫了解执行上下文相关的另一个概念：作用域链。</p>
+          <p>数组的扁平化，就是将一个嵌套多层的数组 array (嵌套可以是任何层数)转换为只有一层的数组。换句话说就是把多维数组转化成一维数组。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2019/07/18/deepjs/%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE/#more" rel="contents">
+              <a class="btn" href="/2020/03/12/jsspecial/%E6%95%B0%E7%BB%84%E6%89%81%E5%B9%B3%E5%8C%96/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -493,7 +486,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2019/07/12/deepjs/%E5%8F%98%E9%87%8F%E5%AF%B9%E8%B1%A1/">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2020/03/06/jsspecial/%E6%95%B0%E7%BB%84%E5%8F%96%E6%9C%80%E5%80%BC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -506,7 +499,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/07/12/deepjs/%E5%8F%98%E9%87%8F%E5%AF%B9%E8%B1%A1/" class="post-title-link" itemprop="url">四、JavaScript之变量对象</a>
+          <a href="/2020/03/06/jsspecial/%E6%95%B0%E7%BB%84%E5%8F%96%E6%9C%80%E5%80%BC/" class="post-title-link" itemprop="url">六、JavaScript专题之数组取最大值和最小值</a>
         </h2>
 
         <div class="post-meta-container">
@@ -517,7 +510,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2019-07-12 16:12:24" itemprop="dateCreated datePublished" datetime="2019-07-12T16:12:24+08:00">2019-07-12</time>
+      <time title="创建时间：2020-03-06 12:12:04" itemprop="dateCreated datePublished" datetime="2020-03-06T12:12:04+08:00">2020-03-06</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -525,12 +518,12 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JavaScript%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">深入理解JavaScript系列笔记</span></a>
+          <a href="/categories/JavaScript%E4%B8%93%E9%A2%98%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">JavaScript专题系列笔记</span></a>
         </span>
     </span>
 
   
-    <span id="/2019/07/12/deepjs/%E5%8F%98%E9%87%8F%E5%AF%B9%E8%B1%A1/" class="post-meta-item leancloud_visitors" data-flag-title="四、JavaScript之变量对象" title="阅读次数">
+    <span id="/2020/03/06/jsspecial/%E6%95%B0%E7%BB%84%E5%8F%96%E6%9C%80%E5%80%BC/" class="post-meta-item leancloud_visitors" data-flag-title="六、JavaScript专题之数组取最大值和最小值" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -546,10 +539,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>在前面的文章<a href="https://hedahang.github.io/2019/06/26/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E6%A0%88/">《JavaScript之执行上下文栈》</a>中讲到，当 JavaScript 代码执行一段可执行代码(executable code)时，会创建对应的执行上下文(execution context)。</p>
+          <p>数组取最大值、最小值的常用实现方式：</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2019/07/12/deepjs/%E5%8F%98%E9%87%8F%E5%AF%B9%E8%B1%A1/#more" rel="contents">
+              <a class="btn" href="/2020/03/06/jsspecial/%E6%95%B0%E7%BB%84%E5%8F%96%E6%9C%80%E5%80%BC/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -580,7 +573,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2019/06/26/deepjs/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E6%A0%88/">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2020/02/26/jsspecial/%E6%B5%85%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B7%B1%E6%8B%B7%E8%B4%9D/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -593,7 +586,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/06/26/deepjs/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E6%A0%88/" class="post-title-link" itemprop="url">三、JavaScript之执行上下文栈</a>
+          <a href="/2020/02/26/jsspecial/%E6%B5%85%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B7%B1%E6%8B%B7%E8%B4%9D/" class="post-title-link" itemprop="url">五、JavaScript专题之深浅拷贝</a>
         </h2>
 
         <div class="post-meta-container">
@@ -604,7 +597,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2019-06-26 19:12:24" itemprop="dateCreated datePublished" datetime="2019-06-26T19:12:24+08:00">2019-06-26</time>
+      <time title="创建时间：2020-02-26 12:12:04" itemprop="dateCreated datePublished" datetime="2020-02-26T12:12:04+08:00">2020-02-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -612,12 +605,12 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JavaScript%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">深入理解JavaScript系列笔记</span></a>
+          <a href="/categories/JavaScript%E4%B8%93%E9%A2%98%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">JavaScript专题系列笔记</span></a>
         </span>
     </span>
 
   
-    <span id="/2019/06/26/deepjs/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E6%A0%88/" class="post-meta-item leancloud_visitors" data-flag-title="三、JavaScript之执行上下文栈" title="阅读次数">
+    <span id="/2020/02/26/jsspecial/%E6%B5%85%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B7%B1%E6%8B%B7%E8%B4%9D/" class="post-meta-item leancloud_visitors" data-flag-title="五、JavaScript专题之深浅拷贝" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -633,11 +626,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>由于JS是单线程的，每次只能做一件事情，其他的事情会放在指定的上下文栈中排队等待执行，所以执行上下文栈的作用是用来跟踪代码的，。</p>
-<p>JS解释器在初始化代码的时候，首先会创建一个新的全局执行上下文到执行上下文栈顶中，然后随着每次函数的调用都会创建一个新的执行上下文放入到栈顶中，随着函数执行完毕后被执行上下文栈顶弹出，直到回到全局的执行上下文中。（栈：一种数据结构，遵循后进先出的原则）。下面我们说说执行上下文栈是如何工作的。</p>
+          <p>本文主要记录一下深拷贝和浅拷贝的一些常用实现方式。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2019/06/26/deepjs/%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E6%A0%88/#more" rel="contents">
+              <a class="btn" href="/2020/02/26/jsspecial/%E6%B5%85%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B7%B1%E6%8B%B7%E8%B4%9D/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -668,7 +660,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2019/06/15/deepjs/%E4%BD%9C%E7%94%A8%E5%9F%9F/">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2020/02/18/jsspecial/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD%E4%B8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -681,7 +673,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/06/15/deepjs/%E4%BD%9C%E7%94%A8%E5%9F%9F/" class="post-title-link" itemprop="url">二、JavaScript之作用域</a>
+          <a href="/2020/02/18/jsspecial/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD%E4%B8%8B/" class="post-title-link" itemprop="url">四、JavaScript专题之类型判断(下)</a>
         </h2>
 
         <div class="post-meta-container">
@@ -692,7 +684,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2019-06-15 19:12:24" itemprop="dateCreated datePublished" datetime="2019-06-15T19:12:24+08:00">2019-06-15</time>
+      <time title="创建时间：2020-02-18 12:12:04" itemprop="dateCreated datePublished" datetime="2020-02-18T12:12:04+08:00">2020-02-18</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -700,12 +692,12 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JavaScript%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">深入理解JavaScript系列笔记</span></a>
+          <a href="/categories/JavaScript%E4%B8%93%E9%A2%98%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">JavaScript专题系列笔记</span></a>
         </span>
     </span>
 
   
-    <span id="/2019/06/15/deepjs/%E4%BD%9C%E7%94%A8%E5%9F%9F/" class="post-meta-item leancloud_visitors" data-flag-title="二、JavaScript之作用域" title="阅读次数">
+    <span id="/2020/02/18/jsspecial/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD%E4%B8%8B/" class="post-meta-item leancloud_visitors" data-flag-title="四、JavaScript专题之类型判断(下)" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -721,12 +713,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="什么是作用域"><a href="#什么是作用域" class="headerlink" title="什么是作用域"></a>什么是作用域</h2><p>作用域是指程序源代码中定义变量的区域。</p>
-<p>作用域规定了如何查找变量，也就是确定当前执行代码对变量的访问权限。</p>
-<p>JavaScript 采用词法作用域(lexical scoping)，也就是静态作用域。</p>
+          <p>上一篇文章中我们总结了类型判断的几种方式（typeof、Object.prototype.toString、Instanceof、isArray），这里我们写一个 type 函数来帮我们区分识别各种类型的值。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2019/06/15/deepjs/%E4%BD%9C%E7%94%A8%E5%9F%9F/#more" rel="contents">
+              <a class="btn" href="/2020/02/18/jsspecial/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD%E4%B8%8B/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -757,7 +747,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2019/06/11/deepjs/%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE/">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2020/02/14/jsspecial/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD%E4%B8%8A/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -770,7 +760,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/06/11/deepjs/%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE/" class="post-title-link" itemprop="url">一、JavaScript之原型和原型链</a>
+          <a href="/2020/02/14/jsspecial/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD%E4%B8%8A/" class="post-title-link" itemprop="url">三、JavaScript专题之类型判断(上)</a>
         </h2>
 
         <div class="post-meta-container">
@@ -781,7 +771,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2019-06-11 11:10:59" itemprop="dateCreated datePublished" datetime="2019-06-11T11:10:59+08:00">2019-06-11</time>
+      <time title="创建时间：2020-02-14 22:12:04" itemprop="dateCreated datePublished" datetime="2020-02-14T22:12:04+08:00">2020-02-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -789,12 +779,12 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3JavaScript%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">深入理解JavaScript系列笔记</span></a>
+          <a href="/categories/JavaScript%E4%B8%93%E9%A2%98%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">JavaScript专题系列笔记</span></a>
         </span>
     </span>
 
   
-    <span id="/2019/06/11/deepjs/%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE/" class="post-meta-item leancloud_visitors" data-flag-title="一、JavaScript之原型和原型链" title="阅读次数">
+    <span id="/2020/02/14/jsspecial/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD%E4%B8%8A/" class="post-meta-item leancloud_visitors" data-flag-title="三、JavaScript专题之类型判断(上)" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -810,11 +800,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h2><p>首先创建一个构造函数</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;&#125;</span><br><span class="line">var person = new Person();</span><br><span class="line">person.name = &#x27;lilei&#x27;;</span><br><span class="line">console.log(person.name) // lilei</span><br></pre></td></tr></table></figure>
+          <p>在项目开发中，我们经常会进行类型判断，这里对JS类型判断的方式进行一下总结。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2019/06/11/deepjs/%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE/#more" rel="contents">
+              <a class="btn" href="/2020/02/14/jsspecial/%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD%E4%B8%8A/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -845,7 +834,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2018/08/01/flex%E5%B8%83%E5%B1%80/">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2020/01/24/leetcode/README/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -858,7 +847,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/08/01/flex%E5%B8%83%E5%B1%80/" class="post-title-link" itemprop="url">Flex布局</a>
+          <a href="/2020/01/24/leetcode/README/" class="post-title-link" itemprop="url">LeetCode题目难度分类总结</a>
         </h2>
 
         <div class="post-meta-container">
@@ -869,181 +858,7 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2018-08-01 18:16:10" itemprop="dateCreated datePublished" datetime="2018-08-01T18:16:10+08:00">2018-08-01</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/CSS/" itemprop="url" rel="index"><span itemprop="name">CSS</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/2018/08/01/flex%E5%B8%83%E5%B1%80/" class="post-meta-item leancloud_visitors" data-flag-title="Flex布局" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Flex 是 Flexible Box 的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/08/01/flex%E5%B8%83%E5%B1%80/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2018/07/11/markerdown%E8%AF%AD%E6%B3%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="muna">
-      <meta itemprop="description" content="Everything is good in its season.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人笔记">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/07/11/markerdown%E8%AF%AD%E6%B3%95/" class="post-title-link" itemprop="url">关于Markdown的基本用法</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-07-11 12:16:10" itemprop="dateCreated datePublished" datetime="2018-07-11T12:16:10+08:00">2018-07-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Markdown/" itemprop="url" rel="index"><span itemprop="name">Markdown</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/2018/07/11/markerdown%E8%AF%AD%E6%B3%95/" class="post-meta-item leancloud_visitors" data-flag-title="关于Markdown的基本用法" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Markdown 是一种文本格式。你可以用它来控制文档的显示。使用 markdown，你可以创建粗体的文字，斜体的文字，添加图片，并且创建列表 等等。基本上来讲，Markdown 就是普通的文字加上 # 或者 * 等符号。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/07/11/markerdown%E8%AF%AD%E6%B3%95/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2018/02/14/leetcode/%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="muna">
-      <meta itemprop="description" content="Everything is good in its season.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="个人笔记">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2018/02/14/leetcode/%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/" class="post-title-link" itemprop="url">110. 平衡二叉树</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2018-02-14 18:29:22" itemprop="dateCreated datePublished" datetime="2018-02-14T18:29:22+08:00">2018-02-14</time>
+      <time title="创建时间：2020-01-24 19:12:09" itemprop="dateCreated datePublished" datetime="2020-01-24T19:12:09+08:00">2020-01-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1056,7 +871,7 @@
     </span>
 
   
-    <span id="/2018/02/14/leetcode/%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/" class="post-meta-item leancloud_visitors" data-flag-title="110. 平衡二叉树" title="阅读次数">
+    <span id="/2020/01/24/leetcode/README/" class="post-meta-item leancloud_visitors" data-flag-title="LeetCode题目难度分类总结" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -1072,10 +887,184 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>给定一个二叉树，判断它是否是高度平衡的二叉树。</p>
+          <h1 id="LeetCode题目难度分类总结"><a href="#LeetCode题目难度分类总结" class="headerlink" title="LeetCode题目难度分类总结"></a>LeetCode题目难度分类总结</h1><p>本文档整理了所有LeetCode题目的难度分类，方便按难度学习和复习。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2018/02/14/leetcode/%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/#more" rel="contents">
+              <a class="btn" href="/2020/01/24/leetcode/README/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2020/01/14/jsspecial/%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="muna">
+      <meta itemprop="description" content="Everything is good in its season.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/01/14/jsspecial/%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/" class="post-title-link" itemprop="url">二、JavaScript专题之数组去重</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-01-14 22:12:04" itemprop="dateCreated datePublished" datetime="2020-01-14T22:12:04+08:00">2020-01-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaScript%E4%B8%93%E9%A2%98%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">JavaScript专题系列笔记</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2020/01/14/jsspecial/%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/" class="post-meta-item leancloud_visitors" data-flag-title="二、JavaScript专题之数组去重" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>在面试中，我们常常会遇到数组去重的问题，这里整理一下。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/01/14/jsspecial/%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2020/01/12/jsspecial/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="muna">
+      <meta itemprop="description" content="Everything is good in its season.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/01/12/jsspecial/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/" class="post-title-link" itemprop="url">一、JavaScript专题之防抖和节流</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-01-12 19:22:34" itemprop="dateCreated datePublished" datetime="2020-01-12T19:22:34+08:00">2020-01-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/JavaScript%E4%B8%93%E9%A2%98%E7%B3%BB%E5%88%97%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">JavaScript专题系列笔记</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2020/01/12/jsspecial/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/" class="post-meta-item leancloud_visitors" data-flag-title="一、JavaScript专题之防抖和节流" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>在项目中，我们经常会绑定一些持续触发的事件，比如 resize、scroll、mousemove 等等，如果事件调用无限制，会加重浏览器负担，导致用户体验差，我们可以使用 debounce(防抖)和 throttle(节流)的方式来减少频繁的调用，同时也不会影响实际的效果。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/01/12/jsspecial/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1099,7 +1088,7 @@
 
 
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

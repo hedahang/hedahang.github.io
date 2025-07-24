@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"hedahang.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="给你一个整数数组 nums ，数组中的元素 互不相同 。返回该数组所有可能的子集（幂集）。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="78.子集">
+<meta property="og:url" content="https://hedahang.github.io/2021/10/03/leetcode/%E5%AD%90%E9%9B%86/index.html">
+<meta property="og:site_name" content="个人笔记">
+<meta property="og:description" content="给你一个整数数组 nums ，数组中的元素 互不相同 。返回该数组所有可能的子集（幂集）。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-10-03T03:28:33.000Z">
+<meta property="article:modified_time" content="2021-10-03T03:28:33.000Z">
+<meta property="article:author" content="muna">
+<meta property="article:tag" content="LeetCode">
+<meta property="article:tag" content="中等">
+<meta property="article:tag" content="面试高频">
+<meta property="article:tag" content="递归">
+<meta property="article:tag" content="LeetCode-回溯">
+<meta property="article:tag" content="回溯">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://hedahang.github.io/2021/10/03/leetcode/%E5%AD%90%E9%9B%86/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://hedahang.github.io/2021/10/03/leetcode/%E5%AD%90%E9%9B%86/","path":"2021/10/03/leetcode/子集/","title":"78.子集"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>78.子集 | 个人笔记</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?d9bdb6166b41cc3154f5904bfba322a3"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">个人笔记</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Quick notes</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section">首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives" rel="section">归档</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags" rel="section">标签</a></li>
+        <li class="menu-item menu-item-about"><a href="/about" rel="section">关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="nav-number">1.</span> <span class="nav-text">解题思路</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3"><span class="nav-number">1.1.</span> <span class="nav-text">核心思想</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9A%E5%9B%9E%E6%BA%AF%E6%B3%95%EF%BC%88%E6%8E%A8%E8%8D%90%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">方法一：回溯法（推荐）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%9A%E4%BD%8D%E8%BF%90%E7%AE%97%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">方法二：位运算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%89%EF%BC%9A%E9%80%92%E5%BD%92%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">方法三：递归法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%9B%9B%EF%BC%9A%E8%BF%AD%E4%BB%A3%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">方法四：迭代法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E8%A6%81%E7%82%B9"><span class="nav-number">6.</span> <span class="nav-text">解题要点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E8%A6%81%E7%82%B9"><span class="nav-number">7.</span> <span class="nav-text">面试要点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE"><span class="nav-number">8.</span> <span class="nav-text">相关题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A9%E5%B1%95%E6%80%9D%E8%80%83"><span class="nav-number">9.</span> <span class="nav-text">扩展思考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">muna</p>
+  <div class="site-description" itemprop="description">Everything is good in its season.</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+        
+          <span class="site-state-item-count">184</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags">
+          
+        <span class="site-state-item-count">90</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/hedahang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;hedahang" rel="noopener" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Munachar" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Munachar" rel="noopener" target="_blank">Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://weibo.com/p/1005051065718667/home?from=page_100505&mod=TAB&is_all=1#place" title="微博 → http:&#x2F;&#x2F;weibo.com&#x2F;p&#x2F;1005051065718667&#x2F;home?from&#x3D;page_100505&amp;mod&#x3D;TAB&amp;is_all&#x3D;1#place" rel="noopener" target="_blank">微博</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.csdn.net/" title="CSDN → http:&#x2F;&#x2F;www.csdn.net&#x2F;" rel="noopener" target="_blank">CSDN</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2021/10/03/leetcode/%E5%AD%90%E9%9B%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="muna">
+      <meta itemprop="description" content="Everything is good in its season.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          78.子集
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-10-03 11:28:33" itemprop="dateCreated datePublished" datetime="2021-10-03T11:28:33+08:00">2021-10-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/LeetCode%E9%A2%98%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">LeetCode题库</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2021/10/03/leetcode/%E5%AD%90%E9%9B%86/" class="post-meta-item leancloud_visitors" data-flag-title="78.子集" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>给你一个整数数组 <code>nums</code> ，数组中的元素 <strong>互不相同</strong> 。返回该数组所有可能的子集（幂集）。</p>
+<span id="more"></span>
+
+<p>解集 <strong>不能</strong> 包含重复的子集。你可以按 <strong>任意顺序</strong> 返回解集。</p>
+<p>示例 1：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [1,2,3]</span><br><span class="line">输出：[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]</span><br></pre></td></tr></table></figure>
+
+<p>示例 2：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [0]</span><br><span class="line">输出：[[],[0]]</span><br></pre></td></tr></table></figure>
+
+<h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>这是一道经典的回溯题目，考察对子集生成的理解和实现。</p>
+<h3 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h3><ul>
+<li>使用回溯算法生成所有可能的子集</li>
+<li>每个元素都有选择和不选择两种状态</li>
+<li>当遍历完所有元素时，将当前路径添加到结果中</li>
+</ul>
+<h2 id="方法一：回溯法（推荐）"><a href="#方法一：回溯法（推荐）" class="headerlink" title="方法一：回溯法（推荐）"></a>方法一：回溯法（推荐）</h2><blockquote>
+<p>时间复杂度 O(2^n)、空间复杂度 O(n)</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">nums</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number[][]&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> subsets = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> result = [];</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">backtrack</span>(<span class="params">start, path</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 将当前路径添加到结果中</span></span><br><span class="line">        result.push([...path]);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 从start开始，选择后面的元素</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = start; i &lt; nums.length; i++) &#123;</span><br><span class="line">            <span class="comment">// 选择当前元素</span></span><br><span class="line">            path.push(nums[i]);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 递归</span></span><br><span class="line">            backtrack(i + <span class="number">1</span>, path);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 撤销选择</span></span><br><span class="line">            path.pop();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    backtrack(<span class="number">0</span>, []);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="方法二：位运算法"><a href="#方法二：位运算法" class="headerlink" title="方法二：位运算法"></a>方法二：位运算法</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> subsets = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> result = [];</span><br><span class="line">    <span class="keyword">const</span> n = nums.length;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 遍历所有可能的二进制组合</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; (<span class="number">1</span> &lt;&lt; n); i++) &#123;</span><br><span class="line">        <span class="keyword">const</span> subset = [];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 检查每一位</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i &amp; (<span class="number">1</span> &lt;&lt; j)) &#123;</span><br><span class="line">                subset.push(nums[j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        result.push(subset);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="方法三：递归法"><a href="#方法三：递归法" class="headerlink" title="方法三：递归法"></a>方法三：递归法</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> subsets = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (nums.length === <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> [[]];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">const</span> first = nums[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">const</span> rest = nums.slice(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">const</span> subsetsWithoutFirst = subsets(rest);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">const</span> result = [...subsetsWithoutFirst];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> subset <span class="keyword">of</span> subsetsWithoutFirst) &#123;</span><br><span class="line">        result.push([first, ...subset]);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="方法四：迭代法"><a href="#方法四：迭代法" class="headerlink" title="方法四：迭代法"></a>方法四：迭代法</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> subsets = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> result = [[]];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> num <span class="keyword">of</span> nums) &#123;</span><br><span class="line">        <span class="keyword">const</span> newSubsets = [];</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">const</span> subset <span class="keyword">of</span> result) &#123;</span><br><span class="line">            newSubsets.push([...subset, num]);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        result.push(...newSubsets);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="解题要点"><a href="#解题要点" class="headerlink" title="解题要点"></a>解题要点</h2><ol>
+<li><p><strong>回溯法</strong>：</p>
+<ul>
+<li>使用递归生成所有可能的子集</li>
+<li>每个元素都有选择和不选择两种状态</li>
+<li>每次递归都将当前路径添加到结果中</li>
+</ul>
+</li>
+<li><p><strong>位运算法</strong>：</p>
+<ul>
+<li>利用二进制数的特性</li>
+<li>每个二进制位代表一个元素的选择状态</li>
+<li>时间复杂度：O(2^n)</li>
+</ul>
+</li>
+<li><p><strong>时间复杂度</strong>：</p>
+<ul>
+<li>子集数量：2^n</li>
+<li>时间复杂度：O(2^n)</li>
+<li>空间复杂度：O(n)</li>
+</ul>
+</li>
+</ol>
+<h2 id="面试要点"><a href="#面试要点" class="headerlink" title="面试要点"></a>面试要点</h2><ul>
+<li><strong>高频考点</strong>：这道题是面试中的高频回溯题</li>
+<li><strong>回溯算法</strong>：考察对递归和回溯的理解</li>
+<li><strong>子集生成</strong>：考察对幂集的理解</li>
+<li><strong>位运算</strong>：了解位运算的应用</li>
+</ul>
+<h2 id="相关题目"><a href="#相关题目" class="headerlink" title="相关题目"></a>相关题目</h2><ul>
+<li><a href="./%E5%AD%90%E9%9B%86-II.md">90.子集 II</a> - 包含重复数字的子集</li>
+<li><a href="./%E5%85%A8%E6%8E%92%E5%88%97.md">46.全排列</a> - 生成所有排列</li>
+<li><a href="./%E7%BB%84%E5%90%88.md">77.组合</a> - 生成所有组合</li>
+</ul>
+<h2 id="扩展思考"><a href="#扩展思考" class="headerlink" title="扩展思考"></a>扩展思考</h2><ol>
+<li><p><strong>为什么使用回溯法？</strong></p>
+<ul>
+<li>需要生成所有可能的子集</li>
+<li>每个元素都有选择和不选择两种状态</li>
+<li>递归结构清晰，易于理解</li>
+</ul>
+</li>
+<li><p><strong>时间复杂度分析</strong></p>
+<ul>
+<li>子集数量：2^n</li>
+<li>时间复杂度：O(2^n)</li>
+<li>空间复杂度：O(n)</li>
+</ul>
+</li>
+<li><p><strong>不同方法的比较</strong></p>
+<ul>
+<li>回溯法：直观，易于理解</li>
+<li>位运算法：高效，但不易理解</li>
+<li>递归法：逻辑清晰</li>
+<li>迭代法：空间效率高</li>
+</ul>
+</li>
+<li><p><strong>边界情况</strong></p>
+<ul>
+<li>空数组：返回[[]]</li>
+<li>单个元素：返回[[], [element]]</li>
+<li>两个元素：返回[[], [a], [b], [a,b]]</li>
+</ul>
+</li>
+<li><p><strong>实际应用</strong></p>
+<ul>
+<li>特征选择</li>
+<li>组合优化</li>
+<li>数据挖掘</li>
+</ul>
+</li>
+<li><p><strong>变种问题</strong></p>
+<ul>
+<li>包含重复数字的子集</li>
+<li>固定长度的子集</li>
+<li>带限制条件的子集</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p><em>最后更新: 2021-10-03</em> </p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
+              <a href="/tags/%E4%B8%AD%E7%AD%89/" rel="tag"># 中等</a>
+              <a href="/tags/%E9%9D%A2%E8%AF%95%E9%AB%98%E9%A2%91/" rel="tag"># 面试高频</a>
+              <a href="/tags/%E9%80%92%E5%BD%92/" rel="tag"># 递归</a>
+              <a href="/tags/LeetCode-%E5%9B%9E%E6%BA%AF/" rel="tag"># LeetCode-回溯</a>
+              <a href="/tags/%E5%9B%9E%E6%BA%AF/" rel="tag"># 回溯</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/09/30/leetcode/%E5%85%A8%E6%8E%92%E5%88%97/" rel="prev" title="46.全排列">
+                  <i class="fa fa-chevron-left"></i> 46.全排列
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/10/06/leetcode/%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D/" rel="next" title="198.打家劫舍">
+                  198.打家劫舍 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">muna</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"4YVBvXUEj3YQFC3sdgsLqQR0-gzGzoHsz","app_key":"Y0Sfizgc4zv8h8EJUzE6fcKu","server_url":"https://leancloud.cn","security":false,"betterPerformance":false,"pageSize":10,"debug":true,"enable_sync":true}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"hedahang/hedahang.github.io","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
