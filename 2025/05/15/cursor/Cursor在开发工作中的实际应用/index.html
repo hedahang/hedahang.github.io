@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"hedahang.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="一、引言很高兴与大家分享现阶段 Cursor 在我的工作中的使用体验。首先是预期管理，本篇文章不会分享 x 个你可能不知道的小技巧，也不会让你拥有无需自行编码的能力，同时不涉及 Cursor 工程化方面内容。仅仅是围绕个人开发流程中的已有问题，分享如何使用 Cursor 来提升这部分的开发体验，在工作中持续保持好的节奏和状态。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cursor在开发工作中的实际应用">
+<meta property="og:url" content="https://hedahang.github.io/2025/05/15/cursor/Cursor%E5%9C%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E4%BD%9C%E4%B8%AD%E7%9A%84%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/index.html">
+<meta property="og:site_name" content="个人笔记">
+<meta property="og:description" content="一、引言很高兴与大家分享现阶段 Cursor 在我的工作中的使用体验。首先是预期管理，本篇文章不会分享 x 个你可能不知道的小技巧，也不会让你拥有无需自行编码的能力，同时不涉及 Cursor 工程化方面内容。仅仅是围绕个人开发流程中的已有问题，分享如何使用 Cursor 来提升这部分的开发体验，在工作中持续保持好的节奏和状态。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-05-15T02:25:19.000Z">
+<meta property="article:modified_time" content="2025-05-15T02:25:19.000Z">
+<meta property="article:author" content="muna">
+<meta property="article:tag" content="Cursor">
+<meta property="article:tag" content="AI编程">
+<meta property="article:tag" content="开发工作流">
+<meta property="article:tag" content="效率提升">
+<meta property="article:tag" content="实际应用">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://hedahang.github.io/2025/05/15/cursor/Cursor%E5%9C%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E4%BD%9C%E4%B8%AD%E7%9A%84%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://hedahang.github.io/2025/05/15/cursor/Cursor%E5%9C%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E4%BD%9C%E4%B8%AD%E7%9A%84%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/","path":"2025/05/15/cursor/Cursor在开发工作中的实际应用/","title":"Cursor在开发工作中的实际应用"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Cursor在开发工作中的实际应用 | 个人笔记</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?d9bdb6166b41cc3154f5904bfba322a3"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">个人笔记</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Quick notes</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section">首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives" rel="section">归档</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags" rel="section">标签</a></li>
+        <li class="menu-item menu-item-about"><a href="/about" rel="section">关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%BC%95%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">一、引言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E8%A6%81%E7%82%B9"><span class="nav-number">1.1.</span> <span class="nav-text">文章要点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%B0%B1%E5%B7%AE%E4%B8%80%E4%B8%AA%E7%A8%8B%E5%BA%8F%E5%91%98%E4%BA%86"><span class="nav-number">2.</span> <span class="nav-text">二、就差一个程序员了</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E4%BB%8E%E9%9C%80%E6%B1%82%E5%88%B0%E4%BB%A3%E7%A0%81"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 从需求到代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%B8%80%EF%BC%9A%E7%9F%A5%E9%81%93-AI-%E4%B8%8D%E7%9F%A5%E9%81%93"><span class="nav-number">2.1.1.</span> <span class="nav-text">问题一：知道 AI 不知道</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E4%BA%8C%EF%BC%9A%E4%B8%8D%E7%9F%A5%E9%81%93-AI-%E4%B8%8D%E7%9F%A5%E9%81%93"><span class="nav-number">2.1.2.</span> <span class="nav-text">问题二：不知道 AI 不知道</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E4%BB%8E%E8%A7%84%E5%88%92%E5%88%B0%E6%89%A7%E8%A1%8C"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 从规划到执行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%80%BB%E7%BB%93%E4%B8%8E%E5%B1%95%E6%9C%9B"><span class="nav-number">3.</span> <span class="nav-text">三、总结与展望</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E5%BC%80%E5%8F%91%E9%98%B6%E6%AE%B5%E6%8B%86%E5%88%86%E4%B8%8E-Cursor-%E8%A7%92%E8%89%B2%E5%AE%9A%E4%BD%8D"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 开发阶段拆分与 Cursor 角色定位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E5%BC%80%E5%8F%91%E7%97%9B%E7%82%B9%E5%88%86%E6%9E%90%E4%B8%8E-Cursor-%E7%BC%93%E8%A7%A3%E4%BD%9C%E7%94%A8"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 开发痛点分析与 Cursor 缓解作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E5%8D%8F%E4%BD%9C%E6%B5%81%E7%A8%8B%EF%BC%9A%E5%8F%8D%E9%A6%88%E5%BE%AA%E7%8E%AF"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 协作流程：反馈循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-Cursor-%E5%9C%A8%E4%B8%89%E5%A4%A7%E5%9C%BA%E6%99%AF%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 Cursor 在三大场景的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%8E%B0%E7%8A%B6%E5%88%86%E6%9E%90"><span class="nav-number">3.4.1.</span> <span class="nav-text">现状分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%94%B9%E5%8A%A8%E6%96%B9%E6%A1%88"><span class="nav-number">3.4.2.</span> <span class="nav-text">改动方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BD%B1%E5%93%8D%E8%AF%84%E4%BC%B0"><span class="nav-number">3.4.3.</span> <span class="nav-text">影响评估</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-AI-%E6%97%B6%E4%BB%A3%E5%BC%80%E5%8F%91%E8%80%85%E8%83%BD%E5%8A%9B%E8%BD%AC%E5%9E%8B"><span class="nav-number">3.5.</span> <span class="nav-text">3.5 AI 时代开发者能力转型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-%E5%B1%95%E6%9C%9B"><span class="nav-number">3.6.</span> <span class="nav-text">3.6 展望</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">muna</p>
+  <div class="site-description" itemprop="description">Everything is good in its season.</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+        
+          <span class="site-state-item-count">185</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags">
+          
+        <span class="site-state-item-count">93</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/hedahang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;hedahang" rel="noopener" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Munachar" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Munachar" rel="noopener" target="_blank">Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://weibo.com/p/1005051065718667/home?from=page_100505&mod=TAB&is_all=1#place" title="微博 → http:&#x2F;&#x2F;weibo.com&#x2F;p&#x2F;1005051065718667&#x2F;home?from&#x3D;page_100505&amp;mod&#x3D;TAB&amp;is_all&#x3D;1#place" rel="noopener" target="_blank">微博</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.csdn.net/" title="CSDN → http:&#x2F;&#x2F;www.csdn.net&#x2F;" rel="noopener" target="_blank">CSDN</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2025/05/15/cursor/Cursor%E5%9C%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E4%BD%9C%E4%B8%AD%E7%9A%84%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="muna">
+      <meta itemprop="description" content="Everything is good in its season.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Cursor在开发工作中的实际应用
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-05-15 10:25:19" itemprop="dateCreated datePublished" datetime="2025-05-15T10:25:19+08:00">2025-05-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Cursor%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">Cursor系列</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/2025/05/15/cursor/Cursor%E5%9C%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E4%BD%9C%E4%B8%AD%E7%9A%84%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/" class="post-meta-item leancloud_visitors" data-flag-title="Cursor在开发工作中的实际应用" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="一、引言"><a href="#一、引言" class="headerlink" title="一、引言"></a>一、引言</h2><p>很高兴与大家分享现阶段 Cursor 在我的工作中的使用体验。首先是预期管理，本篇文章不会分享 x 个你可能不知道的小技巧，也不会让你拥有无需自行编码的能力，同时不涉及 Cursor 工程化方面内容。仅仅是围绕个人开发流程中的已有问题，分享如何使用 Cursor 来提升这部分的开发体验，在工作中持续保持好的节奏和状态。</p>
+<span id="more"></span>
+
+<h3 id="文章要点"><a href="#文章要点" class="headerlink" title="文章要点"></a>文章要点</h3><ul>
+<li><strong>明确 Cursor 定位</strong>：不是开发者的替代品，而是放大开发者能力的工具</li>
+<li><strong>分析使用误区</strong>：直接根据 PRD 生成代码存在两类典型问题</li>
+<li><strong>重构开发流程</strong>：将开发分为规划阶段和执行阶段，明确 Cursor 在不同阶段的角色</li>
+<li><strong>建立协作机制</strong>：通过反馈循环实现开发者与 Cursor 的有效协作</li>
+<li><strong>应用场景总结</strong>：在现状分析、方案设计、影响评估三大场景中的实际应用</li>
+</ul>
+<h2 id="二、就差一个程序员了"><a href="#二、就差一个程序员了" class="headerlink" title="二、就差一个程序员了"></a>二、就差一个程序员了</h2><p>最近团队在大力推广 Cursor AI，随着几个版本迭代体验下来，其精准的自动补全深得我心，具体可以体现在 Tab 键的使用率已逐渐高于 Command + C/V。既然这么懂我，那么能否更进一步，根据 PRD 直接输出代码呢？</p>
+<h3 id="2-1-从需求到代码"><a href="#2-1-从需求到代码" class="headerlink" title="2.1 从需求到代码"></a>2.1 从需求到代码</h3><p>Cursor 能够理解代码上下文，从而根据简短的描述生成符合上下文的代码，于是我尝试直接将 PRD 提供给 Cursor 来生成代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PRD → Cursor → Code（一步到位）</span><br></pre></td></tr></table></figure>
+
+<p>几个需求尝试下来，总的来说分为两类问题：</p>
+<h4 id="问题一：知道-AI-不知道"><a href="#问题一：知道-AI-不知道" class="headerlink" title="问题一：知道 AI 不知道"></a>问题一：知道 AI 不知道</h4><p><strong>描述：</strong> 你知道 AI 不知道的东西，但你仍然期望它能给出完美答案</p>
+<p><strong>示例：</strong> 比如直接让 Cursor 写个功能点，但没提供参考项、接口协议和交互方式</p>
+<p><strong>分析：</strong> 当我们把需求直接丢给 Cursor 时，常常会发现：</p>
+<ul>
+<li><strong>输出质量低：</strong> 不符合项目的编码规范和架构设计</li>
+<li><strong>不符合期望：</strong> 解决方案不是我们心中所想的</li>
+<li><strong>需要频繁修改：</strong> 比起从头开始，修改和适配 AI 的代码可能更费时间</li>
+</ul>
+<p>这种情况下，我们明知 AI 缺乏必要的上下文，却仍然期望它能理解我们的意图。结果常常是：大部分时间用在了修正 AI 的输出上，而非解决实际问题。</p>
+<h4 id="问题二：不知道-AI-不知道"><a href="#问题二：不知道-AI-不知道" class="headerlink" title="问题二：不知道 AI 不知道"></a>问题二：不知道 AI 不知道</h4><p><strong>描述：</strong> 更危险的是，你不知道 AI 不知道什么</p>
+<p><strong>示例：</strong> 比如直接将 PRD 贴给 Cursor，自己却对代码实现现状、需求预期和设计方案没有足够的了解</p>
+<p><strong>分析：</strong> 当我们对自己的需求和代码现状理解不深时，我们无法有效地：</p>
+<ul>
+<li><strong>审查 AI 输出：</strong> 是否真的符合业务需求？</li>
+<li><strong>评估实现质量：</strong> 是否会引入新的问题？</li>
+<li><strong>判断边界情况：</strong> 是否考虑了所有可能的情况</li>
+</ul>
+<p>这就像你去理发店，希望 Tony 老师稍微剪短一点，结果却被剪得稍微短了点。而这需要我们在开始之前对齐认知，补充描述和参照。在这个前置阶段，即使发现对方理解有偏差，也还能及时纠正。俗称“对齐颗粒度”。</p>
+<h3 id="2-2-从规划到执行"><a href="#2-2-从规划到执行" class="headerlink" title="2.2 从规划到执行"></a>2.2 从规划到执行</h3><p>Cursor 产出的代码由它所接收的上下文决定，如果没有准确描述需求意图，它会通过推断做出假设，导致产出不准确。因此我们在使用 Cursor 时，关键在于区分开发过程中的规划阶段和执行阶段。</p>
+<p>Cursor 在这个过程中，不应该被视为开发者的替代品，而是一面能够放大开发者能力的镜子：</p>
+<ul>
+<li><strong>对于已知的部分</strong>，Cursor 可以加速实现，减少重复劳动。</li>
+<li><strong>对于未知的部分</strong>，Cursor 可以协助探索，但不能替代开发者的判断。</li>
+</ul>
+<p>在理解了 AI 的角色后，我们需要重构目前的开发工作流，让 AI 成为真正有效的助手。最关键的转变是：<strong>不再试图让 AI 替代开发流程中的任何环节，而是让它协助完成每个环节。</strong>这意味着不是把 PRD 扔给 AI，等待完整代码，而是和 AI 一起理解 PRD 和代码现状，共同设计方案，明确步骤，然后分步实现。</p>
+<h2 id="三、总结与展望"><a href="#三、总结与展望" class="headerlink" title="三、总结与展望"></a>三、总结与展望</h2><h3 id="3-1-开发阶段拆分与-Cursor-角色定位"><a href="#3-1-开发阶段拆分与-Cursor-角色定位" class="headerlink" title="3.1 开发阶段拆分与 Cursor 角色定位"></a>3.1 开发阶段拆分与 Cursor 角色定位</h3><p>基于前面的分析，我们将开发流程分为两个阶段，明确 Cursor 在不同阶段的角色：</p>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>规划阶段</th>
+<th>执行阶段</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>职责</strong></td>
+<td>理解业务需求和目标<br>分析代码现状和约束<br>设计实现方案和架构<br>评估潜在影响和风险</td>
+<td>按照规划实现具体功能<br>处理技术细节和边界情况<br>编写测试和文档<br>优化性能和用户体验</td>
+</tr>
+<tr>
+<td><strong>流程</strong></td>
+<td>共同建立理解，制定方案:<br><code>PRD → Cursor → 方案</code></td>
+<td>提供方案，分步骤实现:<br><code>方案 → Cursor → Code</code></td>
+</tr>
+<tr>
+<td><strong>Cursor 角色</strong></td>
+<td>协助分析和设计，提供建议</td>
+<td>加速代码实现，处理细节</td>
+</tr>
+</tbody></table>
+<h3 id="3-2-开发痛点分析与-Cursor-缓解作用"><a href="#3-2-开发痛点分析与-Cursor-缓解作用" class="headerlink" title="3.2 开发痛点分析与 Cursor 缓解作用"></a>3.2 开发痛点分析与 Cursor 缓解作用</h3><p>前端开发中方案设计存在效率与质量的矛盾：</p>
+<ul>
+<li><strong>传统方法</strong>：模板化、组件库等，但缺乏针对性</li>
+<li><strong>Cursor 缓解</strong>：<ul>
+<li>自动化分析代码结构和业务逻辑</li>
+<li>生成可视化成果（如时序图、流程图）</li>
+<li>减少重复劳动，提升方案质量</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-3-协作流程：反馈循环"><a href="#3-3-协作流程：反馈循环" class="headerlink" title="3.3 协作流程：反馈循环"></a>3.3 协作流程：反馈循环</h3><p>核心是建立”反馈循环”机制：</p>
+<ol>
+<li><strong>开发者补充上下文</strong>：提供业务背景、技术约束、项目规范等</li>
+<li><strong>Cursor 生成内容</strong>：基于上下文生成代码或方案</li>
+<li><strong>开发者审核反馈</strong>：检查质量、提出修改建议</li>
+<li><strong>循环优化</strong>：持续迭代直到满足要求</li>
+</ol>
+<p>分为两个子循环：</p>
+<ul>
+<li><strong>规划阶段</strong>：方案审核循环，确保设计合理</li>
+<li><strong>执行阶段</strong>：代码审核循环，确保实现正确</li>
+</ul>
+<h3 id="3-4-Cursor-在三大场景的应用"><a href="#3-4-Cursor-在三大场景的应用" class="headerlink" title="3.4 Cursor 在三大场景的应用"></a>3.4 Cursor 在三大场景的应用</h3><h4 id="现状分析"><a href="#现状分析" class="headerlink" title="现状分析"></a>现状分析</h4><p>通过精心设计的提示词，让 Cursor 输出：</p>
+<ul>
+<li>业务功能脉络</li>
+<li>代码结构分析</li>
+<li>字段依赖关系</li>
+<li>模块间交互逻辑</li>
+</ul>
+<p>帮助开发者快速了解陌生业务模块，降低学习成本。</p>
+<h4 id="改动方案"><a href="#改动方案" class="headerlink" title="改动方案"></a>改动方案</h4><p>引导 Cursor 采用”先分析问题，再设计方案”的流程：</p>
+<ul>
+<li>分析现有代码结构和业务逻辑</li>
+<li>识别改动点和影响范围</li>
+<li>拆解复杂任务为可管理的模块</li>
+<li>确保方案贴合业务需求与架构设计</li>
+</ul>
+<h4 id="影响评估"><a href="#影响评估" class="headerlink" title="影响评估"></a>影响评估</h4><p>借助 <code>@git</code> 指令，让 Cursor 分析代码改动：</p>
+<ul>
+<li>识别潜在风险点</li>
+<li>生成自测用例</li>
+<li>评估回归测试范围</li>
+<li>提升自测可信度和覆盖率</li>
+</ul>
+<h3 id="3-5-AI-时代开发者能力转型"><a href="#3-5-AI-时代开发者能力转型" class="headerlink" title="3.5 AI 时代开发者能力转型"></a>3.5 AI 时代开发者能力转型</h3><p>AI 降低了信息获取门槛，开发者核心能力需要从”记忆与执行”转向”提出好问题”：</p>
+<ul>
+<li><strong>积累专业知识</strong>：深入理解业务领域和技术栈</li>
+<li><strong>提升提问能力</strong>：学会如何与 AI 有效沟通</li>
+<li><strong>利用工具聚焦核心</strong>：让 AI 处理重复性工作，专注创造性任务</li>
+<li><strong>实现双赢</strong>：个人成长与工作成果并重</li>
+</ul>
+<h3 id="3-6-展望"><a href="#3-6-展望" class="headerlink" title="3.6 展望"></a>3.6 展望</h3><p>随着 AI 技术的不断发展，开发者需要：</p>
+<ul>
+<li>持续学习新的 AI 工具和最佳实践</li>
+<li>培养与 AI 协作的思维模式</li>
+<li>在保持技术深度的同时，提升跨领域协作能力</li>
+<li>将 AI 作为提升效率的伙伴，而非替代品</li>
+</ul>
+<hr>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/7490425439758254095?utm_source=gold_browser_extension">Cursor在开发工作中的实际应用</a></li>
+</ul>
+<hr>
+<p><em>最后更新: 2025-05-15</em></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Cursor/" rel="tag"># Cursor</a>
+              <a href="/tags/AI%E7%BC%96%E7%A8%8B/" rel="tag"># AI编程</a>
+              <a href="/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E4%BD%9C%E6%B5%81/" rel="tag"># 开发工作流</a>
+              <a href="/tags/%E6%95%88%E7%8E%87%E6%8F%90%E5%8D%87/" rel="tag"># 效率提升</a>
+              <a href="/tags/%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/" rel="tag"># 实际应用</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/03/22/cursor/Cursor%E9%AB%98%E7%BA%A7%E5%BA%94%E7%94%A8%EF%BC%9AAI%E7%BC%96%E7%A8%8B%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" rel="prev" title="Cursor高级应用：AI编程最佳实践">
+                  <i class="fa fa-chevron-left"></i> Cursor高级应用：AI编程最佳实践
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">muna</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"4YVBvXUEj3YQFC3sdgsLqQR0-gzGzoHsz","app_key":"Y0Sfizgc4zv8h8EJUzE6fcKu","server_url":"https://leancloud.cn","security":false,"betterPerformance":false,"pageSize":10,"debug":true,"enable_sync":true}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"hedahang/hedahang.github.io","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
