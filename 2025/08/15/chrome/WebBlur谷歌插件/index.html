@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"hedahang.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="项目简介这是我第一次开发Chrome扩展，选择做一个网页模糊效果插件chrome-web-blur。想法很简单：有时候在公共场合看网页，不想让别人看到内容，或者某些网页太花哨影响注意力，希望能快速给页面加个模糊效果。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WebBlur Chrome插件开发总结">
+<meta property="og:url" content="https://hedahang.github.io/2025/08/15/chrome/WebBlur%E8%B0%B7%E6%AD%8C%E6%8F%92%E4%BB%B6/index.html">
+<meta property="og:site_name" content="个人笔记">
+<meta property="og:description" content="项目简介这是我第一次开发Chrome扩展，选择做一个网页模糊效果插件chrome-web-blur。想法很简单：有时候在公共场合看网页，不想让别人看到内容，或者某些网页太花哨影响注意力，希望能快速给页面加个模糊效果。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-08-15T06:25:08.000Z">
+<meta property="article:modified_time" content="2025-08-15T06:25:08.000Z">
+<meta property="article:author" content="muna">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="Chrome">
+<meta property="article:tag" content="Chrome扩展">
+<meta property="article:tag" content="Manifest V3">
+<meta property="article:tag" content="插件开发">
+<meta property="article:tag" content="前端开发">
+<meta property="article:tag" content="实用工具">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://hedahang.github.io/2025/08/15/chrome/WebBlur%E8%B0%B7%E6%AD%8C%E6%8F%92%E4%BB%B6/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://hedahang.github.io/2025/08/15/chrome/WebBlur%E8%B0%B7%E6%AD%8C%E6%8F%92%E4%BB%B6/","path":"2025/08/15/chrome/WebBlur谷歌插件/","title":"WebBlur Chrome插件开发总结"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>WebBlur Chrome插件开发总结 | 个人笔记</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?d9bdb6166b41cc3154f5904bfba322a3"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">个人笔记</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Quick notes</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section">首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives" rel="section">归档</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags" rel="section">标签</a></li>
+        <li class="menu-item menu-item-about"><a href="/about" rel="section">关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">项目简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%81%9A%E8%BF%99%E4%B8%AA%E9%A1%B9%E7%9B%AE"><span class="nav-number">2.</span> <span class="nav-text">为什么做这个项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%83%B3%E6%B3%95%E6%9D%A5%E6%BA%90"><span class="nav-number">2.1.</span> <span class="nav-text">想法来源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E7%9B%AE%E6%A0%87"><span class="nav-number">2.2.</span> <span class="nav-text">学习目标</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">技术选型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E5%88%B0%E7%9A%84%E6%8A%80%E6%9C%AF"><span class="nav-number">3.1.</span> <span class="nav-text">用到的技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84"><span class="nav-number">3.2.</span> <span class="nav-text">项目结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0"><span class="nav-number">4.</span> <span class="nav-text">主要功能实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%A8%A1%E7%B3%8A%E6%95%88%E6%9E%9C"><span class="nav-number">4.1.</span> <span class="nav-text">1. 模糊效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="nav-number">4.2.</span> <span class="nav-text">2. 快捷键</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E8%AE%BE%E7%BD%AE%E4%BF%9D%E5%AD%98"><span class="nav-number">4.3.</span> <span class="nav-text">3. 设置保存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%A8%A1%E5%9D%97%E9%97%B4%E9%80%9A%E4%BF%A1"><span class="nav-number">4.4.</span> <span class="nav-text">4. 模块间通信</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%95%8C%E9%9D%A2%E8%AE%BE%E8%AE%A1"><span class="nav-number">5.</span> <span class="nav-text">界面设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%83%B3%E6%B3%95"><span class="nav-number">5.1.</span> <span class="nav-text">设计想法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E7%BB%84%E4%BB%B6"><span class="nav-number">5.2.</span> <span class="nav-text">主要组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B7%E5%BC%8F"><span class="nav-number">5.3.</span> <span class="nav-text">样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">5.4.</span> <span class="nav-text">遇到的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%981-%E9%A1%B5%E9%9D%A2%E5%85%BC%E5%AE%B9%E6%80%A7"><span class="nav-number">5.4.1.</span> <span class="nav-text">问题1: 页面兼容性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%982-%E6%B6%88%E6%81%AF%E5%8F%91%E9%80%81%E5%A4%B1%E8%B4%A5"><span class="nav-number">5.4.2.</span> <span class="nav-text">问题2: 消息发送失败</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%AE%E9%A2%983-%E6%A0%87%E7%AD%BE%E9%A1%B5%E7%8A%B6%E6%80%81%E4%B8%8D%E5%90%8C%E6%AD%A5"><span class="nav-number">5.4.3.</span> <span class="nav-text">问题3: 标签页状态不同步</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">功能总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD"><span class="nav-number">6.1.</span> <span class="nav-text">主要功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%8A%9F%E8%83%BD"><span class="nav-number">6.2.</span> <span class="nav-text">其他功能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E7%BB%AD%E6%83%B3%E6%B3%95"><span class="nav-number">7.</span> <span class="nav-text">后续想法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">muna</p>
+  <div class="site-description" itemprop="description">Everything is good in its season.</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+        
+          <span class="site-state-item-count">186</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags">
+          
+        <span class="site-state-item-count">99</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/hedahang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;hedahang" rel="noopener" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Munachar" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Munachar" rel="noopener" target="_blank">Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://weibo.com/p/1005051065718667/home?from=page_100505&mod=TAB&is_all=1#place" title="微博 → http:&#x2F;&#x2F;weibo.com&#x2F;p&#x2F;1005051065718667&#x2F;home?from&#x3D;page_100505&amp;mod&#x3D;TAB&amp;is_all&#x3D;1#place" rel="noopener" target="_blank">微博</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.csdn.net/" title="CSDN → http:&#x2F;&#x2F;www.csdn.net&#x2F;" rel="noopener" target="_blank">CSDN</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2025/08/15/chrome/WebBlur%E8%B0%B7%E6%AD%8C%E6%8F%92%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="muna">
+      <meta itemprop="description" content="Everything is good in its season.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          WebBlur Chrome插件开发总结
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-08-15 14:25:08" itemprop="dateCreated datePublished" datetime="2025-08-15T14:25:08+08:00">2025-08-15</time>
+    </span>
+
+  
+    <span id="/2025/08/15/chrome/WebBlur%E8%B0%B7%E6%AD%8C%E6%8F%92%E4%BB%B6/" class="post-meta-item leancloud_visitors" data-flag-title="WebBlur Chrome插件开发总结" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>这是我第一次开发Chrome扩展，选择做一个网页模糊效果插件<a target="_blank" rel="noopener" href="https://github.com/hedahang/chrome-web-blur">chrome-web-blur</a>。想法很简单：有时候在公共场合看网页，不想让别人看到内容，或者某些网页太花哨影响注意力，希望能快速给页面加个模糊效果。</p>
+<span id="more"></span>
+
+<p>项目用了Chrome扩展的Manifest V3，主要功能包括：</p>
+<ul>
+<li>用快捷键Ctrl+B快速开关模糊效果</li>
+<li>可以调节模糊程度（1-20px）</li>
+<li>设置会自动保存</li>
+<li>所有标签页都能同步状态</li>
+</ul>
+<h2 id="为什么做这个项目"><a href="#为什么做这个项目" class="headerlink" title="为什么做这个项目"></a>为什么做这个项目</h2><h3 id="想法来源"><a href="#想法来源" class="headerlink" title="想法来源"></a>想法来源</h3><p>平时在图书馆或者咖啡厅用电脑，总担心别人看到我在看什么。有时候网页广告太多，也很影响注意力。就想能不能做个简单的插件，按个快捷键就能让页面变模糊。</p>
+<h3 id="学习目标"><a href="#学习目标" class="headerlink" title="学习目标"></a>学习目标</h3><ol>
+<li>学习Chrome扩展开发</li>
+<li>熟悉Manifest V3的新特性</li>
+<li>尝试做一些实用的东西</li>
+</ol>
+<h2 id="技术选型"><a href="#技术选型" class="headerlink" title="技术选型"></a>技术选型</h2><h3 id="用到的技术"><a href="#用到的技术" class="headerlink" title="用到的技术"></a>用到的技术</h3><ul>
+<li><strong>Manifest V3</strong>: Chrome扩展的新标准，听说V2要淘汰了</li>
+<li><strong>JavaScript</strong>: 主要是ES6的async/await语法</li>
+<li><strong>CSS</strong>: 用backdrop-filter实现模糊效果</li>
+<li><strong>Chrome API</strong>: 存储、消息传递、快捷键等</li>
+</ul>
+<h3 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">WebBlur/</span><br><span class="line">├── manifest.json      # 扩展配置</span><br><span class="line">├── popup.html         # 弹出窗口</span><br><span class="line">├── popup.css          # 弹出窗口样式</span><br><span class="line">├── popup.js           # 弹出窗口逻辑</span><br><span class="line">├── content.js         # 页面内容脚本</span><br><span class="line">├── background.js      # 后台脚本</span><br><span class="line">├── styles.css         # 全局样式</span><br><span class="line">└── images/           # 图标文件</span><br></pre></td></tr></table></figure>
+
+<h2 id="主要功能实现"><a href="#主要功能实现" class="headerlink" title="主要功能实现"></a>主要功能实现</h2><h3 id="1-模糊效果"><a href="#1-模糊效果" class="headerlink" title="1. 模糊效果"></a>1. 模糊效果</h3><p>核心就是用CSS的backdrop-filter属性。我创建了一个全屏的div，然后给它加模糊效果：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建模糊遮罩层</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createBlurOverlay</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    blurOverlay = <span class="built_in">document</span>.createElement(<span class="string">&#x27;div&#x27;</span>);</span><br><span class="line">    blurOverlay.style.cssText = <span class="string">`</span></span><br><span class="line"><span class="string">        position: fixed;</span></span><br><span class="line"><span class="string">        top: 0;</span></span><br><span class="line"><span class="string">        left: 0;</span></span><br><span class="line"><span class="string">        width: 100%;</span></span><br><span class="line"><span class="string">        height: 100%;</span></span><br><span class="line"><span class="string">        backdrop-filter: blur(<span class="subst">$&#123;blurIntensity&#125;</span>px);</span></span><br><span class="line"><span class="string">        -webkit-backdrop-filter: blur(<span class="subst">$&#123;blurIntensity&#125;</span>px);</span></span><br><span class="line"><span class="string">        pointer-events: none;</span></span><br><span class="line"><span class="string">        z-index: 2147483647;</span></span><br><span class="line"><span class="string">        transition: backdrop-filter 0.3s ease;</span></span><br><span class="line"><span class="string">    `</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>关键点：</p>
+<ul>
+<li><code>pointer-events: none</code> 让鼠标事件穿透，不影响页面交互</li>
+<li><code>z-index: 2147483647</code> 确保在最顶层</li>
+<li>加了transition让模糊效果有动画</li>
+</ul>
+<h3 id="2-快捷键"><a href="#2-快捷键" class="headerlink" title="2. 快捷键"></a>2. 快捷键</h3><p>在manifest.json里配置快捷键，用Chrome的Commands API：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;commands&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;toggle-blur&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;suggested_key&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;default&quot;</span>: <span class="string">&quot;Ctrl+B&quot;</span></span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="attr">&quot;description&quot;</span>: <span class="string">&quot;切换模糊效果&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样用户按Ctrl+B就能快速开关模糊效果，不用每次都点插件图标。</p>
+<h3 id="3-设置保存"><a href="#3-设置保存" class="headerlink" title="3. 设置保存"></a>3. 设置保存</h3><p>用Chrome的storage.sync API保存用户设置：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 保存设置</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">saveSettings</span>(<span class="params">newSettings</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">await</span> chrome.storage.sync.set(newSettings);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 加载设置</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">loadSettings</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> result = <span class="keyword">await</span> chrome.storage.sync.get(defaultSettings);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样设置会自动同步到用户的所有Chrome浏览器，还挺方便的。</p>
+<h3 id="4-模块间通信"><a href="#4-模块间通信" class="headerlink" title="4. 模块间通信"></a>4. 模块间通信</h3><p>Chrome扩展的不同部分需要互相通信，我用消息传递的方式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 发送消息</span></span><br><span class="line"><span class="keyword">await</span> chrome.tabs.sendMessage(tabId, &#123;</span><br><span class="line">    <span class="attr">action</span>: <span class="string">&#x27;toggleBlur&#x27;</span>,</span><br><span class="line">    <span class="attr">enabled</span>: enabled</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 接收消息</span></span><br><span class="line">chrome.runtime.onMessage.addListener(<span class="function">(<span class="params">message, sender, sendResponse</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">switch</span> (message.action) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;toggleBlur&#x27;</span>:</span><br><span class="line">            <span class="comment">// 处理模糊切换</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;updateIntensity&#x27;</span>:</span><br><span class="line">            <span class="comment">// 处理强度更新</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>这部分刚开始有点绕，后来慢慢理解了。</p>
+<h2 id="界面设计"><a href="#界面设计" class="headerlink" title="界面设计"></a>界面设计</h2><h3 id="设计想法"><a href="#设计想法" class="headerlink" title="设计想法"></a>设计想法</h3><p>界面尽量简单，用户一眼就能看懂怎么用。主要就是一个开关和一个滑块，再加点状态提示。</p>
+<h3 id="主要组件"><a href="#主要组件" class="headerlink" title="主要组件"></a>主要组件</h3><ol>
+<li><strong>开关</strong>: 用CSS做了个好看的开关按钮</li>
+<li><strong>滑块</strong>: 调节模糊程度，范围1-20px</li>
+<li><strong>状态显示</strong>: 显示当前是否开启，还有快捷键提示</li>
+</ol>
+<h3 id="样式"><a href="#样式" class="headerlink" title="样式"></a>样式</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 开关样式 */</span></span><br><span class="line"><span class="selector-class">.toggle-slider</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(<span class="number">135deg</span>, <span class="number">#667eea</span> <span class="number">0%</span>, <span class="number">#764ba2</span> <span class="number">100%</span>);</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">20px</span>;</span><br><span class="line">    <span class="attribute">transition</span>: all <span class="number">0.3s</span> ease;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 滑块样式 */</span></span><br><span class="line"><span class="selector-class">.slider</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">linear-gradient</span>(to right, <span class="number">#667eea</span>, <span class="number">#764ba2</span>);</span><br><span class="line">    <span class="attribute">border-radius</span>: <span class="number">5px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">6px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>颜色选了紫色渐变，看起来比较现代。</p>
+<h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><h4 id="问题1-页面兼容性"><a href="#问题1-页面兼容性" class="headerlink" title="问题1: 页面兼容性"></a>问题1: 页面兼容性</h4><p>有些网站会动态修改DOM，导致我加的模糊遮罩层被删掉了。解决方法是监听DOM变化：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 监听DOM变化</span></span><br><span class="line"><span class="keyword">const</span> observer = <span class="keyword">new</span> MutationObserver(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (blurEnabled &amp;&amp; blurOverlay &amp;&amp; !<span class="built_in">document</span>.body.contains(blurOverlay)) &#123;</span><br><span class="line">        <span class="built_in">document</span>.body.appendChild(blurOverlay);</span><br><span class="line">        applyBlurEffect();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="问题2-消息发送失败"><a href="#问题2-消息发送失败" class="headerlink" title="问题2: 消息发送失败"></a>问题2: 消息发送失败</h4><p>有时候content script还没加载完，消息就发送失败了。加了重试机制：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">sendMessageWithRetry</span>(<span class="params">tabId, message, maxRetries = <span class="number">3</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; maxRetries; i++) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">const</span> response = <span class="keyword">await</span> chrome.tabs.sendMessage(tabId, message);</span><br><span class="line">            <span class="keyword">return</span> response;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i &lt; maxRetries - <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">await</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> <span class="built_in">setTimeout</span>(resolve, <span class="number">500</span> * (i + <span class="number">1</span>)));</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">throw</span> error;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="问题3-标签页状态不同步"><a href="#问题3-标签页状态不同步" class="headerlink" title="问题3: 标签页状态不同步"></a>问题3: 标签页状态不同步</h4><p>切换标签页时，模糊效果状态可能不一致。用Chrome Storage解决了：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 页面加载时检查并应用模糊效果</span></span><br><span class="line">chrome.tabs.onUpdated.addListener(<span class="function">(<span class="params">tabId, changeInfo, tab</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (changeInfo.status === <span class="string">&#x27;complete&#x27;</span>) &#123;</span><br><span class="line">        checkAndApplyBlurEffect(tabId);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="功能总结"><a href="#功能总结" class="headerlink" title="功能总结"></a>功能总结</h2><h3 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h3><ol>
+<li><strong>快捷键</strong>: Ctrl+B快速开关模糊效果</li>
+<li><strong>强度调节</strong>: 1-20px可调节模糊程度</li>
+<li><strong>设置保存</strong>: 自动记住用户偏好</li>
+<li><strong>跨页面同步</strong>: 所有标签页都能同步状态</li>
+</ol>
+<h3 id="其他功能"><a href="#其他功能" class="headerlink" title="其他功能"></a>其他功能</h3><ol>
+<li><strong>智能检测</strong>: 自动识别不支持的页面（如chrome://页面）</li>
+<li><strong>错误处理</strong>: 加了try-catch，避免插件崩溃</li>
+<li><strong>性能优化</strong>: 用CSS滤镜，性能还不错</li>
+<li><strong>动画效果</strong>: 模糊效果有平滑过渡</li>
+</ol>
+<h2 id="后续想法"><a href="#后续想法" class="headerlink" title="后续想法"></a>后续想法</h2><ol>
+<li><strong>自定义快捷键</strong>: 让用户自己设置快捷键</li>
+<li><strong>区域模糊</strong>: 只模糊页面的某个区域</li>
+<li><strong>定时功能</strong>: 定时开启/关闭模糊效果</li>
+<li><strong>主题切换</strong>: 支持深色主题</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这个项目是我第一次开发Chrome扩展，虽然功能比较简单，但是学到了很多东西。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+              <a href="/tags/Chrome/" rel="tag"># Chrome</a>
+              <a href="/tags/Chrome%E6%89%A9%E5%B1%95/" rel="tag"># Chrome扩展</a>
+              <a href="/tags/Manifest-V3/" rel="tag"># Manifest V3</a>
+              <a href="/tags/%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/" rel="tag"># 插件开发</a>
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/" rel="tag"># 前端开发</a>
+              <a href="/tags/%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7/" rel="tag"># 实用工具</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/08/01/cursor/Cursor%E5%9C%A8%E5%BC%80%E5%8F%91%E5%B7%A5%E4%BD%9C%E4%B8%AD%E7%9A%84%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/" rel="prev" title="Cursor在需求开发工作中的实际应用">
+                  <i class="fa fa-chevron-left"></i> Cursor在需求开发工作中的实际应用
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">muna</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"4YVBvXUEj3YQFC3sdgsLqQR0-gzGzoHsz","app_key":"Y0Sfizgc4zv8h8EJUzE6fcKu","server_url":"https://leancloud.cn","security":false,"betterPerformance":false,"pageSize":10,"debug":true,"enable_sync":true}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"hedahang/hedahang.github.io","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
