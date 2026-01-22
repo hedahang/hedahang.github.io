@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"hedahang.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="根据响应式组件通知效果可以知道，响应式机制的主要功能就是，可以把普通的 JavaScript 对象封装成为响应式对象，拦截数据的获取和修改操作，实现依赖数据的自动化更新。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="手写响应式系统">
+<meta property="og:url" content="https://hedahang.github.io/2025/11/22/vue3/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="个人笔记">
+<meta property="og:description" content="根据响应式组件通知效果可以知道，响应式机制的主要功能就是，可以把普通的 JavaScript 对象封装成为响应式对象，拦截数据的获取和修改操作，实现依赖数据的自动化更新。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-11-22T11:19:24.000Z">
+<meta property="article:modified_time" content="2025-11-22T11:19:24.000Z">
+<meta property="article:author" content="muna">
+<meta property="article:tag" content="Vue">
+<meta property="article:tag" content="Vue3">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://hedahang.github.io/2025/11/22/vue3/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%B3%BB%E7%BB%9F/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://hedahang.github.io/2025/11/22/vue3/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%B3%BB%E7%BB%9F/","path":"2025/11/22/vue3/响应式系统/","title":"手写响应式系统"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>手写响应式系统 | 个人笔记</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?d9bdb6166b41cc3154f5904bfba322a3"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">个人笔记</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Quick notes</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section">首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives" rel="section">归档</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags" rel="section">标签</a></li>
+        <li class="menu-item menu-item-about"><a href="/about" rel="section">关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97%E5%8C%96%E5%AE%9E%E7%8E%B0%EF%BC%88reactivity-%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">模块化实现（reactivity&#x2F;）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#reactivity-effect-js"><span class="nav-number">1.1.</span> <span class="nav-text">reactivity&#x2F;effect.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reactivity-track-js"><span class="nav-number">1.2.</span> <span class="nav-text">reactivity&#x2F;track.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reactivity-handlers-js"><span class="nav-number">1.3.</span> <span class="nav-text">reactivity&#x2F;handlers.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reactivity-reactive-js"><span class="nav-number">1.4.</span> <span class="nav-text">reactivity&#x2F;reactive.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reactivity-index-js%EF%BC%88%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B%EF%BC%89"><span class="nav-number">1.5.</span> <span class="nav-text">reactivity&#x2F;index.js（使用示例）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">2.</span> <span class="nav-text">小结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">muna</p>
+  <div class="site-description" itemprop="description">Everything is good in its season.</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+        
+          <span class="site-state-item-count">189</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags">
+          
+        <span class="site-state-item-count">109</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/hedahang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;hedahang" rel="noopener" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Munachar" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Munachar" rel="noopener" target="_blank">Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://weibo.com/p/1005051065718667/home?from=page_100505&mod=TAB&is_all=1#place" title="微博 → http:&#x2F;&#x2F;weibo.com&#x2F;p&#x2F;1005051065718667&#x2F;home?from&#x3D;page_100505&amp;mod&#x3D;TAB&amp;is_all&#x3D;1#place" rel="noopener" target="_blank">微博</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="http://www.csdn.net/" title="CSDN → http:&#x2F;&#x2F;www.csdn.net&#x2F;" rel="noopener" target="_blank">CSDN</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://hedahang.github.io/2025/11/22/vue3/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%B3%BB%E7%BB%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="muna">
+      <meta itemprop="description" content="Everything is good in its season.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="个人笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          手写响应式系统
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-11-22 19:19:24" itemprop="dateCreated datePublished" datetime="2025-11-22T19:19:24+08:00">2025-11-22</time>
+    </span>
+
+  
+    <span id="/2025/11/22/vue3/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%B3%BB%E7%BB%9F/" class="post-meta-item leancloud_visitors" data-flag-title="手写响应式系统" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>根据响应式组件通知效果可以知道，<strong>响应式机制的主要功能就是，可以把普通的 JavaScript 对象封装成为响应式对象，拦截数据的获取和修改操作，实现依赖数据的自动化更新。</strong></p>
+<span id="more"></span>
+
+<p>一个最简单的响应式模型，我们可以通过 reactive 函数，把数据包裹成响应式对象，并且通过 effect 函数注册回调函数，然后在数据修改之后，响应式地通知 effect 去执行回调函数即可。</p>
+<p>整个流程这么概括地说，你估计不太理解，我们先通过一个简单的小例子直观感受一下响应式的效果。Vue 的响应式是可以独立在其他平台使用的。比如你可以新建 test.js，使用下面的代码在 node 环境中使用 Vue 响应。以 reactive 为例，我们使用 reactive 包裹 JavaScript 对象之后，每一次对响应式对象 counter 的修改，都会执行 effect 内部注册的函数：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; effect, reactive &#125; <span class="keyword">from</span> <span class="string">&quot;vue&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> dummy</span><br><span class="line"><span class="keyword">const</span> counter = reactive(&#123; <span class="attr">num1</span>: <span class="number">1</span>, <span class="attr">num2</span>: <span class="number">2</span> &#125;)</span><br><span class="line">effect(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  dummy = counter.num1 + counter.num2</span><br><span class="line">  <span class="built_in">console</span>.log(dummy)<span class="comment">// 每次counter.num1修改都会打印日志</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">setInterval</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">  counter.num1++</span><br><span class="line">&#125;,<span class="number">1000</span>) </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>执行 node test.js 之后，你就可以看到 effect 内部的函数会一直调用，每次 count.value 修改之后都会执行。</p>
+<p>接下来给出模块化实现，便于拆分理解与复用。</p>
+<h2 id="模块化实现（reactivity-）"><a href="#模块化实现（reactivity-）" class="headerlink" title="模块化实现（reactivity/）"></a>模块化实现（reactivity/）</h2><p>为便于理解与复用，可将核心拆分为以下文件：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">reactivity/</span><br><span class="line">├── effect.js        // ReactiveEffect / effect / scheduler</span><br><span class="line">├── track.js         // track / trigger / targetMap</span><br><span class="line">├── reactive.js      // reactive / Proxy</span><br><span class="line">├── handlers.js      // mutableHandlers</span><br><span class="line">└── index.js         // 使用示例</span><br></pre></td></tr></table></figure>
+
+<h3 id="reactivity-effect-js"><a href="#reactivity-effect-js" class="headerlink" title="reactivity/effect.js"></a>reactivity/effect.js</h3><p>内容与功能说明：</p>
+<ul>
+<li>核心类 <code>ReactiveEffect</code>：封装副作用函数 <code>fn</code> 与可选 <code>scheduler</code>；支持 <code>run()</code> 执行与 <code>stop()</code> 解绑</li>
+<li>依赖反向记录：<code>deps</code> 保存该 effect 被哪些依赖集合收集，<code>stop</code> 时统一清理</li>
+<li><code>effect(fn, &#123; scheduler &#125;)</code>：创建并立即执行，返回 <code>runner</code> 以便手动触发或复用</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// effect.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">let</span> activeEffect = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> effectStack = [];</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">ReactiveEffect</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">fn, scheduler</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.fn = fn;</span><br><span class="line">    <span class="built_in">this</span>.scheduler = scheduler;</span><br><span class="line">    <span class="built_in">this</span>.active = <span class="literal">true</span>;</span><br><span class="line">    <span class="built_in">this</span>.deps = []; <span class="comment">// 该 effect 被哪些依赖集合收集</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">run</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">this</span>.active) <span class="keyword">return</span> <span class="built_in">this</span>.fn();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      effectStack.push(<span class="built_in">this</span>);</span><br><span class="line">      activeEffect = <span class="built_in">this</span>;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">this</span>.fn();</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">      effectStack.pop();</span><br><span class="line">      activeEffect = effectStack[effectStack.length - <span class="number">1</span>] || <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">stop</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.active) &#123;</span><br><span class="line">      <span class="comment">// 解除所有依赖中的当前 effect</span></span><br><span class="line">      <span class="built_in">this</span>.deps.forEach(<span class="function"><span class="params">dep</span> =&gt;</span> dep.delete(<span class="built_in">this</span>));</span><br><span class="line">      <span class="built_in">this</span>.deps.length = <span class="number">0</span>;</span><br><span class="line">      <span class="built_in">this</span>.active = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">effect</span>(<span class="params">fn, options = &#123;&#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> _effect = <span class="keyword">new</span> ReactiveEffect(fn, options.scheduler);</span><br><span class="line">  _effect.run();</span><br><span class="line">  <span class="comment">// 返回 runner，以便手动触发</span></span><br><span class="line">  <span class="keyword">return</span> _effect.run.bind(_effect);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="reactivity-track-js"><a href="#reactivity-track-js" class="headerlink" title="reactivity/track.js"></a>reactivity/track.js</h3><p>内容与功能说明：</p>
+<ul>
+<li>依赖桶结构：<code>WeakMap&lt;Target, Map&lt;Key, Set&lt;Effect&gt;&gt;&gt;</code></li>
+<li><code>track(target,key)</code>：在读取时把当前活跃 effect 收集到集合中，避免重复收集</li>
+<li><code>trigger(target,key)</code>：在写入时取出集合执行；如存在 <code>scheduler</code>，则走调度</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// track.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; activeEffect &#125; <span class="keyword">from</span> <span class="string">&#x27;./effect.js&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> targetMap = <span class="keyword">new</span> <span class="built_in">WeakMap</span>(); <span class="comment">// target -&gt; (key -&gt; dep(Set))</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">track</span>(<span class="params">target, key</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!activeEffect) <span class="keyword">return</span>;</span><br><span class="line">  <span class="keyword">let</span> depsMap = targetMap.get(target);</span><br><span class="line">  <span class="keyword">if</span> (!depsMap) targetMap.set(target, (depsMap = <span class="keyword">new</span> <span class="built_in">Map</span>()));</span><br><span class="line">  <span class="keyword">let</span> dep = depsMap.get(key);</span><br><span class="line">  <span class="keyword">if</span> (!dep) depsMap.set(key, (dep = <span class="keyword">new</span> <span class="built_in">Set</span>()));</span><br><span class="line">  <span class="keyword">if</span> (!dep.has(activeEffect)) &#123;</span><br><span class="line">    dep.add(activeEffect);</span><br><span class="line">    <span class="comment">// 反向记录，便于 stop 时清理</span></span><br><span class="line">    activeEffect.deps &amp;&amp; activeEffect.deps.push(dep);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">trigger</span>(<span class="params">target, key</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> depsMap = targetMap.get(target);</span><br><span class="line">  <span class="keyword">if</span> (!depsMap) <span class="keyword">return</span>;</span><br><span class="line">  <span class="keyword">const</span> dep = depsMap.get(key);</span><br><span class="line">  <span class="keyword">if</span> (!dep) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 拷贝，避免遍历过程中集合被改动</span></span><br><span class="line">  [...dep].forEach(<span class="function"><span class="params">effect</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (effect.scheduler) &#123;</span><br><span class="line">      effect.scheduler();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      effect.run();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="reactivity-handlers-js"><a href="#reactivity-handlers-js" class="headerlink" title="reactivity/handlers.js"></a>reactivity/handlers.js</h3><p>内容与功能说明：</p>
+<ul>
+<li><code>get</code>：通过 <code>Reflect.get</code> 取值并调用 <code>track</code> 收集依赖；对子对象做懒代理</li>
+<li><code>set</code>：仅当新旧值不等时调用 <code>trigger</code> 触发；保持与 <code>Proxy</code> 语义一致</li>
+<li>与 <code>reactive</code> 解耦：职责仅为“拦截 + 依赖编织”，不关心缓存细节</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// handlers.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; track, trigger &#125; <span class="keyword">from</span> <span class="string">&#x27;./track.js&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; reactive &#125; <span class="keyword">from</span> <span class="string">&#x27;./reactive.js&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> isObject = <span class="function">(<span class="params">v</span>) =&gt;</span> v !== <span class="literal">null</span> &amp;&amp; <span class="keyword">typeof</span> v === <span class="string">&#x27;object&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> mutableHandlers = &#123;</span><br><span class="line">  <span class="function"><span class="title">get</span>(<span class="params">target, key, receiver</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> res = <span class="built_in">Reflect</span>.get(target, key, receiver);</span><br><span class="line">    track(target, key);</span><br><span class="line">    <span class="keyword">return</span> isObject(res) ? reactive(res) : res;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">set</span>(<span class="params">target, key, value, receiver</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> old = target[key];</span><br><span class="line">    <span class="keyword">const</span> ok = <span class="built_in">Reflect</span>.set(target, key, value, receiver);</span><br><span class="line">    <span class="keyword">if</span> (old !== value) trigger(target, key);</span><br><span class="line">    <span class="keyword">return</span> ok;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="reactivity-reactive-js"><a href="#reactivity-reactive-js" class="headerlink" title="reactivity/reactive.js"></a>reactivity/reactive.js</h3><p>内容与功能说明：</p>
+<ul>
+<li>仅对象可代理：原始值直接返回</li>
+<li>代理缓存：同一对象多次 <code>reactive</code> 返回同一个代理，保证引用稳定</li>
+<li>职责单一：创建并返回代理，拦截逻辑由 <code>handlers</code> 提供</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// reactive.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; mutableHandlers &#125; <span class="keyword">from</span> <span class="string">&#x27;./handlers.js&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> isObject = <span class="function">(<span class="params">v</span>) =&gt;</span> v !== <span class="literal">null</span> &amp;&amp; <span class="keyword">typeof</span> v === <span class="string">&#x27;object&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> reactiveCache = <span class="keyword">new</span> <span class="built_in">WeakMap</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">reactive</span>(<span class="params">target</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!isObject(target)) <span class="keyword">return</span> target;</span><br><span class="line">  <span class="keyword">if</span> (reactiveCache.has(target)) <span class="keyword">return</span> reactiveCache.get(target);</span><br><span class="line">  <span class="keyword">const</span> proxy = <span class="keyword">new</span> <span class="built_in">Proxy</span>(target, mutableHandlers);</span><br><span class="line">  reactiveCache.set(target, proxy);</span><br><span class="line">  <span class="keyword">return</span> proxy;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="reactivity-index-js（使用示例）"><a href="#reactivity-index-js（使用示例）" class="headerlink" title="reactivity/index.js（使用示例）"></a>reactivity/index.js（使用示例）</h3><p>内容与功能说明：</p>
+<ul>
+<li>作为最简用法展示：<code>reactive + effect</code> 的数据联动</li>
+<li>可替换为任意 UI 层（控制台/DOM/框架），验证响应式最小闭环</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; reactive &#125; <span class="keyword">from</span> <span class="string">&#x27;./reactive.js&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; effect &#125; <span class="keyword">from</span> <span class="string">&#x27;./effect.js&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> state = reactive(&#123; <span class="attr">count</span>: <span class="number">0</span> &#125;);</span><br><span class="line"></span><br><span class="line">effect(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;count =&gt;&#x27;</span>, state.count);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  state.count++;</span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>以上代码展示了响应式系统的最小闭环：</p>
+<ul>
+<li>读取时 <code>track</code> 建立「属性 → 副作用」的依赖图；</li>
+<li>写入时 <code>trigger</code> 找到并执行相关副作用；</li>
+<li><code>reactive</code> 负责把对象读写转接到 <code>track/trigger</code>；</li>
+</ul>
+<p>在此基础上，再逐步扩展 <code>ref / computed / watch / scheduler / cleanup</code> 等，后面有时间在增加。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Vue/" rel="tag"># Vue</a>
+              <a href="/tags/Vue3/" rel="tag"># Vue3</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/09/10/tool/remove_node_modules/" rel="prev" title="批量删除 node_modules 文件夹（Windows 一键脚本）">
+                  <i class="fa fa-chevron-left"></i> 批量删除 node_modules 文件夹（Windows 一键脚本）
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">muna</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"4YVBvXUEj3YQFC3sdgsLqQR0-gzGzoHsz","app_key":"Y0Sfizgc4zv8h8EJUzE6fcKu","server_url":"https://leancloud.cn","security":false,"betterPerformance":false,"pageSize":10,"debug":true,"enable_sync":true}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"hedahang/hedahang.github.io","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
